@@ -1,21 +1,5 @@
 # Ajedrez-la-venganza
 
-Mi ajedrez, de 2 jugadores, multijugador local
-No sé usar readmes
-: Lo confirmo
+Mi ajedrez, de 2 jugadores, multijugador local.
 
-`public static void main(){}`
-
-```python
-a = 3
-print(a)
-```
-
-```java
-class owo extends Object{
-    public final int a;
-    public owo(int a){
-        this.a = a;
-    }
-}
-```
+Pues nada, que toca hacer algo.
