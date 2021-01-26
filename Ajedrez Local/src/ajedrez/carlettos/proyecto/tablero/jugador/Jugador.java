@@ -1,36 +1,41 @@
 package ajedrez.carlettos.proyecto.tablero.jugador;
 
 import ajedrez.carlettos.proyecto.tablero.mano.ManoManager;
+import java.util.Objects;
+import java.util.Random;
 
 /**
- * Es la clase Jugador, en ella se manejan todo lo que un jugador debería 
+ * Es la clase Jugador, en ella se manejan todo lo que un jugador debería
  * manejar, mana, control de movimientos y su mano.
- * 
+ *
  * @author Carlos
  */
 public class Jugador {
 
-    private final boolean isBlanco;
     private int movimientosPorTurnos;
     private int mana;
+    private final String id;
+    private final Color color;
     private final ManoManager mano;
 
     /**
      * Constructor general.
      *
-     * @param isBlanco true si es blanco, false si es negro.
      * @param movimientosPorTurnos cantidad de movimientos que tiene el jugador
      * por cada turno, este número es 1 en el ajedrez normal.
      * @param mana cantidad de maná que tiene el jugador, este número es 0 en el
      * ajedrez normal.
+     * @param id id del jugador.
+     * @param color color del jugador.
      * @param mano ManoManager del jugador, contiene todas las cartas del
      * jugador, este objeto no tiene cartas en el ajedrez normal.
      *
      * @see ManoManager
      */
-    public Jugador(boolean isBlanco, int movimientosPorTurnos, int mana, ManoManager mano) {
-        this.isBlanco = isBlanco;
+    public Jugador(int movimientosPorTurnos, int mana, String id, Color color, ManoManager mano) {
+        this.color = color;
         this.movimientosPorTurnos = movimientosPorTurnos;
+        this.id = id;
         this.mana = mana;
         this.mano = mano;
     }
@@ -40,13 +45,14 @@ public class Jugador {
      * Para mayor personalización usar el constructor general o usar los métodos
      * correspondientes.
      *
-     * @param isBlanco true si es el jugador blanco, false si es el negro.
+     * @param id id del jugador.
+     * @param color color del jugador.
      * @param mano ManoManager del jugador.
      *
      * @see ManoManager
      */
-    public Jugador(boolean isBlanco, ManoManager mano) {
-        this(isBlanco, 1, 0, mano);
+    public Jugador(String id, ManoManager mano, Color color) {
+        this(1, 0, id, color, mano);
     }
 
     /**
@@ -58,16 +64,16 @@ public class Jugador {
      * movimiento por turno, para personalizar mejor al jugador, usar el
      * constructor general o usar los métodos correspondientes.
      *
-     * @param isBlanco true si es el jugador blanco, false si es el negro.
+     * @param color color del jugador.
      *
      * @see ManoManager
      */
-    public Jugador(boolean isBlanco) {
-        this(isBlanco, 1, 0, new ManoManager());
+    public Jugador(Color color) {
+        this(1, 0, color.toString() + " - " + (new Random().nextInt()) , color, new ManoManager());
     }
 
-    public boolean isBlanco() {
-        return isBlanco;
+    public Color getColor() {
+        return color;
     }
 
     public int getMovimientosPorTurnos() {
@@ -109,12 +115,28 @@ public class Jugador {
         }
     }
 
-    /**
-     * Función de utilidad gráfica, para saber el color usar jugador.isBlanco();
-     *
-     * @return String "blanco" si es blanco, "negro" si es negro.
-     */
-    public String getColor() {
-        return isBlanco() ? "Blanco" : "Negro";
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Jugador other = (Jugador) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 }
