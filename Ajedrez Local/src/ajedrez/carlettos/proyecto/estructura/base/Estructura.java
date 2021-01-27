@@ -46,6 +46,11 @@ public abstract class Estructura {
      * no una abreviación.
      */
     protected String nombre;
+    
+    /**
+     * Es la abreviación de la estructura.
+     */
+    public final String abreviacion;
 
     /**
      * Habilidad de la estructura, tiene la información para mostrar, pero no
@@ -74,7 +79,8 @@ public abstract class Estructura {
      * si no.
      * @param ancho la x en el plano cartesiano, el valor mínimo es 1.
      * @param alto la y en el plano cartesiano, el valor mínimo es 1.
-     * @param nombre nombre de la pieza, por ejemplo, Peón.
+     * @param nombre nombre de la estructura, por ejemplo, Muro.
+     * @param abreviacion es la abreviación de la estructura.
      * @param habilidad la habilidad que tiene la estructura, con su
      * descripción, cooldowns y costes de maná. La ejecución queda relegada al
      * método {@code estructura.habilidad();}.
@@ -88,7 +94,7 @@ public abstract class Estructura {
      * @see EnumTipoPieza
      * @see Pieza
      */
-    public Estructura(boolean requiereMagia, int ancho, int alto, String nombre, Habilidad habilidad, Color color, EnumTipoEstructura... tipos) {
+    public Estructura(boolean requiereMagia, int ancho, int alto, String nombre, String abreviacion, Habilidad habilidad, Color color, EnumTipoEstructura... tipos) {
         this.requiereMagia = requiereMagia;
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
@@ -100,6 +106,7 @@ public abstract class Estructura {
         }
         this.dimensiones = new Par<>(ancho, alto);
         this.nombre = nombre;
+        this.abreviacion = abreviacion;
         this.habilidad = habilidad;
         this.color = color;
         this.tipos = new ArrayList<>();
@@ -116,7 +123,8 @@ public abstract class Estructura {
      * si no.
      * @param dimensiones Par conteniendo x e y, como en el plano cartesiano, el
      * valor mínimo es 1 para cada dimensión.
-     * @param nombre nombre de la pieza, por ejemplo, Peón.
+     * @param nombre nombre de la estructura, por ejemplo, Muro.
+     * @param abreviacion es la abreviación de la estructura.
      * @param habilidad la habilidad que tiene la estructura, con su
      * descripción, cooldowns y costes de maná. La ejecución queda relegada al
      * método {@code estructura.habilidad();}.
@@ -130,8 +138,8 @@ public abstract class Estructura {
      * @see EnumTipoPieza
      * @see Pieza
      */
-    public Estructura(boolean requiereMagia, Par<Integer, Integer> dimensiones, String nombre, Habilidad habilidad, Color color, EnumTipoEstructura... tipos) {
-        this(requiereMagia, dimensiones.x, dimensiones.y, nombre, habilidad, color, tipos);
+    public Estructura(boolean requiereMagia, Par<Integer, Integer> dimensiones, String nombre, String abreviacion, Habilidad habilidad, Color color, EnumTipoEstructura... tipos) {
+        this(requiereMagia, dimensiones.x, dimensiones.y, nombre, abreviacion, habilidad, color, tipos);
     }
 
     /**

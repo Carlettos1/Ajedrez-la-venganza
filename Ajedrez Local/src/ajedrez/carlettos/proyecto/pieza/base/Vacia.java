@@ -23,7 +23,7 @@ import java.util.List;
 public class Vacia extends Pieza{
 
     public Vacia() {
-        super("Vacía", Habilidad.NO_HABILIDAD, Color.NINGUNO);
+        super("Vacía", " ", Habilidad.NO_HABILIDAD, Color.NINGUNO);
     }
 
     @Override

@@ -116,6 +116,11 @@ public class Jugador {
     }
 
     @Override
+    public String toString() {
+        return id;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 5;
         hash = 29 * hash + Objects.hashCode(this.id);

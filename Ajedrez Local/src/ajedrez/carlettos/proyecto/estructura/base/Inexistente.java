@@ -19,7 +19,7 @@ import java.awt.Point;
 public class Inexistente extends Estructura {
 
     public Inexistente() {
-        super(false, 1, 1, "Inexistente", Habilidad.NO_HABILIDAD, Color.NINGUNO);
+        super(false, 1, 1, "Inexistente", " ", Habilidad.NO_HABILIDAD, Color.NINGUNO);
     }
 
     @Override

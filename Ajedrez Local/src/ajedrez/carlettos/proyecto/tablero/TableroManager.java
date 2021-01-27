@@ -24,7 +24,6 @@ import java.util.List;
  * @see Pieza
  */
 public class TableroManager {
-    //TODO: usarHabilidad(), moverPieza(), comerPieza()
 
     //TODO: poder hacer tableros de cualquier tipo de formas.
     private final Escaque[][] tableroAjedrez;
@@ -71,6 +70,7 @@ public class TableroManager {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
+        //FIX: comprobación innecesaria?
         if (!escaqueFinal.hasPieza()) {
             return new Par(ActionResult.FAIL, "No hay Pieza");
         }
@@ -113,6 +113,7 @@ public class TableroManager {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
+        //FIX: comprobación innecesaria?
         if (escaqueFinal.hasPieza()) {
             return new Par(ActionResult.FAIL, "Hay pieza");
         }
@@ -220,6 +221,10 @@ public class TableroManager {
     public Par<ActionResult, String> usarHabilidadEstructura(int x1, int y1, int x2, int y2, String informacionExtra) {
         return usarHabilidadEstructura(new Point(x1, y1), new Point(x2, y2), informacionExtra);
     }
+    
+    //TODO: movimiento() útil.
+    private void movimiento(){
+    }
 
     public void quitarEntidad(int x, int y) {
         this.quitarEntidad(new Point(x, y));
@@ -300,12 +305,12 @@ public class TableroManager {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(5 * columnas * filas);
-        for (int y = 0; y < filas; y++) {
+        for (int y = filas - 1; y >= 0 ; y--) {
             for (int x = 0; x < columnas; x++) {
                 str.append("[")
-                        .append(getEscaque(x, y).getPieza().getNombre().substring(0, 1))
+                        .append(getEscaque(x, y).getPieza().abreviacion)
                         .append(",")
-                        .append(getEscaque(x, y).getEstructura().getNombre().substring(0, 1))
+                        .append(getEscaque(x, y).getEstructura().abreviacion)
                         .append("]");
             }
             str.append('\n');

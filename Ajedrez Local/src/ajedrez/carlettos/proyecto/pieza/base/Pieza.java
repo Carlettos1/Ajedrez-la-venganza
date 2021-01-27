@@ -49,6 +49,11 @@ public abstract class Pieza {
     protected String nombre;
 
     /**
+     * Parámetro de utilidad, es la abreviación de la pieza.
+     */
+    public final String abreviacion;
+
+    /**
      * Es la habilidad que tiene la pieza, tiene toda la información
      * descriptiva, pero no el cómo se ejecuta, eso debe escribirse en el método
      * habilidad.
@@ -75,6 +80,7 @@ public abstract class Pieza {
      * los mismo tipos de piezas. No es obligatorio.
      *
      * @param nombre nombre de la pieza, por ejemplo, Peón.
+     * @param abreviacion abreviación de la pieza, por ejemplo, P.
      * @param habilidad la habilidad que tiene la pieza, con su descripción,
      * cooldowns y costes de maná. La ejecución queda relegada al método
      * {@code pieza.habilidad();}.
@@ -87,10 +93,11 @@ public abstract class Pieza {
      * @see EnumTipoPieza
      * @see Estructura
      */
-    public Pieza(String nombre, Habilidad habilidad, Color color, EnumTipoPieza... tipos) {
+    public Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, EnumTipoPieza... tipos) {
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
         this.nombre = nombre;
+        this.abreviacion = abreviacion;
         this.habilidad = habilidad;
         this.color = color;
         this.tipos = new ArrayList<>();

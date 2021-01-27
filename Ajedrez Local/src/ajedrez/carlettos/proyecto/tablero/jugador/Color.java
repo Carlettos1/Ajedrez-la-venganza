@@ -44,6 +44,11 @@ public class Color {
     }
 
     @Override
+    public String toString() {
+        return getNombre();
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.nombre);
