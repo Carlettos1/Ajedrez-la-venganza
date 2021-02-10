@@ -1,7 +1,10 @@
 package ajedrez.carlettos.src.visual;
 
+import ajedrez.carlettos.src.tablero.escaque.Escaque;
 import ajedrez.carlettos.src.tablero.reloj.Evento;
 import ajedrez.carlettos.src.tablero.reloj.RelojManager;
+import ajedrez.carlettos.src.util.MousePieza;
+import ajedrez.carlettos.src.util.Par;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
@@ -11,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class RelojVisual extends JPanel {
@@ -22,7 +26,8 @@ public class RelojVisual extends JPanel {
     private final JLabel jugadoresLabel;
     private final JLabel eventosLabel;
     private final JLabel turnoLabel;
-    private final JButton boton;
+    private final JButton turno;
+    private final JButton habilidad;
 
     public RelojVisual(RelojManager reloj) {
         super(new BorderLayout());
@@ -31,7 +36,8 @@ public class RelojVisual extends JPanel {
         this.jugadoresLabel = new JLabel(ordenJugadores.toString());
         this.eventosLabel = new JLabel(ordenEventos.toString());
         this.turnoLabel = new JLabel(turnoActual.toString());
-        this.boton = new JButton("Avanzar turno");
+        this.turno = new JButton("Avanzar turno");
+        this.habilidad = new JButton("Usar Habilidad");
         setup();
     }
 
@@ -39,15 +45,55 @@ public class RelojVisual extends JPanel {
         add(jugadoresLabel, BorderLayout.PAGE_START);
         add(eventosLabel, BorderLayout.CENTER);
         add(turnoLabel, BorderLayout.PAGE_END);
-        boton.addActionListener((ActionEvent e) -> {
+        turno.addActionListener((ActionEvent e) -> {
             reloj.terminarTurno();
             Container container = this;
             while (container.getParent() != null) {
                 container = container.getParent();
             }
             container.repaint();
+            if (container instanceof TableroVisual) {
+                TableroVisual tv = (TableroVisual) container;
+                tv.offAll();
+            }
         });
-        add(boton, BorderLayout.EAST);
+        habilidad.addActionListener((e) -> {
+            if (MousePieza.LISTENER.seleccionado == null) {
+                return;
+            }
+            Container container = this;
+            while (container.getParent() != null) {
+                container = container.getParent();
+            }
+            if (container instanceof TableroVisual) {
+                TableroVisual tv = (TableroVisual) container;
+                System.out.println(tv);
+                String infoHabilidad = JOptionPane.showInputDialog(this,
+                        "Escribir datos de la habilidad.",
+                        "Habilidad",
+                        JOptionPane.QUESTION_MESSAGE);
+                Escaque escaque = MousePieza.LISTENER.seleccionado.getEscaque();
+                Par<Boolean, String> can = escaque.getPieza().canUsarHabilidad(tv.getTablero(),
+                        escaque.getLocalizacion(),
+                        escaque.getLocalizacion(),
+                        infoHabilidad);
+                if (can.x) {
+                    escaque.getPieza().habilidad(tv.getTablero(),
+                            escaque.getLocalizacion(),
+                            escaque.getLocalizacion(),
+                            infoHabilidad);
+                    reloj.movimiento();
+                    MousePieza.LISTENER.seleccionado = null;
+                    tv.offAll();
+                } else {
+                    System.out.println(can.y);
+                }
+            }
+        });
+        JPanel temp = new JPanel(new BorderLayout(0, 10));
+        temp.add(turno, BorderLayout.NORTH);
+        temp.add(habilidad, BorderLayout.SOUTH);
+        add(temp, BorderLayout.EAST);
     }
 
     public void actualizarTextos() {

@@ -11,12 +11,12 @@ import java.util.List;
 
 public class MousePieza implements MouseListener {
 
-    public static final MouseListener LISTENER = new MousePieza();
+    public static final MousePieza LISTENER = new MousePieza();
 
     /**
      * Sirve para marcar el último escaque seleccionado.
      */
-    private EscaqueVisual seleccionado;
+    public EscaqueVisual seleccionado;
 
     @Override
     public void mouseClicked(MouseEvent e) {
