@@ -83,5 +83,6 @@ public class Caballo extends Pieza {
         Point p2 = new Point(inicio.x - 1, inicio.y);
         tablero.getEscaque(p1).setPieza(new Peon(this.getColor()));
         tablero.getEscaque(p2).setPieza(new Peon(this.getColor()));
+        //TODO: cambiar cd y maná
     }
 }

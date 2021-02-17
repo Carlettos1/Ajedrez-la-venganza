@@ -94,6 +94,10 @@ public class Alfil extends Pieza {
         if (this.seHaMovidoEsteTurno()) {
             return new Par(false, "Se ha movido este turno");
         }
+        
+        if (informacionExtra == null) {
+            return new Par(false, "Null información extra");
+        }
 
         boolean verificacion;
         String why;
@@ -138,6 +142,7 @@ public class Alfil extends Pieza {
                 tablero.getEscaque(inicio).quitarPieza();
                 break;
         }
+        //TODO: cambiar cd
     }
 
     @Override
