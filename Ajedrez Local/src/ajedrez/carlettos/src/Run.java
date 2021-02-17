@@ -4,6 +4,7 @@ import ajedrez.carlettos.src.carta.invocacion.InvocarCaballo;
 import ajedrez.carlettos.src.pieza.piezas.clasica.Alfil;
 import ajedrez.carlettos.src.pieza.piezas.clasica.Caballo;
 import ajedrez.carlettos.src.pieza.piezas.clasica.Peon;
+import ajedrez.carlettos.src.pieza.piezas.clasica.Rey;
 import ajedrez.carlettos.src.pieza.piezas.clasica.Torre;
 import ajedrez.carlettos.src.tablero.TableroManager;
 import ajedrez.carlettos.src.tablero.jugador.Color;
@@ -52,6 +53,9 @@ public class Run {
         tablero.getEscaque(9, 10).setPieza(new Torre(Color.NEGRAS));
         tablero.getEscaque(10, 11).setPieza(new Torre(Color.NEGRAS));
         tablero.getEscaque(11, 10).setPieza(new Torre(Color.NEGRAS));
+        
+        tablero.getEscaque(0, 8).setPieza(new Rey(Color.NEGRAS));
+        tablero.getEscaque(0, 11).setPieza(new Rey(Color.BLANCAS));
         
         negras.getMano().addCarta(new InvocarCaballo());
         negras.getMano().addCarta(new InvocarCaballo());
