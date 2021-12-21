@@ -35,7 +35,7 @@ public class Peon extends Pieza {
 
     @Override
     public boolean canMover(Tablero tablero, Point inicio, Point final_) {
-        if (getColor().equals(Color.BLANCAS)) {
+        if (getColor().equals(Color.BLANCO)) {
             Point puntoSiguiente = new Point(inicio.x, inicio.y + 1);
             Point puntoSubSiguiente = new Point(inicio.x, inicio.y + 2);
             if (final_.equals(puntoSiguiente)) {
@@ -44,7 +44,7 @@ public class Peon extends Pieza {
                 return !tablero.getEscaque(puntoSiguiente).hasPieza()
                         && !tablero.getEscaque(puntoSubSiguiente).hasPieza();
             }
-        } else if (getColor().equals(Color.NEGRAS)) {
+        } else if (getColor().equals(Color.NEGRO)) {
             Point puntoAnterior = new Point(inicio.x, inicio.y - 1);
             Point puntoAnteAnterior = new Point(inicio.x, inicio.y - 2);
             if (final_.equals(puntoAnterior)) {
@@ -59,7 +59,7 @@ public class Peon extends Pieza {
 
     @Override
     public boolean canComer(Tablero tablero, Point inicio, Point final_) {
-        if (getColor().equals(Color.BLANCAS)) {
+        if (getColor().equals(Color.BLANCO)) {
             Point punto1 = new Point(inicio.x + 1, inicio.y + 1);
             Point punto2 = new Point(inicio.x - 1, inicio.y + 1);
             if (final_.equals(punto1)) {
@@ -69,7 +69,7 @@ public class Peon extends Pieza {
                 return tablero.getEscaque(punto2).hasPieza()
                         && !tablero.getEscaque(punto2).getPieza().getColor().equals(getColor());
             }
-        } else if (getColor().equals(Color.NEGRAS)) {
+        } else if (getColor().equals(Color.NEGRO)) {
             Point punto1 = new Point(inicio.x + 1, inicio.y - 1);
             Point punto2 = new Point(inicio.x - 1, inicio.y - 1);
             if (final_.equals(punto1)) {
@@ -85,13 +85,13 @@ public class Peon extends Pieza {
 
     @Override
     public Par<Boolean, String> canUsarHabilidad(Tablero tablero, Point inicio, Point final_, String informacionExtra) {
-        if (getColor().equals(Color.BLANCAS)) {
+        if (getColor().equals(Color.BLANCO)) {
             if (inicio.y + 1 == tablero.filas) {
                 return new Par(true, "Está en el final");
             } else {
                 return new Par(false, "No está en el final");
             }
-        } else if (getColor().equals(Color.NEGRAS)) {
+        } else if (getColor().equals(Color.NEGRO)) {
             if (inicio.y == 0) {
                 return new Par(true, "Está en el final");
             } else {

@@ -1,6 +1,7 @@
 package com.carlettos.game.core;
 
-import java.awt.Color;
+import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.tablero.propiedad.Color;
 
 /**
  * Sirve para decir qué accion se hace, pero es mejor usar métodos determinados
@@ -12,8 +13,9 @@ import java.awt.Color;
  * @see Pieza
  */
 public enum Accion {
-    MOVER(Color.CYAN),
-    COMER(Color.RED),
+    MOVER(Color.CIAN),
+    ATACAR(Color.ROJO),
+    COMER(Color.ROJO),
     HABILIDAD(Color.MAGENTA);
     
     private final Color color;

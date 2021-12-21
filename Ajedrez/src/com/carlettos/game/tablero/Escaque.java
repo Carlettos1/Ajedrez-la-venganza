@@ -101,7 +101,7 @@ public class Escaque {
         } /*else {TODO: estructura
             return hasEstructura() ? getEstructura().getColor() : Color.NINGUNO;
         }*/
-        return Color.NINGUNO;
+        return Color.GRIS;
     }
 
     public boolean isControladoPor(Color color) {
