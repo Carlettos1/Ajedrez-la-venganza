@@ -48,8 +48,7 @@ public class MousePieza implements MouseListener {
             TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
             Tablero tablero = tv.getTablero();
 
-            List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getLocalizacion());
-            allAcciones.forEach((accion) -> {
+            seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getLocalizacion()).forEach((accion) -> {
                 tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
             });
         } else {
@@ -59,20 +58,13 @@ public class MousePieza implements MouseListener {
             TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
             Tablero tablero = tv.getTablero();
 
-            //TODO: quitar los strings que molestan
-            Par<ActionResult, String> result = tablero.intentarMoverPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
-            System.out.println(result.y);
-            if (result.x.equals(ActionResult.FAIL)) {
-                result = tablero.intentarComerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
-                System.out.println(result.y);
-                if (result.x.equals(ActionResult.FAIL)){
+            if (tablero.intentarMoverPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)) {
+                if (tablero.intentarComerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)){
                     if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
                         //si cambió de pieza
                         tv.offAll();
                         seleccionado = objetivo;
-                        List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion());
-
-                        allAcciones.forEach((accion) -> {
+                        seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion()).forEach((accion) -> {
                             tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
                         });
                         return;

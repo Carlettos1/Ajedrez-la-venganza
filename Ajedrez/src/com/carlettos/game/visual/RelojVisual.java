@@ -43,6 +43,7 @@ public class RelojVisual extends JPanel{
         setup();
     }
 
+    //TODO: listeners por favor
     protected void setup() {
         add(jugadoresLabel, BorderLayout.PAGE_START);
         add(eventosLabel, BorderLayout.CENTER);
