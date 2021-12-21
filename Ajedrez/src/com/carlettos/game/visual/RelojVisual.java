@@ -5,12 +5,10 @@ import com.carlettos.game.core.Par;
 import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.tablero.manager.Reloj;
-import com.carlettos.game.tablero.pieza.Vacia;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
+ * 
  * @author Carlos
  */
 public class RelojVisual extends JPanel{

@@ -67,7 +67,7 @@ public abstract class Carta {
      * @param mana cantidad de maná a sumar
      */
     public void cambiarCosteDeMana(int mana) {
-
+        //todo: cambiar coste de mana
     }
 
     public String getNombre() {

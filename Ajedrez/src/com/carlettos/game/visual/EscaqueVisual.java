@@ -2,7 +2,7 @@ package com.carlettos.game.visual;
 
 import com.carlettos.game.core.Constantes;
 import com.carlettos.game.tablero.Escaque;
-import java.awt.Color;
+import com.carlettos.game.tablero.propiedad.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -48,7 +48,7 @@ public class EscaqueVisual extends Component {
         g.drawString(escaque.getPieza().abreviacion, 2, 20);
         g.drawString(escaque.isEmpty() ? "" : escaque.getPieza().getColor().name(), 2, 30);
         if (hasAccion) {
-            g.setColor(colorAccion);
+            g.setColor(colorAccion.getColor());
             g.fillOval((int) (Constantes.PORCENTAJE * getWidth()),
                     (int) (Constantes.PORCENTAJE * getHeight()),
                     (int) (Constantes.PORCENTAJE * getWidth()),

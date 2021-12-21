@@ -2,7 +2,7 @@ package com.carlettos.game.visual;
 
 import com.carlettos.game.core.Constantes;
 import com.carlettos.game.tablero.carta.Carta;
-import java.awt.Color;
+import com.carlettos.game.tablero.propiedad.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
@@ -30,9 +30,9 @@ public class CartaVisual extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(color);
+        g.setColor(color.getColor());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(new Color(255 - color.getRed(), 255 - color.getGreen(), 255 - color.getBlue()));
+        g.setColor(new java.awt.Color(255 - color.getColor().getRed(), 255 - color.getColor().getGreen(), 255 - color.getColor().getBlue()));
         g.drawString(carta.getNombre(), 2, 20);
         g.drawString(carta.getDescripcion(), 2, 50);
         //TODO que se vea bonito y mostrar más datos de la carta
