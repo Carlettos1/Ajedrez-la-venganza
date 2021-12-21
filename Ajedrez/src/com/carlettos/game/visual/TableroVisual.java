@@ -39,7 +39,7 @@ public class TableroVisual extends JFrame{
         for (int y = tablero.filas - 1; y >= 0; y--) {
             for (int x = 0; x < tablero.columnas; x++) {
                 EscaqueVisual ev = new EscaqueVisual(tablero.getEscaque(x, y));
-                ev.addMouseListener(MousePieza.LISTENER);
+                ev.addMouseListener(MousePieza.get());
                 grid[y][x] = ev;
                 panel.add(ev);
             }
@@ -60,11 +60,11 @@ public class TableroVisual extends JFrame{
         return tablero;
     }
 
-    public RelojVisual getReloj() {
+    public RelojVisual getRelojVisual() {
         return reloj;
     }
 
-    public ManoVisual getCartas() {
+    public ManoVisual getManoVisual() {
         return cartas;
     }
 
@@ -88,7 +88,7 @@ public class TableroVisual extends JFrame{
      *
      * @see EscaqueVisual
      */
-    public EscaqueVisual getEscaque(Point punto) {
+    public EscaqueVisual getEscaqueVisual(Point punto) {
         if (punto.x < 0) {
             throw new IllegalArgumentException("La coordenada x no puede ser negativa");
         }
@@ -117,7 +117,7 @@ public class TableroVisual extends JFrame{
      *
      * @see EscaqueVisual
      */
-    public EscaqueVisual getEscaque(int x, int y) {
-        return getEscaque(new Point(x, y));
+    public EscaqueVisual getEscaqueVisual(int x, int y) {
+        return TableroVisual.this.getEscaqueVisual(new Point(x, y));
     }
 }

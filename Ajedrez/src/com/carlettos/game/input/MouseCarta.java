@@ -14,9 +14,20 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Listener implementation class.
+ * 
+ * @author Carlos
+ */
 public class MouseCarta implements MouseListener {
-
-    public static final MouseListener LISTENER = new MouseCarta();
+    private static final MouseCarta LISTENER = new MouseCarta();
+    
+    private MouseCarta(){
+    }
+    
+    public static MouseCarta get(){
+        return LISTENER;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -29,20 +40,20 @@ public class MouseCarta implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         CartaVisual ecv = (CartaVisual) (e.getSource());
-        Container container = ecv;
-        while (container.getParent() != null) {
-            container = container.getParent();
-        }
-        Component component = container.getComponentAt(e.getXOnScreen() - container.getX(), e.getYOnScreen() - container.getY());
-        while (component instanceof Container) {
-            Point componentLocation = getAbsoluteLocation(component);
-            component = getComponentAt(component, e.getXOnScreen() - componentLocation.x,
+        
+        TableroVisual tablero = ListenerHelper.getTableroVisual(ecv);
+        
+        Component escaqueVisual = tablero.getComponentAt(e.getXOnScreen() - tablero.getX(), e.getYOnScreen() - tablero.getY());
+        while (escaqueVisual instanceof Container) {
+            Point componentLocation = getAbsoluteLocation(escaqueVisual);
+            escaqueVisual = getComponentAt(escaqueVisual, e.getXOnScreen() - componentLocation.x,
                     e.getYOnScreen() - componentLocation.y);
         }
-        if (component instanceof EscaqueVisual) {
-            EscaqueVisual escaque = (EscaqueVisual) component;
-            TableroVisual tablero = (TableroVisual) container;
-            Reloj reloj = tablero.getReloj().getReloj();
+        
+        if (escaqueVisual instanceof EscaqueVisual) {
+            EscaqueVisual escaque = (EscaqueVisual) escaqueVisual;
+            Reloj reloj = tablero.getRelojVisual().getReloj();
+            
             List<Jugador> jugadores = new ArrayList<>();
             reloj.getJugadores().forEach((jugador) -> {
                 if (jugador.getColor().getColor().equals(ecv.getColor())) {
@@ -54,6 +65,7 @@ public class MouseCarta implements MouseListener {
                     jugadores.add(jugador);
                 }
             });
+            
             Par<Boolean, String> can = ecv.getCarta().canUsarCarta(escaque.getEscaque().getLocalizacion(),
                     tablero.getTablero(),
                     reloj,
@@ -63,8 +75,8 @@ public class MouseCarta implements MouseListener {
                         tablero.getTablero(),
                         reloj,
                         jugadores.toArray(new Jugador[0]));
-                tablero.getCartas().rehacer();
-                tablero.getReloj().repaint();
+                tablero.getManoVisual().rehacer();
+                tablero.getRelojVisual().repaint();
             } else {
                 System.out.println(can.y);
             }

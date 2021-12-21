@@ -62,7 +62,7 @@ public class Tablero {
      * información extra.
      */
     public Par<ActionResult, String> comerPieza(int x1, int y1, int x2, int y2) {
-        return comerPieza(new Point(x1, y1), new Point(x2, y2));
+        return intentarComerPieza(new Point(x1, y1), new Point(x2, y2));
     }
 
     /**
@@ -74,7 +74,7 @@ public class Tablero {
      * @return un Par, conteniendo el resultado de la acción y un String con
      * información extra.
      */
-    public Par<ActionResult, String> comerPieza(Point inicio, Point final_) {
+    public Par<ActionResult, String> intentarComerPieza(Point inicio, Point final_) {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
@@ -100,7 +100,7 @@ public class Tablero {
      * información extra.
      */
     public Par<ActionResult, String> moverPieza(int x1, int y1, int x2, int y2) {
-        return moverPieza(new Point(x1, y1), new Point(x2, y2));
+        return intentarMoverPieza(new Point(x1, y1), new Point(x2, y2));
     }
 
     /**
@@ -112,7 +112,7 @@ public class Tablero {
      * @return un Par, conteniendo el resultado de la acción y un String con
      * información extra.
      */
-    public Par<ActionResult, String> moverPieza(Point inicio, Point final_) {
+    public Par<ActionResult, String> intentarMoverPieza(Point inicio, Point final_) {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 

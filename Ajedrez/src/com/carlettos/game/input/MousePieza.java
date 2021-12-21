@@ -12,10 +12,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+/**
+ * Listener implementation class.
+ * 
+ * @author Carlos
+ */
 public class MousePieza implements MouseListener {
+    private static final MousePieza LISTENER = new MousePieza();
 
-    public static final MousePieza LISTENER = new MousePieza();
-
+    private MousePieza(){
+    }
+    
+    public static MousePieza get(){
+        return LISTENER;
+    }
+    
     /**
      * Sirve para marcar el último escaque seleccionado.
      */
@@ -34,56 +45,42 @@ public class MousePieza implements MouseListener {
                 seleccionado = null;
                 return;
             }
-            TableroVisual tv = (TableroVisual) seleccionado.getParent().getParent().getParent().getParent().getParent().getParent();
+            TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
             Tablero tablero = tv.getTablero();
 
             List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getLocalizacion());
             allAcciones.forEach((accion) -> {
-                tv.getEscaque(accion.x).setHasAccion(true, accion.y.getColor().getColor());
+                tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor().getColor());
             });
         } else {
             EscaqueVisual objetivo = (EscaqueVisual) e.getSource();
             Escaque escaqueSeleccionado = seleccionado.getEscaque();
             Escaque escaqueObjetivo = objetivo.getEscaque();
-            TableroVisual tv = (TableroVisual) seleccionado.getParent().getParent().getParent().getParent().getParent().getParent();
+            TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
             Tablero tablero = tv.getTablero();
 
-            Par<ActionResult, String> result = tablero.moverPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
+            //TODO: quitar los strings que molestan
+            Par<ActionResult, String> result = tablero.intentarMoverPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
             System.out.println(result.y);
-            if (result.x.equals(ActionResult.PASS)) {
-                //si quizo mover
-                //TODO: cosas de reloj
-                seleccionado = null;
-                tv.offAll();
-            } else {
-                result = tablero.comerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
+            if (result.x.equals(ActionResult.FAIL)) {
+                result = tablero.intentarComerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion());
                 System.out.println(result.y);
-                if (result.x.equals(ActionResult.PASS)) {
-                    //si quizo comer
-                    //TODO: cosas de reloj
-                    seleccionado = null;
-                    tv.offAll();
-                } else {
-                    if (escaqueSeleccionado.equals(escaqueObjetivo)) {
-                        //si selecciona 2 veces la misma pieza
-                        tv.offAll();
-                        seleccionado = null;
-                    } else if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
+                if (result.x.equals(ActionResult.FAIL)){
+                    if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
                         //si cambió de pieza
                         tv.offAll();
                         seleccionado = objetivo;
                         List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion());
 
                         allAcciones.forEach((accion) -> {
-                            tv.getEscaque(accion.x).setHasAccion(true, accion.y.getColor().getColor());
+                            tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor().getColor());
                         });
-                    } else {
-                        //selecciona nada
-                        seleccionado = null;
-                        tv.offAll();
+                        return;
                     }
                 }
             }
+            seleccionado = null;
+            tv.offAll();
         }
     }
 

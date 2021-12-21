@@ -152,11 +152,11 @@ public class Torre extends Pieza {
                             break;
                         }
                         Point puntoFinal = new Point(escaqueTorre.getLocalizacion().x, y);
-                        if(tablero.comerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        if(tablero.intentarComerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //comió
                             //TODO: cd y se ha movido y todo
                             break;
-                        } else if (tablero.moverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        } else if (tablero.intentarMoverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //movió
                             break;
                         }
@@ -172,11 +172,11 @@ public class Torre extends Pieza {
                             break;
                         }
                         Point puntoFinal = new Point(x, escaqueTorre.getLocalizacion().y);
-                        if(tablero.comerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        if(tablero.intentarComerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //comió
                             //TODO: cd y se ha movido y todo
                             break;
-                        } else if (tablero.moverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        } else if (tablero.intentarMoverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //movió
                             break;
                         }
@@ -192,11 +192,11 @@ public class Torre extends Pieza {
                             break;
                         }
                         Point puntoFinal = new Point(escaqueTorre.getLocalizacion().x, y);
-                        if(tablero.comerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        if(tablero.intentarComerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //comió
                             //TODO: cd y se ha movido y todo
                             break;
-                        } else if (tablero.moverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        } else if (tablero.intentarMoverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //movió
                             break;
                         }
@@ -212,11 +212,11 @@ public class Torre extends Pieza {
                             break;
                         }
                         Point puntoFinal = new Point(x, escaqueTorre.getLocalizacion().y);
-                        if(tablero.comerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        if(tablero.intentarComerPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //comió
                             //TODO: cd y se ha movido y todo
                             break;
-                        } else if (tablero.moverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
+                        } else if (tablero.intentarMoverPieza(escaqueTorre.getLocalizacion(), puntoFinal).x.equals(ActionResult.PASS)){
                             //movió
                             break;
                         }

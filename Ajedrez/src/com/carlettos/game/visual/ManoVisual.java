@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class ManoVisual extends JPanel {
 
-    private final Reloj reloj;
+    private final Reloj reloj; //TODO: no usar reloj
     private final JPanel panelesJugadores;
 
     public ManoVisual(Reloj reloj) throws HeadlessException {
@@ -58,8 +58,8 @@ public class ManoVisual extends JPanel {
             super(new GridLayout(Constantes.CARTAS_Y, Constantes.CARTAS_X, 10, 10));
             this.jugador = jugador;
             jugador.getMano().getCartas().forEach((carta) -> {
-                CartaVisual ecv = new CartaVisual(jugador.getColor().getColor(), carta); //xxx:
-                ecv.addMouseListener(MouseCarta.LISTENER);
+                CartaVisual ecv = new CartaVisual(jugador.getColor().getColor(), carta);
+                ecv.addMouseListener(MouseCarta.get());
                 add(ecv);
             });
         }
@@ -68,7 +68,7 @@ public class ManoVisual extends JPanel {
             removeAll();
             jugador.getMano().getCartas().forEach((carta) -> {
                 CartaVisual ecv = new CartaVisual(jugador.getColor().getColor(), carta);
-                ecv.addMouseListener(MouseCarta.LISTENER);
+                ecv.addMouseListener(MouseCarta.get());
                 add(ecv);
             });
             revalidate();

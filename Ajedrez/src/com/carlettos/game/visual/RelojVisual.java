@@ -62,7 +62,7 @@ public class RelojVisual extends JPanel{
             }
         });
         habilidad.addActionListener((e) -> {
-            if (MousePieza.LISTENER.seleccionado == null) {
+            if (MousePieza.get().seleccionado == null) {
                 return;
             }
             Container container = this;
@@ -76,7 +76,7 @@ public class RelojVisual extends JPanel{
                         "Escribir datos de la habilidad.",
                         "Habilidad",
                         JOptionPane.QUESTION_MESSAGE);
-                Escaque escaque = MousePieza.LISTENER.seleccionado.getEscaque();
+                Escaque escaque = MousePieza.get().seleccionado.getEscaque();
                 Par<Boolean, String> can = escaque.getPieza().canUsarHabilidad(tv.getTablero(),
                         escaque.getLocalizacion(),
                         escaque.getLocalizacion(),
@@ -87,7 +87,7 @@ public class RelojVisual extends JPanel{
                             escaque.getLocalizacion(),
                             infoHabilidad);
                     reloj.movimiento();
-                    MousePieza.LISTENER.seleccionado = null;
+                    MousePieza.get().seleccionado = null;
                     tv.offAll();
                 } else {
                     System.out.println(can.y);
