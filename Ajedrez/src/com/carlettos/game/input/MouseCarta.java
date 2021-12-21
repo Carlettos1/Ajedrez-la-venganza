@@ -56,12 +56,12 @@ public class MouseCarta implements MouseListener {
             
             List<Jugador> jugadores = new ArrayList<>();
             reloj.getJugadores().forEach((jugador) -> {
-                if (jugador.getColor().getColor().equals(ecv.getColor())) {
+                if (jugador.getColor().equals(ecv.getColor())) {
                     jugadores.add(jugador);
                 }
             });
             reloj.getJugadores().forEach((jugador) -> {
-                if (!jugador.getColor().getColor().equals(ecv.getColor())) {
+                if (!jugador.getColor().equals(ecv.getColor())) {
                     jugadores.add(jugador);
                 }
             });
