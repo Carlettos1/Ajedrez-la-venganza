@@ -5,6 +5,8 @@ package com.carlettos.game.core;
  * lo que pueda ocurrir en cualquier método.
  *
  * @author Carlos
+ * 
+ * @see Accion
  */
 public enum ActionResult {
     PASS("Pass"),

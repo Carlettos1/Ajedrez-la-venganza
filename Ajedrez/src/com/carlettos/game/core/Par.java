@@ -3,8 +3,7 @@ package com.carlettos.game.core;
 import java.util.Objects;
 
 /**
- * Clase de utilidad que sirve para poder retornar dos valores de un método, 
- * o mantener 2 valores al nombre de una variable.
+ * Clase de utilidad.
  *
  * @author Carlos
  * @param <X> clase del primer parámetro del constructor

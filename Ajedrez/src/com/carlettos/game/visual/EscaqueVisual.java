@@ -46,7 +46,7 @@ public class EscaqueVisual extends Component {
         g.setColor(!isPar ? Constantes.COLOR2 : Constantes.COLOR1);
         //TODO: cambiar String por una imagen.
         g.drawString(escaque.getPieza().abreviacion, 2, 20);
-        g.drawString(escaque.getPieza().getColor().toString(), 2, 30);
+        g.drawString(escaque.isEmpty() ? "" : escaque.getPieza().getColor().name(), 2, 30);
         if (hasAccion) {
             g.setColor(colorAccion);
             g.fillOval((int) (Constantes.PORCENTAJE * getWidth()),

@@ -2,6 +2,10 @@ package com.carlettos.game.core;
 
 import java.awt.Color;
 
+/**
+ * TODO: que sea configurable
+ * @author Carlos
+ */
 public class Constantes {
 
     /**

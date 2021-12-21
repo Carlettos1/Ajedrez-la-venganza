@@ -11,6 +11,7 @@ import com.carlettos.game.tablero.propiedad.Color;
  * @author Carlos
  * 
  * @see Pieza
+ * @see ActionResult
  */
 public enum Accion {
     MOVER(Color.CIAN),

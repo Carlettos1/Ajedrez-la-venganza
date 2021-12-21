@@ -29,9 +29,4 @@ public enum Color {
     public java.awt.Color getColor() {
         return colorAWT;
     }
-
-    public String getNombre() {
-        //TODO: quitar el equals
-        return this == GRIS ? "" : name();
-    }
 }

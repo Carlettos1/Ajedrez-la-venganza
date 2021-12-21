@@ -32,12 +32,10 @@ public class InvocarCaballo extends Carta{
 
     @Override
     public void usarCarta(Point punto, Tablero tablero, Reloj reloj, Jugador... jugadores) {
-        reloj.addEventos(new Evento(1, "Invocar Caballo", punto, tablero) {
-            @Override
-            public void accion() {
-                tablero.getEscaque(punto).setPieza(new Caballo(jugadores[0].getColor()));
-            }
-        });
+        reloj.addEventos(
+                Evento.Builder.start(tablero).with(1, this.nombre, punto).build((turnos, nombre1, punto1, tablero1) -> {
+                    tablero1.getEscaque(punto1).setPieza(new Caballo(jugadores[0].getColor()));
+                }));
         Jugador jugador = jugadores[0];
         jugador.getMano().quitarCarta(this);
         jugador.cambiarMana(-getCosteMana());

@@ -58,7 +58,7 @@ public class ManoVisual extends JPanel {
             super(new GridLayout(Constantes.CARTAS_Y, Constantes.CARTAS_X, 10, 10));
             this.jugador = jugador;
             jugador.getMano().getCartas().forEach((carta) -> {
-                CartaVisual ecv = new CartaVisual(jugador.getColor().getAwtColor(), carta); //xxx:
+                CartaVisual ecv = new CartaVisual(jugador.getColor().getColor(), carta); //xxx:
                 ecv.addMouseListener(MouseCarta.LISTENER);
                 add(ecv);
             });
@@ -67,7 +67,7 @@ public class ManoVisual extends JPanel {
         public void rehacer() {
             removeAll();
             jugador.getMano().getCartas().forEach((carta) -> {
-                CartaVisual ecv = new CartaVisual(jugador.getColor().getAwtColor(), carta);
+                CartaVisual ecv = new CartaVisual(jugador.getColor().getColor(), carta);
                 ecv.addMouseListener(MouseCarta.LISTENER);
                 add(ecv);
             });
