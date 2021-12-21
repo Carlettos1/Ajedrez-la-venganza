@@ -1,8 +1,8 @@
 package com.carlettos.game.tablero.manager;
 
+import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.pieza.Vacia;
-import ajedrez.carlettos.src.util.ActionResult;
-import ajedrez.carlettos.src.util.Par;
 import com.carlettos.game.tablero.Escaque;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -10,13 +10,32 @@ import java.util.List;
 
 /**
  * TODO: reloj y manos?
+ * Esta clase sólo controlará el trablero, cualquier otra funcionalidad que no
+ * sea la de controlar a sus piezas, o proveer métodos de utilidad sobre si
+ * mismo, no es de su responsabilidad, por lo tanto, no tendrá conocimiento de
+ * jugadores, relojes o barajas.
+ *
  * @author Carlos
+ *
+ * @see Escaque
+ * @see Estructura
+ * @see Pieza
  */
 public class Tablero {
 
     //TODO: poder hacer tableros de cualquier tipo de formas.
     private final Escaque[][] tableroAjedrez;
+
+    /**
+     * Cantidad de columnas del tablero. Está relacionada con el número x en el
+     * plano cartesiano.
+     */
     public final int columnas;
+
+    /**
+     * Cantidad de filas del tablero. Está relacionada con el número y en el
+     * plano cartesiano.
+     */
     public final int filas;
 
     public Tablero(int columnas, int filas) {

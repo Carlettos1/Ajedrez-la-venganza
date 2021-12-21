@@ -1,6 +1,6 @@
 package com.carlettos.game.visual;
 
-import ajedrez.carlettos.src.util.Constantes;
+import com.carlettos.game.core.Constantes;
 import com.carlettos.game.tablero.carta.Carta;
 import java.awt.Color;
 import java.awt.Dimension;

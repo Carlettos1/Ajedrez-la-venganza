@@ -1,15 +1,14 @@
 package com.carlettos.game.visual;
 
-import ajedrez.carlettos.src.tablero.reloj.Evento;
-import ajedrez.carlettos.src.util.MousePieza;
-import ajedrez.carlettos.src.util.Par;
+import com.carlettos.game.core.Evento;
+import com.carlettos.game.core.Par;
+import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.tablero.manager.Reloj;
 import com.carlettos.game.tablero.pieza.Vacia;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
@@ -77,7 +76,7 @@ public class RelojVisual extends JPanel{
                         "Escribir datos de la habilidad.",
                         "Habilidad",
                         JOptionPane.QUESTION_MESSAGE);
-                Escaque escaque = new Escaque(true, true, MousePieza.LISTENER.seleccionado.getLocation(), new Vacia()); //xxx:
+                Escaque escaque = MousePieza.LISTENER.seleccionado.getEscaque();
                 Par<Boolean, String> can = escaque.getPieza().canUsarHabilidad(tv.getTablero(),
                         escaque.getLocalizacion(),
                         escaque.getLocalizacion(),
@@ -111,7 +110,7 @@ public class RelojVisual extends JPanel{
 
         ordenEventos = new StringBuilder("<html>Evento(s) más próximos: <br/>");
         List<Evento> eventos = reloj.getEventosOrdenados();
-        for (Evento evento : Arrays.asList(eventos.stream().filter((evento) -> {
+        for (Evento evento : (eventos.stream().filter((evento) -> {
             return evento.turnos == eventos.get(0).turnos;
         }).toArray(Evento[]::new))) {
             ordenEventos.append(evento).append("<br/>");

@@ -1,6 +1,6 @@
 package com.carlettos.game.tablero.manager;
 
-import ajedrez.carlettos.src.util.ActionResult;
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.carta.Carta;
 import java.util.Arrays;
 import java.util.Collections;

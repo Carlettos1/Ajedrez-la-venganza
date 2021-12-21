@@ -1,6 +1,6 @@
 package com.carlettos.game.visual;
 
-import ajedrez.carlettos.src.util.MousePieza;
+import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.tablero.manager.Tablero;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

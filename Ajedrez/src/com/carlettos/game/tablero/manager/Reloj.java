@@ -1,7 +1,7 @@
 package com.carlettos.game.tablero.manager;
 
-import ajedrez.carlettos.src.tablero.jugador.Jugador;
-import ajedrez.carlettos.src.tablero.reloj.Evento;
+import com.carlettos.game.core.Evento;
+import com.carlettos.game.tablero.jugador.Jugador;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

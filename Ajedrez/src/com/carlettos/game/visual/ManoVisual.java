@@ -1,10 +1,8 @@
 package com.carlettos.game.visual;
 
-import ajedrez.carlettos.src.tablero.jugador.Jugador;
-import ajedrez.carlettos.src.util.Constantes;
-import ajedrez.carlettos.src.util.MouseCarta;
-import ajedrez.carlettos.src.visual.EscaqueCartaVisual;
-import com.carlettos.game.tablero.carta.Carta;
+import com.carlettos.game.core.Constantes;
+import com.carlettos.game.input.MouseCarta;
+import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Reloj;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -60,7 +58,7 @@ public class ManoVisual extends JPanel {
             super(new GridLayout(Constantes.CARTAS_Y, Constantes.CARTAS_X, 10, 10));
             this.jugador = jugador;
             jugador.getMano().getCartas().forEach((carta) -> {
-                CartaVisual ecv = new CartaVisual(jugador.getColor().getAwtColor(), new Carta()); //xxx:
+                CartaVisual ecv = new CartaVisual(jugador.getColor().getAwtColor(), carta); //xxx:
                 ecv.addMouseListener(MouseCarta.LISTENER);
                 add(ecv);
             });
@@ -69,7 +67,7 @@ public class ManoVisual extends JPanel {
         public void rehacer() {
             removeAll();
             jugador.getMano().getCartas().forEach((carta) -> {
-                EscaqueCartaVisual ecv = new EscaqueCartaVisual(jugador.getColor().getAwtColor(), carta);
+                CartaVisual ecv = new CartaVisual(jugador.getColor().getAwtColor(), carta);
                 ecv.addMouseListener(MouseCarta.LISTENER);
                 add(ecv);
             });

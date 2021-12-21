@@ -1,8 +1,7 @@
 package com.carlettos.game.tablero.pieza;
 
-import com.carlettos.game.tablero.pieza.Pieza;
-import ajedrez.carlettos.src.util.Accion;
-import ajedrez.carlettos.src.util.Par;
+import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.manager.Tablero;
@@ -23,7 +22,7 @@ import java.util.List;
 public class Vacia extends Pieza{
 
     public Vacia() {
-        super("Vacía", " ", new Habilidad(), new Color());
+        super("Vacía", " ", Habilidad.NO_HABILIDAD, Color.NINGUNO);
     }
 
     @Override
