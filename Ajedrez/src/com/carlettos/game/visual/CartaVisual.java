@@ -32,7 +32,7 @@ public class CartaVisual extends JComponent {
         super.paint(g);
         g.setColor(color.getColor());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(new java.awt.Color(255 - color.getColor().getRed(), 255 - color.getColor().getGreen(), 255 - color.getColor().getBlue()));
+        g.setColor(color.getColorNegativo());
         g.drawString(carta.getNombre(), 2, 20);
         g.drawString(carta.getDescripcion(), 2, 50);
         //TODO que se vea bonito y mostrar más datos de la carta

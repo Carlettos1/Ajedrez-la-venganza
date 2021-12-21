@@ -29,4 +29,8 @@ public enum Color {
     public java.awt.Color getColor() {
         return colorAWT;
     }
+
+    public java.awt.Color getColorNegativo() {
+        return new java.awt.Color(255 - this.getColor().getRed(), 255 - this.getColor().getGreen(), 255 - this.getColor().getBlue());
+    }
 }

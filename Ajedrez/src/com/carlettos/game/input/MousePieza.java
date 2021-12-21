@@ -50,7 +50,7 @@ public class MousePieza implements MouseListener {
 
             List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getLocalizacion());
             allAcciones.forEach((accion) -> {
-                tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor().getColor());
+                tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
             });
         } else {
             EscaqueVisual objetivo = (EscaqueVisual) e.getSource();
@@ -73,7 +73,7 @@ public class MousePieza implements MouseListener {
                         List<Par<Point, Accion>> allAcciones = seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion());
 
                         allAcciones.forEach((accion) -> {
-                            tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor().getColor());
+                            tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
                         });
                         return;
                     }
