@@ -110,7 +110,7 @@ public abstract class Pieza {
      * de recursos posibles y sea rápida, ya que, por experiencia propia, se
      * suele apretar todas las piezas del tablero para saber qué y qué no pueden
      * hacer, por lo que suele invocarse mucho este método. Debe implementarse
-     * independientemente del método canComer, aunque puede ser el mismo código,
+     * independientemente del méthodo canComer, aunque puede ser el mismo código,
      * como por ejemplo, el caballo, pero, por temas de orden, debe revisar
      * hacia donde se mueve.
      * <p>
@@ -118,7 +118,7 @@ public abstract class Pieza {
      * completamente distintos; si uno da true, el otro debe dar false. Esto es
      * importante porque comer y mover hacen reaccionar cartas completamente
      * diferentes, además, idealmente, deben marcarse de forma distinta en el
-     * método allAcciones.
+     * méthodo allAcciones.
      *
      * @param tablero TableroManager del juego.
      * @param inicio Point de la pieza seleccionada.
@@ -139,7 +139,7 @@ public abstract class Pieza {
      * de recursos posibles y sea rápida, ya que, por experiencia propia, se
      * suele apretar todas las piezas del tablero para saber qué y qué no pueden
      * hacer, por lo que suele invocarse mucho este método. Debe implementarse
-     * independientemente del método canMover, aunque puede ser el mismo código,
+     * independientemente del méthodo canMover, aunque puede ser el mismo código,
      * como por ejemplo, el caballo, pero, por temas de orden, debe revisar lo
      * que come.
      * <p>
@@ -147,7 +147,7 @@ public abstract class Pieza {
      * completamente distintos; si uno da true, el otro debe dar false. Esto es
      * importante porque comer y mover hacen reaccionar cartas completamente
      * diferentes, además, idealmente, deben marcarse de forma distinta en el
-     * método allAcciones.
+     * méthodo allAcciones.
      *
      * @param tablero TableroManager del juego.
      * @param inicio Point de la pieza seleccionada.

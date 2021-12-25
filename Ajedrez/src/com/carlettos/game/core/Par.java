@@ -22,6 +22,10 @@ public final class Par<X, Y> {
         this.x = x;
         this.y = y;
     }
+    
+    public static <X, Y> Par<X, Y> of(X x, Y y){
+        return new Par<>(x, y);
+    }
 
     @Override
     public int hashCode() {

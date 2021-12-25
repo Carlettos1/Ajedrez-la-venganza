@@ -109,6 +109,7 @@ public class Peon extends Pieza {
 
     @Override
     public List<Par<Point, Accion>> allAcciones(Tablero tablero, Point seleccionado) {
+        //todo: all acciones llama al super...
         List<Par<Point, Accion>> myc = super.allAcciones(tablero, seleccionado);
         if (canUsarHabilidad(tablero, seleccionado, seleccionado, "owo").x) {
             myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
