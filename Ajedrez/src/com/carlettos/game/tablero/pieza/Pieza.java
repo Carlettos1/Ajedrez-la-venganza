@@ -1,6 +1,7 @@
 package com.carlettos.game.tablero.pieza;
 
 import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
@@ -101,115 +102,19 @@ public abstract class Pieza {
         this.color = color;
         this.tipos = Arrays.asList(tipos);
     }
-    
-    //TODO: mover, comer, habilidad y atacar
 
     /**
-     * Función específica para saber si puede mover o no, debe ser implementada
-     * con mucho cuidado y de forma correcta para que consuma la menor cantidad
-     * de recursos posibles y sea rápida, ya que, por experiencia propia, se
-     * suele apretar todas las piezas del tablero para saber qué y qué no pueden
-     * hacer, por lo que suele invocarse mucho este método. Debe implementarse
-     * independientemente del méthodo canComer, aunque puede ser el mismo código,
-     * como por ejemplo, el caballo, pero, por temas de orden, debe revisar
-     * hacia donde se mueve.
-     * <p>
-     * En todos los casos, canComer y canMover deben dar resultados
-     * completamente distintos; si uno da true, el otro debe dar false. Esto es
-     * importante porque comer y mover hacen reaccionar cartas completamente
-     * diferentes, además, idealmente, deben marcarse de forma distinta en el
-     * méthodo allAcciones.
+     * Actualización a sistema de acciones, se debe contemplar si la pieza puede
+     * comer, mover o atacar. La habilidad lo ve la habilidad de la pieza.
      *
+     * @param accion Accion a ejecutar.
      * @param tablero TableroManager del juego.
      * @param inicio Point de la pieza seleccionada.
      * @param final_ Point del Escaque hacia dónde se mueve.
      *
-     * @return boolean true si puede mover, false si no.
-     *
-     * @see TableroManager
-     * @see Pieza
-     * @see Escaque
-     * @see Habilidad
+     * @return ActionResult.
      */
-    public abstract boolean canMover(Tablero tablero, Point inicio, Point final_);
-
-    /**
-     * Función específica para saber si puede comer o no, debe ser implementada
-     * con mucho cuidado y de forma correcta para que consuma la menor cantidad
-     * de recursos posibles y sea rápida, ya que, por experiencia propia, se
-     * suele apretar todas las piezas del tablero para saber qué y qué no pueden
-     * hacer, por lo que suele invocarse mucho este método. Debe implementarse
-     * independientemente del méthodo canMover, aunque puede ser el mismo código,
-     * como por ejemplo, el caballo, pero, por temas de orden, debe revisar lo
-     * que come.
-     * <p>
-     * En todos los casos, canComer y canMover deben dar resultados
-     * completamente distintos; si uno da true, el otro debe dar false. Esto es
-     * importante porque comer y mover hacen reaccionar cartas completamente
-     * diferentes, además, idealmente, deben marcarse de forma distinta en el
-     * méthodo allAcciones.
-     *
-     * @param tablero TableroManager del juego.
-     * @param inicio Point de la pieza seleccionada.
-     * @param final_ Point del Escaque hacia dónde va a comer.
-     *
-     * @return boolean true si puede comer, false si no.
-     *
-     * @see TableroManager
-     * @see Pieza
-     * @see Escaque
-     * @see Habilidad
-     */
-    public abstract boolean canComer(Tablero tablero, Point inicio, Point final_);
-
-    /**
-     * Verifica que los requisitos se cumplan, tanto como de cooldown y maná
-     * como algunos más específicos como los que vienen con el String de
-     * informacionExtra.
-     *
-     * @param tablero TableroManager del juego.
-     * @param inicio Point de la pieza seleccionada, o, en casos particulares,
-     * desde dónde se efectúa la acción.
-     * @param final_ Point del Escaque hacia dónde se dirige la habilidad, suele
-     * omitirse, ya que la información necesaria entra por otra vía.
-     * @param informacionExtra String que contiene la información de la
-     * habilidad, por ejemplo, hacia dónde se va a aplicar la habilidad de la
-     * torre (NESW).
-     *
-     * @return Par, boolean true si se puede usar la habilidad, false de lo
-     * contrario, y un String que contiene información adicional para poder
-     * accionar de acuerdo a los diferentes fallos, o, en casos muy específicos,
-     * éxitos.
-     *
-     * @see TableroManager
-     * @see Pieza
-     * @see Escaque
-     * @see Habilidad
-     * @see Par
-     */
-    public abstract Par<Boolean, String> canUsarHabilidad(Tablero tablero, Point inicio, Point final_, String informacionExtra);
-    
-    /**
-     * Efectúa la habilidad, por lo tanto, efectúa acciones relacionadas a la
-     * habilidad. Se recomienda usar un enum con un parser para descifrar el
-     * String de informacionExtra y poder trabajarlo de forma más simple. Pero
-     * no es requisito.
-     *
-     * @param tablero TableroManager del juego.
-     * @param inicio Point de la pieza seleccionada, o, en casos particulares,
-     * desde dónde se efectúa la acción.
-     * @param final_ Point del Escaque hacia dónde se dirige la habilidad, suele
-     * omitirse, ya que la información necesaria entra por otra vía.
-     * @param informacionExtra String que contiene la información de la
-     * habilidad, por ejemplo, hacia dónde se va a aplicar la habilidad de la
-     * torre (NESW).
-     *
-     * @see TableroManager
-     * @see Pieza
-     * @see Escaque
-     * @see Habilidad
-     */
-    public abstract void habilidad(Tablero tablero, Point inicio, Point final_, String informacionExtra);
+    public abstract ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_);
     
     /**
      * Este método debe usarse solo en caso de urgencia, se sugiere
@@ -232,9 +137,9 @@ public abstract class Pieza {
         List<Par<Point, Accion>> acciones = new ArrayList<>();
         for (int x = 0; x < tablero.columnas; x++) {
             for (int y = 0; y < tablero.filas; y++) {
-                if (this.canComer(tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion())) {
+                if (this.can(Accion.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
                     acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.COMER));
-                } else if (this.canMover(tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion())) {
+                } else if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
                     acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.MOVER));
                 }
             }

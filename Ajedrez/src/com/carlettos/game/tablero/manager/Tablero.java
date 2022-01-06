@@ -1,5 +1,6 @@
 package com.carlettos.game.tablero.manager;
 
+import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.pieza.Vacia;
@@ -78,7 +79,7 @@ public class Tablero {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().canComer(this, inicio, final_);
+        boolean can = escaqueInicio.getPieza().can(Accion.COMER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
@@ -116,7 +117,7 @@ public class Tablero {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().canMover(this, inicio, final_);
+        boolean can = escaqueInicio.getPieza().can(Accion.MOVER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
@@ -141,15 +142,13 @@ public class Tablero {
      *
      * @see ActionResult
      */
-    public Par<ActionResult, String> usarHabilidadPieza(Point inicio, Point final_, String informacionExtra) {
+    public ActionResult usarHabilidadPieza(Point inicio, Point final_, String informacionExtra) {
         Escaque escaque = getEscaque(inicio);
-        Par<Boolean, String> can = escaque.getPieza().canUsarHabilidad(this, inicio, final_, informacionExtra);
-        if (can.x) {
-            escaque.getPieza().habilidad(this, inicio, final_, informacionExtra);
-            return new Par(ActionResult.PASS, "Usó la habilidad");
-        } else {
-            return new Par(ActionResult.FAIL, can.y);
+        ActionResult ar = escaque.getPieza().getHabilidad().canUsar(this, escaque.getPieza(), inicio, final_, informacionExtra);
+        if (ar.isPositive()) {
+            escaque.getPieza().getHabilidad().usar(this, escaque.getPieza(), inicio, final_, informacionExtra);
         }
+        return ar;
     }
 
     /**
@@ -169,57 +168,8 @@ public class Tablero {
      *
      * @see ActionResult
      */
-    public Par<ActionResult, String> usarHabilidadPieza(int x1, int y1, int x2, int y2, String informacionExtra) {
+    public ActionResult usarHabilidadPieza(int x1, int y1, int x2, int y2, String informacionExtra) {
         return usarHabilidadPieza(new Point(x1, y1), new Point(x2, y2), informacionExtra);
-    }
-
-    /**
-     * Usa la habilidad de la pieza en el punto indicado, hacia el punto que
-     * debe especificarse.
-     *
-     * @param inicio punto en el que la habilidad es lanzada.
-     * @param final_ punto hacia donde la habilidad se lanza.
-     * @param informacionExtra String que contiene la información de la
-     * habilidad, por ejemplo, hacia dónde se va a aplicar la habilidad de la
-     * torre (NESW).
-     *
-     * @return un par que contiene un ActionResult y String a forma de ayuda
-     * para dar más información.
-     *
-     * @see ActionResult
-     */
-    //TODO:
-    public Par<ActionResult, String> usarHabilidadEstructura(Point inicio, Point final_, String informacionExtra) {/*
-        Escaque escaque = getEscaque(inicio);
-        Par<Boolean, String> can = escaque.getEstructura().canUsarHabilidad(this, inicio, final_, informacionExtra);
-        if (can.x) {
-            escaque.getEstructura().habilidad(this, inicio, final_, informacionExtra);
-            return new Par(ActionResult.PASS, "Usó la habilidad");
-        } else {
-            return new Par(ActionResult.FAIL, can.y);
-        }*/
-        return new Par(ActionResult.FAIL, "");
-    }
-
-    /**
-     * Usa la habilidad de la pieza en el punto indicado, hacia el punto que
-     * debe especificarse. Preferir usar el otro método.
-     *
-     * @param x1 coordenada x del punto en el que se lanza la habilidad.
-     * @param y1 coordenada y del punto en el que se lanza la habilidad.
-     * @param x2 coordenada x del punto al cual va dirigida la habilidad.
-     * @param y2 coordenada y del punto al cual va dirigida la habilidad.
-     * @param informacionExtra String que contiene la información de la
-     * habilidad, por ejemplo, hacia dónde se va a aplicar la habilidad de la
-     * torre (NESW).
-     *
-     * @return un par que contiene un ActionResult y String a forma de ayuda
-     * para dar más información.
-     *
-     * @see ActionResult
-     */
-    public Par<ActionResult, String> usarHabilidadEstructura(int x1, int y1, int x2, int y2, String informacionExtra) {
-        return usarHabilidadEstructura(new Point(x1, y1), new Point(x2, y2), informacionExtra);
     }
 
     //TODO: movimiento() útil.

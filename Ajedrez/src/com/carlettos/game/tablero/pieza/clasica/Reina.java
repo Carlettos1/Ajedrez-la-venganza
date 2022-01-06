@@ -1,6 +1,6 @@
 package com.carlettos.game.tablero.pieza.clasica;
 
-import com.carlettos.game.core.Par;
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
@@ -8,35 +8,42 @@ import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import java.awt.Point;
 
-public class Reina extends Pieza {
+public class Reina extends PiezaClasica {
 
-    public static final Habilidad HABILIDAD_REINA = new Habilidad("Why?",
-            "TODO XD",
-            0,
-            0,
-            "1");
+    public static final Habilidad<Reina> HABILIDAD_REINA = new HabilidadReina<Reina>();
 
     public Reina(Color color) {
         super("Reina", "R", HABILIDAD_REINA, color, Tipo.BIOLOGICA);
     }
 
     @Override
-    public boolean canMover(Tablero tablero, Point inicio, Point final_) {
-        return false;
+    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
+        return ActionResult.FAIL; //todo: mover reina
     }
 
     @Override
-    public boolean canComer(Tablero tablero, Point inicio, Point final_) {
-        return false;
+    public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
+        return ActionResult.FAIL; //todo: comer reina
     }
 
-    @Override
-    public Par<Boolean, String> canUsarHabilidad(Tablero tablero, Point inicio, Point final_, String informacionExtra) {
-        return null;
-    }
+    //TODO: habilidad reina
+    public static class HabilidadReina<P extends Pieza> extends Habilidad<P> {
 
-    @Override
-    public void habilidad(Tablero tablero, Point inicio, Point final_, String informacionExtra) {
-        //todo: todo
+        public HabilidadReina() {
+            super("Why?",
+                    "TODO XD",
+                    0,
+                    0,
+                    "1");
+        }
+
+        @Override
+        public ActionResult canUsar(Tablero tablero, Pieza pieza, Point inicio, Point final_, String informacionExtra) {
+            return ActionResult.FAIL;
+        }
+
+        @Override
+        public void usar(Tablero tablero, Pieza pieza, Point inicio, Point final_, String informacionExtra) {
+        }
     }
 }

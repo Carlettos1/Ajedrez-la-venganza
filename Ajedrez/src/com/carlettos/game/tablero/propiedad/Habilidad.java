@@ -1,25 +1,24 @@
 package com.carlettos.game.tablero.propiedad;
 
+import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.pieza.Pieza;
+import java.awt.Point;
+
 
 /**
  * Es la habilidad de la pieza o estructura, contiene toda la información acerca
  * de la habilidad, tales como costos y descripciones, además de los parámetros
- * que serán los que se deberán pasar como información extra
+ * que serán los que se deberán pasar como información extra.
  *
  * @author Carlos
+ * 
+ * @param <P> Pieza que la habilidad afecta.
  *
  * @see Pieza
  * @see Estructura
  */
-public class Habilidad {
-
-    /**
-     * Place-holder de Habilidad, para evitar que haya algún null.
-     *
-     * @see Vacia
-     * @see Inexistente
-     */
-    public final static Habilidad NO_HABILIDAD = new Habilidad("Habilidad nula", "No hace nada", 0, 0, "Ninguno");
+public abstract class Habilidad<P extends Pieza> {
 
     //TODO: revisar nombres y detalles de las habilidades de ejemplo.
     /**
@@ -84,6 +83,10 @@ public class Habilidad {
         this.costo = costo;
         this.parametros = parametros;
     }
+    
+    public abstract ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
+    
+    public abstract void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
 
     public String getNombre() {
         return nombre;

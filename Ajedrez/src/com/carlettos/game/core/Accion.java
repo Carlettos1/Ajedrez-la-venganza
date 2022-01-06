@@ -15,7 +15,7 @@ import com.carlettos.game.tablero.propiedad.Color;
  */
 public enum Accion {
     MOVER(Color.CIAN),
-    ATACAR(Color.ROJO),
+    ATACAR(Color.NARANJA),
     COMER(Color.ROJO),
     HABILIDAD(Color.MAGENTA);
     

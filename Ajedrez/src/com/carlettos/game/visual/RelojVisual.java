@@ -1,5 +1,6 @@
 package com.carlettos.game.visual;
 
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.input.MousePieza;
@@ -76,20 +77,20 @@ public class RelojVisual extends JPanel{
                         "Habilidad",
                         JOptionPane.QUESTION_MESSAGE);
                 Escaque escaque = MousePieza.get().seleccionado.getEscaque();
-                Par<Boolean, String> can = escaque.getPieza().canUsarHabilidad(tv.getTablero(),
+                ActionResult ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(),
+                        escaque.getPieza(),
                         escaque.getLocalizacion(),
                         escaque.getLocalizacion(),
                         infoHabilidad);
-                if (can.x) {
-                    escaque.getPieza().habilidad(tv.getTablero(),
+                if (ar.isPositive()) {
+                    escaque.getPieza().getHabilidad().usar(tv.getTablero(),
+                            escaque.getPieza(),
                             escaque.getLocalizacion(),
                             escaque.getLocalizacion(),
                             infoHabilidad);
                     reloj.movimiento();
                     MousePieza.get().seleccionado = null;
                     tv.offAll();
-                } else {
-                    System.out.println(can.y);
                 }
             }
         });

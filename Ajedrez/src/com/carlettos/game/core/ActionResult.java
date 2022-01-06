@@ -9,16 +9,20 @@ package com.carlettos.game.core;
  * @see Accion
  */
 public enum ActionResult {
-    PASS("Pass"),
-    FAIL("Fail");
+    PASS(true),
+    FAIL(false);
 
-    private final String nombre;
+    private final boolean positive;
 
-    private ActionResult(String nombre) {
-        this.nombre = nombre;
+    private ActionResult(boolean positive) {
+        this.positive = positive;
     }
 
-    public String getNombre() {
-        return nombre;
+    public boolean isPositive() {
+        return positive;
+    }
+    
+    public static ActionResult max(ActionResult ar1, ActionResult ar2){
+        return ar1.ordinal() > ar2.ordinal() ? ar1 : ar2;
     }
 }
