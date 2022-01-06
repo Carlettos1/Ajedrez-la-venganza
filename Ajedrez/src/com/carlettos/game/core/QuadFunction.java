@@ -7,6 +7,7 @@ import java.awt.Point;
 /**
  *
  * @author Carlos
+ * @param <R> ClaseResultado.
  */
 @FunctionalInterface
 public interface QuadFunction<R> { //todo: quinfunction

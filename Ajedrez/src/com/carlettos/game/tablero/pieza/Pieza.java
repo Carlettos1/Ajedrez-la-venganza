@@ -20,7 +20,7 @@ import java.util.Objects;
  * <p>
  * La pieza en cuestión sólo deberá ser responsable de SABER si se puede, o no,
  * ejecutar una acción, nunca ejecutarla, el único caso excepción debe ser el
- * método habilidad, ya que ejecuta la habilidad.
+ * méthodo habilidad, ya que ejecuta la habilidad.
  * </p>
  *
  * @author Carlos
@@ -54,7 +54,7 @@ public abstract class Pieza {
 
     /**
      * Es la habilidad que tiene la pieza, tiene toda la información
-     * descriptiva, pero no el cómo se ejecuta, eso debe escribirse en el método
+     * descriptiva, pero no el cómo se ejecuta, eso debe escribirse en el méthodo
      * habilidad.
      */
     protected Habilidad habilidad;
@@ -74,24 +74,13 @@ public abstract class Pieza {
 
     
     /**
-     * Constructor de la estructura, cuando se extienda de la clase, el
-     * constructor del hijo, idealmente, debe sólo incluir el isBlanca en los
-     * parámetros, ya que el resto de variables deben ser constantes entre todos
-     * los mismo tipos de piezas. No es obligatorio.
+     * Constructor general de la pieza.
      *
-     * @param nombre nombre de la pieza, por ejemplo, Peón.
-     * @param abreviacion abreviación de la pieza, por ejemplo, P.
-     * @param habilidad la habilidad que tiene la pieza, con su descripción,
-     * cooldowns y costes de maná. La ejecución queda relegada al método
-     * {@code pieza.habilidad();}.
-     * @param tipos todos los tipos de los cuales es la pieza en cuestión. No es
-     * inmutable, porque puede, por ejemplo, una carta, quitar el tipo de
-     * transportable, o añadir el tipo demoníaco.
+     * @param nombre nombre de la pieza.
+     * @param abreviacion abreviación de la pieza.
+     * @param habilidad la habilidad que tiene la pieza.
+     * @param tipos los tipos de la pieza.
      * @param color color de la pieza, blanco o negro en el ajedrez normal.
-     *
-     * @see Habilidad
-     * @see EnumTipoPieza
-     * @see Estructura
      */
     public Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
         this.seHaMovidoEsteTurno = false;
@@ -117,7 +106,7 @@ public abstract class Pieza {
     public abstract ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_);
     
     /**
-     * Este método debe usarse solo en caso de urgencia, se sugiere
+     * Este méthodo debe usarse solo en caso de urgencia, se sugiere
      * sobreescribirlo y que se efectúen cálculos más específicos a la pieza
      * correspondiente. Revisa Todos los Escaques del tablero y prueba si se
      * puede efectuar alguna de las acciones básicas, por lo que es

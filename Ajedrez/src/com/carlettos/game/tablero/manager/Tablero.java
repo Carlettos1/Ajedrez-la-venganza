@@ -2,7 +2,6 @@ package com.carlettos.game.tablero.manager;
 
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.Escaque;
 import java.awt.Point;
@@ -12,14 +11,12 @@ import java.util.List;
 /**
  * TODO: reloj y manos?
  * Esta clase sólo controlará el trablero, cualquier otra funcionalidad que no
- * sea la de controlar a sus piezas, o proveer métodos de utilidad sobre si
+ * sea la de controlar a sus piezas, o proveer méthodos de utilidad sobre si
  * mismo, no es de su responsabilidad, por lo tanto, no tendrá conocimiento de
  * jugadores, relojes o barajas.
  *
  * @author Carlos
  *
- * @see Escaque
- * @see Estructura
  * @see Pieza
  */
 public class Tablero {
@@ -153,7 +150,7 @@ public class Tablero {
 
     /**
      * Usa la habilidad de la pieza en el punto indicado, hacia el punto que
-     * debe especificarse. Preferir usar el otro método.
+     * debe especificarse. Preferir usar el otro méthodo.
      *
      * @param x1 coordenada x del punto en el que se lanza la habilidad.
      * @param y1 coordenada y del punto en el que se lanza la habilidad.
@@ -181,7 +178,7 @@ public class Tablero {
     }
 
     public void quitarEntidad(Point punto) {
-        this.getEscaque(punto).quitarTodo();
+        this.getEscaque(punto).quitarPieza();
     }
 
     /**

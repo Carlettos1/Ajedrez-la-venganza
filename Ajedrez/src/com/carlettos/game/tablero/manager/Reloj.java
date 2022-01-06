@@ -28,7 +28,7 @@ public class Reloj {
 
     /**
      * Verifica si puede jugar el jugador que es pasado como parámetro, es un
-     * método de utilidad. Se entiende por jugar mover o usar una carta o
+     * méthodo de utilidad. Se entiende por jugar: mover o usar una carta o
      * cualquier cosa que consuma un movimiento por turno.
      *
      * @param jugador jugador que se quiere saber si juega o no.
@@ -58,7 +58,7 @@ public class Reloj {
     }
 
     /**
-     * Método de ayuda para saber de qué jugador es el turno, suponiendo que no
+     * Méthodo de ayuda para saber de qué jugador es el turno, suponiendo que no
      * existen saltos de turno.
      *
      * @return Jugador cuyo turno es el que debe jugarse ahora.

@@ -8,7 +8,7 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import java.awt.Point;
 
 /**
- * Todos los tipos de piezas que hay. TODO: javadoc
+ * Tipos de piezas que hay. TODO: javadoc
  *
  * @author Carlos
  */

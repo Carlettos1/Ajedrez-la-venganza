@@ -57,7 +57,7 @@ public class EscaqueVisual extends Component {
     }
 
     /**
-     * Método para saber si el escaque tiene acción o no. No es el escaque en
+     * Méthodo para saber si el escaque tiene acción o no. No es el escaque en
      * donde está situada la pieza que hace la acción, sino que es el escaque en
      * dónde ocurrirá la acción. Sirve para que el escaque se pinte.
      *

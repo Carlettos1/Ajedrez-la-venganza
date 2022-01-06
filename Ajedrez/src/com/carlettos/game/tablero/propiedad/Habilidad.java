@@ -5,76 +5,54 @@ import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import java.awt.Point;
 
-
 /**
- * Es la habilidad de la pieza o estructura, contiene toda la información acerca
- * de la habilidad, tales como costos y descripciones, además de los parámetros
- * que serán los que se deberán pasar como información extra.
+ * Es la habilidad de la pieza, contiene toda la información acerca de la
+ * habilidad, tales como costos y descripciones, además de los parámetros que
+ * serán los que se deberán pasar como información extra.
  *
  * @author Carlos
- * 
+ *
  * @param <P> Pieza que la habilidad afecta.
  *
  * @see Pieza
- * @see Estructura
  */
 public abstract class Habilidad<P extends Pieza> {
 
-    //TODO: revisar nombres y detalles de las habilidades de ejemplo.
     /**
-     * Nombre de la habilidad, como, por ejemplo, "Coronar", del peón, o "Muro
-     * de Berlín", de la torre.
+     * Nombre de la habilidad.
      */
     protected final String nombre;
 
     /**
-     * Descripción de la habilidad, dice lo que precisamente hace la habilidad,
-     * por ejemplo, "Al llegar al final del tablero, puede transformarse en
-     * cualquier pieza", o, "Mueve esta torre y todas las torres conectadas en
-     * una dirección elegida. Se mueven hasta que no se puedan mover más o hasta
-     * que comen una pieza. No puede comer piezas aliadas."
+     * Descripción de la habilidad; dice lo que precisamente hace la habilidad.
      */
     protected final String descripcion;
 
     /**
-     * Turnos en los cuales no se puede volver a lanzar la habilidad, por
-     * ejemplo, el peón tiene 0, ya que una vez corona se pierde ese peón,
-     * mientras que, el muro de berlín tiene que esperar 10 turnos desde que lo
-     * usó por última vez.
+     * Turnos en los cuales no se puede volver a lanzar la habilidad.
      */
     protected final int cooldown;
 
     /**
-     * Costo en maná de la habilidad, o sea, cuánto maná debería quitarse del
-     * jugador una vez lanzada la habilidad.
+     * Costo en maná de la habilidad.
      */
     protected final int costo;
 
     /**
-     * Datos adicionales que se necesitan para usar la habilidad. Por ejemplo,
-     * el peón requiere que se le diga en qué pieza va a coronar, mientras que,
-     * la torre, necesita solo una de las 4 direcciones para poder usar la
-     * habilidad.
+     * Datos adicionales que se necesitan para usar la habilidad.
      */
     protected final String parametros;
 
     /**
-     * Crea la habilidad. para que la habilidad tenga efecto y ocurran sus
-     * efectos en el tablero, debe sobreescribirse el método habilidad de la
-     * clase pieza, ya que esta clase es de solo utilidad.
+     * Constructor general.
      *
-     * @param nombre el nombre de la habilidad, como, por ejemplo, "Coronar".
-     * @param descripcion descripción de la habilidad, o sea, decir
-     * explícitamente lo que hace la habilidad.
-     * @param cooldown tiempo, en turnos, en que la habilidad no puede volver a
-     * ser lanzada.
+     * @param nombre el nombre de la habilidad.
+     * @param descripcion descripción de la habilidad.
+     * @param cooldown cooldown.
      * @param costo coste de maná que cuesta lanzar la habilidad.
-     * @param parametros valores que debe proporcionar el jugador, por ejemplo
-     * "Pieza a coronar (Caballo, Alfil, Torre o Dama)", del peón en el ajedrez
-     * normal.
-     * 
+     * @param parametros valores que debe proporcionar el jugador.
+     *
      * @see Pieza
-     * @see Estructura
      */
     public Habilidad(String nombre, String descripcion, int cooldown, int costo, String parametros) {
         this.nombre = nombre;
@@ -83,9 +61,9 @@ public abstract class Habilidad<P extends Pieza> {
         this.costo = costo;
         this.parametros = parametros;
     }
-    
+
     public abstract ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
-    
+
     public abstract void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
 
     public String getNombre() {

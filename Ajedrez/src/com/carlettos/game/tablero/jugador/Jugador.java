@@ -6,8 +6,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Es la clase Jugador, en ella se manejan todo lo que un jugador debería
- * manejar, mana, control de movimientos y su mano.
+ * Es la clase que representa a un jugador.
  *
  * @author Carlos
  */
@@ -28,8 +27,8 @@ public class Jugador {
      * ajedrez normal.
      * @param id id del jugador.
      * @param color color del jugador.
-     * @param mano Mano del jugador, contiene todas las cartas del
-     * jugador, este objeto no tiene cartas en el ajedrez normal.
+     * @param mano Mano del jugador, contiene todas las cartas del jugador, este
+     * objeto no tiene cartas en el ajedrez normal.
      *
      * @see Mano
      */
@@ -70,7 +69,7 @@ public class Jugador {
      * @see Mano
      */
     public Jugador(Color color) {
-        this(1, 0, color.toString() + " - " + (new Random().nextInt()) , color, new Mano());
+        this(1, 0, color.toString() + " - " + (new Random().nextInt()), color, new Mano());
     }
 
     public Color getColor() {
