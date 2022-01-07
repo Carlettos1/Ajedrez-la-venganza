@@ -27,53 +27,44 @@ public class Reina extends PiezaClasica {
             return ActionResult.FAIL;
         }
 
-        boolean mueveComoAlfil = false;
+        boolean isAlfil = true;
 
-        Escaque escaqueInicio = tablero.getEscaque(inicio);
-        Escaque escaqueFinal = tablero.getEscaque(final_);
+        int deltaX = final_.x - inicio.x;
+        int deltaY = final_.y - inicio.y;
 
-        int xInicio = escaqueInicio.getLocalizacion().x;
-        int xFinal = escaqueFinal.getLocalizacion().x;
-        int yInicio = escaqueInicio.getLocalizacion().y;
-        int yFinal = escaqueFinal.getLocalizacion().y;
-
-        int deltaX = xFinal - xInicio;
-        int deltaY = yFinal - yInicio;
-
-        int direccionX = 0;
-        int direccionY = yFinal > yInicio ? 1 : -1;
-
-        if (xFinal != xInicio) { //se mueve en x
-            if (yFinal != yInicio) { //se mueve en y
-                if (Math.abs(deltaX) != Math.abs(deltaY)) {
-                    return ActionResult.FAIL;
-                } else {
-                    mueveComoAlfil = true;
-                }
-            } else {
-                direccionX = xFinal > xInicio ? 1 : -1;
-                direccionY = 0;
-            }
+        if (Math.abs(deltaY) != Math.abs(deltaX)) {
+            isAlfil = false;
         }
 
-        if (mueveComoAlfil) {
-
+        if (isAlfil) {
             int signoX = deltaX > 0 ? 1 : -1;
             int signoY = deltaY > 0 ? 1 : -1;
 
-            for (int casilla = 1; casilla <= Math.abs(deltaX); casilla++) {
-                if (tablero.getEscaque(xInicio + casilla * signoX, yInicio + casilla * signoY).hasPieza()) {
+            for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
+                if (tablero.getEscaque(inicio.x + escaque * signoX,
+                        inicio.y + escaque * signoY).hasPieza()) {
                     return ActionResult.FAIL;
                 }
             }
             return ActionResult.PASS;
         } else {
+            if (final_.x != inicio.x && final_.y != inicio.y) {
+                return ActionResult.FAIL;
+            }
 
-            boolean isMovimientoVertical = direccionY != 0;
-
-            for (int casilla = 1; casilla <= (isMovimientoVertical ? Math.abs(yInicio - yFinal) : Math.abs(xInicio - xFinal)); casilla++) {
-                if (tablero.getEscaque(xInicio + casilla * direccionX, yInicio + (casilla * direccionY)).hasPieza()) {
-                    return ActionResult.FAIL;
+            if (final_.x != inicio.x) { //se mueve el x
+                int direccion = final_.x > inicio.x ? 1 : -1;
+                for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
+                    if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
+                        return ActionResult.FAIL;
+                    }
+                }
+            } else if (final_.y != inicio.y) { //se mueve en y
+                int direccion = final_.y > inicio.y ? 1 : -1;
+                for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
+                    if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
+                        return ActionResult.FAIL;
+                    }
                 }
             }
             return ActionResult.PASS;
@@ -82,11 +73,11 @@ public class Reina extends PiezaClasica {
 
     @Override
     public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-
-        if (this.getColor().equals(tablero.getEscaque(final_).getColorControlador())) {
+        if (!tablero.getEscaque(final_).hasPieza()) {
             return ActionResult.FAIL;
         }
-        if (tablero.getEscaque(final_).hasPieza()) {
+
+        if (tablero.getEscaque(final_).getPieza().getColor().equals(getColor())) {
             return ActionResult.FAIL;
         }
 
@@ -94,53 +85,44 @@ public class Reina extends PiezaClasica {
             return ActionResult.FAIL;
         }
 
-        boolean mueveComoAlfil = false;
+        boolean isAlfil = true;
 
-        Escaque escaqueInicio = tablero.getEscaque(inicio);
-        Escaque escaqueFinal = tablero.getEscaque(final_);
+        int deltaX = final_.x - inicio.x;
+        int deltaY = final_.y - inicio.y;
 
-        int xInicio = escaqueInicio.getLocalizacion().x;
-        int xFinal = escaqueFinal.getLocalizacion().x;
-        int yInicio = escaqueInicio.getLocalizacion().y;
-        int yFinal = escaqueFinal.getLocalizacion().y;
-
-        int deltaX = xFinal - xInicio;
-        int deltaY = yFinal - yInicio;
-
-        int direccionX = 0;
-        int direccionY = yFinal > yInicio ? 1 : -1;
-
-        if (xFinal != xInicio) { //se mueve en x
-            if (yFinal != yInicio) { //se mueve en y
-                if (Math.abs(deltaX) != Math.abs(deltaY)) {
-                    return ActionResult.FAIL;
-                } else {
-                    mueveComoAlfil = true;
-                }
-            } else {
-                direccionX = xFinal > xInicio ? 1 : -1;
-                direccionY = 0;
-            }
+        if (Math.abs(deltaY) != Math.abs(deltaX)) {
+            isAlfil = false;
         }
 
-        if (mueveComoAlfil) {
-
+        if (isAlfil) {
             int signoX = deltaX > 0 ? 1 : -1;
             int signoY = deltaY > 0 ? 1 : -1;
 
-            for (int casilla = 1; casilla < Math.abs(deltaX); casilla++) {
-                if (tablero.getEscaque(xInicio + casilla * signoX, yInicio + casilla * signoY).hasPieza()) {
+            for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
+                if (tablero.getEscaque(inicio.x + escaque * signoX,
+                        inicio.y + escaque * signoY).hasPieza()) {
                     return ActionResult.FAIL;
                 }
             }
             return ActionResult.PASS;
         } else {
+            if (final_.x != inicio.x && final_.y != inicio.y) {
+                return ActionResult.FAIL;
+            }
 
-            boolean isMovimientoVertical = direccionY != 0;
-
-            for (int casilla = 1; casilla < (isMovimientoVertical ? Math.abs(yInicio - yFinal) : Math.abs(xInicio - xFinal)); casilla++) {
-                if (tablero.getEscaque(xInicio + casilla * direccionX, yInicio + (casilla * direccionY)).hasPieza()) {
-                    return ActionResult.FAIL;
+            if (final_.x != inicio.x) { //se mueve el x
+                int direccion = final_.x > inicio.x ? 1 : -1;
+                for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
+                    if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
+                        return ActionResult.FAIL;
+                    }
+                }
+            } else if (final_.y != inicio.y) { //se mueve en y
+                int direccion = final_.y > inicio.y ? 1 : -1;
+                for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
+                    if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
+                        return ActionResult.FAIL;
+                    }
                 }
             }
             return ActionResult.PASS;
@@ -218,7 +200,6 @@ public class Reina extends PiezaClasica {
                     dy = -1;
                     break;
             }
-            dy = -dy; //para que tenga sentido con el visual
 
             if (xInicio + dx < tablero.columnas && xInicio + dx >= 0) {
                 if (yInicio + dy < tablero.filas && yInicio + dy >= 0) {
@@ -267,7 +248,6 @@ public class Reina extends PiezaClasica {
                     dy = -1;
                     break;
             }
-            dy = -dy; //para que tenga sentido con el visual
 
             tablero.getEscaque(inicio.add(dx, dy)).setPieza(pieza);
             tablero.quitarEntidad(inicio);

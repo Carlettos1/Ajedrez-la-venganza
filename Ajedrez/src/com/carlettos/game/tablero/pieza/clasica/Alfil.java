@@ -58,8 +58,7 @@ public class Alfil extends PiezaClasica {
             return ActionResult.FAIL;
         }
 
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(
-                this.getColor())) {
+        if (tablero.getEscaque(final_).getPieza().getColor().equals(getColor())) {
             return ActionResult.FAIL;
         }
 
