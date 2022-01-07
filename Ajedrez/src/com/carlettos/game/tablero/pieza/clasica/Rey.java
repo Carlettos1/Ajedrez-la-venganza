@@ -70,7 +70,7 @@ public class Rey extends PiezaClasica {
                     "Se teletransporta a cualquier casilla en un rango de 5",
                     0,
                     2,
-                    "Es solo de un solo uso y la casilla debe estar vacía.");
+                    "Debe ser algo de la forma \"dx dy\", con espacio incluido");
         }
 
         @Override
