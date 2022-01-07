@@ -1,6 +1,6 @@
 package com.carlettos.game.core;
 
-import java.awt.Color;
+import com.carlettos.game.tablero.propiedad.Color;
 
 /**
  * TODO: que sea configurable
@@ -36,12 +36,12 @@ public class Constantes {
     /**
      * Primer color de los escaques.
      */
-    public static final Color COLOR1 = Color.BLACK;
+    public static final Color COLOR1 = Color.NEGRO;
 
     /**
      * Segundo color de los escaques.
      */
-    public static final Color COLOR2 = Color.WHITE;
+    public static final Color COLOR2 = Color.BLANCO;
 
     /**
      * Porcentaje que recubren los círculos de indicación.

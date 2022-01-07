@@ -4,7 +4,7 @@ import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Reloj;
 import com.carlettos.game.tablero.manager.Tablero;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 import java.util.Objects;
 
 /**

@@ -2,11 +2,11 @@ package com.carlettos.game.visual;
 
 import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.core.Point;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.Point;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 

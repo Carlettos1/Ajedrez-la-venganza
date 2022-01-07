@@ -3,7 +3,7 @@ package com.carlettos.game.tablero;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,

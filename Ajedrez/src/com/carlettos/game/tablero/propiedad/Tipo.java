@@ -2,10 +2,10 @@ package com.carlettos.game.tablero.propiedad;
 
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.QuadFunction;
+import com.carlettos.game.core.function.QuadFunction;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  * Tipos de piezas que hay. TODO: javadoc

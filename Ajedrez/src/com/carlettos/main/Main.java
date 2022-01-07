@@ -13,7 +13,7 @@ import com.carlettos.game.tablero.pieza.clasica.Torre;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.visual.RelojVisual;
 import com.carlettos.game.visual.TableroVisual;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  *

@@ -1,16 +1,12 @@
 package com.carlettos.game.input;
 
-import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.visual.EscaqueVisual;
 import com.carlettos.game.visual.TableroVisual;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 /**
  * Listener implementation class.

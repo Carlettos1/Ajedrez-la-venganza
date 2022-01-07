@@ -8,7 +8,7 @@ import com.carlettos.game.visual.EscaqueVisual;
 import com.carlettos.game.visual.TableroVisual;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;

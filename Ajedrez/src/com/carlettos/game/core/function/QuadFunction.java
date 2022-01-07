@@ -1,8 +1,10 @@
-package com.carlettos.game.core;
+package com.carlettos.game.core.function;
 
+import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  *

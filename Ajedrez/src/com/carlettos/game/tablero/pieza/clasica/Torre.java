@@ -7,7 +7,7 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

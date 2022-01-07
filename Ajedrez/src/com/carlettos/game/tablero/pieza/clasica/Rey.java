@@ -5,7 +5,7 @@ import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 public class Rey extends PiezaClasica {
 

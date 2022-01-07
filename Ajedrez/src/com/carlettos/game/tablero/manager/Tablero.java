@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.Escaque;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 import java.util.ArrayList;
 import java.util.List;
 

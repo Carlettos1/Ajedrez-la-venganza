@@ -3,7 +3,7 @@ package com.carlettos.game.tablero.propiedad;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  * Es la habilidad de la pieza, contiene toda la información acerca de la

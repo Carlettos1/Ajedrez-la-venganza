@@ -2,7 +2,7 @@ package com.carlettos.game.core;
 
 import com.carlettos.game.tablero.manager.Reloj;
 import com.carlettos.game.tablero.manager.Tablero;
-import java.awt.Point;
+import com.carlettos.game.core.Point;
 
 /**
  * Un evento es algo que va a pasar en n cantidad de turnos, con n >= 1

@@ -41,9 +41,9 @@ public class EscaqueVisual extends Component {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(isPar ? Constantes.COLOR2 : Constantes.COLOR1);
+        g.setColor((isPar ? Constantes.COLOR2 : Constantes.COLOR1).getColor());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(!isPar ? Constantes.COLOR2 : Constantes.COLOR1);
+        g.setColor((!isPar ? Constantes.COLOR2 : Constantes.COLOR1).getColor());
         //TODO: cambiar String por una imagen.
         g.drawString(escaque.getPieza().abreviacion, 2, 20);
         g.drawString(escaque.isEmpty() ? "" : escaque.getPieza().getColor().name(), 2, 30);
