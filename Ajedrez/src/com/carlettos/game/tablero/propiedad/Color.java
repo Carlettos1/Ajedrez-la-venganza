@@ -26,11 +26,11 @@ public enum Color {
         this.colorAWT = java.awt.Color.decode(this.color);
     }
 
-    public java.awt.Color getColor() {
+    public java.awt.Color getAWT() {
         return colorAWT;
     }
 
     public java.awt.Color getColorNegativo() {
-        return new java.awt.Color(255 - this.getColor().getRed(), 255 - this.getColor().getGreen(), 255 - this.getColor().getBlue());
+        return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(), 255 - this.getAWT().getBlue());
     }
 }

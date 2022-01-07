@@ -128,8 +128,10 @@ public abstract class Pieza {
             for (int y = 0; y < tablero.filas; y++) {
                 if (this.can(Accion.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
                     acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.COMER));
-                } else if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
+                } if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
                     acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.MOVER));
+                } if (this.can(Accion.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
+                    acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.ATACAR));
                 }
             }
         }

@@ -10,19 +10,20 @@ import java.awt.event.MouseListener;
 
 /**
  * Listener implementation class.
- * 
+ *
  * @author Carlos
  */
 public class MousePieza implements MouseListener {
+
     private static final MousePieza LISTENER = new MousePieza();
 
-    private MousePieza(){
+    private MousePieza() {
     }
-    
-    public static MousePieza get(){
+
+    public static MousePieza get() {
         return LISTENER;
     }
-    
+
     /**
      * Sirve para marcar el último escaque seleccionado.
      */
@@ -45,7 +46,7 @@ public class MousePieza implements MouseListener {
             Tablero tablero = tv.getTablero();
 
             seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getLocalizacion()).forEach((accion) -> {
-                tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
+                tv.getEscaqueVisual(accion.x).setAccion(accion.y);
             });
         } else {
             EscaqueVisual objetivo = (EscaqueVisual) e.getSource();
@@ -55,15 +56,17 @@ public class MousePieza implements MouseListener {
             Tablero tablero = tv.getTablero();
 
             if (tablero.intentarMoverPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)) {
-                if (tablero.intentarComerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)){
-                    if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
-                        //si cambió de pieza
-                        tv.offAll();
-                        seleccionado = objetivo;
-                        seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion()).forEach((accion) -> {
-                            tv.getEscaqueVisual(accion.x).setHasAccion(true, accion.y.getColor());
-                        });
-                        return;
+                if (tablero.intentarComerPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)) {
+                    if (tablero.intentarAtacarPieza(escaqueSeleccionado.getLocalizacion(), escaqueObjetivo.getLocalizacion()).equals(ActionResult.FAIL)) {
+                        if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
+                            //si cambió de pieza
+                            tv.offAll();
+                            seleccionado = objetivo;
+                            seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getLocalizacion()).forEach((accion) -> {
+                                tv.getEscaqueVisual(accion.x).setAccion(accion.y);
+                            });
+                            return;
+                        }
                     }
                 }
             }

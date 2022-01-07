@@ -14,7 +14,7 @@ public class Reina extends PiezaClasica {
     public static final Habilidad<Reina> HABILIDAD_REINA = new HabilidadReina<Reina>();
 
     public Reina(Color color) {
-        super("Reina", "R", HABILIDAD_REINA, color, Tipo.BIOLOGICA);
+        super("Reina", "R", HABILIDAD_REINA, color, Tipo.BIOLOGICA, Tipo.HEROICA);
     }
 
     @Override

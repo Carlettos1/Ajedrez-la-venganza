@@ -47,4 +47,14 @@ public class Constantes {
      * Porcentaje que recubren los círculos de indicación.
      */
     public static final double PORCENTAJE = 0.3;
+    
+    /**
+     * Porcentaje chico que recubren los círculos de indicación.
+     */
+    public static final double PORCENTAJE_PEQUEÑO = 0.25;
+    
+    /**
+     * Porcentaje chico que recubren los círculos de indicación.
+     */
+    public static final double PORCENTAJE_PEQUEÑITO = 0.2;
 }

@@ -55,9 +55,7 @@ public class Tablero {
      * @param y1 coordenada y del punto de la pieza que come.
      * @param x2 coordenada x del punto de la pieza que es comida.
      * @param y2 coordenada y del punto de la pieza que es comida.
-     *
-     * @return un Par, conteniendo el resultado de la acción y un String con
-     * información extra.
+     * @return ActionResult diciendo el resultado.
      */
     public ActionResult comerPieza(int x1, int y1, int x2, int y2) {
         return intentarComerPieza(new Point(x1, y1), new Point(x2, y2));
@@ -68,9 +66,7 @@ public class Tablero {
      *
      * @param inicio posición de la pieza que come.
      * @param final_ posición de la pieza que es comida.
-     *
-     * @return un Par, conteniendo el resultado de la acción y un String con
-     * información extra.
+     * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarComerPieza(Point inicio, Point final_) {
         Escaque escaqueInicio = this.getEscaque(inicio);
@@ -93,9 +89,7 @@ public class Tablero {
      * @param y1 coordenada y del punto de la pieza.
      * @param x2 coordenada x del punto al que la pieza se mueve.
      * @param y2 coordenada y del punto al que la pieza se mueve.
-     *
-     * @return un Par, conteniendo el resultado de la acción y un String con
-     * información extra.
+     * @return ActionResult diciendo el resultado.
      */
     public ActionResult moverPieza(int x1, int y1, int x2, int y2) {
         return intentarMoverPieza(new Point(x1, y1), new Point(x2, y2));
@@ -106,9 +100,7 @@ public class Tablero {
      *
      * @param inicio posición de la pieza.
      * @param final_ posición al que la pieza se mueve.
-     *
-     * @return un Par, conteniendo el resultado de la acción y un String con
-     * información extra.
+     * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarMoverPieza(Point inicio, Point final_) {
         Escaque escaqueInicio = this.getEscaque(inicio);
@@ -118,6 +110,26 @@ public class Tablero {
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
+            return ActionResult.PASS;
+        } else {
+            return ActionResult.FAIL;
+        }
+    }
+
+    /**
+     * Ataca a la pieza en la posición final_.
+     *
+     * @param inicio posición de la pieza.
+     * @param final_ posición al que la ataca.
+     * @return ActionResult diciendo el resultado.
+     */
+    public ActionResult intentarAtacarPieza(Point inicio, Point final_) {
+        Escaque escaqueInicio = this.getEscaque(inicio);
+        Escaque escaqueFinal = this.getEscaque(final_);
+
+        boolean can = escaqueInicio.getPieza().can(Accion.ATACAR, this, inicio, final_).isPositive();
+        if (can) {
+            escaqueFinal.quitarPieza();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;

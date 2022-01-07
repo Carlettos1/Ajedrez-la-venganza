@@ -30,7 +30,7 @@ public class CartaVisual extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(color.getColor());
+        g.setColor(color.getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(color.getColorNegativo());
         g.drawString(carta.getNombre(), 2, 20);

@@ -15,6 +15,7 @@ import com.carlettos.game.visual.RelojVisual;
 import com.carlettos.game.visual.TableroVisual;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.clasica.Reina;
+import com.carlettos.game.tablero.pieza.nuevas.Cañon;
 
 /**
  *
@@ -53,6 +54,8 @@ public class Main {
         
         tablero.getEscaque(0, 0).setPieza(new Reina(Color.NEGRO));
         tablero.getEscaque(15, 16).setPieza(new Reina(Color.BLANCO));
+        
+        tablero.getEscaque(14, 16).setPieza(new Cañon(Color.BLANCO));
         
         negras.getMano().addCarta(new InvocarCaballo());
         negras.getMano().addCarta(new InvocarCaballo());

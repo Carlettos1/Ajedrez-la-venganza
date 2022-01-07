@@ -15,54 +15,29 @@ import com.carlettos.game.core.Point;
 public enum Tipo {
 
     /**
-     *
+     * 
      */
     BIOLOGICA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
-     *
+     * 
      */
     ESTRUCTURA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
-     *
+     * Las piezas inmunes no reciben daño de ciertos ataques
      */
     INMUNE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
-     *
-     */
-    DEMONIO(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     *
+     * Las piezas heroicas
      */
     HEROICA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
-     *
+     * Las Piezas transportables pueden ser utilizadas en la catapulta.
      */
-    GIGANTE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     *
-     */
-    PEQUEÑA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     *
-     */
-    TRANSPORTABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     *
-     */
-    IMPENETRABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     *
-     */
-    INTRASPASABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
+    TRANSPORTABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
     
     private final QuadFunction<ActionResult> can;
     private final QuadFunction<ActionResult> on;

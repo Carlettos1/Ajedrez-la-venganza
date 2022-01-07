@@ -13,7 +13,7 @@ public class Rey extends PiezaClasica {
     public static final Habilidad<Rey> HABILIDAD_REY = new HabilidadRey<>();
 
     public Rey(Color color) {
-        super("Rey", "RE", HABILIDAD_REY, color, Tipo.BIOLOGICA, Tipo.INMUNE);
+        super("Rey", "RE", HABILIDAD_REY, color, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
         this.seHaTeletransportado = false;
     }
 
