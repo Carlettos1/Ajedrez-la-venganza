@@ -1,20 +1,8 @@
-/Ajedrez Local/nbproject/private/
-/Ajedrez Local/build/
-/Ajedrez Local/dist/
 /Ajedrez/nbproject/private/
-Planes/Pagina 1.png
-Planes/Pagina 2.png
-Planes/Pagina 3.png
-Planes/Pagina 4.png
-Planes/Pagina 5.png
-Planes/Pagina 6.png
-Planes/Pagina 7.png
-Planes/Thumbs.db
+/Ajedrez/build/
+Ajedrez/build.xml
+Ajedrez/manifest.mf
 Ajedrez/nbproject/build-impl.xml
 Ajedrez/nbproject/genfiles.properties
 Ajedrez/nbproject/project.properties
 Ajedrez/nbproject/project.xml
-Ajedrez/build.xml
-Ajedrez/manifest.mf
-Ajedrez Local/manifest.mf
-/Ajedrez/build/

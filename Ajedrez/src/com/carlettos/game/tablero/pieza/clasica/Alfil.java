@@ -9,80 +9,19 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronAlfil;
 import java.util.List;
 
 /**
  *
  * @author Carlos
  */
-public class Alfil extends PiezaClasica {
+public class Alfil extends PiezaClasica implements PatronAlfil{
 
     public static final Habilidad<Alfil> HABILIDAD_ALFIL = new HabilidadAlfil<>();
 
     public Alfil(Color color) {
         super("Alfil", "A", HABILIDAD_ALFIL, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
-    }
-
-    @Override
-    protected ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-
-        if (Math.abs(deltaY) != Math.abs(deltaX)) {
-            return ActionResult.FAIL;
-        }
-
-        int signoX = deltaX > 0 ? 1 : -1;
-        int signoY = deltaY > 0 ? 1 : -1;
-
-        for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
-            if (tablero.getEscaque(inicio.x + escaque * signoX,
-                    inicio.y + escaque * signoY).hasPieza()) {
-                return ActionResult.FAIL;
-            }
-        }
-        return ActionResult.PASS;
-    }
-
-    @Override
-    protected ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(getColor())) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-
-        if (Math.abs(deltaY) != Math.abs(deltaX)) {
-            return ActionResult.FAIL;
-        }
-
-        int signoX = deltaX > 0 ? 1 : -1;
-        int signoY = deltaY > 0 ? 1 : -1;
-
-        for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
-            if (tablero.getEscaque(inicio.x + escaque * signoX,
-                    inicio.y + escaque * signoY).hasPieza()) {
-                return ActionResult.FAIL;
-            }
-        }
-        return ActionResult.PASS;
     }
 
     @Override
@@ -130,20 +69,13 @@ public class Alfil extends PiezaClasica {
             boolean verificacion;
 
             switch (informacionExtra) {
-                case "N":
-                    verificacion = !tablero.getEscaque(inicio.x, inicio.y + 1).hasPieza();
-                    break;
-                case "E":
-                    verificacion = !tablero.getEscaque(inicio.x + 1, inicio.y).hasPieza();
-                    break;
-                case "S":
-                    verificacion = !tablero.getEscaque(inicio.x, inicio.y - 1).hasPieza();
-                    break;
-                case "W":
-                    verificacion = !tablero.getEscaque(inicio.x - 1, inicio.y).hasPieza();
-                    break;
-                default:
-                    return ActionResult.FAIL;
+                case "N" -> verificacion = !tablero.getEscaque(inicio.x, inicio.y + 1).hasPieza();
+                case "E" -> verificacion = !tablero.getEscaque(inicio.x + 1, inicio.y).hasPieza();
+                case "S" -> verificacion = !tablero.getEscaque(inicio.x, inicio.y - 1).hasPieza();
+                case "W" -> verificacion = !tablero.getEscaque(inicio.x - 1, inicio.y).hasPieza();
+                default -> {
+                        return ActionResult.FAIL;
+                }
             }
             return verificacion ? ActionResult.PASS : ActionResult.FAIL;
         }
@@ -151,22 +83,22 @@ public class Alfil extends PiezaClasica {
         @Override
         public void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
             switch (informacionExtra) {
-                case "N":
+                case "N" -> {
                     tablero.getEscaque(inicio.x, inicio.y + 1).setPieza(pieza);
                     tablero.getEscaque(inicio).quitarPieza();
-                    break;
-                case "E":
+                }
+                case "E" -> {
                     tablero.getEscaque(inicio.x + 1, inicio.y).setPieza(pieza);
                     tablero.getEscaque(inicio).quitarPieza();
-                    break;
-                case "S":
+                }
+                case "S" -> {
                     tablero.getEscaque(inicio.x, inicio.y - 1).setPieza(pieza);
                     tablero.getEscaque(inicio).quitarPieza();
-                    break;
-                case "W":
+                }
+                case "W" -> {
                     tablero.getEscaque(inicio.x - 1, inicio.y).setPieza(pieza);
                     tablero.getEscaque(inicio).quitarPieza();
-                    break;
+                }
             }
             //TODO: cambiar cd
         }

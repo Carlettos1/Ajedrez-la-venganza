@@ -7,129 +7,16 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.Escaque;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronReina;
 
-public class Reina extends PiezaClasica {
+public class Reina extends PiezaClasica implements PatronReina{
 
-    public static final Habilidad<Reina> HABILIDAD_REINA = new HabilidadReina<Reina>();
+    public static final Habilidad<Reina> HABILIDAD_REINA = new HabilidadReina<>();
 
     public Reina(Color color) {
         super("Reina", "R", HABILIDAD_REINA, color, Tipo.BIOLOGICA, Tipo.HEROICA);
     }
 
-    @Override
-    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (this.seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        boolean isAlfil = true;
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-
-        if (Math.abs(deltaY) != Math.abs(deltaX)) {
-            isAlfil = false;
-        }
-
-        if (isAlfil) {
-            int signoX = deltaX > 0 ? 1 : -1;
-            int signoY = deltaY > 0 ? 1 : -1;
-
-            for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
-                if (tablero.getEscaque(inicio.x + escaque * signoX,
-                        inicio.y + escaque * signoY).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-            return ActionResult.PASS;
-        } else {
-            if (final_.x != inicio.x && final_.y != inicio.y) {
-                return ActionResult.FAIL;
-            }
-
-            if (final_.x != inicio.x) { //se mueve el x
-                int direccion = final_.x > inicio.x ? 1 : -1;
-                for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                    if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
-                        return ActionResult.FAIL;
-                    }
-                }
-            } else if (final_.y != inicio.y) { //se mueve en y
-                int direccion = final_.y > inicio.y ? 1 : -1;
-                for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                    if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
-                        return ActionResult.FAIL;
-                    }
-                }
-            }
-            return ActionResult.PASS;
-        }
-    }
-
-    @Override
-    public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(getColor())) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        boolean isAlfil = true;
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-
-        if (Math.abs(deltaY) != Math.abs(deltaX)) {
-            isAlfil = false;
-        }
-
-        if (isAlfil) {
-            int signoX = deltaX > 0 ? 1 : -1;
-            int signoY = deltaY > 0 ? 1 : -1;
-
-            for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
-                if (tablero.getEscaque(inicio.x + escaque * signoX,
-                        inicio.y + escaque * signoY).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-            return ActionResult.PASS;
-        } else {
-            if (final_.x != inicio.x && final_.y != inicio.y) {
-                return ActionResult.FAIL;
-            }
-
-            if (final_.x != inicio.x) { //se mueve el x
-                int direccion = final_.x > inicio.x ? 1 : -1;
-                for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                    if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
-                        return ActionResult.FAIL;
-                    }
-                }
-            } else if (final_.y != inicio.y) { //se mueve en y
-                int direccion = final_.y > inicio.y ? 1 : -1;
-                for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                    if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
-                        return ActionResult.FAIL;
-                    }
-                }
-            }
-            return ActionResult.PASS;
-        }
-    }
-
-    //TODO: habilidad reina
     public static class HabilidadReina<P extends Pieza> extends Habilidad<P> {
 
         public HabilidadReina() {
@@ -167,38 +54,38 @@ public class Reina extends PiezaClasica {
             int dy = 0;
 
             switch (informacionExtra) {
-                case "1 2":
+                case "1 2" -> {
                     dx = 1;
                     dy = 2;
-                    break;
-                case "2 1":
+                }
+                case "2 1" -> {
                     dx = 2;
                     dy = 1;
-                    break;
-                case "-1 2":
+                }
+                case "-1 2" -> {
                     dx = -1;
                     dy = 2;
-                    break;
-                case "-2 1":
+                }
+                case "-2 1" -> {
                     dx = -2;
                     dy = 1;
-                    break;
-                case "-1 -2":
+                }
+                case "-1 -2" -> {
                     dx = -1;
                     dy = -2;
-                    break;
-                case "-2 -1":
+                }
+                case "-2 -1" -> {
                     dx = -2;
                     dy = -1;
-                    break;
-                case "1 -2":
+                }
+                case "1 -2" -> {
                     dx = 1;
                     dy = -2;
-                    break;
-                case "2 -1":
+                }
+                case "2 -1" -> {
                     dx = 2;
                     dy = -1;
-                    break;
+                }
             }
 
             if (xInicio + dx < tablero.columnas && xInicio + dx >= 0) {
@@ -215,38 +102,38 @@ public class Reina extends PiezaClasica {
             int dy = 0;
 
             switch (informacionExtra) {
-                case "1 2":
+                case "1 2" -> {
                     dx = 1;
                     dy = 2;
-                    break;
-                case "2 1":
+                }
+                case "2 1" -> {
                     dx = 2;
                     dy = 1;
-                    break;
-                case "-1 2":
+                }
+                case "-1 2" -> {
                     dx = -1;
                     dy = 2;
-                    break;
-                case "-2 1":
+                }
+                case "-2 1" -> {
                     dx = -2;
                     dy = 1;
-                    break;
-                case "-1 -2":
+                }
+                case "-1 -2" -> {
                     dx = -1;
                     dy = -2;
-                    break;
-                case "-2 -1":
+                }
+                case "-2 -1" -> {
                     dx = -2;
                     dy = -1;
-                    break;
-                case "1 -2":
+                }
+                case "1 -2" -> {
                     dx = 1;
                     dy = -2;
-                    break;
-                case "2 -1":
+                }
+                case "2 -1" -> {
                     dx = 2;
                     dy = -1;
-                    break;
+                }
             }
 
             tablero.getEscaque(inicio.add(dx, dy)).setPieza(pieza);

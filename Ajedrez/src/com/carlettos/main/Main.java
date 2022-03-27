@@ -15,7 +15,7 @@ import com.carlettos.game.visual.RelojVisual;
 import com.carlettos.game.visual.TableroVisual;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.clasica.Reina;
-import com.carlettos.game.tablero.pieza.nuevas.Cañon;
+import com.carlettos.game.tablero.pieza.nueva.Cañon;
 
 /**
  *

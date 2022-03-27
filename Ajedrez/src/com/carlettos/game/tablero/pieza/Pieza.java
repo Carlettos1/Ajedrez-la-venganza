@@ -96,7 +96,7 @@ public abstract class Pieza {
      * Actualización a sistema de acciones, se debe contemplar si la pieza puede
      * comer, mover o atacar. La habilidad lo ve la habilidad de la pieza.
      *
-     * @param accion Accion a ejecutar.
+     * @param accion Accion a ejecutar, no incluye habilidad.
      * @param tablero TableroManager del juego.
      * @param inicio Point de la pieza seleccionada.
      * @param final_ Point del Escaque hacia dónde se mueve.

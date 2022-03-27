@@ -6,61 +6,17 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronRey;
 
-public class Rey extends PiezaClasica {
+public class Rey extends PiezaClasica implements PatronRey{
 
+    //TODO: que no se muera después de comer o moverse
     protected boolean seHaTeletransportado;
     public static final Habilidad<Rey> HABILIDAD_REY = new HabilidadRey<>();
 
     public Rey(Color color) {
         super("Rey", "RE", HABILIDAD_REY, color, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
         this.seHaTeletransportado = false;
-    }
-
-    @Override
-    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        if (Math.abs(inicio.x - final_.x) > 1) {
-            return ActionResult.FAIL;
-        }
-        if (Math.abs(inicio.y - final_.y) > 1) {
-            return ActionResult.FAIL;
-        }
-
-        //TODO: que nada se lo pueda comer ¿? y verificar jaques
-        return ActionResult.PASS;
-    }
-
-    @Override
-    public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(getColor())) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        if (Math.abs(inicio.x - final_.x) > 1) {
-            return ActionResult.FAIL;
-        }
-        if (Math.abs(inicio.y - final_.y) > 1) {
-            return ActionResult.FAIL;
-        }
-
-        //TODO: que nada se lo pueda comer ¿? y verificar jaques
-        return ActionResult.PASS;
     }
 
     public static class HabilidadRey<P extends Rey> extends Habilidad<P> {

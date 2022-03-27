@@ -7,53 +7,14 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronCaballo;
 
-public class Caballo extends PiezaClasica {
+public class Caballo extends PiezaClasica implements PatronCaballo{
 
     public static final Habilidad<Caballo> HABILIDAD_CABALLO = new HabilidadCaballo<>();
 
     public Caballo(Color color) {
         super("Caballo", "C", HABILIDAD_CABALLO, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
-    }
-
-    @Override
-    protected ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-        deltaX = Math.abs(deltaX);
-        deltaY = Math.abs(deltaY);
-
-        boolean can = (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
-        return can ? ActionResult.PASS : ActionResult.FAIL;
-    }
-
-    @Override
-    protected ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(this.getColor())) {
-            return ActionResult.FAIL;
-        }
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
-        deltaX = Math.abs(deltaX);
-        deltaY = Math.abs(deltaY);
-
-        boolean can = (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
-        return can ? ActionResult.PASS : ActionResult.FAIL;
     }
 
     public static class HabilidadCaballo<P extends Pieza> extends Habilidad<P> {

@@ -8,84 +8,17 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronTorre;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Torre extends PiezaClasica {
+public class Torre extends PiezaClasica implements PatronTorre{
 
     public static final Habilidad<Torre> HABILIDAD_TORRE = new HabilidadTorre<>();
 
     public Torre(Color color) {
         super("Torre", "T", HABILIDAD_TORRE, color, Tipo.ESTRUCTURA);
-    }
-
-    @Override
-    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        if (final_.x != inicio.x && final_.y != inicio.y) {
-            return ActionResult.FAIL;
-        }
-
-        if (final_.x != inicio.x) { //se mueve el x
-            int direccion = final_.x > inicio.x ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-        } else if (final_.y != inicio.y) { //se mueve en y
-            int direccion = final_.y > inicio.y ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-        }
-        return ActionResult.PASS;
-    }
-
-    @Override
-    public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (getColor().equals(tablero.getEscaque(final_).getPieza().getColor())) {
-            return ActionResult.FAIL;
-        }
-
-        if (!tablero.getEscaque(final_).hasPieza()) {
-            return ActionResult.FAIL;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return ActionResult.FAIL;
-        }
-
-        if (final_.x != inicio.x && final_.y != inicio.y) {
-            return ActionResult.FAIL;
-        }
-
-        if (final_.x != inicio.x) { //se mueve el x
-            int direccion = final_.x > inicio.x ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-        } else if (final_.y != inicio.y) { //se mueve en y
-            int direccion = final_.y > inicio.y ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
-                    return ActionResult.FAIL;
-                }
-            }
-        }
-        return ActionResult.PASS;
     }
 
     public static class HabilidadTorre<P extends Pieza> extends Habilidad<P> {

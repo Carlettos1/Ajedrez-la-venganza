@@ -9,6 +9,11 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.Patron;
+import com.carlettos.game.tablero.pieza.patron.accion.IComer;
+import com.carlettos.game.tablero.pieza.patron.accion.IMover;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonComer;
+import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonMover;
 import java.util.List;
 
 /**
@@ -18,84 +23,36 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Peon extends PiezaClasica {
+public class Peon extends PiezaClasica implements IComer, IMover{
 
     /**
      * la habilidad default del peón, de utilidad por si necesita usarse en
      * otras piezas.
      */
     public static final Habilidad<Peon> HABILIDAD_PEON = new HabilidadPeon<>();
+    public final Patron COMER;
+    public final Patron MOVER;
 
     public Peon(Color color) {
         super("Peón", "P", HABILIDAD_PEON, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
+        COMER = (PatronPeonComer) () -> color;
+        MOVER = (PatronPeonMover) () -> color;
     }
 
     @Override
     public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (getColor().equals(Color.BLANCO)) {
-            Point puntoSiguiente = new Point(inicio.x, inicio.y + 1);
-            Point puntoSubSiguiente = new Point(inicio.x, inicio.y + 2);
-            
-            if (final_.equals(puntoSiguiente)) {
-                boolean can = !tablero.getEscaque(puntoSiguiente).hasPieza();
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-                
-            } else if (final_.equals(puntoSubSiguiente)) {
-                boolean can = !tablero.getEscaque(puntoSiguiente).hasPieza()
-                        && !tablero.getEscaque(puntoSubSiguiente).hasPieza();
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-            }
-        } else if (getColor().equals(Color.NEGRO)) {
-            Point puntoAnterior = new Point(inicio.x, inicio.y - 1);
-            Point puntoAnteAnterior = new Point(inicio.x, inicio.y - 2);
-            
-            if (final_.equals(puntoAnterior)) {
-                boolean can = !tablero.getEscaque(puntoAnterior).hasPieza();
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-                
-            } else if (final_.equals(puntoAnteAnterior)) {
-                boolean can = !tablero.getEscaque(puntoAnterior).hasPieza()
-                        && !tablero.getEscaque(puntoAnteAnterior).hasPieza();
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-            }
+        if (!this.checkMoverCondition(tablero, inicio, final_)) {
+            return ActionResult.FAIL;
         }
-        //TODO: mover de otros colores
-        return ActionResult.FAIL;
+        return ActionResult.fromBoolean(MOVER.checkPatron(tablero, inicio, final_));
     }
 
     @Override
     public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (getColor().equals(Color.BLANCO)) {
-            Point punto1 = new Point(inicio.x + 1, inicio.y + 1);
-            Point punto2 = new Point(inicio.x - 1, inicio.y + 1);
-            
-            if (final_.equals(punto1)) {
-                boolean can = tablero.getEscaque(punto1).hasPieza()
-                        && !tablero.getEscaque(punto1).getPieza().getColor().equals(getColor());
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-                
-            } else if (final_.equals(punto2)) {
-                boolean can = tablero.getEscaque(punto2).hasPieza()
-                        && !tablero.getEscaque(punto2).getPieza().getColor().equals(getColor());
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-            }
-        } else if (getColor().equals(Color.NEGRO)) {
-            Point punto1 = new Point(inicio.x + 1, inicio.y - 1);
-            Point punto2 = new Point(inicio.x - 1, inicio.y - 1);
-            
-            if (final_.equals(punto1)) {
-                boolean can = tablero.getEscaque(punto1).hasPieza()
-                        && !tablero.getEscaque(punto1).getPieza().getColor().equals(getColor());
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-                
-            } else if (final_.equals(punto2)) {
-                boolean can = tablero.getEscaque(punto2).hasPieza()
-                        && !tablero.getEscaque(punto2).getPieza().getColor().equals(getColor());
-                return can ? ActionResult.PASS : ActionResult.FAIL;
-            }
+        if (!this.checkComerCondition(tablero, inicio, final_)) {
+            return ActionResult.FAIL;
         }
-        //TODO: comer de otros colores
-        return ActionResult.FAIL;
+        return ActionResult.fromBoolean(COMER.checkPatron(tablero, inicio, final_));
     }
 
     @Override
@@ -106,6 +63,12 @@ public class Peon extends PiezaClasica {
             myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
         }
         return myc;
+    }
+
+    @Override
+    @Deprecated
+    public boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
+        return true; // UNUSED
     }
 
     public static class HabilidadPeon<P extends Pieza> extends Habilidad<P> {
