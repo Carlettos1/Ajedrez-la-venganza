@@ -25,4 +25,8 @@ public enum ActionResult {
     public static ActionResult max(ActionResult ar1, ActionResult ar2){
         return ar1.ordinal() > ar2.ordinal() ? ar1 : ar2;
     }
+    
+    public static ActionResult fromBoolean(boolean bool){
+        return bool ? PASS : FAIL;
+    }
 }
