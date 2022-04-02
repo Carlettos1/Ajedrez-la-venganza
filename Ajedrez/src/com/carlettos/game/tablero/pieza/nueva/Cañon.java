@@ -6,7 +6,6 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
-import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IAtacar;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronCañonAtacar;
