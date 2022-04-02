@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Torre extends PiezaClasica implements PatronTorre{
+public class Torre extends PiezaSimple<PatronTorre> {
 
     public static final Habilidad<Torre> HABILIDAD_TORRE = new HabilidadTorre<>();
 
     public Torre(Color color) {
-        super("Torre", "T", HABILIDAD_TORRE, color, Tipo.ESTRUCTURA);
+        super("Torre", "T", HABILIDAD_TORRE, color, new PatronTorre(){}, Tipo.ESTRUCTURA);
     }
 
     public static class HabilidadTorre<P extends Pieza> extends Habilidad<P> {

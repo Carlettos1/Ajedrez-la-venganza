@@ -23,36 +23,32 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Peon extends PiezaClasica implements IComer, IMover{
+public class Peon extends Pieza implements IComer<PatronPeonComer>, IMover<PatronPeonMover> {
 
     /**
      * la habilidad default del peón, de utilidad por si necesita usarse en
      * otras piezas.
      */
     public static final Habilidad<Peon> HABILIDAD_PEON = new HabilidadPeon<>();
-    public final Patron COMER;
-    public final Patron MOVER;
+    protected final PatronPeonComer patronComer;
+    protected final PatronPeonMover patronMover;
 
     public Peon(Color color) {
         super("Peón", "P", HABILIDAD_PEON, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
-        COMER = (PatronPeonComer) () -> color;
-        MOVER = (PatronPeonMover) () -> color;
+        patronComer = (PatronPeonComer) () -> color;
+        patronMover = (PatronPeonMover) () -> color;
     }
 
     @Override
-    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        if (!this.checkMoverCondition(tablero, inicio, final_)) {
-            return ActionResult.FAIL;
-        }
-        return ActionResult.fromBoolean(MOVER.checkPatron(tablero, inicio, final_));
-    }
-
-    @Override
-    public ActionResult canComer(Tablero tablero, Point inicio, Point final_) {
-        if (!this.checkComerCondition(tablero, inicio, final_)) {
-            return ActionResult.FAIL;
-        }
-        return ActionResult.fromBoolean(COMER.checkPatron(tablero, inicio, final_));
+    public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
+        return switch (accion) {
+            case MOVER ->
+                this.canMover(tablero, inicio, final_, patronMover);
+            case COMER ->
+                this.canComer(tablero, inicio, final_, patronComer);
+            default ->
+                ActionResult.FAIL;
+        };
     }
 
     @Override
@@ -63,12 +59,6 @@ public class Peon extends PiezaClasica implements IComer, IMover{
             myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
         }
         return myc;
-    }
-
-    @Override
-    @Deprecated
-    public boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
-        return true; // UNUSED
     }
 
     public static class HabilidadPeon<P extends Pieza> extends Habilidad<P> {

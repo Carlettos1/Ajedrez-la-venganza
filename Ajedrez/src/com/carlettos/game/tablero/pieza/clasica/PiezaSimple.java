@@ -8,6 +8,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 
@@ -15,10 +16,12 @@ import com.carlettos.game.tablero.pieza.patron.accion.IMover;
  *
  * @author Carlos
  */
-public abstract class PiezaClasica extends Pieza implements IComer, IMover{
+public abstract class PiezaSimple<P extends Patron> extends Pieza implements IComer<P>, IMover<P>{
+    protected final P patron;
 
-    public PiezaClasica(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
+    public PiezaSimple(String nombre, String abreviacion, Habilidad habilidad, Color color, P patron, Tipo... tipos) {
         super(nombre, abreviacion, habilidad, color, tipos);
+        this.patron = patron;
     }
 
     /**
@@ -27,8 +30,8 @@ public abstract class PiezaClasica extends Pieza implements IComer, IMover{
     @Override
     public final ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
         return switch (accion) {
-            case COMER -> this.canComer(tablero, inicio, final_);
-            case MOVER -> this.canMover(tablero, inicio, final_);
+            case COMER -> this.canComer(tablero, inicio, final_, patron);
+            case MOVER -> this.canMover(tablero, inicio, final_, patron);
             default -> ActionResult.FAIL;
         };
     }

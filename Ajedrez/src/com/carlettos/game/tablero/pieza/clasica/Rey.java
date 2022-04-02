@@ -8,14 +8,14 @@ import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronRey;
 
-public class Rey extends PiezaClasica implements PatronRey{
+public class Rey extends PiezaSimple<PatronRey> {
 
     //TODO: que no se muera después de comer o moverse
     protected boolean seHaTeletransportado;
     public static final Habilidad<Rey> HABILIDAD_REY = new HabilidadRey<>();
 
     public Rey(Color color) {
-        super("Rey", "RE", HABILIDAD_REY, color, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
+        super("Rey", "RE", HABILIDAD_REY, color, new PatronRey(){}, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
         this.seHaTeletransportado = false;
     }
 

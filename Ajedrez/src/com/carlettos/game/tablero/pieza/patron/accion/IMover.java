@@ -9,7 +9,7 @@ import com.carlettos.game.tablero.pieza.patron.Patron;
  *
  * @author Carlettos
  */
-public interface IMover extends Patron {
+public interface IMover<P extends Patron> {
 
     /**
      *
@@ -19,11 +19,11 @@ public interface IMover extends Patron {
      * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL},
      * dependiendo del caso.
      */
-    public default ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
+    public default ActionResult canMover(Tablero tablero, Point inicio, Point final_, P patron) {
         if (!this.checkMoverCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
-        return ActionResult.fromBoolean(this.checkPatron(tablero, inicio, final_));
+        return ActionResult.fromBoolean(patron.checkPatron(tablero, inicio, final_));
     }
 
     /**

@@ -9,7 +9,7 @@ import com.carlettos.game.tablero.pieza.patron.Patron;
  *
  * @author Carlettos
  */
-public interface IAtacar extends Patron {
+public interface IAtacar<P extends Patron> {
 
     /**
      * 
@@ -19,11 +19,11 @@ public interface IAtacar extends Patron {
      * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL}, 
      * dependiendo del caso.
      */
-    public default ActionResult canAtacar(Tablero tablero, Point inicio, Point final_){
+    public default ActionResult canAtacar(Tablero tablero, Point inicio, Point final_, P patron){
         if (!this.checkAtacarCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
-        return ActionResult.fromBoolean(this.checkPatron(tablero, inicio, final_));
+        return ActionResult.fromBoolean(patron.checkPatron(tablero, inicio, final_));
     }
     /**
      * Comprueba que pueda atacar, sin fijarse en un patron.

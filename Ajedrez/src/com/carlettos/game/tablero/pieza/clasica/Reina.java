@@ -9,12 +9,12 @@ import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronReina;
 
-public class Reina extends PiezaClasica implements PatronReina{
+public class Reina extends PiezaSimple<PatronReina> {
 
     public static final Habilidad<Reina> HABILIDAD_REINA = new HabilidadReina<>();
 
     public Reina(Color color) {
-        super("Reina", "R", HABILIDAD_REINA, color, Tipo.BIOLOGICA, Tipo.HEROICA);
+        super("Reina", "R", HABILIDAD_REINA, color, new PatronReina(){}, Tipo.BIOLOGICA, Tipo.HEROICA);
     }
 
     public static class HabilidadReina<P extends Pieza> extends Habilidad<P> {

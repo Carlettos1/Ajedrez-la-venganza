@@ -18,40 +18,23 @@ import com.carlettos.game.tablero.propiedad.Tipo;
  *
  * @author Carlos
  */
-public class Cañon extends Pieza implements IAtacar, IMover {
+public class Cañon extends Pieza implements IAtacar<PatronCañonAtacar>, IMover<PatronEstructuraMover> {
 
-    public final Patron ATACAR;
-    public final Patron MOVER;
+    protected final PatronCañonAtacar patronAtacar;
+    protected final PatronEstructuraMover patronMover;
 
     public Cañon(Color color) {
         super("Cañón", "CAÑ", Vacia.NO_HABILIDAD, color, Tipo.ESTRUCTURA);
-        ATACAR = new PatronCañonAtacar() {};
-        MOVER = new PatronEstructuraMover() {};
+        patronAtacar = new PatronCañonAtacar() {};
+        patronMover = new PatronEstructuraMover() {};
     }
 
     @Override
     public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
         return switch (accion) {
-            case ATACAR -> this.canAtacar(tablero, inicio, final_);
-            case MOVER -> this.canMover(tablero, inicio, final_);
+            case ATACAR -> this.canAtacar(tablero, inicio, final_, patronAtacar);
+            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             default -> ActionResult.FAIL;
         };
-    }
-
-    @Override
-    public ActionResult canMover(Tablero tablero, Point inicio, Point final_) {
-        return IMover.super.canMover(tablero, inicio, final_).isPositive()
-                ? ActionResult.fromBoolean(MOVER.checkPatron(tablero, inicio, final_)) : ActionResult.FAIL;
-    }
-
-    @Override
-    public ActionResult canAtacar(Tablero tablero, Point inicio, Point final_) {
-        return IAtacar.super.canAtacar(tablero, inicio, final_).isPositive()
-                ? ActionResult.fromBoolean(ATACAR.checkPatron(tablero, inicio, final_)) : ActionResult.FAIL;
-    }
-
-    @Override
-    public boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
-        return true;
     }
 }

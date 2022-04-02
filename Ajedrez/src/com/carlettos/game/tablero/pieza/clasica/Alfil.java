@@ -16,12 +16,12 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Alfil extends PiezaClasica implements PatronAlfil{
+public class Alfil extends PiezaSimple<PatronAlfil>{
 
     public static final Habilidad<Alfil> HABILIDAD_ALFIL = new HabilidadAlfil<>();
 
     public Alfil(Color color) {
-        super("Alfil", "A", HABILIDAD_ALFIL, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
+        super("Alfil", "A", HABILIDAD_ALFIL, color, new PatronAlfil(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
     }
 
     @Override
