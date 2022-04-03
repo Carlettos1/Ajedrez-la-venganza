@@ -37,7 +37,12 @@ public enum Tipo {
     /**
      * Las Piezas transportables pueden ser utilizadas en la catapulta.
      */
-    TRANSPORTABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
+    TRANSPORTABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
+
+    /**
+     * Las Piezas transportables pueden ser utilizadas en la catapulta.
+     */
+    DEMONIACA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
     
     private final QuadFunction<ActionResult> can;
     private final QuadFunction<ActionResult> on;

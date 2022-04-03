@@ -2,7 +2,7 @@ package com.carlettos.game.util;
 
 /**
  *
- * @author Ususario
+ * @author Carlettos
  */
 public final class MathHelper {
     private MathHelper(){}

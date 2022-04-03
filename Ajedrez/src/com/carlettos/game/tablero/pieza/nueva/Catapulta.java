@@ -14,7 +14,7 @@ import com.carlettos.game.util.MathHelper;
 
 /**
  *
- * @author Ususario
+ * @author Carlettos
  */
 public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
 
@@ -109,12 +109,12 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
                 int x = dirX * 6 + inicio.x;
                 x = MathHelper.clamp(0, tablero.columnas - 1, x);
                 tablero.getEscaque(x, inicio.y).setPieza(tablero.getEscaque(posPieza).getPieza());
-                tablero.quitarEntidad(posPieza);
+                tablero.quitarPieza(posPieza);
             } else {
                 int y = dirY * 6 + inicio.y;
                 y = MathHelper.clamp(0, tablero.columnas - 1, y);
                 tablero.getEscaque(inicio.x, y).setPieza(tablero.getEscaque(posPieza).getPieza());
-                tablero.quitarEntidad(posPieza);
+                tablero.quitarPieza(posPieza);
             }
         }
     }

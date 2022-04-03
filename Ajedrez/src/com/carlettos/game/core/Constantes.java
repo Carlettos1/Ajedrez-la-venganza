@@ -11,7 +11,7 @@ public class Constantes {
     /**
      * Ancho y largo preferido de cada escaque.
      */
-    public static final int TAMAÑO_CASILLA = 45;
+    public static final int TAMAÑO_CASILLA = 30;
 
     /**
      * Ancho preferido de cada carta.

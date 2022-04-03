@@ -137,7 +137,7 @@ public class Reina extends PiezaSimple<PatronReina> {
             }
 
             tablero.getEscaque(inicio.add(dx, dy)).setPieza(pieza);
-            tablero.quitarEntidad(inicio);
+            tablero.quitarPieza(inicio);
             //TODO: cambiar cd y maná
         }
     }

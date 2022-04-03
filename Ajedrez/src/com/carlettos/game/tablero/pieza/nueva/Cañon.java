@@ -15,7 +15,7 @@ import com.carlettos.game.tablero.propiedad.Tipo;
 
 /**
  *
- * @author Carlos
+ * @author Carlettos
  */
 public class Cañon extends Pieza implements IAtacar<PatronCañonAtacar>, IMover<PatronEstructuraMover> {
 

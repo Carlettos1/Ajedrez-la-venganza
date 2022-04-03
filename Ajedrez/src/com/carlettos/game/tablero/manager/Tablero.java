@@ -185,11 +185,11 @@ public class Tablero {
     private void movimiento() {
     }
 
-    public void quitarEntidad(int x, int y) {
-        this.quitarEntidad(new Point(x, y));
+    public void quitarPieza(int x, int y) {
+        this.quitarPieza(new Point(x, y));
     }
 
-    public void quitarEntidad(Point punto) {
+    public void quitarPieza(Point punto) {
         this.getEscaque(punto).quitarPieza();
     }
 

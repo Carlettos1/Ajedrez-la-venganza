@@ -13,7 +13,7 @@ import com.carlettos.game.tablero.propiedad.Tipo;
 
 /**
  *
- * @author Ususario
+ * @author Carlettos
  */
 public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
     
@@ -80,7 +80,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
                 for(int x = inicio.x + dirX;;x += dirX){
                     if(tablero.getEscaque(x, inicio.y).hasPieza()) {
                         for (int dx = 0; dx < carga/5; dx++) {
-                            tablero.quitarEntidad(x + dx, inicio.y);
+                            tablero.quitarPieza(x + dx, inicio.y);
                             tablero.getEscaque(x + dx, inicio.y).setPieza(pieza);
                         }
                         break;
@@ -92,7 +92,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
                 for(int y = inicio.y + dirY;;y += dirY){
                     if(tablero.getEscaque(inicio.x, y).hasPieza()) {
                         for (int dy = 0; dy < carga/5; dy++) {
-                            tablero.quitarEntidad(inicio.x, y + dy);
+                            tablero.quitarPieza(inicio.x, y + dy);
                             tablero.getEscaque(inicio.x, y + dy).setPieza(pieza);
                         }
                         break;
