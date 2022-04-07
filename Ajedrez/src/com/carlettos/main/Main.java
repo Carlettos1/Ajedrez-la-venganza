@@ -19,10 +19,12 @@ import com.carlettos.game.tablero.pieza.nueva.Ariete;
 import com.carlettos.game.tablero.pieza.nueva.Brujo;
 import com.carlettos.game.tablero.pieza.nueva.Catapulta;
 import com.carlettos.game.tablero.pieza.nueva.Cañon;
+import com.carlettos.game.tablero.pieza.nueva.Constructor;
 import com.carlettos.game.tablero.pieza.nueva.Defensor;
 import com.carlettos.game.tablero.pieza.nueva.Hechicero;
 import com.carlettos.game.tablero.pieza.nueva.Nave;
 import com.carlettos.game.tablero.pieza.nueva.Paladin;
+import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
 
 /**
  *
@@ -33,8 +35,8 @@ public class Main {
     public static void main(String... a) {
         Jugador negras = new Jugador(Color.NEGRO);
         Jugador blancas = new Jugador(Color.BLANCO);
-        Tablero tablero = new Tablero(16, 17);
         Reloj reloj = new Reloj(blancas, negras);
+        Tablero tablero = new Tablero(16, 17, reloj);
         reloj.addEventos(Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 3))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
                 Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 2))
@@ -108,20 +110,20 @@ public class Main {
         tablero.getEscaque(0, 15).setPieza(new Nave(Color.NEGRO));
         tablero.getEscaque(15, 15).setPieza(new Nave(Color.NEGRO));
         
-        /*tablero.getEscaque(1, 1).setPieza(new TorreTesla(Color.BLANCO));
+        tablero.getEscaque(1, 1).setPieza(new TorreTesla(Color.BLANCO));
         tablero.getEscaque(14, 1).setPieza(new TorreTesla(Color.BLANCO));        
         tablero.getEscaque(1, 15).setPieza(new TorreTesla(Color.NEGRO));
-        tablero.getEscaque(14, 15).setPieza(new TorreTesla(Color.NEGRO));*/
+        tablero.getEscaque(14, 15).setPieza(new TorreTesla(Color.NEGRO));
         
         tablero.getEscaque(2, 1).setPieza(new Ariete(Color.BLANCO));
         tablero.getEscaque(13, 1).setPieza(new Ariete(Color.BLANCO));        
         tablero.getEscaque(2, 15).setPieza(new Ariete(Color.NEGRO));
         tablero.getEscaque(13, 15).setPieza(new Ariete(Color.NEGRO));
         
-        /*tablero.getEscaque(3, 1).setPieza(new Constructor(Color.BLANCO));
+        tablero.getEscaque(3, 1).setPieza(new Constructor(Color.BLANCO));
         tablero.getEscaque(12, 1).setPieza(new Constructor(Color.BLANCO));        
         tablero.getEscaque(3, 15).setPieza(new Constructor(Color.NEGRO));
-        tablero.getEscaque(12, 15).setPieza(new Constructor(Color.NEGRO));*/
+        tablero.getEscaque(12, 15).setPieza(new Constructor(Color.NEGRO));
         
         tablero.getEscaque(4, 1).setPieza(new Peon(Color.BLANCO));
         tablero.getEscaque(11, 1).setPieza(new Peon(Color.BLANCO));        
@@ -132,7 +134,7 @@ public class Main {
         tablero.getEscaque(10, 1).setPieza(new Peon(Color.BLANCO));        
         tablero.getEscaque(5, 15).setPieza(new Peon(Color.NEGRO));
         tablero.getEscaque(10, 15).setPieza(new Peon(Color.NEGRO));
-        
+                
         /*tablero.getEscaque(6, 1).setPieza(new PeonLoco(Color.BLANCO));
         tablero.getEscaque(9, 1).setPieza(new PeonLoco(Color.BLANCO));        
         tablero.getEscaque(6, 15).setPieza(new PeonLoco(Color.NEGRO));
@@ -178,7 +180,7 @@ public class Main {
         tablero.getEscaque(2, 13).setPieza(new Peon(Color.NEGRO));
         tablero.getEscaque(13, 13).setPieza(new Peon(Color.NEGRO));
         
-        TableroVisual tv = new TableroVisual(tablero, new RelojVisual(reloj));
+        TableroVisual tv = new TableroVisual(tablero);
         tv.mostrar();
     }
 }

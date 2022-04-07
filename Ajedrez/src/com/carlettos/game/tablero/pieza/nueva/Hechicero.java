@@ -8,20 +8,20 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
-import com.carlettos.game.tablero.pieza.patron.nuevo.PatronMoverHechicero;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
+import com.carlettos.game.tablero.pieza.patron.nuevo.PatronHechiceroMover;
 
 /**
  *
  * @author Carlettos
  */
-public class Hechicero extends Pieza implements IMover<PatronMoverHechicero> {
-    protected final PatronMoverHechicero patronMover;
+public class Hechicero extends Pieza implements IMover<PatronHechiceroMover> {
+    protected final PatronHechiceroMover patronMover;
     public Hechicero(Color color) { //TODO: hacer lo de la habilidad
         super("Hechicero", "HE", Vacia.NO_HABILIDAD, color, Tipo.BIOLOGICA, Tipo.HEROICA, Tipo.INMUNE, Tipo.TRANSPORTABLE);
-        patronMover = new PatronMoverHechicero() {};
+        patronMover = new PatronHechiceroMover() {};
     }
 
     @Override

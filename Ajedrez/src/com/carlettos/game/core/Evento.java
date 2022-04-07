@@ -121,6 +121,6 @@ public abstract class Evento implements Comparable<Evento> {
     
     @FunctionalInterface
     public static interface Operator{
-        public void operar(int turnos, String nombre, Point punto, Tablero tablero);
+        public void operar(int turnos1, String nombre1, Point punto1, Tablero tablero1);
     }
 }

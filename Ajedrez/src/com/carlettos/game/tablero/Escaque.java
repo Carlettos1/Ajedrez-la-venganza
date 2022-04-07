@@ -5,7 +5,7 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.core.Point;
 
-/**
+/**TODO: que localización sea pos, que es que soy tonto joder
  * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,
  * generalmente poseen un color negro o blanco que se omite en esta clase ya que
  * sólo es algo gráfico.
@@ -68,6 +68,7 @@ public class Escaque {
         this(false, true, localizacion, new Vacia());
     }
     
+    @Deprecated // USE Escaque::hasPieza() INSTEAD
     public boolean isEmpty(){
         return !hasPieza();
     }
@@ -114,6 +115,20 @@ public class Escaque {
      */
     public void setPieza(Pieza pieza) {
         this.pieza = pieza;
+    }
+
+    /**
+     * Cambia la pieza actual por la nueva proporcionada, sólo si está vacio
+     * el escaque.
+     *
+     * @param pieza nueva pieza a colocar en este escaque.
+     *
+     * @see Pieza
+     */
+    public void setPiezaIfEmpty(Pieza pieza) {
+        if(this.isEmpty()){
+            this.pieza = pieza;
+        }
     }
 
     /**

@@ -5,12 +5,12 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
+import com.carlettos.game.tablero.propiedad.Habilidad;
 
 /**
  *

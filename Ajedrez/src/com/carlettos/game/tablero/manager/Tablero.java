@@ -5,6 +5,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.patron.Patron;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,12 @@ import java.util.List;
 public class Tablero {
 
     //TODO: poder hacer tableros de cualquier tipo de formas.
-    private final Escaque[][] tableroAjedrez;
+    protected final Escaque[][] tableroAjedrez;
+    
+    /**
+     * Reloj vinculado a este tablero.
+     */
+    protected final Reloj reloj;
 
     /**
      * Cantidad de columnas del tablero. Está relacionada con el número x en el
@@ -36,7 +42,7 @@ public class Tablero {
      */
     public final int filas;
 
-    public Tablero(int columnas, int filas) {
+    public Tablero(int columnas, int filas, Reloj reloj) {
         this.tableroAjedrez = new Escaque[filas][columnas];
         this.columnas = columnas;
         this.filas = filas;
@@ -46,6 +52,7 @@ public class Tablero {
                         new Point(x, y), new Vacia());
             }
         }
+        this.reloj = reloj;
     }
 
     /**
@@ -194,7 +201,7 @@ public class Tablero {
     }
 
     /**
-     * Da el escaque ne la posición especificada.
+     * Da el escaque de la posición especificada.
      *
      * @param punto punto del cuál se quiere sacar el escaque.
      *
@@ -238,8 +245,12 @@ public class Tablero {
         return getEscaque(new Point(x, y));
     }
 
+    public Reloj getReloj() {
+        return reloj;
+    }
+
     public List<Escaque> getEscaquesCercanos(Escaque escaque) {
-        List<Escaque> escaques = new ArrayList<>();
+        List<Escaque> escaques = new ArrayList<>(filas * columnas);
 
         int x = escaque.getLocalizacion().x;
         int y = escaque.getLocalizacion().y;
@@ -259,6 +270,18 @@ public class Tablero {
         }
 
         return escaques;
+    }
+    
+    public List<Escaque> getEscaquesMatchPatron(Patron patron, Point inicio){
+        List<Escaque> matches = new ArrayList<>(filas * columnas);
+        for (Escaque[] escaques : tableroAjedrez) {
+            for (Escaque escaque : escaques) {
+                if(patron.checkPatron(this, inicio, escaque.getLocalizacion())){
+                    matches.add(escaque);
+                }
+            }
+        }
+        return matches;
     }
 
     @Override

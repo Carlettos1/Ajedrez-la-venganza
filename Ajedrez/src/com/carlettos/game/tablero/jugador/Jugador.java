@@ -114,6 +114,10 @@ public class Jugador {
             movimientosPorTurnos += movimientos;
         }
     }
+    
+    public void robarCarta(){
+        //TODO: robar carta
+    }
 
     @Override
     public String toString() {

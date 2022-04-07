@@ -106,6 +106,10 @@ public class Reloj {
         return Collections.unmodifiableList(jugadores);
     }
 
+    public int getTurno() {
+        return turno;
+    }
+
     @Override
     public String toString() {
         return eventos.toString();

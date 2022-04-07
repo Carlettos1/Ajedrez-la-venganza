@@ -18,7 +18,7 @@ public class Rey extends PiezaSimple<PatronRey> {
         super("Rey", "RE", HABILIDAD_REY, color, new PatronRey(){}, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
         this.seHaTeletransportado = false;
     }
-
+    
     public static class HabilidadRey<P extends Rey> extends Habilidad<P> {
 
         public HabilidadRey() {

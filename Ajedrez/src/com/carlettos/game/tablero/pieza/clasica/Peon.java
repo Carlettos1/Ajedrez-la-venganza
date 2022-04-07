@@ -55,7 +55,7 @@ public class Peon extends Pieza implements IComer<PatronPeonComer>, IMover<Patro
     public List<Par<Point, Accion>> allAcciones(Tablero tablero, Point seleccionado) {
         //todo: all acciones llama al super...
         List<Par<Point, Accion>> myc = super.allAcciones(tablero, seleccionado);
-        if (this.habilidad.canUsar(tablero, this, seleccionado, seleccionado, "owo").isPositive()) {
+        if (this.getHabilidad().canUsar(tablero, this, seleccionado, seleccionado, "owo").isPositive()) {
             myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
         }
         return myc;

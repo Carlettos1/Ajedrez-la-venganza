@@ -8,7 +8,7 @@ import com.carlettos.game.tablero.pieza.patron.Patron;
  *
  * @author Carlettos
  */
-public interface PatronMoverHechicero extends Patron {
+public interface PatronHechiceroMover extends Patron {
 
     @Override
     public default boolean checkPatron(Tablero tablero, Point inicio, Point final_) {

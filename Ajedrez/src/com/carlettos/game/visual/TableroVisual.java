@@ -22,13 +22,13 @@ public class TableroVisual extends JFrame{
     private final RelojVisual reloj;
     private final ManoVisual cartas;
 
-    public TableroVisual(Tablero tablero, RelojVisual reloj) throws HeadlessException {
+    public TableroVisual(Tablero tablero) throws HeadlessException {
         super("Ajedrez");
         this.grid = new EscaqueVisual[tablero.filas][tablero.columnas];
         this.rootPanel = new JPanel(new BorderLayout());
         this.tablero = tablero;
-        this.reloj = reloj;
-        this.cartas = new ManoVisual(reloj.getReloj());
+        this.reloj = new RelojVisual(tablero.getReloj());
+        this.cartas = new ManoVisual(tablero.getReloj());
         setup();
     }
 

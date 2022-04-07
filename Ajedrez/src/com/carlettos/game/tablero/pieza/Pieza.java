@@ -53,9 +53,7 @@ public abstract class Pieza {
     public final String abreviacion;
 
     /**
-     * Es la habilidad que tiene la pieza, tiene toda la información
-     * descriptiva, pero no el cómo se ejecuta, eso debe escribirse en el méthodo
-     * habilidad.
+     * Es la habilidad que tiene la pieza.
      */
     protected Habilidad habilidad;
 
@@ -82,7 +80,7 @@ public abstract class Pieza {
      * @param tipos los tipos de la pieza.
      * @param color color de la pieza, blanco o negro en el ajedrez normal.
      */
-    public Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
+    public <P extends Pieza> Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
         this.nombre = nombre;
@@ -137,6 +135,10 @@ public abstract class Pieza {
         }
         return acciones;
     }
+    
+    public boolean isTipo(Tipo tipo){
+        return this.tipos.contains(tipo);
+    }
 
     /**
      * Suma al cd actual. Valor mínimo es 0.
@@ -168,6 +170,8 @@ public abstract class Pieza {
         return nombre;
     }
 
+    /*FIXME: No se tiene en cuenta el <> de la habilidad, la cual es necesaria 
+    para algunas habilidades*/
     public Habilidad getHabilidad() {
         return habilidad;
     }

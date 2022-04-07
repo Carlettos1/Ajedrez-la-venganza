@@ -9,23 +9,23 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronRey;
-import com.carlettos.game.tablero.pieza.patron.nuevo.PatronMoverHechicero;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
+import com.carlettos.game.tablero.pieza.patron.nuevo.PatronHechiceroMover;
 
 /**
  *
  * @author Carlettos
  */
-public class Nave extends Pieza implements IMover<PatronMoverHechicero>, IComer<PatronRey> {
+public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<PatronRey> {
     public static final Habilidad<Pieza> HABILIDAD_NAVE = new HabilidadNave<>();
-    protected final PatronMoverHechicero patronMover;
+    protected final PatronHechiceroMover patronMover;
     protected final PatronRey patronComer;
 
     public Nave(Color color) {
         super("Nave", "N", HABILIDAD_NAVE, color, Tipo.ESTRUCTURA);
-        this.patronMover = new PatronMoverHechicero() {};
+        this.patronMover = new PatronHechiceroMover() {};
         this.patronComer = new PatronRey() {};
     }
 

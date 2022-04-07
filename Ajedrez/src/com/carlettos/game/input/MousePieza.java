@@ -1,6 +1,9 @@
 package com.carlettos.game.input;
 
+import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Par;
+import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.visual.EscaqueVisual;
