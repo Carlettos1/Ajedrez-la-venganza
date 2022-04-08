@@ -38,6 +38,18 @@ public final class Point implements Cloneable{
     public Point add(int dx, int dy) {
         return new Point(this.x + dx, this.y + dy);
     }
+    
+    public double getDistanceTo(Point other){
+        int dx = other.x - this.x;
+        int dy = other.y - this.y;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
+    
+    public double getSquaredDistanceTo(Point other){
+        int dx = other.x - this.x;
+        int dy = other.y - this.y;
+        return dx*dx + dy*dy;
+    }
 
     @Override
     public Object clone() {

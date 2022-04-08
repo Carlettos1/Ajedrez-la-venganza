@@ -2,16 +2,15 @@ package com.carlettos.game.tablero.pieza.patron.clasico;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.pieza.patron.Patron;
+import com.carlettos.game.tablero.pieza.patron.PatronPeon;
 import com.carlettos.game.tablero.propiedad.Color;
 
 /**
  *
  * @author Carlettos
  */
-public interface PatronPeonMover extends Patron{
+public interface PatronPeonMover extends PatronPeon{
 
-    //TODO: utilizar direcciones del tablero
     @Override
     public default boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
         if (getColor().equals(Color.BLANCO)) {
@@ -35,6 +34,4 @@ public interface PatronPeonMover extends Patron{
         }
         return false;
     }
-
-    public Color getColor();
 }

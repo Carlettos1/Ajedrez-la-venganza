@@ -11,11 +11,12 @@ import com.carlettos.game.tablero.pieza.clasica.Peon;
 import com.carlettos.game.tablero.pieza.clasica.Rey;
 import com.carlettos.game.tablero.pieza.clasica.Torre;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.visual.RelojVisual;
 import com.carlettos.game.visual.TableroVisual;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.clasica.Reina;
 import com.carlettos.game.tablero.pieza.nueva.Ariete;
+import com.carlettos.game.tablero.pieza.nueva.Arquero;
+import com.carlettos.game.tablero.pieza.nueva.Ballesta;
 import com.carlettos.game.tablero.pieza.nueva.Brujo;
 import com.carlettos.game.tablero.pieza.nueva.Catapulta;
 import com.carlettos.game.tablero.pieza.nueva.Cañon;
@@ -24,6 +25,8 @@ import com.carlettos.game.tablero.pieza.nueva.Defensor;
 import com.carlettos.game.tablero.pieza.nueva.Hechicero;
 import com.carlettos.game.tablero.pieza.nueva.Nave;
 import com.carlettos.game.tablero.pieza.nueva.Paladin;
+import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
+import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
 import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
 
 /**
@@ -135,30 +138,30 @@ public class Main {
         tablero.getEscaque(5, 15).setPieza(new Peon(Color.NEGRO));
         tablero.getEscaque(10, 15).setPieza(new Peon(Color.NEGRO));
                 
-        /*tablero.getEscaque(6, 1).setPieza(new PeonLoco(Color.BLANCO));
+        tablero.getEscaque(6, 1).setPieza(new PeonLoco(Color.BLANCO));
         tablero.getEscaque(9, 1).setPieza(new PeonLoco(Color.BLANCO));        
         tablero.getEscaque(6, 15).setPieza(new PeonLoco(Color.NEGRO));
-        tablero.getEscaque(9, 15).setPieza(new PeonLoco(Color.NEGRO));*/
+        tablero.getEscaque(9, 15).setPieza(new PeonLoco(Color.NEGRO));
         
-        /*tablero.getEscaque(7, 1).setPieza(new SuperPeon(Color.BLANCO));
+        tablero.getEscaque(7, 1).setPieza(new SuperPeon(Color.BLANCO));
         tablero.getEscaque(8, 1).setPieza(new SuperPeon(Color.BLANCO));        
         tablero.getEscaque(7, 15).setPieza(new SuperPeon(Color.NEGRO));
-        tablero.getEscaque(8, 15).setPieza(new SuperPeon(Color.NEGRO));*/
+        tablero.getEscaque(8, 15).setPieza(new SuperPeon(Color.NEGRO));
         
-        /*tablero.getEscaque(0, 2).setPieza(new Ballesta(Color.BLANCO));
+        tablero.getEscaque(0, 2).setPieza(new Ballesta(Color.BLANCO));
         tablero.getEscaque(15, 2).setPieza(new Ballesta(Color.BLANCO));        
         tablero.getEscaque(0, 14).setPieza(new Ballesta(Color.NEGRO));
-        tablero.getEscaque(15, 14).setPieza(new Ballesta(Color.NEGRO));*/
+        tablero.getEscaque(15, 14).setPieza(new Ballesta(Color.NEGRO));
         
-        /*tablero.getEscaque(1, 2).setPieza(new Arquero(Color.BLANCO));
+        tablero.getEscaque(1, 2).setPieza(new Arquero(Color.BLANCO));
         tablero.getEscaque(14, 2).setPieza(new Arquero(Color.BLANCO));        
         tablero.getEscaque(1, 14).setPieza(new Arquero(Color.NEGRO));
-        tablero.getEscaque(14, 14).setPieza(new Arquero(Color.NEGRO));*/
+        tablero.getEscaque(14, 14).setPieza(new Arquero(Color.NEGRO));
         
-        /*tablero.getEscaque(2, 2).setPieza(new Arquero(Color.BLANCO));
+        tablero.getEscaque(2, 2).setPieza(new Arquero(Color.BLANCO));
         tablero.getEscaque(13, 2).setPieza(new Arquero(Color.BLANCO));        
         tablero.getEscaque(2, 14).setPieza(new Arquero(Color.NEGRO));
-        tablero.getEscaque(13, 14).setPieza(new Arquero(Color.NEGRO));*/
+        tablero.getEscaque(13, 14).setPieza(new Arquero(Color.NEGRO));
         
         tablero.getEscaque(3, 2).setPieza(new Defensor(Color.BLANCO));
         tablero.getEscaque(12, 2).setPieza(new Defensor(Color.BLANCO));        
@@ -170,10 +173,10 @@ public class Main {
         tablero.getEscaque(0, 13).setPieza(new Peon(Color.NEGRO));
         tablero.getEscaque(15, 13).setPieza(new Peon(Color.NEGRO));
         
-        /*tablero.getEscaque(1, 3).setPieza(new PeonLoco(Color.BLANCO));
+        tablero.getEscaque(1, 3).setPieza(new PeonLoco(Color.BLANCO));
         tablero.getEscaque(14, 3).setPieza(new PeonLoco(Color.BLANCO));        
         tablero.getEscaque(1, 13).setPieza(new PeonLoco(Color.NEGRO));
-        tablero.getEscaque(14, 13).setPieza(new PeonLoco(Color.NEGRO));*/
+        tablero.getEscaque(14, 13).setPieza(new PeonLoco(Color.NEGRO));
         
         tablero.getEscaque(2, 3).setPieza(new Peon(Color.BLANCO));
         tablero.getEscaque(13, 3).setPieza(new Peon(Color.BLANCO));        

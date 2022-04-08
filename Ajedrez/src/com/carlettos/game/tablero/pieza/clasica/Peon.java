@@ -4,14 +4,12 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.tablero.pieza.AbstractPeon;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.pieza.patron.Patron;
-import com.carlettos.game.tablero.pieza.patron.accion.IComer;
-import com.carlettos.game.tablero.pieza.patron.accion.IMover;
+import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonComer;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonMover;
 import java.util.List;
@@ -23,32 +21,16 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Peon extends Pieza implements IComer<PatronPeonComer>, IMover<PatronPeonMover> {
+public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
 
     /**
      * la habilidad default del peón, de utilidad por si necesita usarse en
      * otras piezas.
      */
     public static final Habilidad<Peon> HABILIDAD_PEON = new HabilidadPeon<>();
-    protected final PatronPeonComer patronComer;
-    protected final PatronPeonMover patronMover;
 
     public Peon(Color color) {
-        super("Peón", "P", HABILIDAD_PEON, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
-        patronComer = (PatronPeonComer) () -> color;
-        patronMover = (PatronPeonMover) () -> color;
-    }
-
-    @Override
-    public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
-        return switch (accion) {
-            case MOVER ->
-                this.canMover(tablero, inicio, final_, patronMover);
-            case COMER ->
-                this.canComer(tablero, inicio, final_, patronComer);
-            default ->
-                ActionResult.FAIL;
-        };
+        super(()->color, ()->color, "Peón", "P", HABILIDAD_PEON, color);
     }
 
     @Override

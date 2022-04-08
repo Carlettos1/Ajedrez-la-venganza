@@ -80,7 +80,7 @@ public abstract class Pieza {
      * @param tipos los tipos de la pieza.
      * @param color color de la pieza, blanco o negro en el ajedrez normal.
      */
-    public <P extends Pieza> Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
+    public Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
         this.nombre = nombre;
@@ -166,6 +166,57 @@ public abstract class Pieza {
         return tipos;
     }
 
+    /**
+     * Le quita el tipo especificado a la pieza, si es que lo tiene.
+     * @param tipo tipo que se quiera eliminar.
+     * @return PASS.
+     */
+    public ActionResult addTipo(Tipo tipo) {
+        return ActionResult.fromBoolean(this.getTipos().add(tipo));
+    }
+
+    
+    /**
+     * Le quita el tipo especificado a la pieza, si es que lo tiene.
+     * @param tipo tipo que se quiera eliminar.
+     * @return PASS si se ha quitado el tipo, FAIL si no.
+     */
+    public ActionResult removeTipo(Tipo tipo) {
+        return ActionResult.fromBoolean(this.getTipos().remove(tipo));
+    }
+
+    /**
+     * Le agrega todos los tipos especificados a esta pieza.
+     * @param tipos tipos que se quieran agregar.
+     * @return PASS si se le han agregado todos los tipos a esta pieza, 
+     * FAIL en otro caso.
+     * @throws NullPointerException si hay algún null en el argumento.
+     */
+    public ActionResult addTipos(Tipo... tipos) {
+        boolean success = true;
+        for (Tipo tipo : tipos) {
+            Objects.requireNonNull(tipo);
+            success = Boolean.logicalAnd(success, this.getTipos().add(tipo));
+        }
+        return ActionResult.fromBoolean(success);
+    }
+
+    /**
+     * Le quita todos los tipos especificados a esta pieza, si es que los tiene.
+     * @param tipos tipos que se quieran eliminar.
+     * @return PASS si la pieza tenía todos los tipos indicados y han sido 
+     * eliminados, FAIL en otro caso.
+     * @throws NullPointerException si hay algún null en el argumento.
+     */
+    public ActionResult removeTipos(Tipo... tipos) {
+        boolean success = true;
+        for (Tipo tipo : tipos) {
+            Objects.requireNonNull(tipo);
+            success = Boolean.logicalAnd(success, this.getTipos().remove(tipo));
+        }
+        return ActionResult.fromBoolean(success);
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -192,6 +243,12 @@ public abstract class Pieza {
         return hash;
     }
 
+    /**
+     * Revisa si las piezas tienen el mismo nombre y son del mismo color. De la
+     * misma que todos los peones blancos son iguales en el ajedrez normal.
+     * @param obj la otra pieza
+     * @return true si tienen el mismo nombre y color, false si no.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
