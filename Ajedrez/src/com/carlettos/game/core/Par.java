@@ -24,7 +24,7 @@ public final class Par<X, Y> {
     }
     
     public static <X, Y> Par<X, Y> of(X x, Y y){
-        return new Par<>(x, y);
+        return new Par<X, Y>(x, y);
     }
 
     @Override

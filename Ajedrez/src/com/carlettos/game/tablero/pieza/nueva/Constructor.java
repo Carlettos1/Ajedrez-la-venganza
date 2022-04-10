@@ -11,7 +11,7 @@ import com.carlettos.game.tablero.pieza.patron.accion.IComer;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronHechiceroMover;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronSanguijuelaComer;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.Habilidad;
+import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import java.util.function.Function;
 

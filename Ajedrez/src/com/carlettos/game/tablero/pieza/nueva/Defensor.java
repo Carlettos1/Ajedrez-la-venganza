@@ -8,7 +8,7 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonComer;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonMover;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.Habilidad;
+import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 
 /**
  *

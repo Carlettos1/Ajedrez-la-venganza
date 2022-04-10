@@ -10,7 +10,7 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
-import com.carlettos.game.tablero.propiedad.Habilidad;
+import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 
 /**
  *

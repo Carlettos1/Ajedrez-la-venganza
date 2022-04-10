@@ -12,7 +12,6 @@ import com.carlettos.game.tablero.pieza.patron.accion.IAtacar;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronBallestaAtacar;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronEstructuraMover;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 
 /**

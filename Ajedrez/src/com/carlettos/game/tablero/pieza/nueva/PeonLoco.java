@@ -10,7 +10,7 @@ import com.carlettos.game.tablero.pieza.clasica.PiezaSimple;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronPeonLoco;
 import com.carlettos.game.tablero.propiedad.Color;
 
-import com.carlettos.game.tablero.propiedad.Habilidad;
+import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 
 /**

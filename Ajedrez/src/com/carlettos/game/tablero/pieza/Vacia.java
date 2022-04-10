@@ -3,7 +3,7 @@ package com.carlettos.game.tablero.pieza;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.Habilidad;
+import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.core.Point;
 

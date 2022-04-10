@@ -1,4 +1,4 @@
-package com.carlettos.game.tablero.propiedad;
+package com.carlettos.game.tablero.propiedad.habilidad;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.manager.Tablero;
