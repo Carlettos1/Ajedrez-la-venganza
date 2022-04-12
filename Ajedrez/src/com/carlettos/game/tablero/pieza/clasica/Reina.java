@@ -32,11 +32,7 @@ public class Reina extends PiezaSimple<PatronReina> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoPoint info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
 
@@ -50,7 +46,7 @@ public class Reina extends PiezaSimple<PatronReina> {
         public void usar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoPoint info) {
             tablero.getEscaque(info.getValor()).setPieza(pieza);
             tablero.quitarPieza(inicio);
-            //TODO: cambiar cd y maná
+            this.commonUsar(tablero, pieza);
         }
 
         @Override

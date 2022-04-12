@@ -1,9 +1,13 @@
 package com.carlettos.game.tablero.propiedad.habilidad;
 
 import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Direction;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.manager.TableroAbstract;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Es la habilidad de la pieza, contiene toda la información acerca de la
@@ -13,6 +17,8 @@ import com.carlettos.game.tablero.manager.TableroAbstract;
  * @author Carlos
  *
  * @param <P> Pieza que la habilidad afecta.
+ * @param <V> Valor que utiliza para información extra.
+ * @param <I> Tipo de información extra que usa.
  *
  * @see Pieza
  */
@@ -65,6 +71,65 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
     public abstract ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
 
     public abstract void usar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
+    
+    public boolean commonCanUsar(TableroAbstract tablero, Pieza pieza){
+        boolean nomana = pieza.getCdActual() <= 0 && !pieza.seHaMovidoEsteTurno();
+        if(tablero instanceof Tablero t){
+            return nomana && t.getReloj().turnoDe().getMana() >= this.costo;
+        }
+        return nomana;
+    }
+    
+    public void commonUsar(TableroAbstract tablero, Pieza pieza){
+        pieza.setSeHaMovidoEsteTurno(true);
+        pieza.cambiarCD(this.cooldown);
+        if (tablero instanceof Tablero t) {
+            t.getReloj().turnoDe().cambiarMana(-this.costo);
+        }
+    }
+    
+    public List<V> getOpciones(TableroAbstract tablero, Point inicio){
+        //XXX: aquí hay mucho casteo y abstracción, 100% que falla 10 veces
+        //por minuto, lo mejor es que cada clase rehaga este método para evitar errores
+        Info<V> info = this.getInfoHabilidad();
+        V[] valores = this.getAllValoresPosibles(tablero, inicio);
+        List<V> lista = new ArrayList<>(tablero.columnas * tablero.filas);
+        
+        if(info instanceof InfoNinguna){
+            return List.of();
+        } else if (info instanceof InfoInteger) {
+            for (V valor : valores) {
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoInteger((Integer) valor)).isPositive()){
+                    lista.add(valor);
+                }
+            }
+        } else if (info instanceof InfoNESW) {
+            for (V valor : valores) {
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoNESW((Direction) valor)).isPositive()){
+                    lista.add(valor);
+                }
+            }
+        } else if (info instanceof InfoPieza) {
+            for (V valor : valores) {
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPieza((Pieza) valor)).isPositive()){
+                    lista.add(valor);
+                }
+            }
+        } else if (info instanceof InfoPoint) {
+            for (V valor : valores) {
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPoint((Point) valor)).isPositive()){
+                    lista.add(valor);
+                }
+            }
+        } else if (info instanceof InfoString) {
+            for (V valor : valores) {
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoString((String) valor)).isPositive()){
+                    lista.add(valor);
+                }
+            }
+        } //TODO: info compuesta
+        return lista;
+    }
 
     public String getNombre() {
         return nombre;

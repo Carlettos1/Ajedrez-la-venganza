@@ -25,7 +25,7 @@ public class Defensor extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
     }
     
     public static class HabilidadDefensor<P extends Pieza> extends Habilidad<P, String, InfoNinguna> implements HabilidadSinInfo {
-        public HabilidadDefensor() {//TODO: repensar la habilidad //aplicar un tipo en area
+        public HabilidadDefensor() {//TODO: repensar la habilidad
             super("Defender",
                     "Defiende de ataques de ballesta",
                     6,
@@ -35,12 +35,12 @@ public class Defensor extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            throw new UnsupportedOperationException("Not supported yet."); //todo: implementar
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
         public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            throw new UnsupportedOperationException("Not supported yet."); //todo: implementar
+            System.out.println("USAR HABILIDAD DEFENSOR");
         }
     }
 }

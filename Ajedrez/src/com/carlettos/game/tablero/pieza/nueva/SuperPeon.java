@@ -36,7 +36,7 @@ public class SuperPeon extends AbstractPeon<PatronSuperPeonMover, PatronSuperPeo
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.fromBoolean(!pieza.isTipo(Tipo.INMUNE));
+            return ActionResult.fromBoolean(!pieza.isTipo(Tipo.INMUNE) && this.commonCanUsar(tablero, pieza));
         }
 
         @Override
@@ -50,6 +50,7 @@ public class SuperPeon extends AbstractPeon<PatronSuperPeonMover, PatronSuperPeo
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");
             }
+            this.commonUsar(tablero, pieza);
         }
     }
 }

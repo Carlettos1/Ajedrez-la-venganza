@@ -58,11 +58,7 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!super.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             
@@ -84,7 +80,7 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
                 tablero.getEscaque(inicio.add(info.getSign(), 0)).setPieza(pieza);
             }
             tablero.getEscaque(inicio).quitarPieza();
-            //TODO: cambiar cd
+            this.commonUsar(tablero, pieza);
         }
 
         @Override

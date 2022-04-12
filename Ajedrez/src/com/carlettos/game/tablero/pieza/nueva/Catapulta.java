@@ -54,11 +54,7 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoCompuesta<InfoNESW, InfoInteger> info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             int num = info.getY().getValor();
@@ -92,6 +88,7 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
                 tablero.getEscaque(inicio.x, y).setPieza(tablero.getEscaque(posPieza).getPieza());
                 tablero.quitarPieza(posPieza);
             }
+            this.commonUsar(tablero, pieza);
         }
 
         @Override

@@ -31,11 +31,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
 
@@ -54,7 +50,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
             Point p2 = new Point(inicio.x - 1, inicio.y);
             tablero.getEscaque(p1).setPieza(new Peon(pieza.getColor()));
             tablero.getEscaque(p2).setPieza(new Peon(pieza.getColor()));
-            //TODO: cambiar cd y maná
+            this.commonUsar(tablero, pieza);
         }
     }
 }

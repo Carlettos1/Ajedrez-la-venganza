@@ -68,6 +68,9 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoPieza info) {
+            if(!this.commonCanUsar(tablero, pieza)){
+                return ActionResult.FAIL;
+            }
             if (pieza.getColor().equals(Color.BLANCO)) {
                 if (inicio.y + 1 == tablero.filas) {
                     return ActionResult.PASS;
@@ -91,6 +94,7 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
             Pieza p = info.getValor();
             p.setColor(pieza.getColor());
             tablero.getEscaque(inicio).setPieza(p);
+            p.setSeHaMovidoEsteTurno(true);
         }
 
         @Override

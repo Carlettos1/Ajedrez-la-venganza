@@ -36,7 +36,7 @@ public class PeonLoco extends PiezaSimple<PatronPeonLoco> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.PASS;
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override

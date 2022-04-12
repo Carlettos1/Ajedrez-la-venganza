@@ -50,11 +50,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
         
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
@@ -88,7 +84,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
                     }
                 }
             }
-            //TODO: cambiar cd
+            this.commonUsar(tablero, pieza);
         }
     }
 }

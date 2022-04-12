@@ -50,7 +50,7 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.PASS;
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
@@ -63,6 +63,7 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
                 } catch (Exception e) {
                 }
             }
+            this.commonUsar(tablero, pieza);
         }
     }
 }

@@ -56,12 +56,11 @@ public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, I
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.PASS; //todo: cambiar mana y cd
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
         public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
-            //TODO: usar el reloj para dar 1 turno de tiempo
             if(tablero instanceof Tablero t){
                 t.getReloj().addEventos(Evento.Builder.start(t).with(2, this.getNombre(), inicio)
                         .build((turnos1, nombre1, punto1, tablero1) -> {
@@ -72,6 +71,7 @@ public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, I
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");
             }
+            this.commonUsar(tablero, pieza);
         }
     }
 }

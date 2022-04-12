@@ -54,7 +54,7 @@ public class Constructor extends Pieza implements IMover<PatronHechiceroMover>, 
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
-            return ActionResult.PASS;
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
@@ -77,7 +77,7 @@ public class Constructor extends Pieza implements IMover<PatronHechiceroMover>, 
                     tablero.getEscaque(inicio.add(-1, 0)).setPiezaIfEmpty(creator.apply(pieza.getColor()));
                     tablero.getEscaque(inicio.add(-1, -1)).setPiezaIfEmpty(creator.apply(pieza.getColor()));}
             }
-            //TODO: cambiar cd y mana
+            this.commonUsar(tablero, pieza);
         }
     }
 }

@@ -41,11 +41,7 @@ public class Torre extends PiezaSimple<PatronTorre> {
 
         @Override
         public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
-            if (pieza.getCdActual() > 0) {
-                return ActionResult.FAIL;
-            }
-
-            if (pieza.seHaMovidoEsteTurno()) {
+            if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
@@ -84,79 +80,65 @@ public class Torre extends PiezaSimple<PatronTorre> {
 
             switch (info.getValor()) {
                 case S -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false);
+                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int y = 0; y < tablero.filas; y++) {
                             if (y == escaqueTorre.getPos().y) {
-                                escaqueTorre.getPieza().setSeHaMovidoEsteTurno(true);
                                 break;
                             }
                             Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //comió
-                                //TODO: cd y se ha movido y todo
+                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //movió
+                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
                             }
                         }
                     });
                 case E -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false);
+                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int x = tablero.columnas - 1; x >= 0; x--) {
                             if (x == escaqueTorre.getPos().x) {
-                                escaqueTorre.getPieza().setSeHaMovidoEsteTurno(true);
                                 break;
                             }
                             Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //comió
-                                //TODO: cd y se ha movido y todo
+                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //movió
+                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
                             }
                         }
                     });
                 case N -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false);
+                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int y = tablero.filas - 1; y >= 0; y--) {
                             if (y == escaqueTorre.getPos().y) {
-                                escaqueTorre.getPieza().setSeHaMovidoEsteTurno(true);
                                 break;
                             }
                             Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //comió
-                                //TODO: cd y se ha movido y todo
+                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //movió
+                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
                             }
                         }
                     });
                 case W -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false);
+                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int x = 0; x < tablero.columnas; x++) {
                             if (x == escaqueTorre.getPos().y) {
-                                escaqueTorre.getPieza().setSeHaMovidoEsteTurno(true);
                                 break;
                             }
                             Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //comió
-                                //TODO: cd y se ha movido y todo
+                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).equals(ActionResult.PASS)) {
-                                //movió
+                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
                                 break;
                             }
                         }
                     });
             }
-            //TODO: cambiar cd y maná
+            for (Escaque escaque : escaquesTorres) {
+                this.commonUsar(tablero, escaque.getPieza());
+            }
         }
 
         protected List<Escaque> getEscaqueTorresAdyacentes(TableroAbstract tablero, P pieza, Point inicio) {
