@@ -32,7 +32,7 @@ public class EscaqueVisual extends Component {
     public EscaqueVisual(Escaque escaque) {
         this.acciones = new ArrayList<>();
         this.escaque = escaque;
-        isPar = (escaque.getLocalizacion().x + escaque.getLocalizacion().y) % 2 == 0;
+        isPar = (escaque.getPos().x + escaque.getPos().y) % 2 == 0;
     }
 
     @Override

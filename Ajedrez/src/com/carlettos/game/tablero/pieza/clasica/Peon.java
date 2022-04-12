@@ -3,15 +3,28 @@ package com.carlettos.game.tablero.pieza.clasica;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
-import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.AbstractPeon;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
-import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.tablero.pieza.nueva.Ariete;
+import com.carlettos.game.tablero.pieza.nueva.Arquero;
+import com.carlettos.game.tablero.pieza.nueva.Ballesta;
+import com.carlettos.game.tablero.pieza.nueva.Brujo;
+import com.carlettos.game.tablero.pieza.nueva.Catapulta;
+import com.carlettos.game.tablero.pieza.nueva.Cañon;
+import com.carlettos.game.tablero.pieza.nueva.Constructor;
+import com.carlettos.game.tablero.pieza.nueva.Defensor;
+import com.carlettos.game.tablero.pieza.nueva.Nave;
+import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
+import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
+import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonComer;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonMover;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoPieza;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadPieza;
 import java.util.List;
 
 /**
@@ -27,23 +40,23 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
      * la habilidad default del peón, de utilidad por si necesita usarse en
      * otras piezas.
      */
-    public static final Habilidad<Peon> HABILIDAD_PEON = new HabilidadPeon<>();
+    public static final Habilidad<Peon, Pieza, InfoPieza> HABILIDAD_PEON = new HabilidadPeon<>();
 
     public Peon(Color color) {
         super(()->color, ()->color, "Peón", "P", HABILIDAD_PEON, color);
     }
 
     @Override
-    public List<Par<Point, Accion>> allAcciones(Tablero tablero, Point seleccionado) {
+    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
         //todo: all acciones llama al super...
         List<Par<Point, Accion>> myc = super.allAcciones(tablero, seleccionado);
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, seleccionado, "owo").isPositive()) {
+        if (this.getHabilidad().canUsar(tablero, this, seleccionado, null).isPositive()) {
             myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
         }
         return myc;
     }
 
-    public static class HabilidadPeon<P extends Pieza> extends Habilidad<P> {
+    public static class HabilidadPeon<P extends Pieza> extends Habilidad<P, Pieza, InfoPieza> implements HabilidadPieza {
 
         public HabilidadPeon() {
             super("Coronar",
@@ -54,7 +67,7 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         }
 
         @Override
-        public ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
+        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoPieza info) {
             if (pieza.getColor().equals(Color.BLANCO)) {
                 if (inicio.y + 1 == tablero.filas) {
                     return ActionResult.PASS;
@@ -68,16 +81,36 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
                     return ActionResult.FAIL;
                 }
             }
-            //todo: verificar la información
             //todo: poder coronar con cualquier color
             System.err.println("INTENTANDO CORONAR CON OTRO COLOR");
             return ActionResult.FAIL;
         }
 
         @Override
-        public void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
-            //TODO: hacer que sirva el habilidad();
-            System.out.println("Felicidades, has coronado, toma una flor.");
+        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoPieza info) {
+            Pieza p = info.getValor();
+            p.setColor(pieza.getColor());
+            tablero.getEscaque(inicio).setPieza(p);
+        }
+
+        @Override
+        public Pieza[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+            return new Pieza[]{new Alfil(Color.DEFAULT),
+                new Caballo(Color.DEFAULT),
+                new Reina(Color.DEFAULT),
+                new Torre(Color.DEFAULT),
+                new Ariete(Color.DEFAULT),
+                new Arquero(Color.DEFAULT),
+                new Ballesta(Color.DEFAULT),
+                new Brujo(Color.DEFAULT),
+                new Catapulta(Color.DEFAULT),
+                new Cañon(Color.DEFAULT),
+                new Constructor(Color.DEFAULT),
+                new Defensor(Color.DEFAULT),
+                new Nave(Color.DEFAULT),
+                new PeonLoco(Color.DEFAULT),
+                new SuperPeon(Color.DEFAULT),
+                new TorreTesla(Color.DEFAULT)};
         }
     }
 }

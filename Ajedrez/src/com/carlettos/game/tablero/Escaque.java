@@ -5,7 +5,7 @@ import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.core.Point;
 
-/**TODO: que localización sea pos, que es que soy tonto joder
+/**
  * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,
  * generalmente poseen un color negro o blanco que se omite en esta clase ya que
  * sólo es algo gráfico.
@@ -30,7 +30,7 @@ public class Escaque {
      * La ubicación, en coordendas cartesianas enteras, del escaque. Para todos
      * los escaques de un tablero, usan el mismo punto de referencia.
      */
-    protected final Point localizacion;
+    protected final Point pos;
 
     /**
      * La pieza que contiene el escaque.
@@ -42,16 +42,16 @@ public class Escaque {
      *
      * @param isFuenteDeMagia true si emite magia, false si no.
      * @param isConstruible true si permite construcciones encima, false si no.
-     * @param localizacion localización del escaque en coordenadas enteras
+     * @param pos pos del escaque en coordenadas enteras
      * cartesianas respecto a un punto cualquiera pero común para todos los
      * escaques.
      * @param pieza pieza que tiene el escaque, si no tiene ninguna, usar una
      * pieza Vacia.
      */
-    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point localizacion, Pieza pieza) {
+    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point pos, Pieza pieza) {
         this.isFuenteDeMagia = isFuenteDeMagia;
         this.isConstruible = isConstruible;
-        this.localizacion = localizacion;
+        this.pos = pos;
         this.pieza = pieza;
     }
 
@@ -61,11 +61,11 @@ public class Escaque {
      * Inicializa al escaque sin fuente de magia, con posibilidad de construir
      * en él, sin ninguna pieza.
      *
-     * @param localizacion la localización del escaque en coordendas enteras
+     * @param pos la posición del escaque en coordendas enteras
      * cartesianas.
      */
-    public Escaque(Point localizacion) {
-        this(false, true, localizacion, new Vacia());
+    public Escaque(Point pos) {
+        this(false, true, pos, new Vacia());
     }
     
     @Deprecated // USE Escaque::hasPieza() INSTEAD
@@ -141,8 +141,8 @@ public class Escaque {
         this.pieza = new Vacia();
     }
     
-    public Point getLocalizacion() {
-        return localizacion;
+    public Point getPos() {
+        return pos;
     }
 
     public boolean isFuenteDeMagia() {

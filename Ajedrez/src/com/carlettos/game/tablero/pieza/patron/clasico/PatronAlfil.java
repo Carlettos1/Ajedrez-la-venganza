@@ -1,7 +1,7 @@
 package com.carlettos.game.tablero.pieza.patron.clasico;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 
 /**
@@ -11,7 +11,7 @@ import com.carlettos.game.tablero.pieza.patron.Patron;
 public interface PatronAlfil extends Patron{
 
     @Override
-    public default boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
+    public default boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_) {
         int deltaX = final_.x - inicio.x;
         int deltaY = final_.y - inicio.y;
 

@@ -2,14 +2,17 @@ package com.carlettos.game.tablero.pieza.nueva;
 
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronEstructuraMover;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadNESW;
 
 /**
  *
@@ -17,7 +20,7 @@ import com.carlettos.game.tablero.propiedad.Tipo;
  */
 public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
     
-    public static final Habilidad<Ariete> HABILIDAD_ARIETE = new HabilidadAriete<>();
+    public static final Habilidad<Ariete, Direction, InfoNESW> HABILIDAD_ARIETE = new HabilidadAriete<>();
     protected final PatronEstructuraMover patronMover;
     
     public Ariete(Color color) {
@@ -26,14 +29,14 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
     }
     
     @Override
-    public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadAriete<P extends Pieza> extends Habilidad<P> {
+    public static class HabilidadAriete<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW{
         public HabilidadAriete() {
             super("Carga de Ariete", 
                     "El ariete carga en una dirección hasta alcanzar la primera "
@@ -46,7 +49,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
         }
         
         @Override
-        public ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
+        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
             if (pieza.getCdActual() > 0) {
                 return ActionResult.FAIL;
             }
@@ -54,30 +57,14 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
             if (pieza.seHaMovidoEsteTurno()) {
                 return ActionResult.FAIL;
             }
-
-            if (informacionExtra == null) {
-                return ActionResult.FAIL;
-            }
-            
-            return switch (informacionExtra) {
-                case "N", "E", "S", "W" -> ActionResult.PASS;
-                default -> ActionResult.FAIL;
-            };
+            return ActionResult.PASS;
         }
 
         @Override
-        public void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
-            int dirX = 0;
-            int dirY = 0;
+        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
             int carga = 0;
-            switch (informacionExtra) {
-                case "N" -> dirY = 1;
-                case "E" -> dirX = 1;
-                case "S" -> dirY = -1;
-                case "W" -> dirX = -1;
-            }
-            if(dirX != 0) {
-                for(int x = inicio.x + dirX;;x += dirX){
+            if(info.isAxis(Direction.Axis.EW)) {
+                for(int x = inicio.x + info.getSign();;x += info.getSign()){
                     if(tablero.getEscaque(x, inicio.y).hasPieza()) {
                         for (int dx = 0; dx < carga/5; dx++) {
                             tablero.quitarPieza(x + dx, inicio.y);
@@ -88,8 +75,8 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
                         carga++;
                     }
                 }
-            } else if (dirY != 0) {
-                for(int y = inicio.y + dirY;;y += dirY){
+            } else {
+                for(int y = inicio.y + info.getSign();;y += info.getSign()){
                     if(tablero.getEscaque(inicio.x, y).hasPieza()) {
                         for (int dy = 0; dy < carga/5; dy++) {
                             tablero.quitarPieza(inicio.x, y + dy);

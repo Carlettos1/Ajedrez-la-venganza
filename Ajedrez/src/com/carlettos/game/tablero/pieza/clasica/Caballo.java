@@ -1,23 +1,25 @@
 package com.carlettos.game.tablero.pieza.clasica;
 
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronCaballo;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoNinguna;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadSinInfo;
 
 public class Caballo extends PiezaSimple<PatronCaballo> {
 
-    public static final Habilidad<Caballo> HABILIDAD_CABALLO = new HabilidadCaballo<>();
+    public static final Habilidad<Caballo, String, InfoNinguna> HABILIDAD_CABALLO = new HabilidadCaballo<>();
 
     public Caballo(Color color) {
         super("Caballo", "C", HABILIDAD_CABALLO, color, new PatronCaballo(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
     }
 
-    public static class HabilidadCaballo<P extends Pieza> extends Habilidad<P> {
+    public static class HabilidadCaballo<P extends Pieza> extends Habilidad<P, String, InfoNinguna> implements HabilidadSinInfo {
 
         public HabilidadCaballo() {
             super("Bajar Jinetes",
@@ -28,7 +30,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
         }
 
         @Override
-        public ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
+        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
             if (pieza.getCdActual() > 0) {
                 return ActionResult.FAIL;
             }
@@ -47,7 +49,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
         }
 
         @Override
-        public void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra) {
+        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
             Point p1 = new Point(inicio.x + 1, inicio.y);
             Point p2 = new Point(inicio.x - 1, inicio.y);
             tablero.getEscaque(p1).setPieza(new Peon(pieza.getColor()));

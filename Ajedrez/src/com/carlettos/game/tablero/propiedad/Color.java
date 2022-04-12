@@ -9,6 +9,12 @@ public enum Color {
     BLANCO("#FFFFFF"),
     NEGRO("#000000"),
     GRIS("#888888"),
+
+    /**
+     * Color por defecto, utilizado para piezas sin color, como piezas neutrales 
+     * o piezas que aún no se han puesto al tablero.
+     */
+    DEFAULT(GRIS),
     CIAN("#00FFFF"),
     MAGENTA("#FF00FF"),
     ROJO("#FF0000"),
@@ -21,9 +27,13 @@ public enum Color {
      * @param color valor en rgb hexadecimal del color, debe ser un string de la
      * forma {@code "#rrggbb"}.
      */
-    private Color(String color) {
+    Color(String color) {
         this.color = color;
         this.colorAWT = java.awt.Color.decode(this.color);
+    }
+
+    Color(Color color) {
+        this(color.color);
     }
 
     public java.awt.Color getAWT() {

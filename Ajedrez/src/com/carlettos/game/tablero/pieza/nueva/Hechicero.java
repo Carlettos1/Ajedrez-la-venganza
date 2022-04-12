@@ -3,13 +3,11 @@ package com.carlettos.game.tablero.pieza.nueva;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
-import com.carlettos.game.tablero.pieza.patron.Patron;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronHechiceroMover;
 
@@ -25,7 +23,7 @@ public class Hechicero extends Pieza implements IMover<PatronHechiceroMover> {
     }
 
     @Override
-    public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
         return switch(accion) {
             case MOVER -> this.canMover(tablero, inicio, final_, this.patronMover);
             default -> ActionResult.FAIL;

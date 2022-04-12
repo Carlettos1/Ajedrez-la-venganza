@@ -1,8 +1,7 @@
 package com.carlettos.game.tablero.pieza.patron.clasico;
 
-import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 
 /**
@@ -12,7 +11,7 @@ import com.carlettos.game.tablero.pieza.patron.Patron;
 public interface PatronTorre extends Patron {
 
     @Override
-    public default boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
+    public default boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_) {
         if (final_.x != inicio.x && final_.y != inicio.y) {
             return false;
         }

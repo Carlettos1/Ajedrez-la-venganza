@@ -3,7 +3,7 @@ package com.carlettos.game.tablero.pieza.nueva;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
@@ -15,7 +15,7 @@ import com.carlettos.game.tablero.pieza.patron.nuevo.PatronHechiceroMover;
  *
  * @author Carlettos
  */
-public class Brujo extends Pieza implements IMover<PatronHechiceroMover>{
+public class Brujo extends Pieza implements IMover<PatronHechiceroMover> {
     protected final PatronHechiceroMover patronMover;
 
     public Brujo(Color color) { //TODO: habilidad
@@ -24,7 +24,7 @@ public class Brujo extends Pieza implements IMover<PatronHechiceroMover>{
     }
 
     @Override
-    public ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, this.patronMover);
             default -> ActionResult.FAIL;

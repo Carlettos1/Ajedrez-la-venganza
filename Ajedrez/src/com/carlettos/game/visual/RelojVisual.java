@@ -1,17 +1,29 @@
 package com.carlettos.game.visual;
 
 import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Par;
+import com.carlettos.game.core.Point;
 import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.tablero.manager.Reloj;
+import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.tablero.propiedad.habilidad.Info;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoInteger;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoNinguna;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoPieza;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoPoint;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoString;
+import com.carlettos.game.visual.info.InfoVisual;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -69,29 +81,48 @@ public class RelojVisual extends JPanel{
             while (container.getParent() != null) {
                 container = container.getParent();
             }
-            if (container instanceof TableroVisual) {
-                TableroVisual tv = (TableroVisual) container;
-                System.out.println(tv);
-                String infoHabilidad = JOptionPane.showInputDialog(this,
-                        "Escribir datos de la habilidad.",
-                        "Habilidad",
-                        JOptionPane.QUESTION_MESSAGE);
+            if (container instanceof TableroVisual tv) {
                 Escaque escaque = MousePieza.get().seleccionado.getEscaque();
-                ActionResult ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(),
-                        escaque.getPieza(),
-                        escaque.getLocalizacion(),
-                        escaque.getLocalizacion(),
-                        infoHabilidad);
+                Info infoHabilidad = escaque.getPieza().getHabilidad().getInfoHabilidad();
+                
+                Object[] valores = escaque.getPieza().getHabilidad().getAllValoresPosibles(tv.getTablero(), escaque.getPos());
+                if (infoHabilidad instanceof InfoNinguna) {
+                    valores = new String[]{"Usar"};
+                }
+                int i = InfoVisual.showOptions(tv.getTablero(), escaque.getPos(), valores);
+                if(i == -1){
+                    return;
+                }
+                
+                Object valor = valores[i];
+                Info infoUsada = new InfoNinguna();
+                ActionResult ar;
+                if (infoHabilidad instanceof InfoNinguna) {
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoNinguna());
+                } else if(infoHabilidad instanceof InfoInteger){
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
+                } else if(infoHabilidad instanceof InfoNESW){
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
+                } else if(infoHabilidad instanceof InfoPieza){
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPieza((Pieza) valor));
+                } else if(infoHabilidad instanceof InfoPoint){
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
+                } else if(infoHabilidad instanceof InfoString){
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoString((String) valor));
+                } else { //todo: compuesta
+                    ar = ActionResult.FAIL;
+                }
                 if (ar.isPositive()) {
                     escaque.getPieza().getHabilidad().usar(tv.getTablero(),
                             escaque.getPieza(),
-                            escaque.getLocalizacion(),
-                            escaque.getLocalizacion(),
-                            infoHabilidad);
+                            escaque.getPos(),
+                            infoUsada);
                     reloj.movimiento();
                     MousePieza.get().seleccionado = null;
                     tv.offAll();
                 }
+            } else {
+                System.err.println("tv no es TableroVisual");
             }
         });
         JPanel temp = new JPanel(new BorderLayout(0, 10));

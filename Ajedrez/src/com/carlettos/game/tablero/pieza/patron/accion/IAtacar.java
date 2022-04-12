@@ -2,7 +2,7 @@ package com.carlettos.game.tablero.pieza.patron.accion;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 
 /**
@@ -19,7 +19,7 @@ public interface IAtacar<P extends Patron> {
      * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL}, 
      * dependiendo del caso.
      */
-    public default ActionResult canAtacar(Tablero tablero, Point inicio, Point final_, P patron){
+    public default ActionResult canAtacar(TableroAbstract tablero, Point inicio, Point final_, P patron){
         if (!this.checkAtacarCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
@@ -34,7 +34,7 @@ public interface IAtacar<P extends Patron> {
      * @return true si no se ha movido y la pieza que se quiere comer no es de
      * su mismo color. False si no.
      */
-    public default boolean checkAtacarCondition(Tablero tablero, Point inicio, Point final_) {
+    public default boolean checkAtacarCondition(TableroAbstract tablero, Point inicio, Point final_) {
         if (!tablero.getEscaque(final_).hasPieza()) {
             return false;
         }

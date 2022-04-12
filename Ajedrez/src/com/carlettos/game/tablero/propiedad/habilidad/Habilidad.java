@@ -1,9 +1,9 @@
 package com.carlettos.game.tablero.propiedad.habilidad;
 
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 
 /**
  * Es la habilidad de la pieza, contiene toda la información acerca de la
@@ -16,7 +16,7 @@ import com.carlettos.game.core.Point;
  *
  * @see Pieza
  */
-public abstract class Habilidad<P extends Pieza> {
+public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>> implements InfoGetter<V>{
 
     /**
      * Nombre de la habilidad.
@@ -62,9 +62,9 @@ public abstract class Habilidad<P extends Pieza> {
         this.parametros = parametros;
     }
 
-    public abstract ActionResult canUsar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
+    public abstract ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
 
-    public abstract void usar(Tablero tablero, P pieza, Point inicio, Point final_, String informacionExtra);
+    public abstract void usar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
 
     public String getNombre() {
         return nombre;

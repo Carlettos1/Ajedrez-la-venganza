@@ -5,9 +5,10 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
-import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.propiedad.habilidad.InfoPieza;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,7 +102,7 @@ public abstract class Pieza {
      *
      * @return ActionResult.
      */
-    public abstract ActionResult can(Accion accion, Tablero tablero, Point inicio, Point final_);
+    public abstract ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_);
     
     /**
      * Este méthodo debe usarse solo en caso de urgencia, se sugiere
@@ -120,16 +121,16 @@ public abstract class Pieza {
      * @see Pieza
      * @see Escaque
      */
-    public List<Par<Point, Accion>> allAcciones(Tablero tablero, Point seleccionado) {
+    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
         List<Par<Point, Accion>> acciones = new ArrayList<>();
         for (int x = 0; x < tablero.columnas; x++) {
             for (int y = 0; y < tablero.filas; y++) {
-                if (this.can(Accion.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.COMER));
-                } if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.MOVER));
-                } if (this.can(Accion.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getLocalizacion()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getLocalizacion(), Accion.ATACAR));
+                if (this.can(Accion.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.COMER));
+                } if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.MOVER));
+                } if (this.can(Accion.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.ATACAR));
                 }
             }
         }
@@ -160,6 +161,10 @@ public abstract class Pieza {
 
     public Color getColor() {
         return this.color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public List<Tipo> getTipos() {
@@ -233,6 +238,15 @@ public abstract class Pieza {
 
     public boolean seHaMovidoEsteTurno() {
         return seHaMovidoEsteTurno;
+    }
+    
+    public InfoPieza toInfo(){
+        return new InfoPieza(this);
+    }
+
+    @Override
+    public String toString() {
+        return abreviacion;
     }
 
     @Override

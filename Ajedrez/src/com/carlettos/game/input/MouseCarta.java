@@ -66,12 +66,12 @@ public class MouseCarta implements MouseListener {
                 }
             });
             
-            Par<Boolean, String> can = ecv.getCarta().canUsarCarta(escaque.getEscaque().getLocalizacion(),
+            Par<Boolean, String> can = ecv.getCarta().canUsarCarta(escaque.getEscaque().getPos(),
                     tablero.getTablero(),
                     reloj,
                     jugadores.toArray(new Jugador[0]));
             if (can.x) {
-                ecv.getCarta().usarCarta(escaque.getEscaque().getLocalizacion(),
+                ecv.getCarta().usarCarta(escaque.getEscaque().getPos(),
                         tablero.getTablero(),
                         reloj,
                         jugadores.toArray(new Jugador[0]));

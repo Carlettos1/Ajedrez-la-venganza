@@ -2,7 +2,7 @@ package com.carlettos.game.tablero.pieza.patron.accion;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 
 /**
@@ -19,7 +19,7 @@ public interface IComer<P extends Patron> {
      * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL},
      * dependiendo del caso.
      */
-    public default ActionResult canComer(Tablero tablero, Point inicio, Point final_, P patron) {
+    public default ActionResult canComer(TableroAbstract tablero, Point inicio, Point final_, P patron) {
         if (!this.checkComerCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
@@ -35,7 +35,7 @@ public interface IComer<P extends Patron> {
      * @return true si no se ha movido y la pieza que se quiere comer no es de
      * su mismo color. False si no.
      */
-    public default boolean checkComerCondition(Tablero tablero, Point inicio, Point final_) {
+    public default boolean checkComerCondition(TableroAbstract tablero, Point inicio, Point final_) {
         if (!tablero.getEscaque(final_).hasPieza()) {
             return false;
         }

@@ -2,6 +2,7 @@ package com.carlettos.game.tablero.pieza.patron.nuevo;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.tablero.manager.TableroAbstract;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 import java.util.Random;
 
@@ -29,18 +30,22 @@ public interface PatronPeonLoco extends Patron {
     };
 
     @Override
-    public default boolean checkPatron(Tablero tablero, Point inicio, Point final_) {
-        return switch(this.getRandomNumber(tablero.getReloj().getTurno())){
-            case 0 -> final_.equals(inicio.add(0, 1)) || final_.equals(inicio.add(0, 2));
-            case 1 -> final_.equals(inicio.add(1, 1)) || final_.equals(inicio.add(2, 2));
-            case 2 -> final_.equals(inicio.add(1, 0)) || final_.equals(inicio.add(2, 0));
-            case 3 -> final_.equals(inicio.add(1, -1)) || final_.equals(inicio.add(2, -2));
-            case 4 -> final_.equals(inicio.add(0, -1)) || final_.equals(inicio.add(0, -2));
-            case 5 -> final_.equals(inicio.add(-1, -1)) || final_.equals(inicio.add(-2, -2));
-            case 6 -> final_.equals(inicio.add(-1, 0)) || final_.equals(inicio.add(-2, 0));
-            case 7 -> final_.equals(inicio.add(-1, 1)) || final_.equals(inicio.add(-2, 2));
-            default -> throw new IllegalArgumentException("Numero random no esperado");
-        };
+    public default boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_) {
+        if(tablero instanceof Tablero t){
+            return switch(this.getRandomNumber(t.getReloj().getTurno())){
+                case 0 -> final_.equals(inicio.add(0, 1)) || final_.equals(inicio.add(0, 2));
+                case 1 -> final_.equals(inicio.add(1, 1)) || final_.equals(inicio.add(2, 2));
+                case 2 -> final_.equals(inicio.add(1, 0)) || final_.equals(inicio.add(2, 0));
+                case 3 -> final_.equals(inicio.add(1, -1)) || final_.equals(inicio.add(2, -2));
+                case 4 -> final_.equals(inicio.add(0, -1)) || final_.equals(inicio.add(0, -2));
+                case 5 -> final_.equals(inicio.add(-1, -1)) || final_.equals(inicio.add(-2, -2));
+                case 6 -> final_.equals(inicio.add(-1, 0)) || final_.equals(inicio.add(-2, 0));
+                case 7 -> final_.equals(inicio.add(-1, 1)) || final_.equals(inicio.add(-2, 2));
+                default -> throw new IllegalArgumentException("Numero random no esperado");
+            };
+        } else {
+            throw new IllegalArgumentException("Tablero no es instanceof Tablero");
+        }
     }
     
     /**
