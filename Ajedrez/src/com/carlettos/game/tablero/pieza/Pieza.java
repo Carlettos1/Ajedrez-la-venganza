@@ -104,6 +104,10 @@ public abstract class Pieza {
      */
     public abstract ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_);
     
+    public void postAccion(Accion accion, TableroAbstract tablero, Point inicio, Point final_){
+        this.setSeHaMovidoEsteTurno(true);
+    }
+    
     /**
      * Este méthodo debe usarse solo en caso de urgencia, se sugiere
      * sobreescribirlo y que se efectúen cálculos más específicos a la pieza

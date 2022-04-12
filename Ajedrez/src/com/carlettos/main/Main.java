@@ -40,30 +40,15 @@ public class Main {
         Jugador blancas = new Jugador(Color.BLANCO);
         Reloj reloj = new Reloj(blancas, negras);
         Tablero tablero = new Tablero(16, 17, reloj);
-        reloj.addEventos(Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 3))
+        
+        /*reloj.addEventos(Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 3))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
                 Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 2))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
                 Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 4))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))));
-        
+        */
         negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        negras.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
         blancas.getMano().addCarta(new InvocarCaballo());
         blancas.cambiarMana(5);
         negras.cambiarMana(5);

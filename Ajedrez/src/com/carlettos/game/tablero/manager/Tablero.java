@@ -4,6 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.habilidad.Info;
 
 /**
@@ -36,6 +37,9 @@ public class Tablero extends TableroAbstract {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarComerPieza(Point inicio, Point final_) {
+        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+            return ActionResult.FAIL;
+        }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
@@ -43,6 +47,8 @@ public class Tablero extends TableroAbstract {
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
+            escaqueFinal.getPieza().postAccion(Accion.COMER, this, inicio, final_);
+            movimiento();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -57,6 +63,9 @@ public class Tablero extends TableroAbstract {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarMoverPieza(Point inicio, Point final_) {
+        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+            return ActionResult.FAIL;
+        }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
@@ -64,6 +73,8 @@ public class Tablero extends TableroAbstract {
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
+            escaqueFinal.getPieza().postAccion(Accion.MOVER, this, inicio, final_);
+            movimiento();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -78,12 +89,17 @@ public class Tablero extends TableroAbstract {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarAtacarPieza(Point inicio, Point final_) {
+        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+            return ActionResult.FAIL;
+        }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
         boolean can = escaqueInicio.getPieza().can(Accion.ATACAR, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.quitarPieza();
+            escaqueFinal.getPieza().postAccion(Accion.ATACAR, this, inicio, final_);
+            movimiento();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -105,17 +121,33 @@ public class Tablero extends TableroAbstract {
      *
      * @see ActionResult
      */
-    public ActionResult usarHabilidadPieza(Point inicio, Point final_, Info info) {
+    public ActionResult usarHabilidadPieza(Point inicio, Info info) {
+        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+            return ActionResult.FAIL;
+        }
         Escaque escaque = getEscaque(inicio);
         ActionResult ar = escaque.getPieza().getHabilidad().canUsar(this, escaque.getPieza(), inicio, info);
         if (ar.isPositive()) {
             escaque.getPieza().getHabilidad().usar(this, escaque.getPieza(), inicio, info);
+            movimiento();
         }
         return ar;
     }
 
-    //TODO: movimiento() útil.
-    private void movimiento() {
+    public void movimiento() {
+        this.reloj.movimiento();
+        if(getReloj().getMovimientos() >= getReloj().turnoDe().getMovimientosPorTurnos()){
+            getReloj().terminarTurno();
+            for (Escaque[] escaques : tableroAjedrez) {
+                for (Escaque escaque : escaques) {
+                    escaque.getPieza().setSeHaMovidoEsteTurno(false);
+                }
+            }
+        }
+    }
+    
+    public boolean canMoverPieza(Pieza pieza){
+        return getReloj().turnoDe().getColor().equals(pieza.getColor()) && getReloj().canJugar(getReloj().turnoDe());
     }
 
     public Reloj getReloj() {

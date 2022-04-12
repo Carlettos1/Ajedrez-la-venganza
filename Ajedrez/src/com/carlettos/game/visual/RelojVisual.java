@@ -117,7 +117,7 @@ public class RelojVisual extends JPanel{
                             escaque.getPieza(),
                             escaque.getPos(),
                             infoUsada);
-                    reloj.movimiento();
+                    tv.getTablero().movimiento();
                     MousePieza.get().seleccionado = null;
                     tv.offAll();
                 }

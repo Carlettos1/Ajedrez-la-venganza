@@ -48,6 +48,11 @@ public class MousePieza implements MouseListener {
             TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
             Tablero tablero = tv.getTablero();
 
+            if (!tablero.canMoverPieza(seleccionado.getEscaque().getPieza())) {
+                seleccionado = null;
+                return;
+            }
+            
             seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getPos()).forEach((accion) -> {
                 tv.getEscaqueVisual(accion.x).setAccion(accion.y);
             });
@@ -75,6 +80,7 @@ public class MousePieza implements MouseListener {
             }
             seleccionado = null;
             tv.offAll();
+            tv.getRelojVisual().repaint();
         }
     }
 

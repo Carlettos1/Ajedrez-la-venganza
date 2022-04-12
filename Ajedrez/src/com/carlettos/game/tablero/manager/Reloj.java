@@ -110,6 +110,10 @@ public class Reloj {
         return turno;
     }
 
+    public int getMovimientos() {
+        return movimientos;
+    }
+
     @Override
     public String toString() {
         return eventos.toString();
