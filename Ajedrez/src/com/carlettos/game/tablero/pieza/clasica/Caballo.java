@@ -6,7 +6,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronCaballo;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoNinguna;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadSinInfo;
@@ -30,7 +30,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -45,7 +45,7 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             Point p1 = new Point(inicio.x + 1, inicio.y);
             Point p2 = new Point(inicio.x - 1, inicio.y);
             tablero.getEscaque(p1).setPieza(new Peon(pieza.getColor()));

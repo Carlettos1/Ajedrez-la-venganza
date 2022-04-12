@@ -7,7 +7,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoPieza;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @author Carlos
  */
-public abstract class Pieza {
+public abstract class Pieza implements Cloneable {
 
     /**
      * Representa el estado de si se ha movido. Prácticamente sirve para no
@@ -102,9 +102,9 @@ public abstract class Pieza {
      *
      * @return ActionResult.
      */
-    public abstract ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_);
+    public abstract ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_);
     
-    public void postAccion(Accion accion, TableroAbstract tablero, Point inicio, Point final_){
+    public void postAccion(Accion accion, AbstractTablero tablero, Point inicio, Point final_){
         this.setSeHaMovidoEsteTurno(true);
     }
     
@@ -119,13 +119,13 @@ public abstract class Pieza {
      * @param tablero TableroManager del juego.
      * @param seleccionado Point de la Pieza seleccionada.
      * @return Una lista con todos los puntos de acción básica posibles, junto a
-     * la acción que corresponde.
+     * la acción que corresponde. EXCLUYE A LA HABILIDAD.
      *
      * @see TableroManager
      * @see Pieza
      * @see Escaque
      */
-    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
+    public List<Par<Point, Accion>> allAcciones(AbstractTablero tablero, Point seleccionado) {
         List<Par<Point, Accion>> acciones = new ArrayList<>();
         for (int x = 0; x < tablero.columnas; x++) {
             for (int y = 0; y < tablero.filas; y++) {
@@ -283,5 +283,10 @@ public abstract class Pieza {
             return false;
         }
         return other.color.equals(this.color);
+    }
+
+    @Override
+    public Pieza clone() throws CloneNotSupportedException {
+        return (Pieza) super.clone();
     }
 }

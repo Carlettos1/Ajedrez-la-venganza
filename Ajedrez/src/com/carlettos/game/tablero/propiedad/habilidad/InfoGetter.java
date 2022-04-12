@@ -2,7 +2,7 @@ package com.carlettos.game.tablero.propiedad.habilidad;
 
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
 
@@ -15,7 +15,7 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
         InfoGetter.HabilidadPoint, InfoGetter.HabilidadString, Habilidad {
     
     Info<V> getInfoHabilidad();
-    V[] getAllValoresPosibles(TableroAbstract tablero, Point inicio);
+    V[] getAllValoresPosibles(AbstractTablero tablero, Point inicio);
     
     public static non-sealed interface HabilidadInteger extends InfoGetter<Integer> {
         @Override
@@ -31,7 +31,7 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
         }
 
         @Override
-        public default Direction[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+        public default Direction[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) {
             return Direction.values();
         }
     }
@@ -43,7 +43,7 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
         }
 
         @Override
-        public default String[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+        public default String[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) {
             return new String[0];
         }
     }

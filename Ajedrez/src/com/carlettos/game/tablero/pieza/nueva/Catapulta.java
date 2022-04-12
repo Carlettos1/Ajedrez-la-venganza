@@ -5,7 +5,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronEstructuraMover;
@@ -32,7 +32,7 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
     }
     
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             default -> ActionResult.FAIL;
@@ -53,19 +53,36 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoCompuesta<InfoNESW, InfoInteger> info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoCompuesta<InfoNESW, InfoInteger> info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
+            Point posPieza = switch (info.getY().getValor()) {
+                case 1 -> new Point(inicio.x-1, inicio.y-1);
+                case 2 -> new Point(inicio.x, inicio.y-1);
+                case 3 -> new Point(inicio.x+1, inicio.y-1);
+                case 4 -> new Point(inicio.x-1, inicio.y);
+                case 6 -> new Point(inicio.x+1, inicio.y);
+                case 7 -> new Point(inicio.x-1, inicio.y+1);
+                case 8 -> new Point(inicio.x, inicio.y+1);
+                case 9 -> new Point(inicio.x+1, inicio.y+1);
+                default -> new Point(-1, -1);
+            };
+            
+            if(tablero.isOutOfBorder(posPieza)){
+                return ActionResult.FAIL;
+            }
+            
             int num = info.getY().getValor();
             if(num >= 1 && num <= 9 && num != 5){
                 return ActionResult.PASS;
             }
+            
             return ActionResult.FAIL;
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoCompuesta<InfoNESW, InfoInteger> info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoCompuesta<InfoNESW, InfoInteger> info) {
             Point posPieza = switch (info.getY().getValor()) {
                 case 1 -> new Point(inicio.x-1, inicio.y-1);
                 case 2 -> new Point(inicio.x, inicio.y-1);
@@ -97,7 +114,7 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
         }
 
         @Override
-        public Par<InfoNESW, InfoInteger>[] getAllValoresPosibles(TableroAbstract tablero, Point point) {
+        public Par<InfoNESW, InfoInteger>[] getAllValoresPosibles(AbstractTablero tablero, Point point) {
             Direction[] nesw = Direction.values();
             Integer[] nums = {1, 2, 3, 4, 6, 7, 8, 9};
             Par<InfoNESW, InfoInteger>[] valores = new Par[nesw.length * nums.length];

@@ -18,12 +18,14 @@ public class Reloj {
     private int movimientos;
     private final List<Jugador> jugadores;
     private final List<Evento> eventos;
+    private final List<RelojListener> listeners;
 
     public Reloj(Jugador... jugadores) {
         this.movimientos = 0;
         this.turno = 1;
         this.eventos = new ArrayList<>();
         this.jugadores = Arrays.asList(jugadores);
+        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -91,6 +93,11 @@ public class Reloj {
         //remueve las acciones hechas.
         eventos.removeAll(Arrays.asList(eventosPass.toArray(Evento[]::new)));
         System.out.println("Juega el jugador: " + turnoDe());
+        this.listeners.forEach(l -> l.turnoTerminado(this));
+    }
+    
+    public void addListener(RelojListener l){
+        this.listeners.add(l);
     }
 
     public List<Evento> getEventos() {
@@ -117,5 +124,17 @@ public class Reloj {
     @Override
     public String toString() {
         return eventos.toString();
+    }
+
+    public Reloj copy() {
+        List<Jugador> js = new ArrayList<>();
+        for (Jugador jugador : jugadores) {
+            js.add(jugador.copy());
+        }
+        Reloj copy = new Reloj(js.toArray(Jugador[]::new));
+        copy.addEventos(this.eventos.toArray(Evento[]::new));//TODO: copiar eventos
+        copy.movimientos = movimientos;
+        copy.turno = turno;
+        return copy;
     }
 }

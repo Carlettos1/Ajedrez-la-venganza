@@ -1,7 +1,7 @@
 package com.carlettos.game.tablero.pieza.patron;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 
 /**
  * Se define como patrón el "patrón" de acción de una pieza. Básicamente es para
@@ -24,5 +24,5 @@ public interface Patron {
      * @param final_ donde se quiere comprobar si cumple el patrón.
      * @return Si cumple con el patrón {@code true}, sino, {@code false}.
      */
-    public boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_);
+    public boolean checkPatron(AbstractTablero tablero, Point inicio, Point final_);
 }

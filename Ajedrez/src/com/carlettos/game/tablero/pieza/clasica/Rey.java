@@ -5,7 +5,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronRey;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoPoint;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadPoint;
@@ -34,7 +34,7 @@ public class Rey extends PiezaSimple<PatronRey> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoPoint info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoPoint info) {
             if (pieza.seHaTeletransportado) {
                 return ActionResult.FAIL;
             }
@@ -43,14 +43,14 @@ public class Rey extends PiezaSimple<PatronRey> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoPoint info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoPoint info) {
             pieza.seHaTeletransportado = true;
             tablero.getEscaque(info.getValor()).setPieza(pieza);
             tablero.getEscaque(inicio).quitarPieza();
         }
 
         @Override
-        public Point[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+        public Point[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) {
             List<Point> valores = new ArrayList<>();
             for (int x = 0; x < tablero.columnas; x++) {
                 for (int y = 0; y < tablero.filas; y++) {

@@ -9,7 +9,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronTorre;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadNESW;
@@ -40,7 +40,7 @@ public class Torre extends PiezaSimple<PatronTorre> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -48,7 +48,7 @@ public class Torre extends PiezaSimple<PatronTorre> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
             Tablero t;
             if(tablero instanceof Tablero){
                 t = (Tablero) tablero;
@@ -141,13 +141,13 @@ public class Torre extends PiezaSimple<PatronTorre> {
             }
         }
 
-        protected List<Escaque> getEscaqueTorresAdyacentes(TableroAbstract tablero, P pieza, Point inicio) {
+        protected List<Escaque> getEscaqueTorresAdyacentes(AbstractTablero tablero, P pieza, Point inicio) {
             return Arrays.<Escaque>asList(tablero.getEscaquesCercanos(tablero.getEscaque(inicio)).stream().filter((escaque) -> {
                 return escaque.getPieza() instanceof Torre && pieza.getColor().equals(escaque.getPieza().getColor());
             }).toArray(Escaque[]::new));
         }
 
-        protected List<Escaque> ordenarEscaquesTorres(List<Escaque> torres, TableroAbstract tablero, Direction dir) {
+        protected List<Escaque> ordenarEscaquesTorres(List<Escaque> torres, AbstractTablero tablero, Direction dir) {
             List<Escaque> lista = new ArrayList<>();
             switch (dir) {
                 case S -> {for (int y = 0; y < tablero.filas; y++) {

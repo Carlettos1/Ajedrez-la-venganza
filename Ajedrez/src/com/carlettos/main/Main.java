@@ -1,6 +1,6 @@
 package com.carlettos.main;
 
-import com.carlettos.game.core.Evento;
+import com.carlettos.game.ia.RandomAI;
 import com.carlettos.game.tablero.carta.invocacion.InvocarCaballo;
 import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Reloj;
@@ -12,7 +12,6 @@ import com.carlettos.game.tablero.pieza.clasica.Rey;
 import com.carlettos.game.tablero.pieza.clasica.Torre;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.visual.TableroVisual;
-import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.clasica.Reina;
 import com.carlettos.game.tablero.pieza.nueva.Ariete;
 import com.carlettos.game.tablero.pieza.nueva.Arquero;
@@ -28,6 +27,9 @@ import com.carlettos.game.tablero.pieza.nueva.Paladin;
 import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
 import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
 import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -170,5 +172,20 @@ public class Main {
         
         TableroVisual tv = new TableroVisual(tablero);
         tv.mostrar();
+        
+        RandomAI iaB = new RandomAI(tv, blancas);
+        RandomAI iaN = new RandomAI(tv, negras);
+        reloj.addListener(r ->{ //TODO: stackoverflow, usar bien los listeners
+            if(r.canJugar(iaB.getJugador())){
+                System.out.print("jugar: ");
+                iaB.jugar();
+            }
+            if(r.canJugar(iaN.getJugador())){
+                System.out.print("jugar: ");
+                iaN.jugar();
+            }
+        });
+        System.out.print("jugar: ");
+        iaB.jugar();
     }
 }

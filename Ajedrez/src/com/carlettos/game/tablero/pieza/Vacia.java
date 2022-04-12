@@ -5,7 +5,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoNinguna;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadSinInfo;
 
@@ -25,7 +25,7 @@ public class Vacia extends Pieza {
     }
 
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return ActionResult.FAIL;
     }
 
@@ -36,12 +36,12 @@ public class Vacia extends Pieza {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, Pieza pieza, Point inicio, InfoNinguna info) {
             return ActionResult.FAIL;
         }
 
         @Override
-        public void usar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, Pieza pieza, Point inicio, InfoNinguna info) {
         }
     }
 }

@@ -5,7 +5,7 @@ import com.carlettos.game.core.Direction;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +68,11 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
         this.parametros = parametros;
     }
 
-    public abstract ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
+    public abstract ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, I informacionExtra);
 
-    public abstract void usar(TableroAbstract tablero, P pieza, Point inicio, I informacionExtra);
+    public abstract void usar(AbstractTablero tablero, P pieza, Point inicio, I informacionExtra);
     
-    public boolean commonCanUsar(TableroAbstract tablero, Pieza pieza){
+    public boolean commonCanUsar(AbstractTablero tablero, Pieza pieza){
         boolean nomana = pieza.getCdActual() <= 0 && !pieza.seHaMovidoEsteTurno();
         if(tablero instanceof Tablero t){
             return nomana && t.getReloj().turnoDe().getMana() >= this.costo;
@@ -80,7 +80,7 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
         return nomana;
     }
     
-    public void commonUsar(TableroAbstract tablero, Pieza pieza){
+    public void commonUsar(AbstractTablero tablero, Pieza pieza){
         pieza.setSeHaMovidoEsteTurno(true);
         pieza.cambiarCD(this.cooldown);
         if (tablero instanceof Tablero t) {
@@ -88,7 +88,8 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
         }
     }
     
-    public List<V> getOpciones(TableroAbstract tablero, Point inicio){
+    public List<V> getOpciones(AbstractTablero tablero, Point inicio){
+        //Da las opciones disponibles para la habilidad, es un all acciones
         //XXX: aquí hay mucho casteo y abstracción, 100% que falla 10 veces
         //por minuto, lo mejor es que cada clase rehaga este método para evitar errores
         Info<V> info = this.getInfoHabilidad();

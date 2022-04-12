@@ -5,10 +5,14 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.Escaque;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Info;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * TODO: reloj y manos?
  * Esta clase sólo controlará el trablero, cualquier otra funcionalidad que no
  * sea la de controlar a sus piezas, o proveer méthodos de utilidad sobre si
  * mismo, no es de su responsabilidad, por lo tanto, no tendrá conocimiento de
@@ -18,7 +22,7 @@ import com.carlettos.game.tablero.propiedad.habilidad.Info;
  *
  * @see Pieza
  */
-public class Tablero extends TableroAbstract {
+public class Tablero extends AbstractTablero {
     /**
      * Reloj vinculado a este tablero.
      */
@@ -121,7 +125,7 @@ public class Tablero extends TableroAbstract {
      *
      * @see ActionResult
      */
-    public ActionResult usarHabilidadPieza(Point inicio, Info info) {
+    public ActionResult intentarHabilidadPieza(Point inicio, Info info) {
         if(!canMoverPieza(getEscaque(inicio).getPieza())){
             return ActionResult.FAIL;
         }
@@ -137,12 +141,12 @@ public class Tablero extends TableroAbstract {
     public void movimiento() {
         this.reloj.movimiento();
         if(getReloj().getMovimientos() >= getReloj().turnoDe().getMovimientosPorTurnos()){
-            getReloj().terminarTurno();
             for (Escaque[] escaques : tableroAjedrez) {
                 for (Escaque escaque : escaques) {
                     escaque.getPieza().setSeHaMovidoEsteTurno(false);
                 }
             }
+            getReloj().terminarTurno();
         }
     }
     
@@ -152,5 +156,33 @@ public class Tablero extends TableroAbstract {
 
     public Reloj getReloj() {
         return reloj;
+    }
+    
+    public List<Pieza> getAllPiezasOfColor(Color color){
+        List<Pieza> piezas = new ArrayList<>();
+        for (Escaque[] escaques : tableroAjedrez) {
+            for (Escaque escaque : escaques) {
+                if(escaque.isControladoPor(color)){
+                    piezas.add(escaque.getPieza());
+                }
+            }
+        }
+        return piezas;
+    }
+    
+    public Tablero copy(){
+        Tablero copy = new Tablero(columnas, filas, reloj.copy());
+        for (Escaque[] escaques : tableroAjedrez) {
+            for (Escaque escaque : escaques) {
+                copy.getEscaque(escaque.getPos()).setIsConstruible(escaque.isConstruible());
+                copy.getEscaque(escaque.getPos()).setIsFuenteDeMagia(escaque.isFuenteDeMagia());
+                try {
+                    copy.getEscaque(escaque.getPos()).setPieza(escaque.getPieza().clone());
+                } catch (CloneNotSupportedException ex) {
+                    System.out.println("no ha clonao");
+                }
+            }
+        }
+        return copy;
     }
 }

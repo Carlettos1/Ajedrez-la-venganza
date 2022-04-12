@@ -6,7 +6,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronCaballo;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronReina;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoPoint;
@@ -31,7 +31,7 @@ public class Reina extends PiezaSimple<PatronReina> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoPoint info) {
+        public ActionResult canUsar(AbstractTablero tablero, Pieza pieza, Point inicio, InfoPoint info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -43,14 +43,14 @@ public class Reina extends PiezaSimple<PatronReina> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, Pieza pieza, Point inicio, InfoPoint info) {
+        public void usar(AbstractTablero tablero, Pieza pieza, Point inicio, InfoPoint info) {
             tablero.getEscaque(info.getValor()).setPieza(pieza);
             tablero.quitarPieza(inicio);
             this.commonUsar(tablero, pieza);
         }
 
         @Override
-        public Point[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) { //todo: que no salga del mapa
+        public Point[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) { //todo: que no salga del mapa
             Point[] valores = new Point[8];
             valores[0] = (new Point(-2, -1));
             valores[1] = (new Point(-2, 1));

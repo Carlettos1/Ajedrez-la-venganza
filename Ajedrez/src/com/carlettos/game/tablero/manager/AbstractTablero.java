@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Carlettos
  */
-public class TableroAbstract {
+public class AbstractTablero {
 
     //TODO: poder hacer tableros de cualquier tipo de formas.
     protected final Escaque[][] tableroAjedrez;
@@ -27,7 +27,7 @@ public class TableroAbstract {
      */
     public final int filas;
 
-    public TableroAbstract(int columnas, int filas) {
+    public AbstractTablero(int columnas, int filas) {
         this.tableroAjedrez = new Escaque[filas][columnas];
         this.columnas = columnas;
         this.filas = filas;
@@ -72,6 +72,19 @@ public class TableroAbstract {
             throw new IllegalArgumentException("La coordenada y no puede ser mayor o igual que el número de filas");
         }
         return tableroAjedrez[punto.y][punto.x];
+    }
+    
+    public boolean isOutOfBorder(Point punto){
+        if (punto.x < 0) {
+            return true;
+        }
+        if (punto.y < 0) {
+            return true;
+        }
+        if (punto.x >= columnas) {
+            return true;        
+        }
+        return punto.y >= filas;
     }
 
     /**

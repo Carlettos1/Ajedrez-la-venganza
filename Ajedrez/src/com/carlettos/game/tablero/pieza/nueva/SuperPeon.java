@@ -4,7 +4,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.AbstractPeon;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronSuperPeonComer;
@@ -35,12 +35,12 @@ public class SuperPeon extends AbstractPeon<PatronSuperPeonMover, PatronSuperPeo
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             return ActionResult.fromBoolean(!pieza.isTipo(Tipo.INMUNE) && this.commonCanUsar(tablero, pieza));
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             if(tablero instanceof Tablero t){
                 pieza.addTipo(Tipo.INMUNE); //TODO: que sea impenetrable
                 t.getReloj().addEventos(Evento.Builder.start(t).with(5, "Expiración Defender")

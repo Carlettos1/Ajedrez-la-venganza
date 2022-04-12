@@ -15,9 +15,16 @@ public abstract class Info<V> {
         return valor;
     }
     
+    
+    
     /*public abstract Info<V> fromString(String str);
     @Override
     public abstract String toString();
     public abstract boolean CheckString();
     public abstract List<V> getAllValoresPosibles();*/
+
+    @Override
+    public String toString() {
+        return "I:" + this.valor.toString();
+    }
 }

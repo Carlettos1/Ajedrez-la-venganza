@@ -9,7 +9,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.tablero.propiedad.Tipo;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronAlfil;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
 import com.carlettos.game.tablero.propiedad.habilidad.InfoGetter.HabilidadNESW;
@@ -28,25 +28,6 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
         super("Alfil", "A", HABILIDAD_ALFIL, color, new PatronAlfil(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
     }
 
-    @Override
-    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
-        //myc viene de mover y comer
-        List<Par<Point, Accion>> myc = super.allAcciones(tablero, seleccionado);
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, new InfoNESW(Direction.N)).isPositive()) {
-            myc.add(new Par<>(new Point(seleccionado.x, seleccionado.y + 1), Accion.HABILIDAD));
-        }
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, new InfoNESW(Direction.E)).isPositive()) {
-            myc.add(new Par<>(new Point(seleccionado.x + 1, seleccionado.y), Accion.HABILIDAD));
-        }
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, new InfoNESW(Direction.S)).isPositive()) {
-            myc.add(new Par<>(new Point(seleccionado.x, seleccionado.y - 1), Accion.HABILIDAD));
-        }
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, new InfoNESW(Direction.W)).isPositive()) {
-            myc.add(new Par<>(new Point(seleccionado.x - 1, seleccionado.y), Accion.HABILIDAD));
-        }
-        return myc;
-    }
-
     public static class HabilidadAlfil<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW {
         public HabilidadAlfil() {
             super("Cambio de Color",
@@ -57,7 +38,7 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
             if (!super.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -65,15 +46,23 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
             boolean verificacion;
             
             if(info.isAxis(Direction.Axis.NS)){
-                verificacion = !tablero.getEscaque(inicio.add(0, info.getSign())).hasPieza();
+                if(tablero.isOutOfBorder(inicio.add(0, info.getSign()))){
+                    verificacion = false;
+                } else {
+                    verificacion = !tablero.getEscaque(inicio.add(0, info.getSign())).hasPieza();
+                }
             } else {
-                verificacion = !tablero.getEscaque(inicio.add(info.getSign(), 0)).hasPieza();
+                if(tablero.isOutOfBorder(inicio.add(info.getSign(), 0))){
+                    verificacion = false;
+                } else {
+                    verificacion = !tablero.getEscaque(inicio.add(info.getSign(), 0)).hasPieza();
+                }
             }
             return ActionResult.fromBoolean(verificacion);
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
             if(info.isAxis(Direction.Axis.NS)){
                 tablero.getEscaque(inicio.add(0, info.getSign())).setPieza(pieza);
             } else {
@@ -84,14 +73,23 @@ public class Alfil extends PiezaSimple<PatronAlfil> {
         }
 
         @Override
-        public Direction[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+        public Direction[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) {
             List<Direction> valores = new ArrayList<>(4);
             for (Direction direction : Direction.values()) {
                 boolean verificacion;
+            
                 if(direction.isAxis(Direction.Axis.NS)){
-                    verificacion = !tablero.getEscaque(inicio.add(0, direction.getSign())).hasPieza();
+                    if(tablero.isOutOfBorder(inicio.add(0, direction.getSign()))){
+                        verificacion = false;
+                    } else {
+                        verificacion = !tablero.getEscaque(inicio.add(0, direction.getSign())).hasPieza();
+                    }
                 } else {
-                    verificacion = !tablero.getEscaque(inicio.add(direction.getSign(), 0)).hasPieza();
+                    if(tablero.isOutOfBorder(inicio.add(direction.getSign(), 0))){
+                        verificacion = false;
+                    } else {
+                        verificacion = !tablero.getEscaque(inicio.add(direction.getSign(), 0)).hasPieza();
+                    }
                 }
                 if(verificacion){
                     valores.add(direction);

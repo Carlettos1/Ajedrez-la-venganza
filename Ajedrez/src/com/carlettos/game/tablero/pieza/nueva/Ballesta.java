@@ -3,7 +3,7 @@ package com.carlettos.game.tablero.pieza.nueva;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
@@ -28,7 +28,7 @@ public class Ballesta extends Pieza implements IMover<PatronEstructuraMover>, IA
     }
 
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             case ATACAR -> this.canAtacar(tablero, inicio, final_, patronAtacar);

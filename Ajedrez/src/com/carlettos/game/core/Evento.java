@@ -2,7 +2,6 @@ package com.carlettos.game.core;
 
 import com.carlettos.game.tablero.manager.Reloj;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.core.Point;
 
 /**
  * Un evento es algo que va a pasar en n cantidad de turnos, con n >= 1
@@ -50,6 +49,10 @@ public abstract class Evento implements Comparable<Evento> {
     @Override
     public int compareTo(Evento o) {
         return Integer.compare(this.turnos, o.turnos);
+    }
+    
+    public Evento copy(){
+        return this; //TODO: copiar evento
     }
     
     public static final class Builder {

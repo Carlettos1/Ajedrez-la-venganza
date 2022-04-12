@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronEstructuraMover;
@@ -29,7 +29,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
     }
     
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             default -> ActionResult.FAIL;
@@ -49,7 +49,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
         }
         
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -57,14 +57,21 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNESW info) {
-            int carga = 0;
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNESW info) {
+            int carga = 1;
+            tablero.getEscaque(inicio).quitarPieza();
             if(info.isAxis(Direction.Axis.EW)) {
                 for(int x = inicio.x + info.getSign();;x += info.getSign()){
+                    if(tablero.isOutOfBorder(new Point(x, inicio.y))){
+                        tablero.getEscaque(x - info.getSign(), inicio.y).setPieza(pieza);
+                        break;
+                    }
                     if(tablero.getEscaque(x, inicio.y).hasPieza()) {
-                        for (int dx = 0; dx < carga/5; dx++) {
-                            tablero.quitarPieza(x + dx, inicio.y);
-                            tablero.getEscaque(x + dx, inicio.y).setPieza(pieza);
+                        for (int dx = 0; dx < carga/5 + 1; dx++) {
+                            if(!tablero.isOutOfBorder(new Point(x + dx, inicio.y))){
+                                tablero.getEscaque(x + dx, inicio.y).setPieza(pieza);
+                                tablero.getEscaque(x + dx - info.getSign(), inicio.y).quitarPieza();
+                            }
                         }
                         break;
                     } else {
@@ -73,10 +80,16 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
                 }
             } else {
                 for(int y = inicio.y + info.getSign();;y += info.getSign()){
+                    if(tablero.isOutOfBorder(new Point(inicio.x, y))){
+                        tablero.getEscaque(inicio.x, y - info.getSign()).setPieza(pieza);
+                        break;
+                    }
                     if(tablero.getEscaque(inicio.x, y).hasPieza()) {
-                        for (int dy = 0; dy < carga/5; dy++) {
-                            tablero.quitarPieza(inicio.x, y + dy);
-                            tablero.getEscaque(inicio.x, y + dy).setPieza(pieza);
+                        for (int dy = 0; dy < carga/5 + 1; dy++) {
+                            if(!tablero.isOutOfBorder(new Point(inicio.x, y + dy))){
+                                tablero.getEscaque(inicio.x, y + dy).setPieza(pieza);
+                                tablero.getEscaque(inicio.x, y + dy - info.getSign()).quitarPieza();
+                            }
                         }
                         break;
                     } else {

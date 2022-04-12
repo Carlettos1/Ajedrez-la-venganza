@@ -2,7 +2,7 @@ package com.carlettos.game.tablero.pieza.patron.nuevo;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.Patron;
 import java.util.Random;
 
@@ -30,7 +30,7 @@ public interface PatronPeonLoco extends Patron {
     };
 
     @Override
-    public default boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_) {
+    public default boolean checkPatron(AbstractTablero tablero, Point inicio, Point final_) {
         if(tablero instanceof Tablero t){
             return switch(this.getRandomNumber(t.getReloj().getTurno())){
                 case 0 -> final_.equals(inicio.add(0, 1)) || final_.equals(inicio.add(0, 2));

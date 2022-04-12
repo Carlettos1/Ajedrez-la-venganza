@@ -5,7 +5,7 @@ import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.clasica.PiezaSimple;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronPeonLoco;
@@ -35,12 +35,12 @@ public class PeonLoco extends PiezaSimple<PatronPeonLoco> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             if(tablero instanceof Tablero t){
                 final Jugador jugador = t.getReloj().turnoDe();
                 t.quitarPieza(inicio);

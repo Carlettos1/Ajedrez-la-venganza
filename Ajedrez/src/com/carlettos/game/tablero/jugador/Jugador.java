@@ -145,4 +145,8 @@ public class Jugador {
         final Jugador other = (Jugador) obj;
         return Objects.equals(this.id, other.id);
     }
+    
+    public Jugador copy(){
+        return new Jugador(movimientosPorTurnos, mana, id, color, mano); //TODO: copiar mano
+    }
 }

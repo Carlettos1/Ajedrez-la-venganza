@@ -7,7 +7,7 @@ import com.carlettos.game.tablero.pieza.AbstractPeon;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.nueva.Ariete;
 import com.carlettos.game.tablero.pieza.nueva.Arquero;
@@ -46,16 +46,6 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         super(()->color, ()->color, "Peón", "P", HABILIDAD_PEON, color);
     }
 
-    @Override
-    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
-        //todo: all acciones llama al super...
-        List<Par<Point, Accion>> myc = super.allAcciones(tablero, seleccionado);
-        if (this.getHabilidad().canUsar(tablero, this, seleccionado, null).isPositive()) {
-            myc.add(new Par<>(seleccionado, Accion.HABILIDAD));
-        }
-        return myc;
-    }
-
     public static class HabilidadPeon<P extends Pieza> extends Habilidad<P, Pieza, InfoPieza> implements HabilidadPieza {
 
         public HabilidadPeon() {
@@ -67,7 +57,7 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoPieza info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoPieza info) {
             if(!this.commonCanUsar(tablero, pieza)){
                 return ActionResult.FAIL;
             }
@@ -90,7 +80,7 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoPieza info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoPieza info) {
             Pieza p = info.getValor();
             p.setColor(pieza.getColor());
             tablero.getEscaque(inicio).setPieza(p);
@@ -98,7 +88,7 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         }
 
         @Override
-        public Pieza[] getAllValoresPosibles(TableroAbstract tablero, Point inicio) {
+        public Pieza[] getAllValoresPosibles(AbstractTablero tablero, Point inicio) {
             return new Pieza[]{new Alfil(Color.DEFAULT),
                 new Caballo(Color.DEFAULT),
                 new Reina(Color.DEFAULT),

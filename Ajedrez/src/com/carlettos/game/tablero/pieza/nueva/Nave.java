@@ -3,7 +3,7 @@ package com.carlettos.game.tablero.pieza.nueva;
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
@@ -31,7 +31,7 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
     }
 
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             case COMER -> this.canComer(tablero, inicio, final_, patronComer);
@@ -49,12 +49,12 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             Point[] puntos = new Point[]{inicio.add(1, 1), inicio.add(1, 0), inicio.add(1, -1),
                                        inicio.add(-1, 1), inicio.add(-1, 0), inicio.add(-1, -1)};
             for (Point punto : puntos) {

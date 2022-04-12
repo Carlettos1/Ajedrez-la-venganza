@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.PatronPeon;
 import com.carlettos.game.tablero.pieza.patron.accion.IMover;
 import com.carlettos.game.tablero.pieza.patron.accion.IComer;
@@ -27,7 +27,7 @@ public abstract class AbstractPeon<M extends PatronPeon, C extends PatronPeon> e
     }
 
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return switch(accion){
             case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
             case COMER -> this.canComer(tablero, inicio, final_, patronComer);

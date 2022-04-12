@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.Vacia;
 import com.carlettos.game.tablero.propiedad.Color;
@@ -21,12 +21,12 @@ public class Muro extends Pieza {
     }
 
     @Override
-    public ActionResult can(Accion accion, TableroAbstract tablero, Point inicio, Point final_) {
+    public ActionResult can(Accion accion, AbstractTablero tablero, Point inicio, Point final_) {
         return ActionResult.FAIL;
     }
 
     @Override
-    public List<Par<Point, Accion>> allAcciones(TableroAbstract tablero, Point seleccionado) {
+    public List<Par<Point, Accion>> allAcciones(AbstractTablero tablero, Point seleccionado) {
         return List.of();
     }
 }

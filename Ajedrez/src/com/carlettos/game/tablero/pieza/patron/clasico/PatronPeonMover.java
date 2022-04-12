@@ -1,7 +1,7 @@
 package com.carlettos.game.tablero.pieza.patron.clasico;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.PatronPeon;
 import com.carlettos.game.tablero.propiedad.Color;
 
@@ -12,7 +12,7 @@ import com.carlettos.game.tablero.propiedad.Color;
 public interface PatronPeonMover extends PatronPeon{
 
     @Override
-    public default boolean checkPatron(TableroAbstract tablero, Point inicio, Point final_) {
+    public default boolean checkPatron(AbstractTablero tablero, Point inicio, Point final_) {
         if (getColor().equals(Color.BLANCO)) {
             Point puntoSiguiente = new Point(inicio.x, inicio.y + 1);
             Point puntoSubSiguiente = new Point(inicio.x, inicio.y + 2);

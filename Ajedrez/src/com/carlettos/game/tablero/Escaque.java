@@ -160,4 +160,9 @@ public class Escaque {
     public void setIsConstruible(boolean isConstruible) {
         this.isConstruible = isConstruible;
     }
+
+    @Override
+    public String toString() {
+        return getPos().toString();
+    }
 }

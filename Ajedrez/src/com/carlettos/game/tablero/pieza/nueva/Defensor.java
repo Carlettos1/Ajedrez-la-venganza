@@ -2,7 +2,7 @@ package com.carlettos.game.tablero.pieza.nueva;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.manager.TableroAbstract;
+import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.AbstractPeon;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.pieza.patron.clasico.PatronPeonComer;
@@ -34,12 +34,12 @@ public class Defensor extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
         }
 
         @Override
-        public ActionResult canUsar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
         }
 
         @Override
-        public void usar(TableroAbstract tablero, P pieza, Point inicio, InfoNinguna info) {
+        public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             System.out.println("USAR HABILIDAD DEFENSOR");
         }
     }

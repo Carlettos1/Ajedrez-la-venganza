@@ -7,7 +7,7 @@ import com.carlettos.game.tablero.Escaque;
  *
  * @author Carlettos
  */
-public class MiniTablero extends TableroAbstract{
+public class MiniTablero extends AbstractTablero{
     public MiniTablero(int columnas, int filas) {
         super(columnas, filas);
     }
