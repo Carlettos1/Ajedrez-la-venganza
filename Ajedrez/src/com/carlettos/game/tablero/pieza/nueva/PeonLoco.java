@@ -7,7 +7,7 @@ import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.Pieza;
-import com.carlettos.game.tablero.pieza.clasica.PiezaSimple;
+import com.carlettos.game.tablero.pieza.PiezaSimple;
 import com.carlettos.game.tablero.pieza.patron.nuevo.PatronPeonLoco;
 import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Habilidad;
@@ -36,7 +36,7 @@ public class PeonLoco extends PiezaSimple<PatronPeonLoco> {
 
         @Override
         public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza) && tablero instanceof Tablero);
         }
 
         @Override

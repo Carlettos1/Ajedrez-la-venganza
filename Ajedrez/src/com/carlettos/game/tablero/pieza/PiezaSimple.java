@@ -1,4 +1,4 @@
-package com.carlettos.game.tablero.pieza.clasica;
+package com.carlettos.game.tablero.pieza;
 
 import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;

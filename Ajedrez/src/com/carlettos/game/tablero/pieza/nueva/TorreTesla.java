@@ -56,7 +56,7 @@ public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, I
 
         @Override
         public ActionResult canUsar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza) && tablero instanceof Tablero);
         }
 
         @Override

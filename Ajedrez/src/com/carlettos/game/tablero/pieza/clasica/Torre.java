@@ -1,5 +1,6 @@
 package com.carlettos.game.tablero.pieza.clasica;
 
+import com.carlettos.game.tablero.pieza.PiezaSimple;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.tablero.Escaque;
@@ -44,7 +45,7 @@ public class Torre extends PiezaSimple<PatronTorre> {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
-            return ActionResult.PASS;
+            return ActionResult.fromBoolean(tablero instanceof Tablero);
         }
 
         @Override

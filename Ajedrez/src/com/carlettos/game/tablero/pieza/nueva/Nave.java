@@ -57,7 +57,7 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
         public void usar(AbstractTablero tablero, P pieza, Point inicio, InfoNinguna info) {
             Point[] puntos = new Point[]{inicio.add(1, 1), inicio.add(1, 0), inicio.add(1, -1),
                                        inicio.add(-1, 1), inicio.add(-1, 0), inicio.add(-1, -1)};
-            for (Point punto : puntos) {
+            for (Point punto : puntos) { //TODO: quitar try
                 try {
                     tablero.quitarPieza(punto);
                 } catch (Exception e) {

@@ -1,7 +1,9 @@
 package com.carlettos.game.tablero.manager;
 
+import com.carlettos.game.tablero.manager.event.RelojListener;
 import com.carlettos.game.core.Evento;
 import com.carlettos.game.tablero.jugador.Jugador;
+import com.carlettos.game.tablero.manager.event.RelojEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,25 +81,21 @@ public class Reloj {
         eventos.forEach((evento) -> {
             evento.turnos -= 1;
         });
-        Stream<Evento> eventosPass = eventos.stream().filter((evento) -> {
+        eventos.stream().filter((evento) -> {
             return evento.turnos <= 0;
+        }).forEach((evento) -> {
+            evento.accion();
         });
-        eventosPass.forEach((evento) -> {
-            evento.accion(); //usa las acciones
-        });
-        
-        //una vez cerrada la pipeline es necesario hacer de nuevo el filter para volver a usar el stream.
-        eventosPass = eventos.stream().filter((evento) -> {
-            return evento.turnos <= 0;
-        });
-        //remueve las acciones hechas.
-        eventos.removeAll(Arrays.asList(eventosPass.toArray(Evento[]::new)));
+        eventos.removeIf(evento -> evento.turnos <= 0);
         System.out.println("Juega el jugador: " + turnoDe());
-        this.listeners.forEach(l -> l.turnoTerminado(this));
     }
     
     public void addListener(RelojListener l){
         this.listeners.add(l);
+    }
+    
+    public void ejecutarListeners(){
+        this.listeners.forEach(l -> l.turnoTerminado(new RelojEvent(this)));
     }
 
     public List<Evento> getEventos() {
@@ -124,17 +122,5 @@ public class Reloj {
     @Override
     public String toString() {
         return eventos.toString();
-    }
-
-    public Reloj copy() {
-        List<Jugador> js = new ArrayList<>();
-        for (Jugador jugador : jugadores) {
-            js.add(jugador.copy());
-        }
-        Reloj copy = new Reloj(js.toArray(Jugador[]::new));
-        copy.addEventos(this.eventos.toArray(Evento[]::new));//TODO: copiar eventos
-        copy.movimientos = movimientos;
-        copy.turno = turno;
-        return copy;
     }
 }

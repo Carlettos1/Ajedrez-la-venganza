@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @author Carlos
  */
-public abstract class Pieza implements Cloneable {
+public abstract class Pieza {
 
     /**
      * Representa el estado de si se ha movido. Prácticamente sirve para no
@@ -264,6 +264,7 @@ public abstract class Pieza implements Cloneable {
     /**
      * Revisa si las piezas tienen el mismo nombre y son del mismo color. De la
      * misma que todos los peones blancos son iguales en el ajedrez normal.
+     * Si el color de una pieza es gris, sólo se verificará su nombre;
      * @param obj la otra pieza
      * @return true si tienen el mismo nombre y color, false si no.
      */
@@ -282,11 +283,9 @@ public abstract class Pieza implements Cloneable {
         if (!this.nombre.equals(other.nombre)) {
             return false;
         }
+        if(this.color == Color.GRIS || other.color == Color.GRIS){
+            return true;
+        }
         return other.color.equals(this.color);
-    }
-
-    @Override
-    public Pieza clone() throws CloneNotSupportedException {
-        return (Pieza) super.clone();
     }
 }

@@ -1,5 +1,6 @@
 package com.carlettos.game.tablero.pieza.clasica;
 
+import com.carlettos.game.tablero.pieza.PiezaSimple;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.tablero.pieza.Pieza;
 import com.carlettos.game.tablero.propiedad.Color;

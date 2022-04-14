@@ -51,10 +51,6 @@ public abstract class Evento implements Comparable<Evento> {
         return Integer.compare(this.turnos, o.turnos);
     }
     
-    public Evento copy(){
-        return this; //TODO: copiar evento
-    }
-    
     public static final class Builder {
         private final Tablero tablero;
         private int turnos;

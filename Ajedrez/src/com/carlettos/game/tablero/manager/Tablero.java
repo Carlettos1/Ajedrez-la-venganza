@@ -9,8 +9,6 @@ import com.carlettos.game.tablero.propiedad.Color;
 import com.carlettos.game.tablero.propiedad.habilidad.Info;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Esta clase sólo controlará el trablero, cualquier otra funcionalidad que no
@@ -153,6 +151,10 @@ public class Tablero extends AbstractTablero {
     public boolean canMoverPieza(Pieza pieza){
         return getReloj().turnoDe().getColor().equals(pieza.getColor()) && getReloj().canJugar(getReloj().turnoDe());
     }
+    
+    public boolean canMoverColor(Color color){
+        return getReloj().turnoDe().getColor().equals(color) && getReloj().canJugar(getReloj().turnoDe());
+    }
 
     public Reloj getReloj() {
         return reloj;
@@ -168,21 +170,5 @@ public class Tablero extends AbstractTablero {
             }
         }
         return piezas;
-    }
-    
-    public Tablero copy(){
-        Tablero copy = new Tablero(columnas, filas, reloj.copy());
-        for (Escaque[] escaques : tableroAjedrez) {
-            for (Escaque escaque : escaques) {
-                copy.getEscaque(escaque.getPos()).setIsConstruible(escaque.isConstruible());
-                copy.getEscaque(escaque.getPos()).setIsFuenteDeMagia(escaque.isFuenteDeMagia());
-                try {
-                    copy.getEscaque(escaque.getPos()).setPieza(escaque.getPieza().clone());
-                } catch (CloneNotSupportedException ex) {
-                    System.out.println("no ha clonao");
-                }
-            }
-        }
-        return copy;
     }
 }

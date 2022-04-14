@@ -9,7 +9,7 @@ import java.util.Objects;
  * @param <X> clase del primer parámetro del constructor
  * @param <Y> clase del segundo parámetro del constructor
  */
-public final class Par<X, Y> {
+public class Par<X, Y> {
 
     public final X x;
     public final Y y;
@@ -24,7 +24,7 @@ public final class Par<X, Y> {
     }
     
     public static <X, Y> Par<X, Y> of(X x, Y y){
-        return new Par<X, Y>(x, y);
+        return new Par<>(x, y);
     }
 
     @Override
