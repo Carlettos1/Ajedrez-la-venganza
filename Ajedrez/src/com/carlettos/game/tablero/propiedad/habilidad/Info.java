@@ -14,14 +14,6 @@ public abstract class Info<V> {
     public V getValor() {
         return valor;
     }
-    
-    
-    
-    /*public abstract Info<V> fromString(String str);
-    @Override
-    public abstract String toString();
-    public abstract boolean CheckString();
-    public abstract List<V> getAllValoresPosibles();*/
 
     @Override
     public String toString() {
