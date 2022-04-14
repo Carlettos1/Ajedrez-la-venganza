@@ -1,7 +1,6 @@
 package com.carlettos.game.tablero.pieza.patron.nuevo;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.ia.TableroVirtual;
 import com.carlettos.game.tablero.manager.Tablero;
 import com.carlettos.game.tablero.manager.AbstractTablero;
 import com.carlettos.game.tablero.pieza.patron.Patron;
@@ -35,7 +34,6 @@ public interface PatronPeonLoco extends Patron {
         int turno;
         switch (tablero) {
             case Tablero t -> turno = t.getReloj().getTurno();
-            case TableroVirtual t -> turno = t.getTurno();
             case default -> throw new IllegalArgumentException("Tablero no es instanceof Tablero");
         }
         return switch(this.getRandomNumber(turno)) {

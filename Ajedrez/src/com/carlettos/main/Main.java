@@ -1,8 +1,5 @@
 package com.carlettos.main;
 
-import com.carlettos.game.ia.AI;
-import com.carlettos.game.ia.RandomAI;
-import com.carlettos.game.ia.SimpleDepthAI;
 import com.carlettos.game.tablero.carta.invocacion.InvocarCaballo;
 import com.carlettos.game.tablero.jugador.Jugador;
 import com.carlettos.game.tablero.manager.Reloj;
@@ -29,10 +26,6 @@ import com.carlettos.game.tablero.pieza.nueva.Paladin;
 import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
 import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
 import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
-import java.util.Calendar;
-import java.util.EventListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -175,32 +168,5 @@ public class Main {
         
         TableroVisual tv = new TableroVisual(tablero);
         tv.mostrar();
-        
-        AI iaB = new SimpleDepthAI(tv, blancas, 1);
-        AI iaN = new SimpleDepthAI(tv, negras, 1);
-        reloj.addListener(e ->{ //TODO: stackoverflow, usar bien los listeners
-            if(tablero.getAllPiezasOfColor(e.getColor()).isEmpty()){
-                System.out.println(e.getColor() + " ha perdido!");
-                return;
-            }
-            if(e.getColor().equals(iaB.getJugador().getColor())){
-                System.out.print("jugar: ");
-                iaB.jugar();
-                System.out.println(tablero.getValoracionTotal(Color.BLANCO, Color.NEGRO, SimpleDepthAI.getValoresPiezas()));
-            }
-            if(e.getColor().equals(iaN.getJugador().getColor())){
-                System.out.print("jugar: ");
-                iaN.jugar();
-            }
-        });
-        System.out.print("jugar: ");
-        iaB.jugar();
-        long t1 = Calendar.getInstance().getTimeInMillis();
-        while(true){
-            if(Calendar.getInstance().getTimeInMillis() - t1 >= 2000){
-                t1 = Calendar.getInstance().getTimeInMillis();
-                reloj.ejecutarListeners();
-            }
-        }
     }
 }
