@@ -4,8 +4,8 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.tablero.Escaque;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.visual.EscaqueVisual;
 import com.carlettos.game.visual.TableroVisual;
 import java.awt.event.MouseEvent;
@@ -46,7 +46,7 @@ public class MousePieza implements MouseListener {
                 return;
             }
             TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
-            Tablero tablero = tv.getTablero();
+            Board tablero = tv.getTablero();
 
             if (!tablero.canMoverPieza(seleccionado.getEscaque().getPieza())) {
                 seleccionado = null;
@@ -61,7 +61,7 @@ public class MousePieza implements MouseListener {
             Escaque escaqueSeleccionado = seleccionado.getEscaque();
             Escaque escaqueObjetivo = objetivo.getEscaque();
             TableroVisual tv = ListenerHelper.getTableroVisual(seleccionado);
-            Tablero tablero = tv.getTablero();
+            Board tablero = tv.getTablero();
 
             if (tablero.intentarMoverPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
                 if (tablero.intentarComerPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {

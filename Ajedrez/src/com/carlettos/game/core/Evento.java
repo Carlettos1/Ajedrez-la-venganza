@@ -1,21 +1,21 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.tablero.manager.Reloj;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.manager.Board;
 
 /**
  * Un evento es algo que va a pasar en n cantidad de turnos, con n >= 1
  *
  * @author Carlos
  * 
- * @see Reloj
+ * @see Clock
  */
 public abstract class Evento implements Comparable<Evento> {
 
     public int turnos;
     public final String nombre;
     protected Point punto;
-    protected final Tablero tablero;
+    protected final Board tablero;
 
     /**
      * Contructor del evento, es algo que ocurre luego de n turnos terminados, o
@@ -26,7 +26,7 @@ public abstract class Evento implements Comparable<Evento> {
      * @param punto punto de referencia del evento.
      * @param tablero tablero en el cual ocurre el evento.
      */
-    private Evento(int turnos, String nombre, Point punto, Tablero tablero) {
+    private Evento(int turnos, String nombre, Point punto, Board tablero) {
         if (turnos <= 0) {
             throw new IllegalArgumentException("La cantidad de turnos de un evento no puede ser 0 o negativa");
         }
@@ -52,16 +52,16 @@ public abstract class Evento implements Comparable<Evento> {
     }
     
     public static final class Builder {
-        private final Tablero tablero;
+        private final Board tablero;
         private int turnos;
         private String nombre;
         private Point punto;
         
-        public static Builder start(Tablero tablero){
+        public static Builder start(Board tablero){
             return new Builder(tablero);
         }
 
-        private Builder(Tablero tablero) {
+        private Builder(Board tablero) {
             this.tablero = tablero;
             this.turnos = 10;
             this.nombre = "Evento";
@@ -120,6 +120,6 @@ public abstract class Evento implements Comparable<Evento> {
     
     @FunctionalInterface
     public static interface Operator{
-        public void operar(int turnos1, String nombre1, Point punto1, Tablero tablero1);
+        public void operar(int turnos1, String nombre1, Point punto1, Board tablero1);
     }
 }

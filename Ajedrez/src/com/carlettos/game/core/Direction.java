@@ -1,6 +1,6 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
+import com.carlettos.game.board.property.ability.InfoNESW;
 
 /**
  *

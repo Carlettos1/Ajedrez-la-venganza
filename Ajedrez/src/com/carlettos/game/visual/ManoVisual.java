@@ -1,9 +1,9 @@
 package com.carlettos.game.visual;
 
-import com.carlettos.game.core.Constantes;
+import com.carlettos.game.core.Constants;
 import com.carlettos.game.input.MouseCarta;
-import com.carlettos.game.tablero.jugador.Jugador;
-import com.carlettos.game.tablero.manager.Reloj;
+import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.board.manager.Clock;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -20,10 +20,10 @@ import javax.swing.JPanel;
  */
 public class ManoVisual extends JPanel {
 
-    private final Reloj reloj; //TODO: no usar reloj
+    private final Clock reloj; //TODO: no usar reloj
     private final JPanel panelesJugadores;
 
-    public ManoVisual(Reloj reloj) throws HeadlessException {
+    public ManoVisual(Clock reloj) throws HeadlessException {
         super(new BorderLayout(0, 10));
         this.reloj = reloj;
         this.panelesJugadores = new JPanel(new CardLayout());
@@ -55,7 +55,7 @@ public class ManoVisual extends JPanel {
         private final Jugador jugador;
 
         public PanelJugador(Jugador jugador) {
-            super(new GridLayout(Constantes.CARTAS_Y, Constantes.CARTAS_X, 10, 10));
+            super(new GridLayout(Constants.CARTAS_Y, Constants.CARTAS_X, 10, 10));
             this.jugador = jugador;
             jugador.getMano().getCartas().forEach((carta) -> {
                 CartaVisual ecv = new CartaVisual(jugador.getColor(), carta);
@@ -77,8 +77,8 @@ public class ManoVisual extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(Constantes.CARTAS_X * Constantes.TAMAÑO_CARTA_X,
-                    Constantes.CARTAS_Y * Constantes.TAMAÑO_CARTA_Y);
+            return new Dimension(Constants.CARTAS_X * Constants.TAMAÑO_CARTA_X,
+                    Constants.CARTAS_Y * Constants.TAMAÑO_CARTA_Y);
         }
     }
 }

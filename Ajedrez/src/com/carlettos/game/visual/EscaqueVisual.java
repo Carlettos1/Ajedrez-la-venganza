@@ -1,9 +1,9 @@
 package com.carlettos.game.visual;
 
 import com.carlettos.game.core.Accion;
-import com.carlettos.game.core.Constantes;
-import com.carlettos.game.tablero.Escaque;
-import com.carlettos.game.tablero.propiedad.Color;
+import com.carlettos.game.core.Constants;
+import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.property.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -37,21 +37,21 @@ public class EscaqueVisual extends Component {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constantes.TAMAÑO_CASILLA, Constantes.TAMAÑO_CASILLA);
+        return new Dimension(Constants.TAMAÑO_CASILLA, Constants.TAMAÑO_CASILLA);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor((isPar ? Constantes.COLOR2 : Constantes.COLOR1).getAWT());
+        g.setColor((isPar ? Constants.COLOR2 : Constants.COLOR1).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor((!isPar ? Constantes.COLOR2 : Constantes.COLOR1).getAWT());
+        g.setColor((!isPar ? Constants.COLOR2 : Constants.COLOR1).getAWT());
         //TODO: cambiar String por una imagen.
         g.drawString(escaque.getPieza().abreviacion, 2, 20);
         g.drawString(escaque.isEmpty() ? "" : escaque.getPieza().getColor().name(), 2, 30);
 
-        double w = Constantes.PORCENTAJE * getWidth();
-        double h = Constantes.PORCENTAJE * getHeight();
+        double w = Constants.PORCENTAJE * getWidth();
+        double h = Constants.PORCENTAJE * getHeight();
         double x = (getWidth() - w) / 2D;
         double y = (getHeight() - h) / 2D;
         switch (this.acciones.size()) {
@@ -71,8 +71,8 @@ public class EscaqueVisual extends Component {
                         (int) (w), (int) (h));
                 break;
             case 3:
-                w = Constantes.PORCENTAJE_PEQUEÑO * getWidth();
-                h = Constantes.PORCENTAJE_PEQUEÑO * getHeight();
+                w = Constants.PORCENTAJE_PEQUEÑO * getWidth();
+                h = Constants.PORCENTAJE_PEQUEÑO * getHeight();
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
                 
@@ -89,8 +89,8 @@ public class EscaqueVisual extends Component {
                         (int) (w), (int) (h));
                 break;
             case 4:
-                w = Constantes.PORCENTAJE_PEQUEÑITO * getWidth();
-                h = Constantes.PORCENTAJE_PEQUEÑITO * getHeight();
+                w = Constants.PORCENTAJE_PEQUEÑITO * getWidth();
+                h = Constants.PORCENTAJE_PEQUEÑITO * getHeight();
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
                 

@@ -6,16 +6,16 @@ import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.input.MousePieza;
-import com.carlettos.game.tablero.Escaque;
-import com.carlettos.game.tablero.manager.Reloj;
-import com.carlettos.game.tablero.pieza.Pieza;
-import com.carlettos.game.tablero.propiedad.habilidad.Info;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoInteger;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoNESW;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoNinguna;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoPieza;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoPoint;
-import com.carlettos.game.tablero.propiedad.habilidad.InfoString;
+import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.property.ability.Info;
+import com.carlettos.game.board.property.ability.InfoInteger;
+import com.carlettos.game.board.property.ability.InfoNESW;
+import com.carlettos.game.board.property.ability.InfoNinguna;
+import com.carlettos.game.board.property.ability.InfoPieza;
+import com.carlettos.game.board.property.ability.InfoPoint;
+import com.carlettos.game.board.property.ability.InfoString;
 import com.carlettos.game.visual.info.InfoVisual;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -34,7 +34,7 @@ import javax.swing.JPanel;
  */
 public class RelojVisual extends JPanel{
 
-    private final Reloj reloj;
+    private final Clock reloj;
     private StringBuilder ordenJugadores;
     private StringBuilder ordenEventos;
     private StringBuilder turnoActual;
@@ -44,7 +44,7 @@ public class RelojVisual extends JPanel{
     private final JButton turno;
     private final JButton habilidad;
 
-    public RelojVisual(Reloj reloj) {
+    public RelojVisual(Clock reloj) {
         super(new BorderLayout());
         this.reloj = reloj;
         actualizarTextos();
@@ -162,7 +162,7 @@ public class RelojVisual extends JPanel{
         turnoLabel.setText(turnoActual.toString());
     }
 
-    public Reloj getReloj() {
+    public Clock getReloj() {
         return reloj;
     }
 }

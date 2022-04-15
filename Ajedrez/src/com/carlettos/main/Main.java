@@ -1,31 +1,31 @@
 package com.carlettos.main;
 
-import com.carlettos.game.tablero.carta.invocacion.InvocarCaballo;
-import com.carlettos.game.tablero.jugador.Jugador;
-import com.carlettos.game.tablero.manager.Reloj;
-import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.pieza.clasica.Alfil;
-import com.carlettos.game.tablero.pieza.clasica.Caballo;
-import com.carlettos.game.tablero.pieza.clasica.Peon;
-import com.carlettos.game.tablero.pieza.clasica.Rey;
-import com.carlettos.game.tablero.pieza.clasica.Torre;
-import com.carlettos.game.tablero.propiedad.Color;
+import com.carlettos.game.board.card.invocation.SummonKnight;
+import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.piece.classic.Bishop;
+import com.carlettos.game.board.piece.classic.Caballo;
+import com.carlettos.game.board.piece.classic.Peon;
+import com.carlettos.game.board.piece.classic.Rey;
+import com.carlettos.game.board.piece.classic.Torre;
+import com.carlettos.game.board.property.Color;
 import com.carlettos.game.visual.TableroVisual;
-import com.carlettos.game.tablero.pieza.clasica.Reina;
-import com.carlettos.game.tablero.pieza.nueva.Ariete;
-import com.carlettos.game.tablero.pieza.nueva.Arquero;
-import com.carlettos.game.tablero.pieza.nueva.Ballesta;
-import com.carlettos.game.tablero.pieza.nueva.Brujo;
-import com.carlettos.game.tablero.pieza.nueva.Catapulta;
-import com.carlettos.game.tablero.pieza.nueva.Cañon;
-import com.carlettos.game.tablero.pieza.nueva.Constructor;
-import com.carlettos.game.tablero.pieza.nueva.Defensor;
-import com.carlettos.game.tablero.pieza.nueva.Hechicero;
-import com.carlettos.game.tablero.pieza.nueva.Nave;
-import com.carlettos.game.tablero.pieza.nueva.Paladin;
-import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
-import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
-import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
+import com.carlettos.game.board.piece.classic.Reina;
+import com.carlettos.game.board.piece.starting.Ariete;
+import com.carlettos.game.board.piece.starting.Arquero;
+import com.carlettos.game.board.piece.starting.Ballesta;
+import com.carlettos.game.board.piece.starting.Brujo;
+import com.carlettos.game.board.piece.starting.Catapulta;
+import com.carlettos.game.board.piece.starting.Cañon;
+import com.carlettos.game.board.piece.starting.Constructor;
+import com.carlettos.game.board.piece.starting.Defensor;
+import com.carlettos.game.board.piece.starting.Hechicero;
+import com.carlettos.game.board.piece.starting.Nave;
+import com.carlettos.game.board.piece.starting.Paladin;
+import com.carlettos.game.board.piece.starting.PeonLoco;
+import com.carlettos.game.board.piece.starting.SuperPeon;
+import com.carlettos.game.board.piece.starting.TorreTesla;
 
 /**
  *
@@ -36,8 +36,8 @@ public class Main {
     public static void main(String... a) {
         Jugador negras = new Jugador(Color.NEGRO);
         Jugador blancas = new Jugador(Color.BLANCO);
-        Reloj reloj = new Reloj(blancas, negras);
-        Tablero tablero = new Tablero(16, 17, reloj);
+        Clock reloj = new Clock(blancas, negras);
+        Board tablero = new Board(16, 17, reloj);
         
         /*reloj.addEventos(Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 3))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
@@ -46,8 +46,8 @@ public class Main {
                 Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 4))
                 .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))));
         */
-        negras.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
+        negras.getMano().addCarta(new SummonKnight());
+        blancas.getMano().addCarta(new SummonKnight());
         blancas.cambiarMana(5);
         negras.cambiarMana(5);
         
@@ -76,10 +76,10 @@ public class Main {
         tablero.getEscaque(4, 16).setPieza(new Brujo(Color.NEGRO));
         tablero.getEscaque(11, 16).setPieza(new Brujo(Color.NEGRO));
         
-        tablero.getEscaque(5, 0).setPieza(new Alfil(Color.BLANCO));
-        tablero.getEscaque(10, 0).setPieza(new Alfil(Color.BLANCO));        
-        tablero.getEscaque(5, 16).setPieza(new Alfil(Color.NEGRO));
-        tablero.getEscaque(10, 16).setPieza(new Alfil(Color.NEGRO));
+        tablero.getEscaque(5, 0).setPieza(new Bishop(Color.BLANCO));
+        tablero.getEscaque(10, 0).setPieza(new Bishop(Color.BLANCO));        
+        tablero.getEscaque(5, 16).setPieza(new Bishop(Color.NEGRO));
+        tablero.getEscaque(10, 16).setPieza(new Bishop(Color.NEGRO));
         
         tablero.getEscaque(6, 0).setPieza(new Hechicero(Color.BLANCO));
         tablero.getEscaque(7, 0).setPieza(new Reina(Color.BLANCO));        

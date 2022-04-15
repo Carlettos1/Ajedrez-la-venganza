@@ -1,8 +1,8 @@
 package com.carlettos.game.visual;
 
-import com.carlettos.game.core.Constantes;
-import com.carlettos.game.tablero.carta.Carta;
-import com.carlettos.game.tablero.propiedad.Color;
+import com.carlettos.game.core.Constants;
+import com.carlettos.game.board.card.Card;
+import com.carlettos.game.board.property.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
@@ -14,9 +14,9 @@ import javax.swing.JComponent;
 public class CartaVisual extends JComponent {
     private boolean seleccionado;
     private final Color color;
-    private final Carta carta;
+    private final Card carta;
 
-    public CartaVisual(Color color, Carta carta) {
+    public CartaVisual(Color color, Card carta) {
         this.seleccionado = false;
         this.color = color;
         this.carta = carta;
@@ -24,7 +24,7 @@ public class CartaVisual extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constantes.TAMAÑO_CARTA_X, Constantes.TAMAÑO_CARTA_Y);
+        return new Dimension(Constants.TAMAÑO_CARTA_X, Constants.TAMAÑO_CARTA_Y);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CartaVisual extends JComponent {
         //TODO que se vea bonito y mostrar más datos de la carta
     }
 
-    public Carta getCarta() {
+    public Card getCarta() {
         return carta;
     }
 

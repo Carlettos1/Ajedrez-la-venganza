@@ -1,8 +1,8 @@
 package com.carlettos.game.input;
 
 import com.carlettos.game.core.Par;
-import com.carlettos.game.tablero.jugador.Jugador;
-import com.carlettos.game.tablero.manager.Reloj;
+import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.board.manager.Clock;
 import com.carlettos.game.visual.CartaVisual;
 import com.carlettos.game.visual.EscaqueVisual;
 import com.carlettos.game.visual.TableroVisual;
@@ -52,7 +52,7 @@ public class MouseCarta implements MouseListener {
         
         if (escaqueVisual instanceof EscaqueVisual) {
             EscaqueVisual escaque = (EscaqueVisual) escaqueVisual;
-            Reloj reloj = tablero.getRelojVisual().getReloj();
+            Clock reloj = tablero.getRelojVisual().getReloj();
             
             List<Jugador> jugadores = new ArrayList<>();
             reloj.getJugadores().forEach((jugador) -> {

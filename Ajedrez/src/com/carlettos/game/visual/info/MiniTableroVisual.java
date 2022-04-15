@@ -1,6 +1,6 @@
 package com.carlettos.game.visual.info;
 
-import com.carlettos.game.tablero.manager.MiniTablero;
+import com.carlettos.game.board.manager.MiniChessBoard;
 import com.carlettos.game.visual.EscaqueVisual;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -11,9 +11,9 @@ import javax.swing.JPanel;
  */
 public class MiniTableroVisual extends JPanel{
     private final EscaqueVisual[][] grid;
-    private final MiniTablero tablero;
+    private final MiniChessBoard tablero;
 
-    public MiniTableroVisual(MiniTablero tablero) {
+    public MiniTableroVisual(MiniChessBoard tablero) {
         super(new GridLayout(tablero.filas, tablero.columnas));
         this.grid = new EscaqueVisual[tablero.filas][tablero.columnas];
         this.tablero = tablero;

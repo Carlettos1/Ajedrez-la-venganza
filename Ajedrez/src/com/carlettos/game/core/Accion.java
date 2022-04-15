@@ -1,7 +1,7 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.tablero.pieza.Pieza;
-import com.carlettos.game.tablero.propiedad.Color;
+import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.property.Color;
 
 /**
  * Sirve para decir qué accion se hace, pero es mejor usar métodos determinados

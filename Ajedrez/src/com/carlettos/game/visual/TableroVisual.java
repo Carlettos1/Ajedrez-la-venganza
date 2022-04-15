@@ -1,7 +1,7 @@
 package com.carlettos.game.visual;
 
 import com.carlettos.game.input.MousePieza;
-import com.carlettos.game.tablero.manager.Tablero;
+import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.Point;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -18,11 +18,11 @@ public class TableroVisual extends JFrame{
 
     private final EscaqueVisual[][] grid;
     private final JPanel rootPanel;
-    private final Tablero tablero;
+    private final Board tablero;
     private final RelojVisual reloj;
     private final ManoVisual cartas;
 
-    public TableroVisual(Tablero tablero) throws HeadlessException {
+    public TableroVisual(Board tablero) throws HeadlessException {
         super("Ajedrez");
         this.grid = new EscaqueVisual[tablero.filas][tablero.columnas];
         this.rootPanel = new JPanel(new BorderLayout());
@@ -56,7 +56,7 @@ public class TableroVisual extends JFrame{
         setVisible(true);
     }
 
-    public Tablero getTablero() {
+    public Board getTablero() {
         return tablero;
     }
 
