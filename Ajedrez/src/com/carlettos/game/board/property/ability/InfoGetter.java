@@ -3,7 +3,7 @@ package com.carlettos.game.board.property.ability;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
 
 /**
@@ -12,7 +12,7 @@ import com.carlettos.game.board.piece.Vacia;
  */
 public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger, 
         InfoGetter.HabilidadNESW, InfoGetter.HabilidadSinInfo, InfoGetter.HabilidadPieza, 
-        InfoGetter.HabilidadPoint, InfoGetter.HabilidadString, Habilidad {
+        InfoGetter.HabilidadPoint, InfoGetter.HabilidadString, Ability {
     
     Info<V> getInfoHabilidad();
     V[] getAllValoresPosibles(AbstractBoard tablero, Point inicio);
@@ -48,7 +48,7 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
         }
     }
     
-    public static non-sealed interface HabilidadPieza extends InfoGetter<Pieza> {
+    public static non-sealed interface HabilidadPieza extends InfoGetter<Piece> {
         @Override
         default InfoPieza getInfoHabilidad(){
             return new InfoPieza(new Vacia());

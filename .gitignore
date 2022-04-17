@@ -6,3 +6,14 @@ Ajedrez/nbproject/build-impl.xml
 Ajedrez/nbproject/genfiles.properties
 Ajedrez/nbproject/project.properties
 Ajedrez/nbproject/project.xml
+/que/nbproject/private/
+/prueba/nbproject/private/
+.idea/.gitignore
+.idea/Ajedrez-la-venganza.iml
+.idea/misc.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+Ajedrez/.classpath
+Ajedrez/.project
+prueba/manifest.mf
+prueba/src/prueba/Prueba.java

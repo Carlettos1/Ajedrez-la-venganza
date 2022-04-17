@@ -5,11 +5,11 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.starting.PatronEstructuraMover;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.board.property.ability.InfoNESW;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
@@ -18,9 +18,9 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
  *
  * @author Carlettos
  */
-public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
+public class Ariete extends Piece implements IMover<PatronEstructuraMover> {
     
-    public static final Habilidad<Ariete, Direction, InfoNESW> HABILIDAD_ARIETE = new HabilidadAriete<>();
+    public static final Ability<Ariete, Direction, InfoNESW> HABILIDAD_ARIETE = new HabilidadAriete<>();
     protected final PatronEstructuraMover patronMover;
     
     public Ariete(Color color) {
@@ -36,7 +36,7 @@ public class Ariete extends Pieza implements IMover<PatronEstructuraMover> {
         };
     }
     
-    public static class HabilidadAriete<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW{
+    public static class HabilidadAriete<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW{
         public HabilidadAriete() {
             super("Carga de Ariete", 
                     "El ariete carga en una dirección hasta alcanzar la primera "

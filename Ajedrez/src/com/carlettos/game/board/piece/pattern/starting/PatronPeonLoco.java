@@ -33,7 +33,7 @@ public interface PatronPeonLoco extends Patron {
     public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
         int turno;
         switch (tablero) {
-            case Board t -> turno = t.getReloj().getTurno();
+            case Board t -> turno = t.getClock().getTurno();
             case default -> throw new IllegalArgumentException("Tablero no es instanceof Tablero");
         }
         return switch(this.getRandomNumber(turno)) {

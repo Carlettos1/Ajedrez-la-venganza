@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Info;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Carlos
  *
- * @see Pieza
+ * @see Piece
  */
 public class Board extends AbstractBoard {
     /**
@@ -138,30 +138,30 @@ public class Board extends AbstractBoard {
 
     public void movimiento() {
         this.reloj.movimiento();
-        if(getReloj().getMovimientos() >= getReloj().turnoDe().getMovimientosPorTurnos()){
+        if(getClock().getMovimientos() >= getClock().turnoDe().getMovimientosPorTurnos()){
             for (Escaque[] escaques : tableroAjedrez) {
                 for (Escaque escaque : escaques) {
                     escaque.getPieza().setSeHaMovidoEsteTurno(false);
                 }
             }
-            getReloj().terminarTurno();
+            getClock().terminarTurno();
         }
     }
     
-    public boolean canMoverPieza(Pieza pieza){
-        return getReloj().turnoDe().getColor().equals(pieza.getColor()) && getReloj().canJugar(getReloj().turnoDe());
+    public boolean canMoverPieza(Piece pieza){
+        return getClock().turnoDe().getColor().equals(pieza.getColor()) && getClock().canJugar(getClock().turnoDe());
     }
     
     public boolean canMoverColor(Color color){
-        return getReloj().turnoDe().getColor().equals(color) && getReloj().canJugar(getReloj().turnoDe());
+        return getClock().turnoDe().getColor().equals(color) && getClock().canJugar(getClock().turnoDe());
     }
 
-    public Clock getReloj() {
+    public Clock getClock() {
         return reloj;
     }
     
-    public List<Pieza> getAllPiezasOfColor(Color color){
-        List<Pieza> piezas = new ArrayList<>();
+    public List<Piece> getAllPiezasOfColor(Color color){
+        List<Piece> piezas = new ArrayList<>();
         for (Escaque[] escaques : tableroAjedrez) {
             for (Escaque escaque : escaques) {
                 if(escaque.isControladoPor(color)){

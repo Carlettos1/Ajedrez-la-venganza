@@ -9,18 +9,18 @@ import com.carlettos.game.board.piece.pattern.PatronPeon;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.action.IComer;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 
 /**
  *
  * @author Carlettos <M extends PatronPeon, C extends PatronPeon> 
  */
-public abstract class AbstractPeon<M extends PatronPeon, C extends PatronPeon> extends Pieza implements IMover<M>, IComer<C> {
+public abstract class AbstractPeon<M extends PatronPeon, C extends PatronPeon> extends Piece implements IMover<M>, IComer<C> {
     protected final C patronComer;
     protected final M patronMover;
 
-    public AbstractPeon(C patronComer, M patronMover, String nombre, String abreviacion, Habilidad habilidad, Color color) {
+    public AbstractPeon(C patronComer, M patronMover, String nombre, String abreviacion, Ability habilidad, Color color) {
         super(nombre, abreviacion, habilidad, color, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
         this.patronComer = patronComer;
         this.patronMover = patronMover;

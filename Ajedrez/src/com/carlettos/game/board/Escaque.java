@@ -1,7 +1,7 @@
 package com.carlettos.game.board;
 
 import com.carlettos.game.board.piece.Vacia;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.core.Point;
 
@@ -35,7 +35,7 @@ public class Escaque {
     /**
      * La pieza que contiene el escaque.
      */
-    protected Pieza pieza;
+    protected Piece pieza;
 
     /**
      * Constructor general.
@@ -48,7 +48,7 @@ public class Escaque {
      * @param pieza pieza que tiene el escaque, si no tiene ninguna, usar una
      * pieza Vacia.
      */
-    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point pos, Pieza pieza) {
+    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point pos, Piece pieza) {
         this.isFuenteDeMagia = isFuenteDeMagia;
         this.isConstruible = isConstruible;
         this.pos = pos;
@@ -102,7 +102,7 @@ public class Escaque {
         return !pieza.equals(new Vacia());
     }
 
-    public Pieza getPieza() {
+    public Piece getPieza() {
         return pieza;
     }
 
@@ -111,9 +111,9 @@ public class Escaque {
      *
      * @param pieza nueva pieza a colocar en este escaque.
      *
-     * @see Pieza
+     * @see Piece
      */
-    public void setPieza(Pieza pieza) {
+    public void setPieza(Piece pieza) {
         this.pieza = pieza;
     }
 
@@ -123,9 +123,9 @@ public class Escaque {
      *
      * @param pieza nueva pieza a colocar en este escaque.
      *
-     * @see Pieza
+     * @see Piece
      */
-    public void setPiezaIfEmpty(Pieza pieza) {
+    public void setPiezaIfEmpty(Piece pieza) {
         if(this.isEmpty()){
             this.pieza = pieza;
         }

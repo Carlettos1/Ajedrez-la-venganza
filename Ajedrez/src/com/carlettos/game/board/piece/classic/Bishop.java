@@ -5,9 +5,9 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Par;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -23,13 +23,13 @@ import java.util.List;
  */
 public class Bishop extends PiezaSimple<PatronAlfil> {
 
-    public static final Habilidad<Bishop, Direction, InfoNESW> HABILIDAD_ALFIL = new HabilidadAlfil<>();
+    public static final Ability<Bishop, Direction, InfoNESW> HABILIDAD_ALFIL = new HabilidadAlfil<>();
 
     public Bishop(Color color) {
         super("Alfil", "A", HABILIDAD_ALFIL, color, new PatronAlfil(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
     }
 
-    public static class HabilidadAlfil<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW {
+    public static class HabilidadAlfil<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW {
         public HabilidadAlfil() {
             super("Cambio de Color",
                     "El alfil cambia de color, pudiendo moverse una casilla en cualquiera de las 4 direcciones cardinales.",

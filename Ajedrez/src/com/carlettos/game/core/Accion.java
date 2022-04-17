@@ -1,6 +1,6 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 
 /**
@@ -10,7 +10,7 @@ import com.carlettos.game.board.property.Color;
  *
  * @author Carlos
  * 
- * @see Pieza
+ * @see Piece
  * @see ActionResult
  */
 public enum Accion {

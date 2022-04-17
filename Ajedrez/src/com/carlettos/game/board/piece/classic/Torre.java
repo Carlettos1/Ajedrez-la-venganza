@@ -5,9 +5,9 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.manager.Board;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -20,13 +20,13 @@ import java.util.List;
 
 public class Torre extends PiezaSimple<PatronTorre> {
 
-    public static final Habilidad<Torre, Direction, InfoNESW> HABILIDAD_TORRE = new HabilidadTorre<>();
+    public static final Ability<Torre, Direction, InfoNESW> HABILIDAD_TORRE = new HabilidadTorre<>();
 
     public Torre(Color color) {
         super("Torre", "T", HABILIDAD_TORRE, color, new PatronTorre(){}, Tipo.ESTRUCTURA);
     }
 
-    public static class HabilidadTorre<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW {
+    public static class HabilidadTorre<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW {
 
         public HabilidadTorre() {
             super("Muro de Berlín",

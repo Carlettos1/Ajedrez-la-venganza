@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @author Carlos
  */
-public abstract class Pieza {
+public abstract class Piece {
 
     /**
      * Representa el estado de si se ha movido. Prácticamente sirve para no
@@ -56,7 +56,7 @@ public abstract class Pieza {
     /**
      * Es la habilidad que tiene la pieza.
      */
-    protected Habilidad habilidad;
+    protected Ability habilidad;
 
     /**
      * Es el color que tiene la piza, si es un color "ninguno" quiere decir que
@@ -81,7 +81,7 @@ public abstract class Pieza {
      * @param tipos los tipos de la pieza.
      * @param color color de la pieza, blanco o negro en el ajedrez normal.
      */
-    public Pieza(String nombre, String abreviacion, Habilidad habilidad, Color color, Tipo... tipos) {
+    public Piece(String nombre, String abreviacion, Ability habilidad, Color color, Tipo... tipos) {
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
         this.nombre = nombre;
@@ -122,7 +122,7 @@ public abstract class Pieza {
      * la acción que corresponde. EXCLUYE A LA HABILIDAD.
      *
      * @see TableroManager
-     * @see Pieza
+     * @see Piece
      * @see Escaque
      */
     public List<Par<Point, Accion>> allAcciones(AbstractBoard tablero, Point seleccionado) {
@@ -232,7 +232,7 @@ public abstract class Pieza {
 
     /*FIXME: No se tiene en cuenta el <> de la habilidad, la cual es necesaria 
     para algunas habilidades*/
-    public Habilidad getHabilidad() {
+    public Ability getHabilidad() {
         return habilidad;
     }
 
@@ -276,10 +276,10 @@ public abstract class Pieza {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Pieza)) {
+        if (!(obj instanceof Piece)) {
             return false;
         }
-        final Pieza other = (Pieza) obj;
+        final Piece other = (Piece) obj;
         if (!this.nombre.equals(other.nombre)) {
             return false;
         }

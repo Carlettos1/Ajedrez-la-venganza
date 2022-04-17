@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.action.IAtacar;
@@ -17,7 +17,7 @@ import com.carlettos.game.board.property.Tipo;
  *
  * @author Carlettos
  */
-public class Ballesta extends Pieza implements IMover<PatronEstructuraMover>, IAtacar<PatronBallestaAtacar> {
+public class Ballesta extends Piece implements IMover<PatronEstructuraMover>, IAtacar<PatronBallestaAtacar> {
     protected final PatronEstructuraMover patronMover;
     protected final PatronBallestaAtacar patronAtacar;
 

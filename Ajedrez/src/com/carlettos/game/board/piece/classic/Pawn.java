@@ -5,10 +5,10 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.board.piece.AbstractPeon;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.starting.Ariete;
 import com.carlettos.game.board.piece.starting.Arquero;
 import com.carlettos.game.board.piece.starting.Ballesta;
@@ -34,19 +34,19 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
+public class Pawn extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
 
     /**
      * la habilidad default del peón, de utilidad por si necesita usarse en
      * otras piezas.
      */
-    public static final Habilidad<Peon, Pieza, InfoPieza> HABILIDAD_PEON = new HabilidadPeon<>();
+    public static final Ability<Pawn, Piece, InfoPieza> HABILIDAD_PEON = new HabilidadPeon<>();
 
-    public Peon(Color color) {
+    public Pawn(Color color) {
         super(()->color, ()->color, "Peón", "P", HABILIDAD_PEON, color);
     }
 
-    public static class HabilidadPeon<P extends Pieza> extends Habilidad<P, Pieza, InfoPieza> implements HabilidadPieza {
+    public static class HabilidadPeon<P extends Piece> extends Ability<P, Piece, InfoPieza> implements HabilidadPieza {
 
         public HabilidadPeon() {
             super("Coronar",
@@ -81,15 +81,15 @@ public class Peon extends AbstractPeon<PatronPeonMover, PatronPeonComer> {
 
         @Override
         public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoPieza info) {
-            Pieza p = info.getValor();
+            Piece p = info.getValor();
             p.setColor(pieza.getColor());
             tablero.getEscaque(inicio).setPieza(p);
             p.setSeHaMovidoEsteTurno(true);
         }
 
         @Override
-        public Pieza[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
-            return new Pieza[]{new Bishop(Color.DEFAULT),
+        public Piece[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
+            return new Piece[]{new Bishop(Color.DEFAULT),
                 new Caballo(Color.DEFAULT),
                 new Reina(Color.DEFAULT),
                 new Torre(Color.DEFAULT),

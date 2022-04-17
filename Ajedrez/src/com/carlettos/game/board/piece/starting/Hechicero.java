@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.property.Color;
@@ -15,7 +15,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatronHechiceroMover;
  *
  * @author Carlettos
  */
-public class Hechicero extends Pieza implements IMover<PatronHechiceroMover> {
+public class Hechicero extends Piece implements IMover<PatronHechiceroMover> {
     protected final PatronHechiceroMover patronMover;
     public Hechicero(Color color) { //TODO: hacer lo de la habilidad
         super("Hechicero", "HE", Vacia.NO_HABILIDAD, color, Tipo.BIOLOGICA, Tipo.HEROICA, Tipo.INMUNE, Tipo.TRANSPORTABLE);

@@ -2,7 +2,7 @@ package com.carlettos.game.board.property.ability;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -20,9 +20,9 @@ import java.util.List;
  * @param <V> Valor que utiliza para información extra.
  * @param <I> Tipo de información extra que usa.
  *
- * @see Pieza
+ * @see Piece
  */
-public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>> implements InfoGetter<V>{
+public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> implements InfoGetter<V>{
 
     /**
      * Nombre de la habilidad.
@@ -58,9 +58,9 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
      * @param costo coste de maná que cuesta lanzar la habilidad.
      * @param parametros valores que debe proporcionar el jugador.
      *
-     * @see Pieza
+     * @see Piece
      */
-    public Habilidad(String nombre, String descripcion, int cooldown, int costo, String parametros) {
+    public Ability(String nombre, String descripcion, int cooldown, int costo, String parametros) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cooldown = cooldown;
@@ -72,19 +72,19 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
 
     public abstract void usar(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
     
-    public boolean commonCanUsar(AbstractBoard tablero, Pieza pieza){
+    public boolean commonCanUsar(AbstractBoard tablero, Piece pieza){
         boolean nomana = pieza.getCdActual() <= 0 && !pieza.seHaMovidoEsteTurno();
         if(tablero instanceof Board t){
-            return nomana && t.getReloj().turnoDe().getMana() >= this.costo;
+            return nomana && t.getClock().turnoDe().getMana() >= this.costo;
         }
         return nomana;
     }
     
-    public void commonUsar(AbstractBoard tablero, Pieza pieza){
+    public void commonUsar(AbstractBoard tablero, Piece pieza){
         pieza.setSeHaMovidoEsteTurno(true);
         pieza.cambiarCD(this.cooldown);
         if (tablero instanceof Board t) {
-            t.getReloj().turnoDe().cambiarMana(-this.costo);
+            t.getClock().turnoDe().cambiarMana(-this.costo);
         }
     }
     
@@ -112,7 +112,7 @@ public abstract non-sealed class Habilidad<P extends Pieza, V, I extends Info<V>
             }
         } else if (info instanceof InfoPieza) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPieza((Pieza) valor)).isPositive()){
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPieza((Piece) valor)).isPositive()){
                     lista.add(valor);
                 }
             }

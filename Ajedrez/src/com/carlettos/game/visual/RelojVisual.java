@@ -8,7 +8,7 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.input.MousePieza;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.manager.Clock;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoInteger;
 import com.carlettos.game.board.property.ability.InfoNESW;
@@ -104,7 +104,7 @@ public class RelojVisual extends JPanel{
                 } else if(infoHabilidad instanceof InfoNESW){
                     ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
                 } else if(infoHabilidad instanceof InfoPieza){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPieza((Pieza) valor));
+                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPieza((Piece) valor));
                 } else if(infoHabilidad instanceof InfoPoint){
                     ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
                 } else if(infoHabilidad instanceof InfoString){

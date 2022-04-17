@@ -6,11 +6,11 @@ import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.starting.PatronEstructuraMover;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.board.property.ability.InfoCompuesta;
 import com.carlettos.game.board.property.ability.InfoInteger;
@@ -21,9 +21,9 @@ import com.carlettos.game.util.MathHelper;
  *
  * @author Carlettos
  */
-public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
+public class Catapulta extends Piece implements IMover<PatronEstructuraMover> {
 
-    public static final Habilidad<Catapulta, Par<InfoNESW, InfoInteger>, InfoCompuesta<InfoNESW, InfoInteger>> HABILIDAD_CATAPULTA = new HabilidadCatapulta<>();
+    public static final Ability<Catapulta, Par<InfoNESW, InfoInteger>, InfoCompuesta<InfoNESW, InfoInteger>> HABILIDAD_CATAPULTA = new HabilidadCatapulta<>();
     protected final PatronEstructuraMover patronMover;
     
     public Catapulta(Color color) {
@@ -39,7 +39,7 @@ public class Catapulta extends Pieza implements IMover<PatronEstructuraMover> {
         };    
     }
     
-    public static class HabilidadCatapulta<P extends Pieza> extends Habilidad<P, Par<InfoNESW, InfoInteger>, InfoCompuesta<InfoNESW, InfoInteger>> {
+    public static class HabilidadCatapulta<P extends Piece> extends Ability<P, Par<InfoNESW, InfoInteger>, InfoCompuesta<InfoNESW, InfoInteger>> {
         public HabilidadCatapulta() {
             super("Lanzar Pieza", 
                     "Lanza una pieza en una dirección.", 

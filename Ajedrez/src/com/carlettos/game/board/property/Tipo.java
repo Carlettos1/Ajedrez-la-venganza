@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.function.QuadFunction;
 import com.carlettos.game.board.manager.Board;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Point;
 
 /**
@@ -56,19 +56,19 @@ public enum Tipo {
         this.onSer = onSer;
     }
     
-    public ActionResult canAccion(Accion accion, Board tablero, Pieza pieza, Point inicio, Point final_){
+    public ActionResult canAccion(Accion accion, Board tablero, Piece pieza, Point inicio, Point final_){
         return can.apply(accion, tablero, pieza, inicio, final_);
     }
     
-    public ActionResult onAccion(Accion accion, Board tablero, Pieza pieza, Point inicio, Point final_){
+    public ActionResult onAccion(Accion accion, Board tablero, Piece pieza, Point inicio, Point final_){
         return on.apply(accion, tablero, pieza, inicio, final_);
     }
     
-    public boolean canSerAccion(Accion accion, Board tablero, Pieza pieza, Point inicio, Point final_){
+    public boolean canSerAccion(Accion accion, Board tablero, Piece pieza, Point inicio, Point final_){
         return canSer.apply(accion, tablero, pieza, inicio, final_);
     }
     
-    public boolean onSerAccion(Accion accion, Board tablero, Pieza pieza, Point inicio, Point final_){
+    public boolean onSerAccion(Accion accion, Board tablero, Piece pieza, Point inicio, Point final_){
         return onSer.apply(accion, tablero, pieza, inicio, final_);
     }
 }

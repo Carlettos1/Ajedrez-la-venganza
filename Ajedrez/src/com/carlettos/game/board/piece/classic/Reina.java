@@ -2,9 +2,9 @@ package com.carlettos.game.board.piece.classic;
 
 import com.carlettos.game.board.piece.PiezaSimple;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -15,13 +15,13 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadPoint;
 
 public class Reina extends PiezaSimple<PatronReina> {
 
-    public static final Habilidad<Reina, Point, InfoPoint> HABILIDAD_REINA = new HabilidadReina<>();
+    public static final Ability<Reina, Point, InfoPoint> HABILIDAD_REINA = new HabilidadReina<>();
 
     public Reina(Color color) {
         super("Reina", "R", HABILIDAD_REINA, color, new PatronReina(){}, Tipo.BIOLOGICA, Tipo.HEROICA);
     }
 
-    public static class HabilidadReina<P extends Pieza> extends Habilidad<P, Point, InfoPoint> implements HabilidadPoint {
+    public static class HabilidadReina<P extends Piece> extends Ability<P, Point, InfoPoint> implements HabilidadPoint {
 
         public HabilidadReina() {
             super("Movimiento Caballístico.",
@@ -32,7 +32,7 @@ public class Reina extends PiezaSimple<PatronReina> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, Pieza pieza, Point inicio, InfoPoint info) {
+        public ActionResult canUsar(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
             if (!this.commonCanUsar(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -44,7 +44,7 @@ public class Reina extends PiezaSimple<PatronReina> {
         }
 
         @Override
-        public void usar(AbstractBoard tablero, Pieza pieza, Point inicio, InfoPoint info) {
+        public void usar(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
             tablero.getEscaque(info.getValor()).setPieza(pieza);
             tablero.quitarPieza(inicio);
             this.commonUsar(tablero, pieza);

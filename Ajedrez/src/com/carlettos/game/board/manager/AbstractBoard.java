@@ -2,9 +2,9 @@ package com.carlettos.game.board.manager;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.Escaque;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
-import com.carlettos.game.board.piece.classic.Peon;
+import com.carlettos.game.board.piece.classic.Pawn;
 import com.carlettos.game.board.piece.classic.Bishop;
 import com.carlettos.game.board.piece.classic.Caballo;
 import com.carlettos.game.board.piece.classic.Reina;
@@ -164,7 +164,7 @@ public class AbstractBoard {
         return matches;
     }
     
-    public int getValoracionTotal(Color positivo, Color negativo, Map<Class<? extends Pieza>, Integer> map){
+    public int getValoracionTotal(Color positivo, Color negativo, Map<Class<? extends Piece>, Integer> map){
         int valoracion = 0;
         for (Escaque[] escaques : tableroAjedrez) {
             for (Escaque escaque : escaques) {
@@ -186,9 +186,9 @@ public class AbstractBoard {
             for (Escaque escaque : escaques) {
                 other.getEscaque(escaque.getPos()).setIsConstruible(escaque.isConstruible());
                 other.getEscaque(escaque.getPos()).setIsFuenteDeMagia(escaque.isFuenteDeMagia());
-                Pieza pieza = escaque.getPieza();
-                Pieza p2 = (switch (pieza) {
-                    case Peon piezaCopiada -> new Peon(piezaCopiada.getColor());
+                Piece pieza = escaque.getPieza();
+                Piece p2 = (switch (pieza) {
+                    case Pawn piezaCopiada -> new Pawn(piezaCopiada.getColor());
                     case Bishop piezaCopiada -> new Bishop(piezaCopiada.getColor());
                     case Caballo piezaCopiada -> new Caballo(piezaCopiada.getColor());
                     case Reina piezaCopiada -> new Reina(piezaCopiada.getColor());

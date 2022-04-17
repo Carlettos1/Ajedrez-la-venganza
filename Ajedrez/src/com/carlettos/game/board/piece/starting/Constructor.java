@@ -5,13 +5,13 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.action.IComer;
 import com.carlettos.game.board.piece.pattern.starting.PatronHechiceroMover;
 import com.carlettos.game.board.piece.pattern.starting.PatronSanguijuelaComer;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.board.property.ability.InfoNESW;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
@@ -21,8 +21,8 @@ import java.util.function.Function;
  *
  * @author Carlettos
  */
-public class Constructor extends Pieza implements IMover<PatronHechiceroMover>, IComer<PatronSanguijuelaComer> {
-    public static final Habilidad<Constructor, Direction, InfoNESW> HABILIDAD_CONSTRUCTOR = new HabilidadConstructor<>();
+public class Constructor extends Piece implements IMover<PatronHechiceroMover>, IComer<PatronSanguijuelaComer> {
+    public static final Ability<Constructor, Direction, InfoNESW> HABILIDAD_CONSTRUCTOR = new HabilidadConstructor<>();
     protected final PatronHechiceroMover patronMover;
     protected final PatronSanguijuelaComer patronComer;
 
@@ -41,7 +41,7 @@ public class Constructor extends Pieza implements IMover<PatronHechiceroMover>, 
         };
     }
     
-    public static class HabilidadConstructor<P extends Pieza> extends Habilidad<P, Direction, InfoNESW> implements HabilidadNESW{
+    public static class HabilidadConstructor<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW{
         protected final Function<Color, Muro> creator = Muro::new;
 
         public HabilidadConstructor() {

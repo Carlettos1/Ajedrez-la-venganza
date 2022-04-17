@@ -2,9 +2,9 @@ package com.carlettos.game.board.piece.classic;
 
 import com.carlettos.game.board.piece.PiezaSimple;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -14,13 +14,13 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
 
 public class Caballo extends PiezaSimple<PatronCaballo> {
 
-    public static final Habilidad<Caballo, String, InfoNinguna> HABILIDAD_CABALLO = new HabilidadCaballo<>();
+    public static final Ability<Caballo, String, InfoNinguna> HABILIDAD_CABALLO = new HabilidadCaballo<>();
 
     public Caballo(Color color) {
         super("Caballo", "C", HABILIDAD_CABALLO, color, new PatronCaballo(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
     }
 
-    public static class HabilidadCaballo<P extends Pieza> extends Habilidad<P, String, InfoNinguna> implements HabilidadSinInfo {
+    public static class HabilidadCaballo<P extends Piece> extends Ability<P, String, InfoNinguna> implements HabilidadSinInfo {
 
         public HabilidadCaballo() {
             super("Bajar Jinetes",
@@ -49,8 +49,8 @@ public class Caballo extends PiezaSimple<PatronCaballo> {
         public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNinguna info) {
             Point p1 = new Point(inicio.x + 1, inicio.y);
             Point p2 = new Point(inicio.x - 1, inicio.y);
-            tablero.getEscaque(p1).setPieza(new Peon(pieza.getColor()));
-            tablero.getEscaque(p2).setPieza(new Peon(pieza.getColor()));
+            tablero.getEscaque(p1).setPieza(new Pawn(pieza.getColor()));
+            tablero.getEscaque(p2).setPieza(new Pawn(pieza.getColor()));
             this.commonUsar(tablero, pieza);
         }
     }

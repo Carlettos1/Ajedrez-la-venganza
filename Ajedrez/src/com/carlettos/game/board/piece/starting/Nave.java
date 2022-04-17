@@ -4,12 +4,12 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.action.IComer;
 import com.carlettos.game.board.piece.pattern.classic.PatronRey;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.board.piece.pattern.starting.PatronHechiceroMover;
 import com.carlettos.game.board.property.ability.InfoNinguna;
@@ -19,8 +19,8 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
  *
  * @author Carlettos
  */
-public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<PatronRey> {
-    public static final Habilidad<Pieza, String, InfoNinguna> HABILIDAD_NAVE = new HabilidadNave<>();
+public class Nave extends Piece implements IMover<PatronHechiceroMover>, IComer<PatronRey> {
+    public static final Ability<Piece, String, InfoNinguna> HABILIDAD_NAVE = new HabilidadNave<>();
     protected final PatronHechiceroMover patronMover;
     protected final PatronRey patronComer;
 
@@ -39,7 +39,7 @@ public class Nave extends Pieza implements IMover<PatronHechiceroMover>, IComer<
         };
     }
 
-    public static class HabilidadNave<P extends Pieza> extends Habilidad<P, String, InfoNinguna> implements HabilidadSinInfo{
+    public static class HabilidadNave<P extends Piece> extends Ability<P, String, InfoNinguna> implements HabilidadSinInfo{
 
         public HabilidadNave() {
             super("Ataque en area", 

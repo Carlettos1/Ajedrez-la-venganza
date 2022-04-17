@@ -6,7 +6,7 @@ import com.carlettos.game.core.Evento;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.Patron;
 import com.carlettos.game.board.piece.pattern.action.IComer;
 import com.carlettos.game.board.piece.pattern.action.IMover;
@@ -14,7 +14,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatronCañonAtacar;
 import com.carlettos.game.board.piece.pattern.starting.PatronEstructuraMover;
 import com.carlettos.game.board.piece.pattern.starting.PatronHechiceroMover;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.board.property.ability.InfoNinguna;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
@@ -23,8 +23,8 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
  *
  * @author Carlettos
  */
-public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, IComer<PatronEstructuraMover> {
-    public final static Habilidad<TorreTesla, String, InfoNinguna> HABILIDAD_TORRE_TESLA = new HabilidadTorreTesla<>();
+public class TorreTesla extends Piece implements IMover<PatronHechiceroMover>, IComer<PatronEstructuraMover> {
+    public final static Ability<TorreTesla, String, InfoNinguna> HABILIDAD_TORRE_TESLA = new HabilidadTorreTesla<>();
     protected final PatronHechiceroMover patronMover;
     protected final PatronEstructuraMover patronComer;
 
@@ -43,7 +43,7 @@ public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, I
         };
     }
     
-    public static class HabilidadTorreTesla<P extends Pieza> extends Habilidad<P, String, InfoNinguna> implements HabilidadSinInfo{
+    public static class HabilidadTorreTesla<P extends Piece> extends Ability<P, String, InfoNinguna> implements HabilidadSinInfo{
         protected final Patron patronHabilidad = new PatronCañonAtacar() {};
         
         public HabilidadTorreTesla() {
@@ -62,7 +62,7 @@ public class TorreTesla extends Pieza implements IMover<PatronHechiceroMover>, I
         @Override
         public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNinguna info) {
             if(tablero instanceof Board t){
-                t.getReloj().addEventos(Evento.Builder.start(t).with(2, this.getNombre(), inicio)
+                t.getClock().addEventos(Evento.Builder.start(t).with(2, this.getNombre(), inicio)
                         .build((turnos1, nombre1, punto1, tablero1) -> {
                             tablero1.getEscaquesMatchPatron(patronHabilidad, inicio).stream()
                                     .filter(escaque -> escaque.getPieza().isTipo(Tipo.ESTRUCTURA))

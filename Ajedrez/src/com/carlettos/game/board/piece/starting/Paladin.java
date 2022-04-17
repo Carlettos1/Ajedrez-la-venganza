@@ -4,7 +4,7 @@ import com.carlettos.game.core.Accion;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
 import com.carlettos.game.board.piece.pattern.action.IMover;
 import com.carlettos.game.board.piece.pattern.action.IComer;
@@ -16,7 +16,7 @@ import com.carlettos.game.board.property.Tipo;
  *
  * @author Carlettos
  */
-public class Paladin extends Pieza implements IMover<PatronReina>, IComer<PatronReina> {
+public class Paladin extends Piece implements IMover<PatronReina>, IComer<PatronReina> {
     protected final PatronReina patron;
 
     public Paladin(Color color) { //TODO: Habilidad

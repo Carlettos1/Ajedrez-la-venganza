@@ -3,7 +3,7 @@ package com.carlettos.game.board.piece.classic;
 import com.carlettos.game.board.piece.PiezaSimple;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.property.Color;
-import com.carlettos.game.board.property.ability.Habilidad;
+import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.Tipo;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
@@ -17,14 +17,14 @@ public class Rey extends PiezaSimple<PatronRey> {
 
     //TODO: que no se muera después de comer o moverse
     protected boolean seHaTeletransportado;
-    public static final Habilidad<Rey, Point, InfoPoint> HABILIDAD_REY = new HabilidadRey<>();
+    public static final Ability<Rey, Point, InfoPoint> HABILIDAD_REY = new HabilidadRey<>();
 
     public Rey(Color color) {
         super("Rey", "RE", HABILIDAD_REY, color, new PatronRey(){}, Tipo.BIOLOGICA, Tipo.INMUNE, Tipo.HEROICA);
         this.seHaTeletransportado = false;
     }
     
-    public static class HabilidadRey<P extends Rey> extends Habilidad<P, Point, InfoPoint> implements HabilidadPoint {
+    public static class HabilidadRey<P extends Rey> extends Ability<P, Point, InfoPoint> implements HabilidadPoint {
 
         public HabilidadRey() {
             super("Teletransportación",

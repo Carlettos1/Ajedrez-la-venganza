@@ -5,7 +5,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Par;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.Pieza;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Vacia;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.Tipo;
@@ -15,7 +15,7 @@ import java.util.List;
  * TODO: que se utilize
  * @author Carlettos
  */
-public class Muro extends Pieza {
+public class Muro extends Piece {
     public Muro(Color color) {
         super("Muro", "MU", Vacia.NO_HABILIDAD, color, Tipo.ESTRUCTURA);
     }

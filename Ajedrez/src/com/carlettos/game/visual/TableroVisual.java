@@ -27,8 +27,8 @@ public class TableroVisual extends JFrame{
         this.grid = new EscaqueVisual[tablero.filas][tablero.columnas];
         this.rootPanel = new JPanel(new BorderLayout());
         this.tablero = tablero;
-        this.reloj = new RelojVisual(tablero.getReloj());
-        this.cartas = new ManoVisual(tablero.getReloj());
+        this.reloj = new RelojVisual(tablero.getClock());
+        this.cartas = new ManoVisual(tablero.getClock());
         setup();
     }
 
