@@ -49,12 +49,12 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza));
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
             Point[] puntos = new Point[]{inicio.add(1, 1), inicio.add(1, 0), inicio.add(1, -1),
                                        inicio.add(-1, 1), inicio.add(-1, 0), inicio.add(-1, -1)};
             for (Point punto : puntos) { //TODO: quitar try
@@ -63,7 +63,7 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
                 } catch (Exception e) {
                 }
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
     }
 }

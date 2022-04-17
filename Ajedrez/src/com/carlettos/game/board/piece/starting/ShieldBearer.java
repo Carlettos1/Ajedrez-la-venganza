@@ -34,12 +34,12 @@ public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake>
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza));
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
             System.out.println("USAR HABILIDAD DEFENSOR");
         }
     }

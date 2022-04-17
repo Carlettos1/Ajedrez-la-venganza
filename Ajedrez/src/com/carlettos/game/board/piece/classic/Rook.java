@@ -41,15 +41,15 @@ public class Rook extends SimplePiece<PatternRook> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
-            if (!this.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+            if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             return ActionResult.fromBoolean(tablero instanceof Board);
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
             Board t;
             if(tablero instanceof Board){
                 t = (Board) tablero;
@@ -81,7 +81,7 @@ public class Rook extends SimplePiece<PatternRook> {
 
             switch (info.getValor()) {
                 case S -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
+                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int y = 0; y < tablero.filas; y++) {
                             if (y == escaqueTorre.getPos().y) {
                                 break;
@@ -95,7 +95,7 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case E -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
+                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int x = tablero.columnas - 1; x >= 0; x--) {
                             if (x == escaqueTorre.getPos().x) {
                                 break;
@@ -109,7 +109,7 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case N -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
+                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int y = tablero.filas - 1; y >= 0; y--) {
                             if (y == escaqueTorre.getPos().y) {
                                 break;
@@ -123,7 +123,7 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case W -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPieza().setSeHaMovidoEsteTurno(false); //por conveniencia
+                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
                         for (int x = 0; x < tablero.columnas; x++) {
                             if (x == escaqueTorre.getPos().y) {
                                 break;
@@ -138,13 +138,13 @@ public class Rook extends SimplePiece<PatternRook> {
                     });
             }
             for (Escaque escaque : escaquesTorres) {
-                this.commonUsar(tablero, escaque.getPieza());
+                this.commonUse(tablero, escaque.getPiece());
             }
         }
 
         protected List<Escaque> getEscaqueTorresAdyacentes(AbstractBoard tablero, P pieza, Point inicio) {
             return Arrays.<Escaque>asList(tablero.getEscaquesCercanos(tablero.getEscaque(inicio)).stream().filter((escaque) -> {
-                return escaque.getPieza() instanceof Rook && pieza.getColor().equals(escaque.getPieza().getColor());
+                return escaque.getPiece() instanceof Rook && pieza.getColor().equals(escaque.getPiece().getColor());
             }).toArray(Escaque[]::new));
         }
 

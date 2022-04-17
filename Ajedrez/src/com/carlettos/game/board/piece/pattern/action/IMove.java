@@ -37,6 +37,6 @@ public interface IMove<P extends Pattern> {
      * sino.
      */
     public default boolean checkMoverCondition(AbstractBoard tablero, Point inicio, Point final_) {
-        return !(tablero.getEscaque(final_).hasPieza() || tablero.getEscaque(inicio).getPieza().seHaMovidoEsteTurno());
+        return !(tablero.getEscaque(final_).hasPiece() || tablero.getEscaque(inicio).getPiece().seHaMovidoEsteTurno());
     }
 }

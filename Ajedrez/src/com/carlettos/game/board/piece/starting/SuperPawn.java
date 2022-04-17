@@ -1,10 +1,11 @@
 package com.carlettos.game.board.piece.starting;
 
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Event;
+import com.carlettos.game.board.manager.clock.event.Event;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.manager.AbstractBoard;
+import com.carlettos.game.board.manager.clock.event.EventInfo;
 import com.carlettos.game.board.piece.AbstractPawn;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.starting.PatternSuperPawnTake;
@@ -35,22 +36,21 @@ public class SuperPawn extends AbstractPawn<PatternSuperPawnMove, PatternSuperPa
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(!pieza.isTipo(PieceType.INMUNE) && this.commonCanUsar(tablero, pieza) && tablero instanceof Board);
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoNone info) {
+            return ActionResult.fromBoolean(!piece.isType(PieceType.INMUNE) && this.commonCanUse(board, piece) && board instanceof Board);
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if(tablero instanceof Board t){
-                pieza.addTipo(PieceType.INMUNE); //TODO: que sea impenetrable
-                t.getClock().addEventos(Event.Builder.start(t).with(5, "Expiración Defender")
-                        .build((turnos1, nombre1, punto1, tablero1) -> {
-                            pieza.removeTipo(PieceType.INMUNE);
+        public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
+            if(board instanceof Board board1){
+                piece.addType(PieceType.INMUNE); //TODO: que sea impenetrable
+                board1.getClock().addEvent(Event.create(EventInfo.of(board1, 5,"Expiración Defender"), () -> {
+                    piece.removeType(PieceType.INMUNE);
                 }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(board, piece);
         }
     }
 }

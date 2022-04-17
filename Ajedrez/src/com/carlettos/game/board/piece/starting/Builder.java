@@ -53,12 +53,12 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza));
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza));
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
             Point p1 = new Point(-1, -1);
             Point p2 = new Point(-1, -1);
             Point p3 = new Point(-1, -1);
@@ -94,7 +94,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
             if(!tablero.isOutOfBorder(p3)){
                 tablero.getEscaque(p3).setPiezaIfEmpty(creator.apply(pieza.getColor()));
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
     }
 }

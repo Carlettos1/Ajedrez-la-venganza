@@ -57,8 +57,8 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
-            if(!this.commonCanUsar(tablero, pieza)){
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
+            if(!this.commonCanUse(tablero, pieza)){
                 return ActionResult.FAIL;
             }
             if (pieza.getColor().equals(Color.BLANCO)) {
@@ -80,10 +80,10 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
             Piece p = info.getValor();
             p.setColor(pieza.getColor());
-            tablero.getEscaque(inicio).setPieza(p);
+            tablero.getEscaque(inicio).setPiece(p);
             p.setSeHaMovidoEsteTurno(true);
         }
 

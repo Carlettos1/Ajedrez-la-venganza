@@ -33,12 +33,12 @@ public class CardDisplay extends JComponent {
         g.setColor(color.getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(color.getColorNegativo());
-        g.drawString(carta.getNombre(), 2, 20);
-        g.drawString(carta.getDescripcion(), 2, 50);
+        g.drawString(carta.getName(), 2, 20);
+        g.drawString(carta.getDescription(), 2, 50);
         //TODO que se vea bonito y mostrar más datos de la carta
     }
 
-    public Card getCarta() {
+    public Card getCard() {
         return carta;
     }
 

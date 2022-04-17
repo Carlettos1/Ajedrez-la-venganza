@@ -70,22 +70,22 @@ public class Escaque {
     
     @Deprecated // USE Escaque::hasPieza() INSTEAD
     public boolean isEmpty(){
-        return !hasPieza();
+        return !hasPiece();
     }
 
     /**
      * @return Color de la pieza en la casilla.
      */
     public Color getColorControlador() {
-        if (hasPieza()) {
-            return getPieza().getColor();
+        if (hasPiece()) {
+            return getPiece().getColor();
         }
         return Color.GRIS;
     }
 
     public boolean isControladoPor(Color color) {
-        if (this.hasPieza()) {
-            return getPieza().getColor().equals(color);
+        if (this.hasPiece()) {
+            return getPiece().getColor().equals(color);
         }
         return false;
     }
@@ -98,11 +98,11 @@ public class Escaque {
      *
      * @see Empty
      */
-    public boolean hasPieza() {
+    public boolean hasPiece() {
         return !pieza.equals(new Empty());
     }
 
-    public Piece getPieza() {
+    public Piece getPiece() {
         return pieza;
     }
 
@@ -113,7 +113,7 @@ public class Escaque {
      *
      * @see Piece
      */
-    public void setPieza(Piece pieza) {
+    public void setPiece(Piece pieza) {
         this.pieza = pieza;
     }
 

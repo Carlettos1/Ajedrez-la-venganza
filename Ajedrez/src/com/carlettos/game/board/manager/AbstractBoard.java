@@ -168,10 +168,10 @@ public class AbstractBoard {
         int valoracion = 0;
         for (Escaque[] escaques : tableroAjedrez) {
             for (Escaque escaque : escaques) {
-                if (escaque.getColorControlador().equals(positivo) && map.containsKey(escaque.getPieza().getClass())) {
-                    valoracion += map.get(escaque.getPieza().getClass());
-                } else if(escaque.getColorControlador().equals(negativo) && map.containsKey(escaque.getPieza().getClass())) {
-                    valoracion -= map.get(escaque.getPieza().getClass());
+                if (escaque.getColorControlador().equals(positivo) && map.containsKey(escaque.getPiece().getClass())) {
+                    valoracion += map.get(escaque.getPiece().getClass());
+                } else if(escaque.getColorControlador().equals(negativo) && map.containsKey(escaque.getPiece().getClass())) {
+                    valoracion -= map.get(escaque.getPiece().getClass());
                 }
             }
         }
@@ -186,7 +186,7 @@ public class AbstractBoard {
             for (Escaque escaque : escaques) {
                 other.getEscaque(escaque.getPos()).setIsConstruible(escaque.isConstruible());
                 other.getEscaque(escaque.getPos()).setIsFuenteDeMagia(escaque.isFuenteDeMagia());
-                Piece pieza = escaque.getPieza();
+                Piece pieza = escaque.getPiece();
                 Piece p2 = (switch (pieza) {
                     case Pawn piezaCopiada -> new Pawn(piezaCopiada.getColor());
                     case Bishop piezaCopiada -> new Bishop(piezaCopiada.getColor());
@@ -213,7 +213,7 @@ public class AbstractBoard {
                 });
                 p2.setSeHaMovidoEsteTurno(pieza.seHaMovidoEsteTurno());
                 p2.cambiarCD(pieza.getCdActual());
-                other.getEscaque(escaque.getPos()).setPieza(p2);
+                other.getEscaque(escaque.getPos()).setPiece(p2);
             }
         }
     }
@@ -224,7 +224,7 @@ public class AbstractBoard {
         for (int y = filas - 1; y >= 0; y--) {
             for (int x = 0; x < columnas; x++) {
                 str.append("[")
-                        .append(getEscaque(x, y).getPieza().abreviacion)
+                        .append(getEscaque(x, y).getPiece().abreviacion)
                         .append("]");
             }
             str.append('\n');

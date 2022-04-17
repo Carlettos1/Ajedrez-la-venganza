@@ -2,91 +2,87 @@ package com.carlettos.game.board.card;
 
 import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.player.Player;
-import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import java.util.Objects;
 
 /**
- * Es la representación de una carta, posee nombre, descripción, entre otras
- * cosas, sabe cómo utilizarse y cuándo.
- * <p>
- * Todos los métodos deberían sobreescribirse para crear una carta en
- * específico, además de que una misma carta debe tener siempre el mismo nombre
- * y descripción, mientras que, tanto su color como coste de maná, pueden
- * cambiar por diversos efectos que ocurran en el juego.
+ * It's the representation of a card.
  *
  * @author Carlos
  *
  * @see Player
  */
 public abstract class Card {
-    protected final String nombre;
-    protected final String descripcion;
-    protected int costeMana;
+    protected final String name;
+    protected final String description;
+    protected int manaCost;
 
     /**
+     * General constructor.
      *
-     * @param nombre nombre de la carta.
-     * @param descripcion descripción detallada de la carta.
-     * @param costeMana coste de maná de la carta.
+     * @param name name of the card.
+     * @param description detailed description of the card.
+     * @param manaCost the cost in mana.
      */
-    public Card(String nombre, String descripcion, int costeMana) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.costeMana = costeMana;
+    public Card(String name, String description, int manaCost) {
+        this.name = name;
+        this.description = description;
+        this.manaCost = manaCost;
     }
 
     /**
-     * Comprueba que la carta pueda utilizarse.
+     * Verifies if the card can be used.
      *
-     * @param punto punto de referencia.
-     * @param tablero tablero en el que ocurre la carta.
-     * @param reloj reloj en el que ocurre la carta.
-     * @param jugadores jugadores objetivos, el primero siempre debe ser el que
-     * utiliza la carta.
+     * @param point refference point.
+     * @param board board in which occurs.
+     * @param caster caster of the card.
      *
-     * @return true si puede utilizar la carta, false si no, además de un String
-     * en forma de información extra.
+     * @return ActionResult.PASS if can be used, FAIL other case.
      */
-    public abstract Tuple<Boolean, String> canUsarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores);
+    public abstract ActionResult canUse(Point point, Board board, Player caster);
 
     /**
-     * Utiliza la carta haciendo las acciones necesarias.
+     * Uses the card.
      *
-     * @param punto punto de referencia.
-     * @param tablero tablero en el que ocurre la carta.
-     * @param reloj reloj en el que ocurre la carta.
-     * @param jugadores jugadores objetivos, el primero siempre debe ser el que
-     * utiliza la carta.
+     * @param point refference point.
+     * @param board board in which occurs.
+     * @param caster caster of the card.
      */
-    public abstract void usarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores);
+    public abstract void use(Point point, Board board, Player caster);
 
     /**
+     * Adds the amount of mana to the cost of this card. Can be negative.
      *
-     * @param mana cantidad de maná a sumar
+     * @param mana mana to add.
      */
-    public void cambiarCosteDeMana(int mana) {
-        //todo: cambiar coste de mana
+    public void changeManaCost(int mana) {
+        if(this.manaCost + mana < 0){
+            this.manaCost = 0;
+        } else {
+            this.manaCost += mana;
+        }
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public int getCosteMana() {
-        return costeMana;
+    public int getCost() {
+        return manaCost;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.nombre);
-        hash = 23 * hash + this.costeMana;
+        hash = 23 * hash + Objects.hashCode(this.name);
+        hash = 23 * hash + this.manaCost;
         return hash;
     }
 
@@ -102,9 +98,9 @@ public abstract class Card {
             return false;
         }
         final Card other = (Card) obj;
-        if (this.costeMana != other.costeMana) {
+        if (this.manaCost != other.manaCost) {
             return false;
         }
-        return Objects.equals(this.nombre, other.nombre);
+        return Objects.equals(this.name, other.name);
     }
 }

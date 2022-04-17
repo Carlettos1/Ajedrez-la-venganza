@@ -45,32 +45,32 @@ public class MousePiece implements MouseListener {
                 seleccionado = null;
                 return;
             }
-            BoardDisplay tv = ListenerHelper.getTableroVisual(seleccionado);
-            Board tablero = tv.getTablero();
+            BoardDisplay tv = DisplayHelper.getBoardDisplay(seleccionado);
+            Board tablero = tv.getBoard();
 
-            if (!tablero.canMoverPieza(seleccionado.getEscaque().getPieza())) {
+            if (!tablero.canMoverPieza(seleccionado.getEscaque().getPiece())) {
                 seleccionado = null;
                 return;
             }
             
-            seleccionado.getEscaque().getPieza().allAcciones(tablero, escaque.getPos()).forEach((accion) -> {
+            seleccionado.getEscaque().getPiece().allAcciones(tablero, escaque.getPos()).forEach((accion) -> {
                 tv.getEscaqueVisual(accion.x).setAccion(accion.y);
             });
         } else {
             EscaqueDisplay objetivo = (EscaqueDisplay) e.getSource();
             Escaque escaqueSeleccionado = seleccionado.getEscaque();
             Escaque escaqueObjetivo = objetivo.getEscaque();
-            BoardDisplay tv = ListenerHelper.getTableroVisual(seleccionado);
-            Board tablero = tv.getTablero();
+            BoardDisplay tv = DisplayHelper.getBoardDisplay(seleccionado);
+            Board tablero = tv.getBoard();
 
             if (tablero.intentarMoverPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
                 if (tablero.intentarComerPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
                     if (tablero.intentarAtacarPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
-                        if (escaqueSeleccionado.getPieza().getColor().equals(escaqueObjetivo.getPieza().getColor())) {
+                        if (escaqueSeleccionado.getPiece().getColor().equals(escaqueObjetivo.getPiece().getColor())) {
                             //si cambió de pieza
                             tv.offAll();
                             seleccionado = objetivo;
-                            seleccionado.getEscaque().getPieza().allAcciones(tablero, escaqueObjetivo.getPos()).forEach((accion) -> {
+                            seleccionado.getEscaque().getPiece().allAcciones(tablero, escaqueObjetivo.getPos()).forEach((accion) -> {
                                 tv.getEscaqueVisual(accion.x).setAccion(accion.y);
                             });
                             return;
@@ -80,7 +80,7 @@ public class MousePiece implements MouseListener {
             }
             seleccionado = null;
             tv.offAll();
-            tv.getRelojVisual().repaint();
+            tv.getClockDisplay().repaint();
         }
     }
 

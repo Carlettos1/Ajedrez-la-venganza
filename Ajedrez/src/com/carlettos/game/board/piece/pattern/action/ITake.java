@@ -36,12 +36,12 @@ public interface ITake<P extends Pattern> {
      * su mismo color. False si no.
      */
     public default boolean checkComerCondition(AbstractBoard tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPieza()) {
+        if (!tablero.getEscaque(final_).hasPiece()) {
             return false;
         }
-        if (tablero.getEscaque(final_).getPieza().getColor().equals(tablero.getEscaque(inicio).getPieza().getColor())) {
+        if (tablero.getEscaque(final_).getPiece().getColor().equals(tablero.getEscaque(inicio).getPiece().getColor())) {
             return false;
         }
-        return !tablero.getEscaque(inicio).getPieza().seHaMovidoEsteTurno();
+        return !tablero.getEscaque(inicio).getPiece().seHaMovidoEsteTurno();
     }
 }

@@ -31,7 +31,7 @@ public class MiniBoard extends AbstractBoard{
                 } else {
                     esc = tablero.getEscaque(x0, y0);
                 }
-                mini.getEscaque(x, y).setPieza(esc.getPieza());
+                mini.getEscaque(x, y).setPiece(esc.getPiece());
                 if (esc.isConstruible()) {
                     mini.getEscaque(x, y).setIsConstruible(true);
                 }

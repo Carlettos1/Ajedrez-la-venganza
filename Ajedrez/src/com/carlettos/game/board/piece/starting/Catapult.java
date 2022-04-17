@@ -53,8 +53,8 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
-            if (!this.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
+            if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             Point posPieza = switch (info.getY().getValor()) {
@@ -82,7 +82,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
             Point posPieza = switch (info.getY().getValor()) {
                 case 1 -> new Point(inicio.x-1, inicio.y-1);
                 case 2 -> new Point(inicio.x, inicio.y-1);
@@ -97,15 +97,15 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
             if(info.getX().isAxis(Direction.Axis.NS)){
                 int x = info.getX().getSign() * 6 + inicio.x;
                 x = MathHelper.clamp(0, tablero.columnas - 1, x);
-                tablero.getEscaque(x, inicio.y).setPieza(tablero.getEscaque(posPieza).getPieza());
+                tablero.getEscaque(x, inicio.y).setPiece(tablero.getEscaque(posPieza).getPiece());
                 tablero.quitarPieza(posPieza);
             } else {
                 int y = info.getX().getSign() * 6 + inicio.y;
                 y = MathHelper.clamp(0, tablero.filas - 1, y);
-                tablero.getEscaque(inicio.x, y).setPieza(tablero.getEscaque(posPieza).getPieza());
+                tablero.getEscaque(inicio.x, y).setPiece(tablero.getEscaque(posPieza).getPiece());
                 tablero.quitarPieza(posPieza);
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
 
         @Override

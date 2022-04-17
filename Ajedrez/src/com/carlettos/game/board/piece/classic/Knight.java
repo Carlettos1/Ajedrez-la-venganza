@@ -31,27 +31,27 @@ public class Knight extends SimplePiece<PatternKnight> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if (!this.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
 
             Point p1 = new Point(inicio.x + 1, inicio.y);
             Point p2 = new Point(inicio.x - 1, inicio.y);
 
-            if (tablero.getEscaque(p1).hasPieza() || tablero.getEscaque(p2).hasPieza()) {
+            if (tablero.getEscaque(p1).hasPiece() || tablero.getEscaque(p2).hasPiece()) {
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
             Point p1 = new Point(inicio.x + 1, inicio.y);
             Point p2 = new Point(inicio.x - 1, inicio.y);
-            tablero.getEscaque(p1).setPieza(new Pawn(pieza.getColor()));
-            tablero.getEscaque(p2).setPieza(new Pawn(pieza.getColor()));
-            this.commonUsar(tablero, pieza);
+            tablero.getEscaque(p1).setPiece(new Pawn(pieza.getColor()));
+            tablero.getEscaque(p2).setPiece(new Pawn(pieza.getColor()));
+            this.commonUse(tablero, pieza);
         }
     }
 }

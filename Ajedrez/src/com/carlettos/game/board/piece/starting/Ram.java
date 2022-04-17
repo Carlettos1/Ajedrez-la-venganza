@@ -49,27 +49,27 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
         }
         
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
-            if (!this.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+            if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
             int carga = 1;
             tablero.getEscaque(inicio).quitarPieza();
             if(info.isAxis(Direction.Axis.EW)) {
                 for(int x = inicio.x + info.getSign();;x += info.getSign()){
                     if(tablero.isOutOfBorder(new Point(x, inicio.y))){
-                        tablero.getEscaque(x - info.getSign(), inicio.y).setPieza(pieza);
+                        tablero.getEscaque(x - info.getSign(), inicio.y).setPiece(pieza);
                         break;
                     }
-                    if(tablero.getEscaque(x, inicio.y).hasPieza()) {
+                    if(tablero.getEscaque(x, inicio.y).hasPiece()) {
                         for (int dx = 0; dx < carga/5 + 1; dx++) {
                             if(!tablero.isOutOfBorder(new Point(x + dx, inicio.y))){
-                                tablero.getEscaque(x + dx, inicio.y).setPieza(pieza);
+                                tablero.getEscaque(x + dx, inicio.y).setPiece(pieza);
                                 tablero.getEscaque(x + dx - info.getSign(), inicio.y).quitarPieza();
                             }
                         }
@@ -81,13 +81,13 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
             } else {
                 for(int y = inicio.y + info.getSign();;y += info.getSign()){
                     if(tablero.isOutOfBorder(new Point(inicio.x, y))){
-                        tablero.getEscaque(inicio.x, y - info.getSign()).setPieza(pieza);
+                        tablero.getEscaque(inicio.x, y - info.getSign()).setPiece(pieza);
                         break;
                     }
-                    if(tablero.getEscaque(inicio.x, y).hasPieza()) {
+                    if(tablero.getEscaque(inicio.x, y).hasPiece()) {
                         for (int dy = 0; dy < carga/5 + 1; dy++) {
                             if(!tablero.isOutOfBorder(new Point(inicio.x, y + dy))){
-                                tablero.getEscaque(inicio.x, y + dy).setPieza(pieza);
+                                tablero.getEscaque(inicio.x, y + dy).setPiece(pieza);
                                 tablero.getEscaque(inicio.x, y + dy - info.getSign()).quitarPieza();
                             }
                         }
@@ -97,7 +97,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
                     }
                 }
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
     }
 }

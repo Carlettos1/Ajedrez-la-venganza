@@ -19,14 +19,14 @@ public interface PatternRook extends Pattern {
         if (final_.x != inicio.x) { //se mueve el x
             int direccion = final_.x > inicio.x ? 1 : -1;
             for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPieza()) {
+                if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPiece()) {
                     return false;
                 }
             }
         } else if (final_.y != inicio.y) { //se mueve en y
             int direccion = final_.y > inicio.y ? 1 : -1;
             for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPieza()) {
+                if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPiece()) {
                     return false;
                 }
             }

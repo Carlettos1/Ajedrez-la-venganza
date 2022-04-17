@@ -39,8 +39,8 @@ public class Bishop extends SimplePiece<PatternBishop> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
-            if (!super.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+            if (!super.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
             
@@ -50,27 +50,27 @@ public class Bishop extends SimplePiece<PatternBishop> {
                 if(tablero.isOutOfBorder(inicio.add(0, info.getSign()))){
                     verificacion = false;
                 } else {
-                    verificacion = !tablero.getEscaque(inicio.add(0, info.getSign())).hasPieza();
+                    verificacion = !tablero.getEscaque(inicio.add(0, info.getSign())).hasPiece();
                 }
             } else {
                 if(tablero.isOutOfBorder(inicio.add(info.getSign(), 0))){
                     verificacion = false;
                 } else {
-                    verificacion = !tablero.getEscaque(inicio.add(info.getSign(), 0)).hasPieza();
+                    verificacion = !tablero.getEscaque(inicio.add(info.getSign(), 0)).hasPiece();
                 }
             }
             return ActionResult.fromBoolean(verificacion);
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
             if(info.isAxis(Direction.Axis.NS)){
-                tablero.getEscaque(inicio.add(0, info.getSign())).setPieza(pieza);
+                tablero.getEscaque(inicio.add(0, info.getSign())).setPiece(pieza);
             } else {
-                tablero.getEscaque(inicio.add(info.getSign(), 0)).setPieza(pieza);
+                tablero.getEscaque(inicio.add(info.getSign(), 0)).setPiece(pieza);
             }
             tablero.getEscaque(inicio).quitarPieza();
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
 
         @Override
@@ -83,13 +83,13 @@ public class Bishop extends SimplePiece<PatternBishop> {
                     if(tablero.isOutOfBorder(inicio.add(0, direction.getSign()))){
                         verificacion = false;
                     } else {
-                        verificacion = !tablero.getEscaque(inicio.add(0, direction.getSign())).hasPieza();
+                        verificacion = !tablero.getEscaque(inicio.add(0, direction.getSign())).hasPiece();
                     }
                 } else {
                     if(tablero.isOutOfBorder(inicio.add(direction.getSign(), 0))){
                         verificacion = false;
                     } else {
-                        verificacion = !tablero.getEscaque(inicio.add(direction.getSign(), 0)).hasPieza();
+                        verificacion = !tablero.getEscaque(inicio.add(direction.getSign(), 0)).hasPiece();
                     }
                 }
                 if(verificacion){

@@ -24,13 +24,13 @@ public interface PatternSuperPawnMove extends PatternPawn {
             return true;
         }
         if(inicio.add(1, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(1, sign * 1)).hasPieza();
+            return !tablero.getEscaque(inicio.add(1, sign * 1)).hasPiece();
         }
         if(inicio.add(0, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(0, sign * 1)).hasPieza();
+            return !tablero.getEscaque(inicio.add(0, sign * 1)).hasPiece();
         }
         if(inicio.add(-1, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(-1, sign * 1)).hasPieza();
+            return !tablero.getEscaque(inicio.add(-1, sign * 1)).hasPiece();
         }
         return false;
     }

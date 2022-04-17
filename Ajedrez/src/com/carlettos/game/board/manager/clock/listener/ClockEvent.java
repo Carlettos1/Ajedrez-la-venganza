@@ -1,6 +1,6 @@
-package com.carlettos.game.board.manager.event;
+package com.carlettos.game.board.manager.clock.listener;
 
-import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.property.Color;
 import java.util.EventObject;
 
@@ -12,7 +12,7 @@ public class ClockEvent extends EventObject{
     private final Color color;
     public ClockEvent(Clock source) {
         super(source);
-        this.color = source.turnoDe().getColor();
+        this.color = source.turnOf().getColor();
     }
 
     public Color getColor() {

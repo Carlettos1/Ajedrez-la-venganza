@@ -56,11 +56,11 @@ public class BoardDisplay extends JFrame{
         setVisible(true);
     }
 
-    public Board getTablero() {
+    public Board getBoard() {
         return tablero;
     }
 
-    public ClockDisplay getRelojVisual() {
+    public ClockDisplay getClockDisplay() {
         return reloj;
     }
 

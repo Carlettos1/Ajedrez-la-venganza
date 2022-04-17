@@ -68,23 +68,23 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
         this.parametros = parametros;
     }
 
-    public abstract ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
+    public abstract ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
 
-    public abstract void usar(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
+    public abstract void use(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
     
-    public boolean commonCanUsar(AbstractBoard tablero, Piece pieza){
+    public boolean commonCanUse(AbstractBoard tablero, Piece pieza){
         boolean nomana = pieza.getCdActual() <= 0 && !pieza.seHaMovidoEsteTurno();
         if(tablero instanceof Board t){
-            return nomana && t.getClock().turnoDe().getMana() >= this.costo;
+            return nomana && t.getClock().turnOf().getMana() >= this.costo;
         }
         return nomana;
     }
     
-    public void commonUsar(AbstractBoard tablero, Piece pieza){
+    public void commonUse(AbstractBoard tablero, Piece pieza){
         pieza.setSeHaMovidoEsteTurno(true);
         pieza.cambiarCD(this.cooldown);
         if (tablero instanceof Board t) {
-            t.getClock().turnoDe().cambiarMana(-this.costo);
+            t.getClock().turnOf().cambiarMana(-this.costo);
         }
     }
     
@@ -100,31 +100,31 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
             return List.of();
         } else if (info instanceof InfoInteger) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoInteger((Integer) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoInteger((Integer) valor)).isPositive()){
                     lista.add(valor);
                 }
             }
         } else if (info instanceof InfoNESW) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoNESW((Direction) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoNESW((Direction) valor)).isPositive()){
                     lista.add(valor);
                 }
             }
         } else if (info instanceof InfoPiece) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPiece((Piece) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoPiece((Piece) valor)).isPositive()){
                     lista.add(valor);
                 }
             }
         } else if (info instanceof InfoPoint) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPoint((Point) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoPoint((Point) valor)).isPositive()){
                     lista.add(valor);
                 }
             }
         } else if (info instanceof InfoString) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoString((String) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoString((String) valor)).isPositive()){
                     lista.add(valor);
                 }
             }

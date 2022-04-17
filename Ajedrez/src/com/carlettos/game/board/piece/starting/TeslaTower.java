@@ -2,10 +2,11 @@ package com.carlettos.game.board.piece.starting;
 
 import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Event;
+import com.carlettos.game.board.manager.clock.event.Event;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.manager.AbstractBoard;
+import com.carlettos.game.board.manager.clock.event.EventInfo;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.pattern.Pattern;
 import com.carlettos.game.board.piece.pattern.action.ITake;
@@ -55,23 +56,22 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza) && tablero instanceof Board);
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza) && tablero instanceof Board);
         }
 
         @Override
-        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if(tablero instanceof Board t){
-                t.getClock().addEventos(Event.Builder.start(t).with(2, this.getNombre(), inicio)
-                        .build((turnos1, nombre1, punto1, tablero1) -> {
-                            tablero1.getEscaquesMatchPatron(patronHabilidad, inicio).stream()
-                                    .filter(escaque -> escaque.getPieza().isTipo(PieceType.ESTRUCTURA))
-                                    .forEach(escaque -> escaque.getPieza().cambiarCD(10)); //TODO: que desactive de verdad
-                        }));
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            if(tablero instanceof Board board){
+                board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.getNombre(), inicio), () -> {
+                    board.getEscaquesMatchPatron(patronHabilidad, inicio).stream()
+                            .filter(escaque -> escaque.getPiece().isType(PieceType.ESTRUCTURA))
+                            .forEach(escaque -> escaque.getPiece().cambiarCD(10)); //TODO: que desactive de verdad
+                }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");
             }
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
     }
 }

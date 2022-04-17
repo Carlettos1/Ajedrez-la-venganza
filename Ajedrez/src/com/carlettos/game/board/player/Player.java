@@ -76,7 +76,7 @@ public class Player {
         return color;
     }
 
-    public int getMovimientosPorTurnos() {
+    public int getMaxMovements() {
         return movimientosPorTurnos;
     }
 
@@ -84,7 +84,7 @@ public class Player {
         return mana;
     }
 
-    public Hand getMano() {
+    public Hand getHand() {
         return mano;
     }
 

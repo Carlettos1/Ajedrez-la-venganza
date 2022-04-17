@@ -32,8 +32,8 @@ public class Queen extends SimplePiece<PatternQueen> {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
-            if (!this.commonCanUsar(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
+            if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
 
@@ -44,10 +44,10 @@ public class Queen extends SimplePiece<PatternQueen> {
         }
 
         @Override
-        public void usar(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
-            tablero.getEscaque(info.getValor()).setPieza(pieza);
+        public void use(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
+            tablero.getEscaque(info.getValor()).setPiece(pieza);
             tablero.quitarPieza(inicio);
-            this.commonUsar(tablero, pieza);
+            this.commonUse(tablero, pieza);
         }
 
         @Override

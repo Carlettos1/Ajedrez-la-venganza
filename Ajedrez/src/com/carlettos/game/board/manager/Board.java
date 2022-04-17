@@ -1,5 +1,6 @@
 package com.carlettos.game.board.manager;
 
+import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.Escaque;
@@ -39,18 +40,18 @@ public class Board extends AbstractBoard {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarComerPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+        if(!canMoverPieza(getEscaque(inicio).getPiece())){
             return ActionResult.FAIL;
         }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Action.COMER, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPiece().can(Action.COMER, this, inicio, final_).isPositive();
         if (can) {
-            escaqueFinal.setPieza(escaqueInicio.getPieza());
+            escaqueFinal.setPiece(escaqueInicio.getPiece());
             escaqueInicio.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Action.COMER, this, inicio, final_);
-            movimiento();
+            escaqueFinal.getPiece().postAccion(Action.COMER, this, inicio, final_);
+            movement();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -65,18 +66,18 @@ public class Board extends AbstractBoard {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarMoverPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+        if(!canMoverPieza(getEscaque(inicio).getPiece())){
             return ActionResult.FAIL;
         }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Action.MOVER, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPiece().can(Action.MOVER, this, inicio, final_).isPositive();
         if (can) {
-            escaqueFinal.setPieza(escaqueInicio.getPieza());
+            escaqueFinal.setPiece(escaqueInicio.getPiece());
             escaqueInicio.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Action.MOVER, this, inicio, final_);
-            movimiento();
+            escaqueFinal.getPiece().postAccion(Action.MOVER, this, inicio, final_);
+            movement();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -91,17 +92,17 @@ public class Board extends AbstractBoard {
      * @return ActionResult diciendo el resultado.
      */
     public ActionResult intentarAtacarPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+        if(!canMoverPieza(getEscaque(inicio).getPiece())){
             return ActionResult.FAIL;
         }
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Action.ATACAR, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPiece().can(Action.ATACAR, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Action.ATACAR, this, inicio, final_);
-            movimiento();
+            escaqueFinal.getPiece().postAccion(Action.ATACAR, this, inicio, final_);
+            movement();
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -124,36 +125,36 @@ public class Board extends AbstractBoard {
      * @see ActionResult
      */
     public ActionResult intentarHabilidadPieza(Point inicio, Info info) {
-        if(!canMoverPieza(getEscaque(inicio).getPieza())){
+        if(!canMoverPieza(getEscaque(inicio).getPiece())){
             return ActionResult.FAIL;
         }
         Escaque escaque = getEscaque(inicio);
-        ActionResult ar = escaque.getPieza().getHabilidad().canUsar(this, escaque.getPieza(), inicio, info);
+        ActionResult ar = escaque.getPiece().getHabilidad().canUse(this, escaque.getPiece(), inicio, info);
         if (ar.isPositive()) {
-            escaque.getPieza().getHabilidad().usar(this, escaque.getPieza(), inicio, info);
-            movimiento();
+            escaque.getPiece().getHabilidad().use(this, escaque.getPiece(), inicio, info);
+            movement();
         }
         return ar;
     }
 
-    public void movimiento() {
-        this.reloj.movimiento();
-        if(getClock().getMovimientos() >= getClock().turnoDe().getMovimientosPorTurnos()){
+    public void movement() {
+        this.reloj.movement();
+        if(getClock().getMovements() >= getClock().turnOf().getMaxMovements()){
             for (Escaque[] escaques : tableroAjedrez) {
                 for (Escaque escaque : escaques) {
-                    escaque.getPieza().setSeHaMovidoEsteTurno(false);
+                    escaque.getPiece().setSeHaMovidoEsteTurno(false);
                 }
             }
-            getClock().terminarTurno();
+            getClock().endTurn();
         }
     }
     
     public boolean canMoverPieza(Piece pieza){
-        return getClock().turnoDe().getColor().equals(pieza.getColor()) && getClock().canJugar(getClock().turnoDe());
+        return getClock().turnOf().getColor().equals(pieza.getColor()) && getClock().canPlay(getClock().turnOf());
     }
     
     public boolean canMoverColor(Color color){
-        return getClock().turnoDe().getColor().equals(color) && getClock().canJugar(getClock().turnoDe());
+        return getClock().turnOf().getColor().equals(color) && getClock().canPlay(getClock().turnOf());
     }
 
     public Clock getClock() {
@@ -165,7 +166,7 @@ public class Board extends AbstractBoard {
         for (Escaque[] escaques : tableroAjedrez) {
             for (Escaque escaque : escaques) {
                 if(escaque.isControladoPor(color)){
-                    piezas.add(escaque.getPieza());
+                    piezas.add(escaque.getPiece());
                 }
             }
         }

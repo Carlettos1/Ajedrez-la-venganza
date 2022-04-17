@@ -141,7 +141,7 @@ public abstract class Piece {
         return acciones;
     }
     
-    public boolean isTipo(PieceType tipo){
+    public boolean isType(PieceType tipo){
         return this.tipos.contains(tipo);
     }
 
@@ -180,7 +180,7 @@ public abstract class Piece {
      * @param tipo tipo que se quiera eliminar.
      * @return PASS.
      */
-    public ActionResult addTipo(PieceType tipo) {
+    public ActionResult addType(PieceType tipo) {
         return ActionResult.fromBoolean(this.getTipos().add(tipo));
     }
 
@@ -190,7 +190,7 @@ public abstract class Piece {
      * @param tipo tipo que se quiera eliminar.
      * @return PASS si se ha quitado el tipo, FAIL si no.
      */
-    public ActionResult removeTipo(PieceType tipo) {
+    public ActionResult removeType(PieceType tipo) {
         return ActionResult.fromBoolean(this.getTipos().remove(tipo));
     }
 

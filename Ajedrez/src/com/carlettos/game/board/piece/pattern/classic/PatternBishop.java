@@ -24,7 +24,7 @@ public interface PatternBishop extends Pattern{
 
         for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
             if (tablero.getEscaque(inicio.x + escaque * signoX,
-                    inicio.y + escaque * signoY).hasPieza()) {
+                    inicio.y + escaque * signoY).hasPiece()) {
                 return false;
             }
         }

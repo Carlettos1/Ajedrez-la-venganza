@@ -33,7 +33,7 @@ public interface PatternMadPawn extends Pattern {
     public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
         int turno;
         switch (tablero) {
-            case Board t -> turno = t.getClock().getTurno();
+            case Board t -> turno = t.getClock().getTurn();
             case default -> throw new IllegalArgumentException("Tablero no es instanceof Tablero");
         }
         return switch(this.getRandomNumber(turno)) {

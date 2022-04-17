@@ -20,7 +20,7 @@ public interface PatternPawnMove extends PatternPawn{
             if (final_.equals(puntoSiguiente)) {
                 return true;
             } else if (final_.equals(puntoSubSiguiente)) {
-                return !tablero.getEscaque(puntoSiguiente).hasPieza();
+                return !tablero.getEscaque(puntoSiguiente).hasPiece();
             }
         } else if (getColor().equals(Color.NEGRO)) {
             Point puntoAnterior = new Point(inicio.x, inicio.y - 1);
@@ -29,7 +29,7 @@ public interface PatternPawnMove extends PatternPawn{
             if (final_.equals(puntoAnterior)) {
                 return true;
             } else if (final_.equals(puntoAnteAnterior)) {
-                return !tablero.getEscaque(puntoAnterior).hasPieza();
+                return !tablero.getEscaque(puntoAnterior).hasPiece();
             }
         }
         return false;

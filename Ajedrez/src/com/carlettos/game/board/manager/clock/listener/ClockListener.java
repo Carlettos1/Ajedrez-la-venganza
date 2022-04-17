@@ -1,4 +1,4 @@
-package com.carlettos.game.board.manager.event;
+package com.carlettos.game.board.manager.clock.listener;
 
 import java.util.EventListener;
 
@@ -7,5 +7,5 @@ import java.util.EventListener;
  * @author Carlettos
  */
 public interface ClockListener extends EventListener{
-    void turnoTerminado(ClockEvent e);
+    void onEndTurn(ClockEvent e);
 }

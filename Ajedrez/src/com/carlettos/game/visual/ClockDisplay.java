@@ -2,13 +2,14 @@ package com.carlettos.game.visual;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
-import com.carlettos.game.core.Event;
+import com.carlettos.game.board.manager.clock.event.Event;
 import com.carlettos.game.core.Tuple;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.input.MousePiece;
 import com.carlettos.game.board.Escaque;
-import com.carlettos.game.board.manager.Clock;
+import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.piece.Piece;
+import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoInteger;
 import com.carlettos.game.board.property.ability.InfoNESW;
@@ -62,7 +63,7 @@ public class ClockDisplay extends JPanel{
         add(eventosLabel, BorderLayout.CENTER);
         add(turnoLabel, BorderLayout.PAGE_END);
         turno.addActionListener((ActionEvent e) -> {
-            reloj.terminarTurno();
+            reloj.endTurn();
             Container container = this;
             while (container.getParent() != null) {
                 container = container.getParent();
@@ -83,13 +84,13 @@ public class ClockDisplay extends JPanel{
             }
             if (container instanceof BoardDisplay tv) {
                 Escaque escaque = MousePiece.get().seleccionado.getEscaque();
-                Info infoHabilidad = escaque.getPieza().getHabilidad().getInfoHabilidad();
+                Info infoHabilidad = escaque.getPiece().getHabilidad().getInfoHabilidad();
                 
-                Object[] valores = escaque.getPieza().getHabilidad().getAllValoresPosibles(tv.getTablero(), escaque.getPos());
+                Object[] valores = escaque.getPiece().getHabilidad().getAllValoresPosibles(tv.getBoard(), escaque.getPos());
                 if (infoHabilidad instanceof InfoNone) {
                     valores = new String[]{"Usar"};
                 }
-                int i = InfoDisplay.showOptions(tv.getTablero(), escaque.getPos(), valores);
+                int i = InfoDisplay.showOptions(tv.getBoard(), escaque.getPos(), valores);
                 if(i == -1){
                     return;
                 }
@@ -98,26 +99,26 @@ public class ClockDisplay extends JPanel{
                 Info infoUsada = new InfoNone();
                 ActionResult ar;
                 if (infoHabilidad instanceof InfoNone) {
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoNone());
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNone());
                 } else if(infoHabilidad instanceof InfoInteger){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
                 } else if(infoHabilidad instanceof InfoNESW){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
                 } else if(infoHabilidad instanceof InfoPiece){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPiece((Piece) valor));
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPiece((Piece) valor));
                 } else if(infoHabilidad instanceof InfoPoint){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
                 } else if(infoHabilidad instanceof InfoString){
-                    ar = escaque.getPieza().getHabilidad().canUsar(tv.getTablero(), escaque.getPieza(), escaque.getPos(), infoUsada = new InfoString((String) valor));
+                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoString((String) valor));
                 } else { //todo: compuesta
                     ar = ActionResult.FAIL;
                 }
                 if (ar.isPositive()) {
-                    escaque.getPieza().getHabilidad().usar(tv.getTablero(),
-                            escaque.getPieza(),
+                    escaque.getPiece().getHabilidad().use(tv.getBoard(),
+                            escaque.getPiece(),
                             escaque.getPos(),
                             infoUsada);
-                    tv.getTablero().movimiento();
+                    tv.getBoard().movement();
                     MousePiece.get().seleccionado = null;
                     tv.offAll();
                 }
@@ -133,16 +134,17 @@ public class ClockDisplay extends JPanel{
 
     public void actualizarTextos() {
         ordenJugadores = new StringBuilder("El orden de los jugadores es: ");
-        reloj.getJugadores().forEach((jugador) -> {
-            ordenJugadores.append(jugador.getColor()).append(", ");
-        });
+        for (Player player : reloj.getPlayers()) {
+            ordenJugadores.append(player.getColor()).append(", ");
+            
+        }
         ordenJugadores.delete(ordenJugadores.lastIndexOf(", "), ordenJugadores.length());
         ordenJugadores.append(".");
 
         ordenEventos = new StringBuilder("<html>Evento(s) más próximos: <br/>");
         List<Event> eventos = reloj.getEventosOrdenados();
         for (Event evento : (eventos.stream().filter((evento) -> {
-            return evento.turnos == eventos.get(0).turnos;
+            return evento.info.getTurns() == eventos.get(0).info.getTurns();
         }).toArray(Event[]::new))) {
             ordenEventos.append(evento).append("<br/>");
 
@@ -150,7 +152,7 @@ public class ClockDisplay extends JPanel{
         ordenEventos.append("</html>");
 
         turnoActual = new StringBuilder("Es el turno del jugador ");
-        turnoActual.append(reloj.turnoDe().getColor()).append('.');
+        turnoActual.append(reloj.turnOf().getColor()).append('.');
     }
 
     @Override
@@ -162,7 +164,7 @@ public class ClockDisplay extends JPanel{
         turnoLabel.setText(turnoActual.toString());
     }
 
-    public Clock getReloj() {
+    public Clock getClock() {
         return reloj;
     }
 }

@@ -36,12 +36,12 @@ public class Empty extends Piece {
         }
 
         @Override
-        public ActionResult canUsar(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
+        public ActionResult canUse(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
             return ActionResult.FAIL;
         }
 
         @Override
-        public void usar(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
         }
     }
 }
