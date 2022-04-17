@@ -1,7 +1,7 @@
 package com.carlettos.game.board.card;
 
-import com.carlettos.game.core.Par;
-import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.core.Tuple;
+import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.manager.Clock;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.Point;
@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @author Carlos
  *
- * @see Jugador
+ * @see Player
  */
 public abstract class Card {
     protected final String nombre;
@@ -49,7 +49,7 @@ public abstract class Card {
      * @return true si puede utilizar la carta, false si no, además de un String
      * en forma de información extra.
      */
-    public abstract Par<Boolean, String> canUsarCarta(Point punto, Board tablero, Clock reloj, Jugador... jugadores);
+    public abstract Tuple<Boolean, String> canUsarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores);
 
     /**
      * Utiliza la carta haciendo las acciones necesarias.
@@ -60,7 +60,7 @@ public abstract class Card {
      * @param jugadores jugadores objetivos, el primero siempre debe ser el que
      * utiliza la carta.
      */
-    public abstract void usarCarta(Point punto, Board tablero, Clock reloj, Jugador... jugadores);
+    public abstract void usarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores);
 
     /**
      *

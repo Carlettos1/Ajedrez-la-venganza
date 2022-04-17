@@ -1,6 +1,6 @@
 package com.carlettos.game.input;
 
-import com.carlettos.game.visual.TableroVisual;
+import com.carlettos.game.visual.BoardDisplay;
 import java.awt.Component;
 import java.awt.Container;
 
@@ -9,11 +9,11 @@ import java.awt.Container;
  * @author Carlos
  */
 public class ListenerHelper {
-    public static TableroVisual getTableroVisual(Component component){
+    public static BoardDisplay getTableroVisual(Component component){
         Container lastParent = component.getParent();
         while (lastParent.getParent() != null) {
             lastParent = lastParent.getParent();
         }
-        return (TableroVisual) lastParent;
+        return (BoardDisplay) lastParent;
     }
 }

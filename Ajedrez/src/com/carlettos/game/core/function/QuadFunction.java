@@ -1,6 +1,6 @@
 package com.carlettos.game.core.function;
 
-import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.piece.Piece;
@@ -26,5 +26,5 @@ public interface QuadFunction<R> { //todo: quinfunction
         return false;
     };
     
-    public R apply(Accion accion, Board tablero, Piece pieza, Point inicio, Point final_);
+    public R apply(Action accion, Board tablero, Piece pieza, Point inicio, Point final_);
 }

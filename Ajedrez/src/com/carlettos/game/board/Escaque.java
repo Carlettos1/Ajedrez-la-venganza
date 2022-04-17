@@ -1,6 +1,6 @@
 package com.carlettos.game.board;
 
-import com.carlettos.game.board.piece.Vacia;
+import com.carlettos.game.board.piece.Empty;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.core.Point;
@@ -65,7 +65,7 @@ public class Escaque {
      * cartesianas.
      */
     public Escaque(Point pos) {
-        this(false, true, pos, new Vacia());
+        this(false, true, pos, new Empty());
     }
     
     @Deprecated // USE Escaque::hasPieza() INSTEAD
@@ -96,10 +96,10 @@ public class Escaque {
      *
      * @return true si tiene pieza, false si no.
      *
-     * @see Vacia
+     * @see Empty
      */
     public boolean hasPieza() {
-        return !pieza.equals(new Vacia());
+        return !pieza.equals(new Empty());
     }
 
     public Piece getPieza() {
@@ -135,10 +135,10 @@ public class Escaque {
      * Reemplaza la actual pieza por una vacia, es equivalente a
      * {@code escaque.setPieza(new Vacia());}
      *
-     * @see Vacia
+     * @see Empty
      */
     public void quitarPieza() {
-        this.pieza = new Vacia();
+        this.pieza = new Empty();
     }
     
     public Point getPos() {

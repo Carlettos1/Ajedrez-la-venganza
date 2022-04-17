@@ -1,14 +1,14 @@
 package com.carlettos.game.board.piece;
 
-import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Par;
+import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
-import com.carlettos.game.board.property.Tipo;
+import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.property.ability.InfoPieza;
+import com.carlettos.game.board.property.ability.InfoPiece;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,7 +69,7 @@ public abstract class Piece {
      * juego por efectos de cartas o de otras piezas, pero son los tipos bases
      * con los que empieza la pieza.
      */
-    protected final List<Tipo> tipos;
+    protected final List<PieceType> tipos;
 
     
     /**
@@ -81,7 +81,7 @@ public abstract class Piece {
      * @param tipos los tipos de la pieza.
      * @param color color de la pieza, blanco o negro en el ajedrez normal.
      */
-    public Piece(String nombre, String abreviacion, Ability habilidad, Color color, Tipo... tipos) {
+    public Piece(String nombre, String abreviacion, Ability habilidad, Color color, PieceType... tipos) {
         this.seHaMovidoEsteTurno = false;
         this.cdActual = 0;
         this.nombre = nombre;
@@ -102,9 +102,9 @@ public abstract class Piece {
      *
      * @return ActionResult.
      */
-    public abstract ActionResult can(Accion accion, AbstractBoard tablero, Point inicio, Point final_);
+    public abstract ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_);
     
-    public void postAccion(Accion accion, AbstractBoard tablero, Point inicio, Point final_){
+    public void postAccion(Action accion, AbstractBoard tablero, Point inicio, Point final_){
         this.setSeHaMovidoEsteTurno(true);
     }
     
@@ -125,23 +125,23 @@ public abstract class Piece {
      * @see Piece
      * @see Escaque
      */
-    public List<Par<Point, Accion>> allAcciones(AbstractBoard tablero, Point seleccionado) {
-        List<Par<Point, Accion>> acciones = new ArrayList<>();
+    public List<Tuple<Point, Action>> allAcciones(AbstractBoard tablero, Point seleccionado) {
+        List<Tuple<Point, Action>> acciones = new ArrayList<>();
         for (int x = 0; x < tablero.columnas; x++) {
             for (int y = 0; y < tablero.filas; y++) {
-                if (this.can(Accion.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.COMER));
-                } if (this.can(Accion.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.MOVER));
-                } if (this.can(Accion.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
-                    acciones.add(new Par<>(tablero.getEscaque(x, y).getPos(), Accion.ATACAR));
+                if (this.can(Action.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.COMER));
+                } if (this.can(Action.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.MOVER));
+                } if (this.can(Action.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.ATACAR));
                 }
             }
         }
         return acciones;
     }
     
-    public boolean isTipo(Tipo tipo){
+    public boolean isTipo(PieceType tipo){
         return this.tipos.contains(tipo);
     }
 
@@ -171,7 +171,7 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public List<Tipo> getTipos() {
+    public List<PieceType> getTipos() {
         return tipos;
     }
 
@@ -180,7 +180,7 @@ public abstract class Piece {
      * @param tipo tipo que se quiera eliminar.
      * @return PASS.
      */
-    public ActionResult addTipo(Tipo tipo) {
+    public ActionResult addTipo(PieceType tipo) {
         return ActionResult.fromBoolean(this.getTipos().add(tipo));
     }
 
@@ -190,7 +190,7 @@ public abstract class Piece {
      * @param tipo tipo que se quiera eliminar.
      * @return PASS si se ha quitado el tipo, FAIL si no.
      */
-    public ActionResult removeTipo(Tipo tipo) {
+    public ActionResult removeTipo(PieceType tipo) {
         return ActionResult.fromBoolean(this.getTipos().remove(tipo));
     }
 
@@ -201,9 +201,9 @@ public abstract class Piece {
      * FAIL en otro caso.
      * @throws NullPointerException si hay algún null en el argumento.
      */
-    public ActionResult addTipos(Tipo... tipos) {
+    public ActionResult addTipos(PieceType... tipos) {
         boolean success = true;
-        for (Tipo tipo : tipos) {
+        for (PieceType tipo : tipos) {
             Objects.requireNonNull(tipo);
             success = Boolean.logicalAnd(success, this.getTipos().add(tipo));
         }
@@ -217,9 +217,9 @@ public abstract class Piece {
      * eliminados, FAIL en otro caso.
      * @throws NullPointerException si hay algún null en el argumento.
      */
-    public ActionResult removeTipos(Tipo... tipos) {
+    public ActionResult removeTipos(PieceType... tipos) {
         boolean success = true;
-        for (Tipo tipo : tipos) {
+        for (PieceType tipo : tipos) {
             Objects.requireNonNull(tipo);
             success = Boolean.logicalAnd(success, this.getTipos().remove(tipo));
         }
@@ -244,8 +244,8 @@ public abstract class Piece {
         return seHaMovidoEsteTurno;
     }
     
-    public InfoPieza toInfo(){
-        return new InfoPieza(this);
+    public InfoPiece toInfo(){
+        return new InfoPiece(this);
     }
 
     @Override

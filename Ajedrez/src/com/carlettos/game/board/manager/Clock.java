@@ -1,7 +1,7 @@
 package com.carlettos.game.board.manager;
 
-import com.carlettos.game.core.Evento;
-import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.core.Event;
+import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.manager.event.ClockEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +18,11 @@ public class Clock {
 
     private int turno;
     private int movimientos;
-    private final List<Jugador> jugadores;
-    private final List<Evento> eventos;
+    private final List<Player> jugadores;
+    private final List<Event> eventos;
     private final List<ClockListener> listeners;
 
-    public Clock(Jugador... jugadores) {
+    public Clock(Player... jugadores) {
         this.movimientos = 0;
         this.turno = 1;
         this.eventos = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Clock {
      *
      * @return true si el jugador puede jugar o no.
      */
-    public boolean canJugar(Jugador jugador) {
+    public boolean canJugar(Player jugador) {
         return turnoDe().equals(jugador) && jugador.getMovimientosPorTurnos() > movimientos;
     }
 
@@ -57,7 +57,7 @@ public class Clock {
      *
      * @param eventos Eventos que se quieran añadir al reloj.
      */
-    public void addEventos(Evento... eventos) {
+    public void addEventos(Event... eventos) {
         this.eventos.addAll(Arrays.asList(eventos));
     }
 
@@ -67,7 +67,7 @@ public class Clock {
      *
      * @return Jugador cuyo turno es el que debe jugarse ahora.
      */
-    public Jugador turnoDe() {
+    public Player turnoDe() {
         return jugadores.get((turno - 1) % jugadores.size());
     }
 
@@ -98,16 +98,16 @@ public class Clock {
         this.listeners.forEach(l -> l.turnoTerminado(new ClockEvent(this)));
     }
 
-    public List<Evento> getEventos() {
+    public List<Event> getEventos() {
         return Collections.unmodifiableList(eventos);
     }
     
-    public List<Evento> getEventosOrdenados(){
-        eventos.sort((Evento o1, Evento o2) -> o1.compareTo(o2));
+    public List<Event> getEventosOrdenados(){
+        eventos.sort((Event o1, Event o2) -> o1.compareTo(o2));
         return getEventos();
     }
 
-    public List<Jugador> getJugadores() {
+    public List<Player> getJugadores() {
         return Collections.unmodifiableList(jugadores);
     }
 

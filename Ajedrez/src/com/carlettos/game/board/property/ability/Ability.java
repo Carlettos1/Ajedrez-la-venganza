@@ -96,7 +96,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
         V[] valores = this.getAllValoresPosibles(tablero, inicio);
         List<V> lista = new ArrayList<>(tablero.columnas * tablero.filas);
         
-        if(info instanceof InfoNinguna){
+        if(info instanceof InfoNone){
             return List.of();
         } else if (info instanceof InfoInteger) {
             for (V valor : valores) {
@@ -110,9 +110,9 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
                     lista.add(valor);
                 }
             }
-        } else if (info instanceof InfoPieza) {
+        } else if (info instanceof InfoPiece) {
             for (V valor : valores) {
-                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPieza((Piece) valor)).isPositive()){
+                if(this.canUsar(tablero, (P) tablero.getEscaque(inicio).getPieza(), inicio, (I) new InfoPiece((Piece) valor)).isPositive()){
                     lista.add(valor);
                 }
             }

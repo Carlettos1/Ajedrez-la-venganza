@@ -4,7 +4,7 @@ import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.Piece;
-import com.carlettos.game.board.piece.Vacia;
+import com.carlettos.game.board.piece.Empty;
 
 /**
  *
@@ -38,8 +38,8 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
     
     public static non-sealed interface HabilidadSinInfo extends InfoGetter<String> {
         @Override
-        default InfoNinguna getInfoHabilidad(){
-            return new InfoNinguna();
+        default InfoNone getInfoHabilidad(){
+            return new InfoNone();
         }
 
         @Override
@@ -50,8 +50,8 @@ public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger,
     
     public static non-sealed interface HabilidadPieza extends InfoGetter<Piece> {
         @Override
-        default InfoPieza getInfoHabilidad(){
-            return new InfoPieza(new Vacia());
+        default InfoPiece getInfoHabilidad(){
+            return new InfoPiece(new Empty());
         }
     }
     

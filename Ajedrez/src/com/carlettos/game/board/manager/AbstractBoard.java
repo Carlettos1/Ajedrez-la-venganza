@@ -2,30 +2,30 @@ package com.carlettos.game.board.manager;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.piece.Empty;
 import com.carlettos.game.board.piece.Piece;
-import com.carlettos.game.board.piece.Vacia;
 import com.carlettos.game.board.piece.classic.Pawn;
 import com.carlettos.game.board.piece.classic.Bishop;
-import com.carlettos.game.board.piece.classic.Caballo;
-import com.carlettos.game.board.piece.classic.Reina;
-import com.carlettos.game.board.piece.classic.Rey;
-import com.carlettos.game.board.piece.classic.Torre;
-import com.carlettos.game.board.piece.starting.Ariete;
-import com.carlettos.game.board.piece.starting.Arquero;
-import com.carlettos.game.board.piece.starting.Ballesta;
-import com.carlettos.game.board.piece.starting.Brujo;
-import com.carlettos.game.board.piece.starting.Catapulta;
-import com.carlettos.game.board.piece.starting.Cañon;
-import com.carlettos.game.board.piece.starting.Constructor;
-import com.carlettos.game.board.piece.starting.Defensor;
-import com.carlettos.game.board.piece.starting.Hechicero;
-import com.carlettos.game.board.piece.starting.Muro;
-import com.carlettos.game.board.piece.starting.Nave;
+import com.carlettos.game.board.piece.classic.King;
+import com.carlettos.game.board.piece.classic.Knight;
+import com.carlettos.game.board.piece.classic.Queen;
+import com.carlettos.game.board.piece.classic.Rook;
+import com.carlettos.game.board.piece.pattern.Pattern;
+import com.carlettos.game.board.piece.starting.Archer;
+import com.carlettos.game.board.piece.starting.Ballista;
+import com.carlettos.game.board.piece.starting.Builder;
+import com.carlettos.game.board.piece.starting.Cannon;
+import com.carlettos.game.board.piece.starting.Catapult;
+import com.carlettos.game.board.piece.starting.MadPawn;
+import com.carlettos.game.board.piece.starting.Magician;
 import com.carlettos.game.board.piece.starting.Paladin;
-import com.carlettos.game.board.piece.starting.PeonLoco;
-import com.carlettos.game.board.piece.starting.SuperPeon;
-import com.carlettos.game.board.piece.starting.TorreTesla;
-import com.carlettos.game.board.piece.pattern.Patron;
+import com.carlettos.game.board.piece.starting.Ram;
+import com.carlettos.game.board.piece.starting.ShieldBearer;
+import com.carlettos.game.board.piece.starting.Ship;
+import com.carlettos.game.board.piece.starting.SuperPawn;
+import com.carlettos.game.board.piece.starting.TeslaTower;
+import com.carlettos.game.board.piece.starting.Wall;
+import com.carlettos.game.board.piece.starting.Warlock;
 import com.carlettos.game.board.property.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +152,7 @@ public class AbstractBoard {
         return escaques;
     }
     
-    public List<Escaque> getEscaquesMatchPatron(Patron patron, Point inicio){
+    public List<Escaque> getEscaquesMatchPatron(Pattern patron, Point inicio){
         List<Escaque> matches = new ArrayList<>(filas * columnas);
         for (Escaque[] escaques : tableroAjedrez) {
             for (Escaque escaque : escaques) {
@@ -190,26 +190,26 @@ public class AbstractBoard {
                 Piece p2 = (switch (pieza) {
                     case Pawn piezaCopiada -> new Pawn(piezaCopiada.getColor());
                     case Bishop piezaCopiada -> new Bishop(piezaCopiada.getColor());
-                    case Caballo piezaCopiada -> new Caballo(piezaCopiada.getColor());
-                    case Reina piezaCopiada -> new Reina(piezaCopiada.getColor());
-                    case Rey piezaCopiada -> new Rey(piezaCopiada.getColor());
-                    case Torre piezaCopiada -> new Torre(piezaCopiada.getColor());
-                    case Ariete piezaCopiada -> new Ariete(piezaCopiada.getColor());
-                    case Arquero piezaCopiada -> new Arquero(piezaCopiada.getColor());
-                    case Ballesta piezaCopiada -> new Ballesta(piezaCopiada.getColor());
-                    case Brujo piezaCopiada -> new Brujo(piezaCopiada.getColor());
-                    case Catapulta piezaCopiada -> new Catapulta(piezaCopiada.getColor());
-                    case Cañon piezaCopiada -> new Cañon(piezaCopiada.getColor());
-                    case Constructor piezaCopiada -> new Constructor(piezaCopiada.getColor());
-                    case Defensor piezaCopiada -> new Defensor(piezaCopiada.getColor());
-                    case Hechicero piezaCopiada -> new Hechicero(piezaCopiada.getColor());
-                    case Muro piezaCopiada -> new Muro(piezaCopiada.getColor());
-                    case Nave piezaCopiada -> new Nave(piezaCopiada.getColor());
+                    case Knight piezaCopiada -> new Knight(piezaCopiada.getColor());
+                    case Queen piezaCopiada -> new Queen(piezaCopiada.getColor());
+                    case King piezaCopiada -> new King(piezaCopiada.getColor());
+                    case Rook piezaCopiada -> new Rook(piezaCopiada.getColor());
+                    case Ram piezaCopiada -> new Ram(piezaCopiada.getColor());
+                    case Archer piezaCopiada -> new Archer(piezaCopiada.getColor());
+                    case Ballista piezaCopiada -> new Ballista(piezaCopiada.getColor());
+                    case Warlock piezaCopiada -> new Warlock(piezaCopiada.getColor());
+                    case Catapult piezaCopiada -> new Catapult(piezaCopiada.getColor());
+                    case Cannon piezaCopiada -> new Cannon(piezaCopiada.getColor());
+                    case Builder piezaCopiada -> new Builder(piezaCopiada.getColor());
+                    case ShieldBearer piezaCopiada -> new ShieldBearer(piezaCopiada.getColor());
+                    case Magician piezaCopiada -> new Magician(piezaCopiada.getColor());
+                    case Wall piezaCopiada -> new Wall(piezaCopiada.getColor());
+                    case Ship piezaCopiada -> new Ship(piezaCopiada.getColor());
                     case Paladin piezaCopiada -> new Paladin(piezaCopiada.getColor());
-                    case PeonLoco piezaCopiada -> new PeonLoco(piezaCopiada.getColor());
-                    case SuperPeon piezaCopiada -> new SuperPeon(piezaCopiada.getColor());
-                    case TorreTesla piezaCopiada -> new TorreTesla(piezaCopiada.getColor());
-                    default -> new Vacia();
+                    case MadPawn piezaCopiada -> new MadPawn(piezaCopiada.getColor());
+                    case SuperPawn piezaCopiada -> new SuperPawn(piezaCopiada.getColor());
+                    case TeslaTower piezaCopiada -> new TeslaTower(piezaCopiada.getColor());
+                    default -> new Empty();
                 });
                 p2.setSeHaMovidoEsteTurno(pieza.seHaMovidoEsteTurno());
                 p2.cambiarCD(pieza.getCdActual());

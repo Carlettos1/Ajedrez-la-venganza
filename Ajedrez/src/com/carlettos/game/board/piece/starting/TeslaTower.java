@@ -1,0 +1,77 @@
+package com.carlettos.game.board.piece.starting;
+
+import com.carlettos.game.core.Action;
+import com.carlettos.game.core.ActionResult;
+import com.carlettos.game.core.Event;
+import com.carlettos.game.core.Point;
+import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.manager.AbstractBoard;
+import com.carlettos.game.board.piece.Piece;
+import com.carlettos.game.board.piece.pattern.Pattern;
+import com.carlettos.game.board.piece.pattern.action.ITake;
+import com.carlettos.game.board.piece.pattern.action.IMove;
+import com.carlettos.game.board.piece.pattern.starting.PatternCannonAttack;
+import com.carlettos.game.board.piece.pattern.starting.PatternStructureMove;
+import com.carlettos.game.board.piece.pattern.starting.PatternMagicianMove;
+import com.carlettos.game.board.property.Color;
+import com.carlettos.game.board.property.ability.Ability;
+import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.InfoNone;
+import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+
+/**
+ *
+ * @author Carlettos
+ */
+public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITake<PatternStructureMove> {
+    public final static Ability<TeslaTower, String, InfoNone> HABILIDAD_TORRE_TESLA = new HabilidadTorreTesla<>();
+    protected final PatternMagicianMove patronMover;
+    protected final PatternStructureMove patronComer;
+
+    public TeslaTower(Color color) {
+        super("Torre Tesla", "TT", HABILIDAD_TORRE_TESLA, color, PieceType.ESTRUCTURA);
+        this.patronMover = new PatternMagicianMove() {};
+        this.patronComer = new PatternStructureMove() {};
+    }
+
+    @Override
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+        return switch(accion){
+            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
+            case COMER -> this.canComer(tablero, inicio, final_, patronComer);
+            default -> ActionResult.FAIL;
+        };
+    }
+    
+    public static class HabilidadTorreTesla<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo{
+        protected final Pattern patronHabilidad = new PatternCannonAttack() {};
+        
+        public HabilidadTorreTesla() {
+            super("PEM", 
+                    "Emite un PEM que desactiva todas las estructuras", 
+                    20, 
+                    1, 
+                    "ninguno");
+        }
+
+        @Override
+        public ActionResult canUsar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUsar(tablero, pieza) && tablero instanceof Board);
+        }
+
+        @Override
+        public void usar(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+            if(tablero instanceof Board t){
+                t.getClock().addEventos(Event.Builder.start(t).with(2, this.getNombre(), inicio)
+                        .build((turnos1, nombre1, punto1, tablero1) -> {
+                            tablero1.getEscaquesMatchPatron(patronHabilidad, inicio).stream()
+                                    .filter(escaque -> escaque.getPieza().isTipo(PieceType.ESTRUCTURA))
+                                    .forEach(escaque -> escaque.getPieza().cambiarCD(10)); //TODO: que desactive de verdad
+                        }));
+            } else {
+                throw new IllegalArgumentException("Tablero no es instanceof Tablero");
+            }
+            this.commonUsar(tablero, pieza);
+        }
+    }
+}

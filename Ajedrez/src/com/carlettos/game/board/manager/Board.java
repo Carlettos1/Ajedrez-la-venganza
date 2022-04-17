@@ -1,6 +1,6 @@
 package com.carlettos.game.board.manager;
 
-import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.core.Point;
@@ -45,11 +45,11 @@ public class Board extends AbstractBoard {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Accion.COMER, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPieza().can(Action.COMER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Accion.COMER, this, inicio, final_);
+            escaqueFinal.getPieza().postAccion(Action.COMER, this, inicio, final_);
             movimiento();
             return ActionResult.PASS;
         } else {
@@ -71,11 +71,11 @@ public class Board extends AbstractBoard {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Accion.MOVER, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPieza().can(Action.MOVER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPieza(escaqueInicio.getPieza());
             escaqueInicio.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Accion.MOVER, this, inicio, final_);
+            escaqueFinal.getPieza().postAccion(Action.MOVER, this, inicio, final_);
             movimiento();
             return ActionResult.PASS;
         } else {
@@ -97,10 +97,10 @@ public class Board extends AbstractBoard {
         Escaque escaqueInicio = this.getEscaque(inicio);
         Escaque escaqueFinal = this.getEscaque(final_);
 
-        boolean can = escaqueInicio.getPieza().can(Accion.ATACAR, this, inicio, final_).isPositive();
+        boolean can = escaqueInicio.getPieza().can(Action.ATACAR, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.quitarPieza();
-            escaqueFinal.getPieza().postAccion(Accion.ATACAR, this, inicio, final_);
+            escaqueFinal.getPieza().postAccion(Action.ATACAR, this, inicio, final_);
             movimiento();
             return ActionResult.PASS;
         } else {

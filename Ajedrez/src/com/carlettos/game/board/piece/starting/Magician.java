@@ -7,28 +7,25 @@ import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Empty;
 import com.carlettos.game.board.piece.pattern.action.IMove;
-import com.carlettos.game.board.piece.pattern.action.ITake;
-import com.carlettos.game.board.piece.pattern.classic.PatternQueen;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.piece.pattern.starting.PatternMagicianMove;
 
 /**
  *
  * @author Carlettos
  */
-public class Paladin extends Piece implements IMove<PatternQueen>, ITake<PatternQueen> {
-    protected final PatternQueen patron;
-
-    public Paladin(Color color) { //TODO: Habilidad
-        super("Paladin", "PA", Empty.NO_HABILIDAD, color, PieceType.HEROICA, PieceType.INMUNE);
-        patron = new PatternQueen(){};
+public class Magician extends Piece implements IMove<PatternMagicianMove> {
+    protected final PatternMagicianMove patronMover;
+    public Magician(Color color) { //TODO: hacer lo de la habilidad
+        super("Hechicero", "HE", Empty.NO_HABILIDAD, color, PieceType.BIOLOGICA, PieceType.HEROICA, PieceType.INMUNE, PieceType.TRANSPORTABLE);
+        patronMover = new PatternMagicianMove() {};
     }
 
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
-        return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, patron);
-            case COMER -> this.canComer(tablero, inicio, final_, patron);
+        return switch(accion) {
+            case MOVER -> this.canMover(tablero, inicio, final_, this.patronMover);
             default -> ActionResult.FAIL;
         };
     }

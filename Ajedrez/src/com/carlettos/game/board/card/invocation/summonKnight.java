@@ -1,16 +1,16 @@
 package com.carlettos.game.board.card.invocation;
 
-import com.carlettos.game.core.Evento;
-import com.carlettos.game.core.Par;
+import com.carlettos.game.core.Event;
+import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.card.Card;
-import com.carlettos.game.board.player.Jugador;
+import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.manager.Clock;
 import com.carlettos.game.board.manager.Board;
-import com.carlettos.game.board.piece.classic.Caballo;
+import com.carlettos.game.board.piece.classic.Knight;
 import com.carlettos.game.core.Point;
 
 /**
- *
+ * It represents a card that summons a knight.
  * @author Carlos
  */
 public class SummonKnight extends Card{
@@ -20,23 +20,23 @@ public class SummonKnight extends Card{
     }
 
     @Override
-    public Par<Boolean, String> canUsarCarta(Point punto, Board tablero, Clock reloj, Jugador... jugadores) {
+    public Tuple<Boolean, String> canUsarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores) {
         if(jugadores[0].getMana() < this.getCosteMana()){
-            return new Par(false, "No hay suficiente maná");
+            return new Tuple(false, "No hay suficiente maná");
         }
         if(tablero.getEscaque(punto).hasPieza()){
-            return new Par(false, "Está ocupada la casilla");
+            return new Tuple(false, "Está ocupada la casilla");
         }
-        return new Par(true, "Todo bien");
+        return new Tuple(true, "Todo bien");
     }
 
     @Override
-    public void usarCarta(Point punto, Board tablero, Clock reloj, Jugador... jugadores) {
+    public void usarCarta(Point punto, Board tablero, Clock reloj, Player... jugadores) {
         reloj.addEventos(
-                Evento.Builder.start(tablero).with(1, this.nombre, punto).build((turnos, nombre1, punto1, tablero1) -> {
-                    tablero1.getEscaque(punto1).setPieza(new Caballo(jugadores[0].getColor()));
+                Event.Builder.start(tablero).with(1, this.nombre, punto).build((turnos, nombre1, punto1, tablero1) -> {
+                    tablero1.getEscaque(punto1).setPieza(new Knight(jugadores[0].getColor()));
                 }));
-        Jugador jugador = jugadores[0];
+        Player jugador = jugadores[0];
         jugador.getMano().quitarCarta(this);
         jugador.cambiarMana(-getCosteMana());
         reloj.movimiento();

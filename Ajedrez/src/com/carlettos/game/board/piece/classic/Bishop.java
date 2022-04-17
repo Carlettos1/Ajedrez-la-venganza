@@ -1,17 +1,17 @@
 package com.carlettos.game.board.piece.classic;
 
-import com.carlettos.game.board.piece.PiezaSimple;
-import com.carlettos.game.core.Accion;
+import com.carlettos.game.board.piece.SimplePiece;
+import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
-import com.carlettos.game.core.Par;
+import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
-import com.carlettos.game.board.property.Tipo;
+import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
-import com.carlettos.game.board.piece.pattern.classic.PatronAlfil;
+import com.carlettos.game.board.piece.pattern.classic.PatternBishop;
 import com.carlettos.game.board.property.ability.InfoNESW;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Bishop extends PiezaSimple<PatronAlfil> {
+public class Bishop extends SimplePiece<PatternBishop> {
 
     public static final Ability<Bishop, Direction, InfoNESW> HABILIDAD_ALFIL = new HabilidadAlfil<>();
 
     public Bishop(Color color) {
-        super("Alfil", "A", HABILIDAD_ALFIL, color, new PatronAlfil(){}, Tipo.BIOLOGICA, Tipo.TRANSPORTABLE);
+        super("Alfil", "A", HABILIDAD_ALFIL, color, new PatternBishop(){}, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
     }
 
     public static class HabilidadAlfil<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW {
