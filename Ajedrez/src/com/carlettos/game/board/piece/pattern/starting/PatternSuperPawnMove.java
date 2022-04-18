@@ -12,8 +12,8 @@ import com.carlettos.game.board.property.Color;
 public interface PatternSuperPawnMove extends PatternPawn {
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_){
-        int sign = getColor().equals(Color.BLANCO) ? 1 : -1;
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_){
+        int sign = getColor().equals(Color.WHITE) ? 1 : -1;
         if(inicio.add(1, sign * 1).equals(final_)){
             return true;
         }

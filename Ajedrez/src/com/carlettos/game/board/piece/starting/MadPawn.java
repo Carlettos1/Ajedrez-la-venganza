@@ -44,7 +44,7 @@ public class MadPawn extends SimplePiece<PatternMadPawn> {
         public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
             if(tablero instanceof Board board){
                 final Player jugador = board.getClock().turnOf();
-                board.quitarPieza(inicio);
+                board.removePiece(inicio);
                 board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.getNombre()), () -> {
                     jugador.robarCarta(); //robar 2 cartas
                     jugador.robarCarta();

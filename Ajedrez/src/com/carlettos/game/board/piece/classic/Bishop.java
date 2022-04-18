@@ -69,7 +69,7 @@ public class Bishop extends SimplePiece<PatternBishop> {
             } else {
                 tablero.getEscaque(inicio.add(info.getSign(), 0)).setPiece(pieza);
             }
-            tablero.getEscaque(inicio).quitarPieza();
+            tablero.getEscaque(inicio).removePiece();
             this.commonUse(tablero, pieza);
         }
 

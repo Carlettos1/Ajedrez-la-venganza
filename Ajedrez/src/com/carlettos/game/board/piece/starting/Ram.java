@@ -59,7 +59,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
         @Override
         public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
             int carga = 1;
-            tablero.getEscaque(inicio).quitarPieza();
+            tablero.getEscaque(inicio).removePiece();
             if(info.isAxis(Direction.Axis.EW)) {
                 for(int x = inicio.x + info.getSign();;x += info.getSign()){
                     if(tablero.isOutOfBorder(new Point(x, inicio.y))){
@@ -70,7 +70,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
                         for (int dx = 0; dx < carga/5 + 1; dx++) {
                             if(!tablero.isOutOfBorder(new Point(x + dx, inicio.y))){
                                 tablero.getEscaque(x + dx, inicio.y).setPiece(pieza);
-                                tablero.getEscaque(x + dx - info.getSign(), inicio.y).quitarPieza();
+                                tablero.getEscaque(x + dx - info.getSign(), inicio.y).removePiece();
                             }
                         }
                         break;
@@ -88,7 +88,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
                         for (int dy = 0; dy < carga/5 + 1; dy++) {
                             if(!tablero.isOutOfBorder(new Point(inicio.x, y + dy))){
                                 tablero.getEscaque(inicio.x, y + dy).setPiece(pieza);
-                                tablero.getEscaque(inicio.x, y + dy - info.getSign()).quitarPieza();
+                                tablero.getEscaque(inicio.x, y + dy - info.getSign()).removePiece();
                             }
                         }
                         break;

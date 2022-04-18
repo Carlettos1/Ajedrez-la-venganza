@@ -1,45 +1,47 @@
 package com.carlettos.game.board.property;
 
 /**
- * Color negro, blanco, etc.
+ * Black color, white color, etc. An interface with java.awt.Color.
  *
  * @author Carlos
  */
 public enum Color {
-    BLANCO("#FFFFFF"),
-    NEGRO("#000000"),
-    GRIS("#888888"),
-
-    /**
-     * Color por defecto, utilizado para piezas sin color, como piezas neutrales 
-     * o piezas que aún no se han puesto al tablero.
-     */
-    DEFAULT(GRIS),
-    CIAN("#00FFFF"),
+    WHITE("#FFFFFF"),
+    BLACK("#000000"),
+    GRAY("#888888"),
+    CYAN("#00FFFF"),
     MAGENTA("#FF00FF"),
-    ROJO("#FF0000"),
-    NARANJA("#FFA500");
+    RED("#FF0000"), 
+    ORANGE("#FFA500");
 
     private final String color;
     private final java.awt.Color colorAWT;
 
     /**
-     * @param color valor en rgb hexadecimal del color, debe ser un string de la
-     * forma {@code "#rrggbb"}.
+     * General constructor.
+     * 
+     * @param color rgb code in the form {@code #rrggbb}.
+     * @see java.awt.Color#decode.
      */
     Color(String color) {
         this.color = color;
         this.colorAWT = java.awt.Color.decode(this.color);
     }
 
-    Color(Color color) {
-        this(color.color);
-    }
-
+    /**
+     * Gets the awt representation of this color.
+     *
+     * @return the java.awt.Color of this color.
+     */
     public java.awt.Color getAWT() {
         return colorAWT;
     }
 
+    /**
+     * Creates the negative awt color of this color.
+     *
+     * @return the negative of this color.
+     */
     public java.awt.Color getColorNegativo() {
         return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(), 255 - this.getAWT().getBlue());
     }

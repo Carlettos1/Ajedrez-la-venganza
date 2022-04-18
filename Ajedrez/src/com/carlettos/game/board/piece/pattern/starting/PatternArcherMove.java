@@ -14,7 +14,7 @@ public interface PatternArcherMove extends Pattern {
     public static Pattern HECHICERO = new PatternMagicianMove() {};
     
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
-        return HECHICERO.checkPatron(tablero, inicio, final_) || REY.checkPatron(tablero, inicio, final_);
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
+        return HECHICERO.match(tablero, inicio, final_) || REY.match(tablero, inicio, final_);
     }
 }

@@ -23,6 +23,12 @@ public class Clock {
     private final List<Event> events;
     private final List<ClockListener> listeners;
 
+    /**
+     * Construct a new clock in turn 1 and 0 movements, with the players 
+     * provided.
+     *
+     * @param players players that use this clock.
+     */
     public Clock(Player... players) {
         this.turn = 1;
         this.movements = 0;
@@ -91,6 +97,8 @@ public class Clock {
             event.act();
         });
         events.removeIf(event -> event.info.getTurns() <= 0);
+        
+        this.listeners.forEach(l -> l.onEndTurn(new ClockEvent(this)));
         System.out.println("Juega el jugador: " + turnOf());
     }
 
@@ -101,13 +109,6 @@ public class Clock {
      */
     public void addListener(ClockListener l) {
         this.listeners.add(l);
-    }
-
-    /**
-     * Fire up all listeners.
-     */
-    public void fireListeners() {
-        this.listeners.forEach(l -> l.onEndTurn(new ClockEvent(this)));
     }
 
     /**

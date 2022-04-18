@@ -21,7 +21,7 @@ public class Empty extends Piece {
     public final static Ability NO_HABILIDAD = new NoHabilidad();
 
     public Empty() {
-        super("Vacía", " ", NO_HABILIDAD, Color.DEFAULT);
+        super("Vacía", " ", NO_HABILIDAD, Color.GRAY);
     }
 
     @Override

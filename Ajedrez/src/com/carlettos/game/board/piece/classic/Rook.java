@@ -81,8 +81,8 @@ public class Rook extends SimplePiece<PatternRook> {
 
             switch (info.getValor()) {
                 case S -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
-                        for (int y = 0; y < tablero.filas; y++) {
+                        escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
+                        for (int y = 0; y < tablero.rows; y++) {
                             if (y == escaqueTorre.getPos().y) {
                                 break;
                             }
@@ -95,8 +95,8 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case E -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
-                        for (int x = tablero.columnas - 1; x >= 0; x--) {
+                        escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
+                        for (int x = tablero.columns - 1; x >= 0; x--) {
                             if (x == escaqueTorre.getPos().x) {
                                 break;
                             }
@@ -109,8 +109,8 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case N -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
-                        for (int y = tablero.filas - 1; y >= 0; y--) {
+                        escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
+                        for (int y = tablero.rows - 1; y >= 0; y--) {
                             if (y == escaqueTorre.getPos().y) {
                                 break;
                             }
@@ -123,8 +123,8 @@ public class Rook extends SimplePiece<PatternRook> {
                         }
                     });
                 case W -> escaquesTorres.forEach((escaqueTorre) -> {
-                        escaqueTorre.getPiece().setSeHaMovidoEsteTurno(false); //por conveniencia
-                        for (int x = 0; x < tablero.columnas; x++) {
+                        escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
+                        for (int x = 0; x < tablero.columns; x++) {
                             if (x == escaqueTorre.getPos().y) {
                                 break;
                             }
@@ -143,7 +143,7 @@ public class Rook extends SimplePiece<PatternRook> {
         }
 
         protected List<Escaque> getEscaqueTorresAdyacentes(AbstractBoard tablero, P pieza, Point inicio) {
-            return Arrays.<Escaque>asList(tablero.getEscaquesCercanos(tablero.getEscaque(inicio)).stream().filter((escaque) -> {
+            return Arrays.<Escaque>asList(tablero.getNearbyEscaques(tablero.getEscaque(inicio)).stream().filter((escaque) -> {
                 return escaque.getPiece() instanceof Rook && pieza.getColor().equals(escaque.getPiece().getColor());
             }).toArray(Escaque[]::new));
         }
@@ -151,29 +151,29 @@ public class Rook extends SimplePiece<PatternRook> {
         protected List<Escaque> ordenarEscaquesTorres(List<Escaque> torres, AbstractBoard tablero, Direction dir) {
             List<Escaque> lista = new ArrayList<>();
             switch (dir) {
-                case S -> {for (int y = 0; y < tablero.filas; y++) {
-                        for (int x = 0; x < tablero.columnas; x++) {
+                case S -> {for (int y = 0; y < tablero.rows; y++) {
+                        for (int x = 0; x < tablero.columns; x++) {
                             if (torres.contains(tablero.getEscaque(x, y))) {
                                 lista.add(tablero.getEscaque(x, y));
                             }
                         }
                     }}
-                case E -> {for (int x = tablero.columnas - 1; x >= 0; x--) {
-                        for (int y = 0; y < tablero.filas; y++) {
+                case E -> {for (int x = tablero.columns - 1; x >= 0; x--) {
+                        for (int y = 0; y < tablero.rows; y++) {
                             if (torres.contains(tablero.getEscaque(x, y))) {
                                 lista.add(tablero.getEscaque(x, y));
                             }
                         }
                     }}
-                case N ->{for (int y = tablero.filas - 1; y >= 0; y--) {
-                        for (int x = 0; x < tablero.columnas; x++) {
+                case N ->{for (int y = tablero.rows - 1; y >= 0; y--) {
+                        for (int x = 0; x < tablero.columns; x++) {
                             if (torres.contains(tablero.getEscaque(x, y))) {
                                 lista.add(tablero.getEscaque(x, y));
                             }
                         }
                     }}
-                case W ->{for (int x = 0; x < tablero.columnas; x++) {
-                        for (int y = 0; y < tablero.filas; y++) {
+                case W ->{for (int x = 0; x < tablero.columns; x++) {
+                        for (int y = 0; y < tablero.rows; y++) {
                             if (torres.contains(tablero.getEscaque(x, y))) {
                                 lista.add(tablero.getEscaque(x, y));
                             }

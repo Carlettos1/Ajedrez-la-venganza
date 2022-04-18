@@ -1,8 +1,6 @@
 package com.carlettos.game.board.piece.classic;
 
-import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.piece.AbstractPawn;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
@@ -25,7 +23,6 @@ import com.carlettos.game.board.piece.pattern.classic.PatternPawnTake;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnMove;
 import com.carlettos.game.board.property.ability.InfoPiece;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadPieza;
-import java.util.List;
 
 /**
  * Pieza fundamental del ajedrez, solo que levemente transformada. Se mueve 2
@@ -61,20 +58,19 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
             if(!this.commonCanUse(tablero, pieza)){
                 return ActionResult.FAIL;
             }
-            if (pieza.getColor().equals(Color.BLANCO)) {
-                if (inicio.y + 1 == tablero.filas) {
+            if (pieza.getColor().equals(Color.WHITE)) {
+                if (inicio.y + 1 == tablero.rows) {
                     return ActionResult.PASS;
                 } else {
                     return ActionResult.FAIL;
                 }
-            } else if (pieza.getColor().equals(Color.NEGRO)) {
+            } else if (pieza.getColor().equals(Color.BLACK)) {
                 if (inicio.y == 0) {
                     return ActionResult.PASS;
                 } else {
                     return ActionResult.FAIL;
                 }
             }
-            //todo: poder coronar con cualquier color
             System.err.println("INTENTANDO CORONAR CON OTRO COLOR");
             return ActionResult.FAIL;
         }
@@ -84,27 +80,27 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
             Piece p = info.getValor();
             p.setColor(pieza.getColor());
             tablero.getEscaque(inicio).setPiece(p);
-            p.setSeHaMovidoEsteTurno(true);
+            p.setIsMoved(true);
         }
 
         @Override
         public Piece[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
-            return new Piece[]{new Bishop(Color.DEFAULT),
-                new Knight(Color.DEFAULT),
-                new Queen(Color.DEFAULT),
-                new Rook(Color.DEFAULT),
-                new Ram(Color.DEFAULT),
-                new Archer(Color.DEFAULT),
-                new Ballista(Color.DEFAULT),
-                new Warlock(Color.DEFAULT),
-                new Catapult(Color.DEFAULT),
-                new Cannon(Color.DEFAULT),
-                new Builder(Color.DEFAULT),
-                new ShieldBearer(Color.DEFAULT),
-                new Ship(Color.DEFAULT),
-                new MadPawn(Color.DEFAULT),
-                new SuperPawn(Color.DEFAULT),
-                new TeslaTower(Color.DEFAULT)};
+            return new Piece[]{new Bishop(Color.GRAY),
+                new Knight(Color.GRAY),
+                new Queen(Color.GRAY),
+                new Rook(Color.GRAY),
+                new Ram(Color.GRAY),
+                new Archer(Color.GRAY),
+                new Ballista(Color.GRAY),
+                new Warlock(Color.GRAY),
+                new Catapult(Color.GRAY),
+                new Cannon(Color.GRAY),
+                new Builder(Color.GRAY),
+                new ShieldBearer(Color.GRAY),
+                new Ship(Color.GRAY),
+                new MadPawn(Color.GRAY),
+                new SuperPawn(Color.GRAY),
+                new TeslaTower(Color.GRAY)};
         }
     }
 }

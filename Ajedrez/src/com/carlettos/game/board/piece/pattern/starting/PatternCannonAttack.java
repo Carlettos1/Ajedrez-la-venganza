@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternCannonAttack extends Pattern{
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         if (Math.abs(inicio.x - final_.x) > 3) {
             return false;
         }

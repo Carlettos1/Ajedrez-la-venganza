@@ -6,6 +6,9 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.core.Point;
 
 /**
+ * IT IS AN ENGLISH "SQUARE" OF THE BOARD, BUT I DON'T LIKE THAT WORD, SO IT
+ * WILL REMAIN AS "ESCAQUE".
+ * <p>
  * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,
  * generalmente poseen un color negro o blanco que se omite en esta clase ya que
  * sólo es algo gráfico.
@@ -76,11 +79,11 @@ public class Escaque {
     /**
      * @return Color de la pieza en la casilla.
      */
-    public Color getColorControlador() {
+    public Color getPieceColor() {
         if (hasPiece()) {
             return getPiece().getColor();
         }
-        return Color.GRIS;
+        return Color.GRAY;
     }
 
     public boolean isControladoPor(Color color) {
@@ -137,7 +140,7 @@ public class Escaque {
      *
      * @see Empty
      */
-    public void quitarPieza() {
+    public void removePiece() {
         this.pieza = new Empty();
     }
     
@@ -145,19 +148,19 @@ public class Escaque {
         return pos;
     }
 
-    public boolean isFuenteDeMagia() {
+    public boolean isMagic() {
         return isFuenteDeMagia;
     }
 
-    public boolean isConstruible() {
+    public boolean isBuildable() {
         return isConstruible;
     }
 
-    public void setIsFuenteDeMagia(boolean isFuenteDeMagia) {
+    public void setIsMagic(boolean isFuenteDeMagia) {
         this.isFuenteDeMagia = isFuenteDeMagia;
     }
 
-    public void setIsConstruible(boolean isConstruible) {
+    public void setIsBuildable(boolean isConstruible) {
         this.isConstruible = isConstruible;
     }
 

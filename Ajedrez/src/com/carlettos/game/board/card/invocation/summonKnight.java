@@ -1,13 +1,11 @@
 package com.carlettos.game.board.card.invocation;
 
-import com.carlettos.game.board.manager.clock.event.Event;
-import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.card.Card;
-import com.carlettos.game.board.player.Player;
-import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.manager.clock.event.Event;
 import com.carlettos.game.board.manager.clock.event.EventInfo;
 import com.carlettos.game.board.piece.classic.Knight;
+import com.carlettos.game.board.player.Player;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 
@@ -36,7 +34,7 @@ public class SummonKnight extends Card {
             board.getEscaque(point).setPiece(new Knight(caster.getColor()));
         }));
         caster.getHand().quitarCarta(this);
-        caster.cambiarMana(-getCost());
+        caster.changeMana(-getCost());
         board.movement();
     }
 }

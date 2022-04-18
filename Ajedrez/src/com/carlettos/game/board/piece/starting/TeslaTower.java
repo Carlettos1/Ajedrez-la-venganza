@@ -64,9 +64,9 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
         public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
             if(tablero instanceof Board board){
                 board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.getNombre(), inicio), () -> {
-                    board.getEscaquesMatchPatron(patronHabilidad, inicio).stream()
+                    board.getMatchingEscaques(patronHabilidad, inicio).stream()
                             .filter(escaque -> escaque.getPiece().isType(PieceType.ESTRUCTURA))
-                            .forEach(escaque -> escaque.getPiece().cambiarCD(10)); //TODO: que desactive de verdad
+                            .forEach(escaque -> escaque.getPiece().changeCD(10)); //TODO: que desactive de verdad
                 }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");

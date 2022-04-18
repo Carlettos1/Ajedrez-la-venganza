@@ -96,14 +96,14 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
             };
             if(info.getX().isAxis(Direction.Axis.NS)){
                 int x = info.getX().getSign() * 6 + inicio.x;
-                x = MathHelper.clamp(0, tablero.columnas - 1, x);
+                x = MathHelper.clamp(0, tablero.columns - 1, x);
                 tablero.getEscaque(x, inicio.y).setPiece(tablero.getEscaque(posPieza).getPiece());
-                tablero.quitarPieza(posPieza);
+                tablero.removePiece(posPieza);
             } else {
                 int y = info.getX().getSign() * 6 + inicio.y;
-                y = MathHelper.clamp(0, tablero.filas - 1, y);
+                y = MathHelper.clamp(0, tablero.rows - 1, y);
                 tablero.getEscaque(inicio.x, y).setPiece(tablero.getEscaque(posPieza).getPiece());
-                tablero.quitarPieza(posPieza);
+                tablero.removePiece(posPieza);
             }
             this.commonUse(tablero, pieza);
         }

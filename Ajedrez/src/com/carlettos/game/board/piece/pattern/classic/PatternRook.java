@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternRook extends Pattern {
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         if (final_.x != inicio.x && final_.y != inicio.y) {
             return false;
         }

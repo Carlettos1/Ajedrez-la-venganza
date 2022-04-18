@@ -30,7 +30,7 @@ public interface PatternMadPawn extends Pattern {
     };
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         int turno;
         switch (tablero) {
             case Board t -> turno = t.getClock().getTurn();

@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternLeechTake extends Pattern {
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         if (final_.equals(inicio.add(1, 1))) {
             return true;
         }

@@ -1,8 +1,6 @@
 package com.carlettos.game.board.card;
 
-import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.player.Player;
-import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;

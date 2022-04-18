@@ -73,7 +73,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
     public abstract void use(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
     
     public boolean commonCanUse(AbstractBoard tablero, Piece pieza){
-        boolean nomana = pieza.getCdActual() <= 0 && !pieza.seHaMovidoEsteTurno();
+        boolean nomana = pieza.getCD() <= 0 && !pieza.isMoved();
         if(tablero instanceof Board t){
             return nomana && t.getClock().turnOf().getMana() >= this.costo;
         }
@@ -81,10 +81,10 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
     }
     
     public void commonUse(AbstractBoard tablero, Piece pieza){
-        pieza.setSeHaMovidoEsteTurno(true);
-        pieza.cambiarCD(this.cooldown);
+        pieza.setIsMoved(true);
+        pieza.changeCD(this.cooldown);
         if (tablero instanceof Board t) {
-            t.getClock().turnOf().cambiarMana(-this.costo);
+            t.getClock().turnOf().changeMana(-this.costo);
         }
     }
     
@@ -94,7 +94,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
         //por minuto, lo mejor es que cada clase rehaga este método para evitar errores
         Info<V> info = this.getInfoHabilidad();
         V[] valores = this.getAllValoresPosibles(tablero, inicio);
-        List<V> lista = new ArrayList<>(tablero.columnas * tablero.filas);
+        List<V> lista = new ArrayList<>(tablero.columns * tablero.rows);
         
         if(info instanceof InfoNone){
             return List.of();

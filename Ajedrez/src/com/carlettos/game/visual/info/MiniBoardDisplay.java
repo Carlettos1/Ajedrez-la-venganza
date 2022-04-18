@@ -14,11 +14,11 @@ public class MiniBoardDisplay extends JPanel{
     private final MiniBoard tablero;
 
     public MiniBoardDisplay(MiniBoard tablero) {
-        super(new GridLayout(tablero.filas, tablero.columnas));
-        this.grid = new EscaqueDisplay[tablero.filas][tablero.columnas];
+        super(new GridLayout(tablero.rows, tablero.columns));
+        this.grid = new EscaqueDisplay[tablero.rows][tablero.columns];
         this.tablero = tablero;
-        for (int y = this.tablero.filas - 1; y >= 0; y--) {
-            for (int x = 0; x < this.tablero.columnas; x++) {
+        for (int y = this.tablero.rows - 1; y >= 0; y--) {
+            for (int x = 0; x < this.tablero.columns; x++) {
                 EscaqueDisplay ev = new EscaqueDisplay(this.tablero.getEscaque(x, y));
                 grid[y][x] = ev;
                 this.add(ev);

@@ -47,14 +47,14 @@ public class King extends SimplePiece<PatternKing> {
         public void use(AbstractBoard tablero, P pieza, Point inicio, InfoPoint info) {
             pieza.seHaTeletransportado = true;
             tablero.getEscaque(info.getValor()).setPiece(pieza);
-            tablero.getEscaque(inicio).quitarPieza();
+            tablero.getEscaque(inicio).removePiece();
         }
 
         @Override
         public Point[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
             List<Point> valores = new ArrayList<>();
-            for (int x = 0; x < tablero.columnas; x++) {
-                for (int y = 0; y < tablero.filas; y++) {
+            for (int x = 0; x < tablero.columns; x++) {
+                for (int y = 0; y < tablero.rows; y++) {
                     if(new Point(x, y).getDistanceTo(inicio) <= 5 && !tablero.getEscaque(x, y).hasPiece()){
                         valores.add(new Point(x, y));
                     }

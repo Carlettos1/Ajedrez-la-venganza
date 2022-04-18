@@ -13,7 +13,7 @@ public interface PatternQueen extends Pattern {
     public static Pattern TORRE = new PatternRook() {};
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
-        return ALFIL.checkPatron(tablero, inicio, final_) || TORRE.checkPatron(tablero, inicio, final_);
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
+        return ALFIL.match(tablero, inicio, final_) || TORRE.match(tablero, inicio, final_);
     }
 }

@@ -12,7 +12,7 @@ import com.carlettos.game.core.Point;
  * @param <R> ClaseResultado.
  */
 @FunctionalInterface
-public interface QuadFunction<R> { //todo: quinfunction
+public interface QuadFunction<R> {
     public static final QuadFunction<ActionResult> PASS = (accion, tablero, pieza, inicio, final_) -> {
         return ActionResult.PASS;
     };

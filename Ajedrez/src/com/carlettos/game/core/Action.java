@@ -14,9 +14,9 @@ import com.carlettos.game.board.property.Color;
  * @see ActionResult
  */
 public enum Action {
-    MOVER(Color.CIAN),
-    ATACAR(Color.NARANJA),
-    COMER(Color.ROJO),
+    MOVER(Color.CYAN),
+    ATACAR(Color.ORANGE),
+    COMER(Color.RED),
     HABILIDAD(Color.MAGENTA);
     
     private final Color color;

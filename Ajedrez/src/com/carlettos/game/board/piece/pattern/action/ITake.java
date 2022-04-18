@@ -23,7 +23,7 @@ public interface ITake<P extends Pattern> {
         if (!this.checkComerCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
-        return ActionResult.fromBoolean(patron.checkPatron(tablero, inicio, final_));
+        return ActionResult.fromBoolean(patron.match(tablero, inicio, final_));
     }
 
     /**
@@ -42,6 +42,6 @@ public interface ITake<P extends Pattern> {
         if (tablero.getEscaque(final_).getPiece().getColor().equals(tablero.getEscaque(inicio).getPiece().getColor())) {
             return false;
         }
-        return !tablero.getEscaque(inicio).getPiece().seHaMovidoEsteTurno();
+        return !tablero.getEscaque(inicio).getPiece().isMoved();
     }
 }

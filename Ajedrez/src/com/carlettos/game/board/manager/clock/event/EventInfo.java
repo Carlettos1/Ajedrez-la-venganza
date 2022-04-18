@@ -4,6 +4,7 @@ import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.Point;
 
 /**
+ * The info of an event.
  *
  * @author Carlettos
  */

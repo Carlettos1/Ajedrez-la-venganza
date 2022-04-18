@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternArcherAttack extends Pattern{
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         final int rango = 6;
         return inicio.getDistanceTo(final_) <= rango;
     }

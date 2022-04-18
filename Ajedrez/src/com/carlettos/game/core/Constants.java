@@ -36,12 +36,12 @@ public class Constants {
     /**
      * Primer color de los escaques.
      */
-    public static final Color COLOR1 = Color.NEGRO;
+    public static final Color COLOR1 = Color.BLACK;
 
     /**
      * Segundo color de los escaques.
      */
-    public static final Color COLOR2 = Color.BLANCO;
+    public static final Color COLOR2 = Color.WHITE;
 
     /**
      * Porcentaje que recubren los círculos de indicación.

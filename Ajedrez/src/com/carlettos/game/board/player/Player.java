@@ -93,7 +93,7 @@ public class Player {
      *
      * @param mana Mana a sumar, puede ser negativo;
      */
-    public void cambiarMana(int mana) {
+    public void changeMana(int mana) {
         if (this.mana + mana < 0) {
             this.mana = 0;
         } else {

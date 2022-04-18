@@ -24,7 +24,7 @@ public class BoardDisplay extends JFrame{
 
     public BoardDisplay(Board tablero) throws HeadlessException {
         super("Ajedrez");
-        this.grid = new EscaqueDisplay[tablero.filas][tablero.columnas];
+        this.grid = new EscaqueDisplay[tablero.rows][tablero.columns];
         this.rootPanel = new JPanel(new BorderLayout());
         this.tablero = tablero;
         this.reloj = new ClockDisplay(tablero.getClock());
@@ -33,11 +33,11 @@ public class BoardDisplay extends JFrame{
     }
 
     protected void setup() {
-        reloj.setPreferredSize(new Dimension(tablero.columnas * 45, 200));
+        reloj.setPreferredSize(new Dimension(tablero.columns * 45, 200));
         rootPanel.add(reloj, BorderLayout.PAGE_START);
-        JPanel panel = new JPanel(new GridLayout(tablero.filas, tablero.columnas));
-        for (int y = tablero.filas - 1; y >= 0; y--) {
-            for (int x = 0; x < tablero.columnas; x++) {
+        JPanel panel = new JPanel(new GridLayout(tablero.rows, tablero.columns));
+        for (int y = tablero.rows - 1; y >= 0; y--) {
+            for (int x = 0; x < tablero.columns; x++) {
                 EscaqueDisplay ev = new EscaqueDisplay(tablero.getEscaque(x, y));
                 ev.addMouseListener(MousePiece.get());
                 grid[y][x] = ev;
@@ -95,10 +95,10 @@ public class BoardDisplay extends JFrame{
         if (punto.y < 0) {
             throw new IllegalArgumentException("La coordenada y no puede ser negativa");
         }
-        if (punto.x >= tablero.columnas) {
+        if (punto.x >= tablero.columns) {
             throw new IllegalArgumentException("La coordenada x no puede ser mayor o igual que el número de columnas");
         }
-        if (punto.y >= tablero.filas) {
+        if (punto.y >= tablero.rows) {
             throw new IllegalArgumentException("La coordenada y no puede ser mayor o igual que el número de filas");
         }
         return grid[punto.y][punto.x];

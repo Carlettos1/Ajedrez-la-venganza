@@ -23,7 +23,7 @@ public interface IMove<P extends Pattern> {
         if (!this.checkMoverCondition(tablero, inicio, final_)) {
             return ActionResult.FAIL;
         }
-        return ActionResult.fromBoolean(patron.checkPatron(tablero, inicio, final_));
+        return ActionResult.fromBoolean(patron.match(tablero, inicio, final_));
     }
 
     /**
@@ -37,6 +37,6 @@ public interface IMove<P extends Pattern> {
      * sino.
      */
     public default boolean checkMoverCondition(AbstractBoard tablero, Point inicio, Point final_) {
-        return !(tablero.getEscaque(final_).hasPiece() || tablero.getEscaque(inicio).getPiece().seHaMovidoEsteTurno());
+        return !(tablero.getEscaque(final_).hasPiece() || tablero.getEscaque(inicio).getPiece().isMoved());
     }
 }

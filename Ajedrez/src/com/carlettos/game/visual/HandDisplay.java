@@ -20,12 +20,10 @@ import javax.swing.JPanel;
  */
 public class HandDisplay extends JPanel {
 
-    private final Clock reloj; //TODO: no usar reloj
     private final JPanel panelesJugadores;
 
     public HandDisplay(Clock reloj) throws HeadlessException {
         super(new BorderLayout(0, 10));
-        this.reloj = reloj;
         this.panelesJugadores = new JPanel(new CardLayout());
         for (Player player : reloj.getPlayers()) {
             panelesJugadores.add(new PanelJugador(player), player.toString());
@@ -43,8 +41,7 @@ public class HandDisplay extends JPanel {
 
     public void rehacer() {
         for (Component component : panelesJugadores.getComponents()) {
-            if (component instanceof PanelJugador) {
-                PanelJugador panelJugador = (PanelJugador) component;
+            if (component instanceof PanelJugador panelJugador) {
                 panelJugador.rehacer();
             }
         }

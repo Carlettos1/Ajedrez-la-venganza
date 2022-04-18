@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternBishop extends Pattern{
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         int deltaX = final_.x - inicio.x;
         int deltaY = final_.y - inicio.y;
 

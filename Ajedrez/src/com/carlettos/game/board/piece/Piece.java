@@ -105,7 +105,7 @@ public abstract class Piece {
     public abstract ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_);
     
     public void postAccion(Action accion, AbstractBoard tablero, Point inicio, Point final_){
-        this.setSeHaMovidoEsteTurno(true);
+        this.setIsMoved(true);
     }
     
     /**
@@ -127,8 +127,8 @@ public abstract class Piece {
      */
     public List<Tuple<Point, Action>> allAcciones(AbstractBoard tablero, Point seleccionado) {
         List<Tuple<Point, Action>> acciones = new ArrayList<>();
-        for (int x = 0; x < tablero.columnas; x++) {
-            for (int y = 0; y < tablero.filas; y++) {
+        for (int x = 0; x < tablero.columns; x++) {
+            for (int y = 0; y < tablero.rows; y++) {
                 if (this.can(Action.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
                     acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.COMER));
                 } if (this.can(Action.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
@@ -151,7 +151,7 @@ public abstract class Piece {
      * @param numeroDeTurnos Numero de turnos a sumar, puede ser negativo para
      * restar.
      */
-    public void cambiarCD(int numeroDeTurnos) {
+    public void changeCD(int numeroDeTurnos) {
         if (cdActual + numeroDeTurnos < 0) {
             cdActual = 0;
         } else {
@@ -159,7 +159,7 @@ public abstract class Piece {
         }
     }
 
-    public void setSeHaMovidoEsteTurno(boolean seHaMovidoEsteTurno) {
+    public void setIsMoved(boolean seHaMovidoEsteTurno) {
         this.seHaMovidoEsteTurno = seHaMovidoEsteTurno;
     }
 
@@ -236,11 +236,11 @@ public abstract class Piece {
         return habilidad;
     }
 
-    public int getCdActual() {
+    public int getCD() {
         return cdActual;
     }
 
-    public boolean seHaMovidoEsteTurno() {
+    public boolean isMoved() {
         return seHaMovidoEsteTurno;
     }
     
@@ -283,7 +283,7 @@ public abstract class Piece {
         if (!this.nombre.equals(other.nombre)) {
             return false;
         }
-        if(this.color == Color.GRIS || other.color == Color.GRIS){
+        if(this.color == Color.GRAY || other.color == Color.GRAY){
             return true;
         }
         return other.color.equals(this.color);

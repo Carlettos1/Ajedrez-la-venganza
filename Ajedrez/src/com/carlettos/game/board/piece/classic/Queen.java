@@ -37,7 +37,7 @@ public class Queen extends SimplePiece<PatternQueen> {
                 return ActionResult.FAIL;
             }
 
-            if(!new PatternKnight() {}.checkPatron(tablero, inicio, info.getValor())){
+            if(!new PatternKnight() {}.match(tablero, inicio, info.getValor())){
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
@@ -46,7 +46,7 @@ public class Queen extends SimplePiece<PatternQueen> {
         @Override
         public void use(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
             tablero.getEscaque(info.getValor()).setPiece(pieza);
-            tablero.quitarPieza(inicio);
+            tablero.removePiece(inicio);
             this.commonUse(tablero, pieza);
         }
 

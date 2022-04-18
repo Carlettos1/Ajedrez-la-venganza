@@ -59,7 +59,7 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
                                        inicio.add(-1, 1), inicio.add(-1, 0), inicio.add(-1, -1)};
             for (Point punto : puntos) { //TODO: quitar try
                 try {
-                    tablero.quitarPieza(punto);
+                    tablero.removePiece(punto);
                 } catch (Exception e) {
                 }
             }

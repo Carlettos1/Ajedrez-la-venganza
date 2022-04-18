@@ -11,7 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternBallistaAttack extends Pattern{
 
     @Override
-    public default boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
         if(inicio.x == final_.x || inicio.y == final_.y){
             return inicio.getDistanceTo(final_) <= 6;
         }

@@ -49,7 +49,7 @@ public class Board extends AbstractBoard {
         boolean can = escaqueInicio.getPiece().can(Action.COMER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPiece(escaqueInicio.getPiece());
-            escaqueInicio.quitarPieza();
+            escaqueInicio.removePiece();
             escaqueFinal.getPiece().postAccion(Action.COMER, this, inicio, final_);
             movement();
             return ActionResult.PASS;
@@ -75,7 +75,7 @@ public class Board extends AbstractBoard {
         boolean can = escaqueInicio.getPiece().can(Action.MOVER, this, inicio, final_).isPositive();
         if (can) {
             escaqueFinal.setPiece(escaqueInicio.getPiece());
-            escaqueInicio.quitarPieza();
+            escaqueInicio.removePiece();
             escaqueFinal.getPiece().postAccion(Action.MOVER, this, inicio, final_);
             movement();
             return ActionResult.PASS;
@@ -100,7 +100,7 @@ public class Board extends AbstractBoard {
 
         boolean can = escaqueInicio.getPiece().can(Action.ATACAR, this, inicio, final_).isPositive();
         if (can) {
-            escaqueFinal.quitarPieza();
+            escaqueFinal.removePiece();
             escaqueFinal.getPiece().postAccion(Action.ATACAR, this, inicio, final_);
             movement();
             return ActionResult.PASS;
@@ -140,9 +140,9 @@ public class Board extends AbstractBoard {
     public void movement() {
         this.reloj.movement();
         if(getClock().getMovements() >= getClock().turnOf().getMaxMovements()){
-            for (Escaque[] escaques : tableroAjedrez) {
+            for (Escaque[] escaques : chessBoard) {
                 for (Escaque escaque : escaques) {
-                    escaque.getPiece().setSeHaMovidoEsteTurno(false);
+                    escaque.getPiece().setIsMoved(false);
                 }
             }
             getClock().endTurn();
@@ -163,7 +163,7 @@ public class Board extends AbstractBoard {
     
     public List<Piece> getAllPiezasOfColor(Color color){
         List<Piece> piezas = new ArrayList<>();
-        for (Escaque[] escaques : tableroAjedrez) {
+        for (Escaque[] escaques : chessBoard) {
             for (Escaque escaque : escaques) {
                 if(escaque.isControladoPor(color)){
                     piezas.add(escaque.getPiece());

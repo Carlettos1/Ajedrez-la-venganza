@@ -24,5 +24,5 @@ public interface Pattern {
      * @param final_ donde se quiere comprobar si cumple el patrón.
      * @return Si cumple con el patrón {@code true}, sino, {@code false}.
      */
-    public boolean checkPatron(AbstractBoard tablero, Point inicio, Point final_);
+    public boolean match(AbstractBoard tablero, Point inicio, Point final_);
 }
