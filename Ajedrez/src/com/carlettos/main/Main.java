@@ -39,8 +39,8 @@ public class Main {
         Clock reloj = new Clock(white, black);
         Board tablero = new Board(16, 17, reloj);
         
-        black.getHand().addCarta(new SummonKnight());
-        white.getHand().addCarta(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        white.getHand().addCards(new SummonKnight());
         white.changeMana(5);
         black.changeMana(5);
         

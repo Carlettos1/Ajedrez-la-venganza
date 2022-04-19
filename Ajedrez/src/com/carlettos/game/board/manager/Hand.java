@@ -2,47 +2,44 @@ package com.carlettos.game.board.manager;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.card.Card;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * It's the hand.
  *
  * @author Carlos
  */
 public class Hand {
-    private final List<Card> cartas;
+    private final List<Card> cards;
 
-
-    public Hand(Card... cartas) {
-        this.cartas = new ArrayList<>(Arrays.asList(cartas));
-    }
-
-    public void addCarta(Card... carta) {
-        this.cartas.addAll(Arrays.asList(carta));
+    public Hand(Card... cards) {
+        this.cards = Arrays.asList(cards);
     }
 
     /**
-     * Retorna todas las cartas.
-     * @return todas las cartas que tiene la mano.
+     * Adds all the cards provided.
+     *
+     * @param cards cards to add.
      */
-    public List<Card> getCartas() {
-        return Collections.unmodifiableList(cartas);
+    public void addCards(Card... cards) {
+        this.cards.addAll(Arrays.asList(cards));
     }
+    
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
+    
     /**
-     * Remueve la carta que se indique, útil al momento de jugar una carta y
-     * quitarla de la mano.
+     * Removes a card from the hand.
      *
-     * @param carta la carta que debe borrarse de la mano.
-     *
-     * @return PASS si existe y se pudo hacer la operación, FAIL de otro modo.
-     *
-     * @see Card
-     * @see ActionResult
+     * @param card the card to delete.
+     * @return PASS if the card exists and has been removed from the hand,
+     * FAIL other case.
      */
-    public ActionResult quitarCarta(Card carta) {
-        if (cartas.remove(carta)) {
+    public ActionResult removeCard(Card card) {
+        if (cards.remove(card)) {
             return ActionResult.PASS;
         } else {
             return ActionResult.FAIL;
@@ -50,49 +47,55 @@ public class Hand {
     }
 
     /**
-     * Quita una carta de la ubicación dada, si se ingresa un número negativo
-     * funcionará como python, haciendo que, por ejemplo, -1 acceda al último
-     * elemnto.
+     * Removes the card at the given index. Accepts negative integers.
      *
-     * @param posicion la posición que se quiera borrar, puede ser negativo.
-     *
-     * @return FAIL si la posición ingresada es mayor o igual a la catidad de
-     * cartas o si el módulo del valor negativo es mayor a la cantidad de
-     * cartas. PASS en el caso que se pueda remover la carta en la posición
-     * indicada.
-     *
-     * @see Card
-     * @see ActionResult
+     * @param index index of the card to delete, can be negative.
+     * @return FAIL if the card cannot be removed (its an invalid index).
+     * PASS if the card has been removed of this hand.
      */
-    public ActionResult quitarCarta(int posicion) {
-        if (posicion < cartas.size() && posicion >= 0) {
-            cartas.remove(posicion);
+    public ActionResult quitarCarta(int index) {
+        if (index < cards.size() && index >= 0) {
+            cards.remove(index);
             return ActionResult.PASS;
-        } else if (posicion < 0) {
-            int newPos = cartas.size() + posicion;
-            if (newPos < cartas.size()) {
-                cartas.remove(newPos);
+        } else if (index < 0) {
+            int negIdx = cards.size() + index;
+            if (negIdx < cards.size()) {
+                cards.remove(negIdx);
                 return ActionResult.PASS;
             }
         }
         return ActionResult.FAIL;
     }
 
-    //TODO: ingresar números negativos
-    public Card getCarta(int pos) {
-        return cartas.get(pos);
+    /**
+     * Gets the card at the given index. Accepts negative integers.
+     *
+     * @param index index of the card to get, it can be negative.
+     * @return null if the index isn't in the boundaries of this hand. If it's
+     * a valid index, it returns the card (doesn't remove it).
+     */
+    public Card getCarta(int index) {
+        if (index < cards.size() && index >= 0) {
+            return cards.get(index);
+        } else if (index < 0) {
+            int negIdx = cards.size() + index;
+            if (negIdx < cards.size()) {
+                return cards.get(negIdx);
+            }
+        }
+        return null;
     }
 
-    public boolean hasCarta(Card carta) {
-        return cartas.contains(carta);
+    public boolean hasCard(Card card) {
+        return cards.contains(card);
     }
 
-    public int getCantidadDeCartas() {
-        return cartas.size();
+    public int getSize() {
+        return cards.size();
     }
 
     @Override
     public String toString() {
-        return "ManoManager{" + "cartas=" + cartas + '}';
+        return "ManoManager{" + "cartas=" + cards + '}';
     }
 }

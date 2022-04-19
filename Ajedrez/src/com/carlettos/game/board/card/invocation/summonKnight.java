@@ -36,7 +36,7 @@ public class SummonKnight extends Card {
         board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.name, point), () -> {
             board.getEscaque(point).setPiece(new Knight(caster.getColor()));
         }));
-        caster.getHand().quitarCarta(this);
+        caster.getHand().removeCard(this);
         caster.changeMana(-getCost());
         board.movement();
     }

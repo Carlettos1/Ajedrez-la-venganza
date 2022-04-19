@@ -54,7 +54,7 @@ public class HandDisplay extends JPanel {
         public PanelJugador(Player jugador) {
             super(new GridLayout(Constants.CARTAS_Y, Constants.CARTAS_X, 10, 10));
             this.jugador = jugador;
-            jugador.getHand().getCartas().forEach((carta) -> {
+            jugador.getHand().getCards().forEach((carta) -> {
                 CardDisplay ecv = new CardDisplay(jugador.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);
@@ -63,7 +63,7 @@ public class HandDisplay extends JPanel {
 
         public void rehacer() {
             removeAll();
-            jugador.getHand().getCartas().forEach((carta) -> {
+            jugador.getHand().getCards().forEach((carta) -> {
                 CardDisplay ecv = new CardDisplay(jugador.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);

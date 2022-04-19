@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  *
  * @author Carlettos
  */
-public class MiniBoardDisplay extends JPanel{
+public class MiniBoardDisplay extends JPanel {
     private final EscaqueDisplay[][] grid;
     private final MiniBoard tablero;
 
@@ -20,7 +20,7 @@ public class MiniBoardDisplay extends JPanel{
         for (int y = this.tablero.rows - 1; y >= 0; y--) {
             for (int x = 0; x < this.tablero.columns; x++) {
                 EscaqueDisplay ev = new EscaqueDisplay(this.tablero.getEscaque(x, y));
-                grid[y][x] = ev;
+                grid[y][x] = ev; //TODO: not display -1 -1 Escaques.
                 this.add(ev);
             }
         }

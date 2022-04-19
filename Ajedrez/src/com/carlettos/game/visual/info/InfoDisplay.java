@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class InfoDisplay extends JOptionPane {
     public static int showOptions(Board tablero, Point inicio, Object... options){
         return JOptionPane.showOptionDialog(null, 
-                new MiniBoardDisplay(MiniBoard.getMiniFromTablero(tablero, inicio)),
+                new MiniBoardDisplay(MiniBoard.fromBoard(tablero, inicio)),
                 "Habilidad",
                 OK_CANCEL_OPTION, QUESTION_MESSAGE, null, options, null);
     }
