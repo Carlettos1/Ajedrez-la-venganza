@@ -1,12 +1,15 @@
 package com.carlettos.game.core;
 
+import com.carlettos.game.board.property.ability.Info;
+import com.carlettos.game.board.property.ability.InfoPoint;
+
 /**
  * Immutable version of java.awt.Point.
  * 
  * @author Carlos
  * @see java.awt.Point;
  */
-public final class Point implements Cloneable{
+public final class Point implements Cloneable {
     public final int x;
     public final int y;
 
@@ -49,6 +52,10 @@ public final class Point implements Cloneable{
         int dx = other.x - this.x;
         int dy = other.y - this.y;
         return dx*dx + dy*dy;
+    }
+    
+    public Info<Point> toInfo(){
+        return new InfoPoint(this);
     }
 
     @Override

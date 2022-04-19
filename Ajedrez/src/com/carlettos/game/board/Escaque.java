@@ -1,0 +1,171 @@
+package com.carlettos.game.board;
+
+import com.carlettos.game.board.piece.Empty;
+import com.carlettos.game.board.piece.Piece;
+import com.carlettos.game.board.property.Color;
+import com.carlettos.game.core.Point;
+
+/**
+ * IT IS AN ENGLISH "SQUARE" OF THE BOARD, BUT I DON'T LIKE THAT WORD, SO IT
+ * WILL REMAIN AS "ESCAQUE".
+ * <p>
+ * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,
+ * generalmente poseen un color negro o blanco que se omite en esta clase ya que
+ * sólo es algo gráfico.
+ * <p>
+ * También tienen propiedades como la de emitir magia.
+ *
+ * @author Carlos
+ */
+public class Escaque {
+
+    /**
+     * Si el escaque es fuente de magia o no.
+     */
+    protected boolean isFuenteDeMagia;
+
+    /**
+     * Si el escaque admite que se pueda construir encima o no.
+     */
+    protected boolean isConstruible;
+
+    /**
+     * La ubicación, en coordendas cartesianas enteras, del escaque. Para todos
+     * los escaques de un tablero, usan el mismo punto de referencia.
+     */
+    protected final Point pos;
+
+    /**
+     * La pieza que contiene el escaque.
+     */
+    protected Piece pieza;
+
+    /**
+     * Constructor general.
+     *
+     * @param isFuenteDeMagia true si emite magia, false si no.
+     * @param isConstruible true si permite construcciones encima, false si no.
+     * @param pos pos del escaque en coordenadas enteras
+     * cartesianas respecto a un punto cualquiera pero común para todos los
+     * escaques.
+     * @param pieza pieza que tiene el escaque, si no tiene ninguna, usar una
+     * pieza Vacia.
+     */
+    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point pos, Piece pieza) {
+        this.isFuenteDeMagia = isFuenteDeMagia;
+        this.isConstruible = isConstruible;
+        this.pos = pos;
+        this.pieza = pieza;
+    }
+
+    /**
+     * Constructor de uso rápido.
+     * 
+     * Inicializa al escaque sin fuente de magia, con posibilidad de construir
+     * en él, sin ninguna pieza.
+     *
+     * @param pos la posición del escaque en coordendas enteras
+     * cartesianas.
+     */
+    public Escaque(Point pos) {
+        this(false, true, pos, new Empty());
+    }
+    
+    @Deprecated // USE Escaque::hasPieza() INSTEAD
+    public boolean isEmpty(){
+        return !hasPiece();
+    }
+
+    /**
+     * @return Color de la pieza en la casilla.
+     */
+    public Color getPieceColor() {
+        if (hasPiece()) {
+            return getPiece().getColor();
+        }
+        return Color.GRAY;
+    }
+
+    public boolean isControladoPor(Color color) {
+        if (this.hasPiece()) {
+            return getPiece().getColor().equals(color);
+        }
+        return false;
+    }
+
+    /**
+     * Comprueba si tiene pieza, más específicamente, verifica si es una pieza
+     * Vacia.
+     *
+     * @return true si tiene pieza, false si no.
+     *
+     * @see Empty
+     */
+    public boolean hasPiece() {
+        return !pieza.equals(new Empty());
+    }
+
+    public Piece getPiece() {
+        return pieza;
+    }
+
+    /**
+     * Cambia la pieza actual por la nueva proporcionada.
+     *
+     * @param pieza nueva pieza a colocar en este escaque.
+     *
+     * @see Piece
+     */
+    public void setPiece(Piece pieza) {
+        this.pieza = pieza;
+    }
+
+    /**
+     * Cambia la pieza actual por la nueva proporcionada, sólo si está vacio
+     * el escaque.
+     *
+     * @param pieza nueva pieza a colocar en este escaque.
+     *
+     * @see Piece
+     */
+    public void setPiezaIfEmpty(Piece pieza) {
+        if(this.isEmpty()){
+            this.pieza = pieza;
+        }
+    }
+
+    /**
+     * Reemplaza la actual pieza por una vacia, es equivalente a
+     * {@code escaque.setPieza(new Vacia());}
+     *
+     * @see Empty
+     */
+    public void removePiece() {
+        this.pieza = new Empty();
+    }
+    
+    public Point getPos() {
+        return pos;
+    }
+
+    public boolean isMagic() {
+        return isFuenteDeMagia;
+    }
+
+    public boolean isBuildable() {
+        return isConstruible;
+    }
+
+    public void setIsMagic(boolean isFuenteDeMagia) {
+        this.isFuenteDeMagia = isFuenteDeMagia;
+    }
+
+    public void setIsBuildable(boolean isConstruible) {
+        this.isConstruible = isConstruible;
+    }
+
+    @Override
+    public String toString() {
+        return getPos().toString();
+    }
+}

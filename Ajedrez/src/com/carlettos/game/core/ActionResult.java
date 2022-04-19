@@ -6,7 +6,7 @@ package com.carlettos.game.core;
  *
  * @author Carlos
  * 
- * @see Accion
+ * @see Action
  */
 public enum ActionResult {
     PASS(true),

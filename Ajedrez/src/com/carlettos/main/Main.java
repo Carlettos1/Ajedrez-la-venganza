@@ -1,38 +1,31 @@
 package com.carlettos.main;
 
-import com.carlettos.game.ia.AI;
-import com.carlettos.game.ia.RandomAI;
-import com.carlettos.game.ia.SimpleDepthAI;
-import com.carlettos.game.tablero.carta.invocacion.InvocarCaballo;
-import com.carlettos.game.tablero.jugador.Jugador;
-import com.carlettos.game.tablero.manager.Reloj;
-import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.pieza.clasica.Alfil;
-import com.carlettos.game.tablero.pieza.clasica.Caballo;
-import com.carlettos.game.tablero.pieza.clasica.Peon;
-import com.carlettos.game.tablero.pieza.clasica.Rey;
-import com.carlettos.game.tablero.pieza.clasica.Torre;
-import com.carlettos.game.tablero.propiedad.Color;
-import com.carlettos.game.visual.TableroVisual;
-import com.carlettos.game.tablero.pieza.clasica.Reina;
-import com.carlettos.game.tablero.pieza.nueva.Ariete;
-import com.carlettos.game.tablero.pieza.nueva.Arquero;
-import com.carlettos.game.tablero.pieza.nueva.Ballesta;
-import com.carlettos.game.tablero.pieza.nueva.Brujo;
-import com.carlettos.game.tablero.pieza.nueva.Catapulta;
-import com.carlettos.game.tablero.pieza.nueva.Cañon;
-import com.carlettos.game.tablero.pieza.nueva.Constructor;
-import com.carlettos.game.tablero.pieza.nueva.Defensor;
-import com.carlettos.game.tablero.pieza.nueva.Hechicero;
-import com.carlettos.game.tablero.pieza.nueva.Nave;
-import com.carlettos.game.tablero.pieza.nueva.Paladin;
-import com.carlettos.game.tablero.pieza.nueva.PeonLoco;
-import com.carlettos.game.tablero.pieza.nueva.SuperPeon;
-import com.carlettos.game.tablero.pieza.nueva.TorreTesla;
-import java.util.Calendar;
-import java.util.EventListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.carlettos.game.board.card.invocation.SummonKnight;
+import com.carlettos.game.board.player.Player;
+import com.carlettos.game.board.manager.clock.Clock;
+import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.piece.classic.Bishop;
+import com.carlettos.game.board.piece.classic.Knight;
+import com.carlettos.game.board.piece.classic.Pawn;
+import com.carlettos.game.board.piece.classic.King;
+import com.carlettos.game.board.piece.classic.Rook;
+import com.carlettos.game.board.property.Color;
+import com.carlettos.game.visual.BoardDisplay;
+import com.carlettos.game.board.piece.classic.Queen;
+import com.carlettos.game.board.piece.starting.Ram;
+import com.carlettos.game.board.piece.starting.Archer;
+import com.carlettos.game.board.piece.starting.Ballista;
+import com.carlettos.game.board.piece.starting.Warlock;
+import com.carlettos.game.board.piece.starting.Catapult;
+import com.carlettos.game.board.piece.starting.Cannon;
+import com.carlettos.game.board.piece.starting.Builder;
+import com.carlettos.game.board.piece.starting.ShieldBearer;
+import com.carlettos.game.board.piece.starting.Magician;
+import com.carlettos.game.board.piece.starting.Ship;
+import com.carlettos.game.board.piece.starting.Paladin;
+import com.carlettos.game.board.piece.starting.MadPawn;
+import com.carlettos.game.board.piece.starting.SuperPawn;
+import com.carlettos.game.board.piece.starting.TeslaTower;
 
 /**
  *
@@ -41,166 +34,132 @@ import java.util.logging.Logger;
 public class Main {
 
     public static void main(String... a) {
-        Jugador negras = new Jugador(Color.NEGRO);
-        Jugador blancas = new Jugador(Color.BLANCO);
-        Reloj reloj = new Reloj(blancas, negras);
-        Tablero tablero = new Tablero(16, 17, reloj);
+        Player black = new Player(Color.BLACK);
+        Player white = new Player(Color.WHITE);
+        Clock reloj = new Clock(white, black);
+        Board tablero = new Board(16, 17, reloj);
         
-        /*reloj.addEventos(Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 3))
-                .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
-                Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 2))
-                .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))),
-                Evento.Builder.start(tablero).with(4, "Colocar peón", new Point(3, 4))
-                .build((turnos, nombre, punto, tablero1) -> tablero1.getEscaque(punto).setPieza(new Peon(Color.BLANCO))));
-        */
-        negras.getMano().addCarta(new InvocarCaballo());
-        blancas.getMano().addCarta(new InvocarCaballo());
-        blancas.cambiarMana(5);
-        negras.cambiarMana(5);
+        black.getHand().addCarta(new SummonKnight());
+        white.getHand().addCarta(new SummonKnight());
+        white.changeMana(5);
+        black.changeMana(5);
         
-        tablero.getEscaque(0, 0).setPieza(new Cañon(Color.BLANCO));
-        tablero.getEscaque(15, 0).setPieza(new Cañon(Color.BLANCO));        
-        tablero.getEscaque(0, 16).setPieza(new Cañon(Color.NEGRO));
-        tablero.getEscaque(15, 16).setPieza(new Cañon(Color.NEGRO));
+        tablero.getEscaque(0, 0).setPiece(new Cannon(Color.WHITE));
+        tablero.getEscaque(15, 0).setPiece(new Cannon(Color.WHITE));        
+        tablero.getEscaque(0, 16).setPiece(new Cannon(Color.BLACK));
+        tablero.getEscaque(15, 16).setPiece(new Cannon(Color.BLACK));
         
-        tablero.getEscaque(1, 0).setPieza(new Torre(Color.BLANCO));
-        tablero.getEscaque(14, 0).setPieza(new Torre(Color.BLANCO));        
-        tablero.getEscaque(1, 16).setPieza(new Torre(Color.NEGRO));
-        tablero.getEscaque(14, 16).setPieza(new Torre(Color.NEGRO));
+        tablero.getEscaque(1, 0).setPiece(new Rook(Color.WHITE));
+        tablero.getEscaque(14, 0).setPiece(new Rook(Color.WHITE));        
+        tablero.getEscaque(1, 16).setPiece(new Rook(Color.BLACK));
+        tablero.getEscaque(14, 16).setPiece(new Rook(Color.BLACK));
         
-        tablero.getEscaque(2, 0).setPieza(new Catapulta(Color.BLANCO));
-        tablero.getEscaque(13, 0).setPieza(new Catapulta(Color.BLANCO));        
-        tablero.getEscaque(2, 16).setPieza(new Catapulta(Color.NEGRO));
-        tablero.getEscaque(13, 16).setPieza(new Catapulta(Color.NEGRO));
+        tablero.getEscaque(2, 0).setPiece(new Catapult(Color.WHITE));
+        tablero.getEscaque(13, 0).setPiece(new Catapult(Color.WHITE));        
+        tablero.getEscaque(2, 16).setPiece(new Catapult(Color.BLACK));
+        tablero.getEscaque(13, 16).setPiece(new Catapult(Color.BLACK));
         
-        tablero.getEscaque(3, 0).setPieza(new Caballo(Color.BLANCO));
-        tablero.getEscaque(12, 0).setPieza(new Caballo(Color.BLANCO));        
-        tablero.getEscaque(3, 16).setPieza(new Caballo(Color.NEGRO));
-        tablero.getEscaque(12, 16).setPieza(new Caballo(Color.NEGRO));
+        tablero.getEscaque(3, 0).setPiece(new Knight(Color.WHITE));
+        tablero.getEscaque(12, 0).setPiece(new Knight(Color.WHITE));        
+        tablero.getEscaque(3, 16).setPiece(new Knight(Color.BLACK));
+        tablero.getEscaque(12, 16).setPiece(new Knight(Color.BLACK));
         
-        tablero.getEscaque(4, 0).setPieza(new Brujo(Color.BLANCO));
-        tablero.getEscaque(11, 0).setPieza(new Brujo(Color.BLANCO));        
-        tablero.getEscaque(4, 16).setPieza(new Brujo(Color.NEGRO));
-        tablero.getEscaque(11, 16).setPieza(new Brujo(Color.NEGRO));
+        tablero.getEscaque(4, 0).setPiece(new Warlock(Color.WHITE));
+        tablero.getEscaque(11, 0).setPiece(new Warlock(Color.WHITE));        
+        tablero.getEscaque(4, 16).setPiece(new Warlock(Color.BLACK));
+        tablero.getEscaque(11, 16).setPiece(new Warlock(Color.BLACK));
         
-        tablero.getEscaque(5, 0).setPieza(new Alfil(Color.BLANCO));
-        tablero.getEscaque(10, 0).setPieza(new Alfil(Color.BLANCO));        
-        tablero.getEscaque(5, 16).setPieza(new Alfil(Color.NEGRO));
-        tablero.getEscaque(10, 16).setPieza(new Alfil(Color.NEGRO));
+        tablero.getEscaque(5, 0).setPiece(new Bishop(Color.WHITE));
+        tablero.getEscaque(10, 0).setPiece(new Bishop(Color.WHITE));        
+        tablero.getEscaque(5, 16).setPiece(new Bishop(Color.BLACK));
+        tablero.getEscaque(10, 16).setPiece(new Bishop(Color.BLACK));
         
-        tablero.getEscaque(6, 0).setPieza(new Hechicero(Color.BLANCO));
-        tablero.getEscaque(7, 0).setPieza(new Reina(Color.BLANCO));        
-        tablero.getEscaque(8, 0).setPieza(new Rey(Color.BLANCO));
-        tablero.getEscaque(9, 0).setPieza(new Paladin(Color.BLANCO));
+        tablero.getEscaque(6, 0).setPiece(new Magician(Color.WHITE));
+        tablero.getEscaque(7, 0).setPiece(new Queen(Color.WHITE));        
+        tablero.getEscaque(8, 0).setPiece(new King(Color.WHITE));
+        tablero.getEscaque(9, 0).setPiece(new Paladin(Color.WHITE));
         
-        tablero.getEscaque(6, 16).setPieza(new Hechicero(Color.NEGRO));
-        tablero.getEscaque(7, 16).setPieza(new Reina(Color.NEGRO));        
-        tablero.getEscaque(8, 16).setPieza(new Rey(Color.NEGRO));
-        tablero.getEscaque(9, 16).setPieza(new Paladin(Color.NEGRO));
+        tablero.getEscaque(6, 16).setPiece(new Magician(Color.BLACK));
+        tablero.getEscaque(7, 16).setPiece(new Queen(Color.BLACK));        
+        tablero.getEscaque(8, 16).setPiece(new King(Color.BLACK));
+        tablero.getEscaque(9, 16).setPiece(new Paladin(Color.BLACK));
         
-        tablero.getEscaque(0, 1).setPieza(new Nave(Color.BLANCO));
-        tablero.getEscaque(15, 1).setPieza(new Nave(Color.BLANCO));        
-        tablero.getEscaque(0, 15).setPieza(new Nave(Color.NEGRO));
-        tablero.getEscaque(15, 15).setPieza(new Nave(Color.NEGRO));
+        tablero.getEscaque(0, 1).setPiece(new Ship(Color.WHITE));
+        tablero.getEscaque(15, 1).setPiece(new Ship(Color.WHITE));        
+        tablero.getEscaque(0, 15).setPiece(new Ship(Color.BLACK));
+        tablero.getEscaque(15, 15).setPiece(new Ship(Color.BLACK));
         
-        tablero.getEscaque(1, 1).setPieza(new TorreTesla(Color.BLANCO));
-        tablero.getEscaque(14, 1).setPieza(new TorreTesla(Color.BLANCO));        
-        tablero.getEscaque(1, 15).setPieza(new TorreTesla(Color.NEGRO));
-        tablero.getEscaque(14, 15).setPieza(new TorreTesla(Color.NEGRO));
+        tablero.getEscaque(1, 1).setPiece(new TeslaTower(Color.WHITE));
+        tablero.getEscaque(14, 1).setPiece(new TeslaTower(Color.WHITE));        
+        tablero.getEscaque(1, 15).setPiece(new TeslaTower(Color.BLACK));
+        tablero.getEscaque(14, 15).setPiece(new TeslaTower(Color.BLACK));
         
-        tablero.getEscaque(2, 1).setPieza(new Ariete(Color.BLANCO));
-        tablero.getEscaque(13, 1).setPieza(new Ariete(Color.BLANCO));        
-        tablero.getEscaque(2, 15).setPieza(new Ariete(Color.NEGRO));
-        tablero.getEscaque(13, 15).setPieza(new Ariete(Color.NEGRO));
+        tablero.getEscaque(2, 1).setPiece(new Ram(Color.WHITE));
+        tablero.getEscaque(13, 1).setPiece(new Ram(Color.WHITE));        
+        tablero.getEscaque(2, 15).setPiece(new Ram(Color.BLACK));
+        tablero.getEscaque(13, 15).setPiece(new Ram(Color.BLACK));
         
-        tablero.getEscaque(3, 1).setPieza(new Constructor(Color.BLANCO));
-        tablero.getEscaque(12, 1).setPieza(new Constructor(Color.BLANCO));        
-        tablero.getEscaque(3, 15).setPieza(new Constructor(Color.NEGRO));
-        tablero.getEscaque(12, 15).setPieza(new Constructor(Color.NEGRO));
+        tablero.getEscaque(3, 1).setPiece(new Builder(Color.WHITE));
+        tablero.getEscaque(12, 1).setPiece(new Builder(Color.WHITE));        
+        tablero.getEscaque(3, 15).setPiece(new Builder(Color.BLACK));
+        tablero.getEscaque(12, 15).setPiece(new Builder(Color.BLACK));
         
-        tablero.getEscaque(4, 1).setPieza(new Peon(Color.BLANCO));
-        tablero.getEscaque(11, 1).setPieza(new Peon(Color.BLANCO));        
-        tablero.getEscaque(4, 15).setPieza(new Peon(Color.NEGRO));
-        tablero.getEscaque(11, 15).setPieza(new Peon(Color.NEGRO));
+        tablero.getEscaque(4, 1).setPiece(new Pawn(Color.WHITE));
+        tablero.getEscaque(11, 1).setPiece(new Pawn(Color.WHITE));        
+        tablero.getEscaque(4, 15).setPiece(new Pawn(Color.BLACK));
+        tablero.getEscaque(11, 15).setPiece(new Pawn(Color.BLACK));
         
-        tablero.getEscaque(5, 1).setPieza(new Peon(Color.BLANCO));
-        tablero.getEscaque(10, 1).setPieza(new Peon(Color.BLANCO));        
-        tablero.getEscaque(5, 15).setPieza(new Peon(Color.NEGRO));
-        tablero.getEscaque(10, 15).setPieza(new Peon(Color.NEGRO));
+        tablero.getEscaque(5, 1).setPiece(new Pawn(Color.WHITE));
+        tablero.getEscaque(10, 1).setPiece(new Pawn(Color.WHITE));        
+        tablero.getEscaque(5, 15).setPiece(new Pawn(Color.BLACK));
+        tablero.getEscaque(10, 15).setPiece(new Pawn(Color.BLACK));
                 
-        tablero.getEscaque(6, 1).setPieza(new PeonLoco(Color.BLANCO));
-        tablero.getEscaque(9, 1).setPieza(new PeonLoco(Color.BLANCO));        
-        tablero.getEscaque(6, 15).setPieza(new PeonLoco(Color.NEGRO));
-        tablero.getEscaque(9, 15).setPieza(new PeonLoco(Color.NEGRO));
+        tablero.getEscaque(6, 1).setPiece(new MadPawn(Color.WHITE));
+        tablero.getEscaque(9, 1).setPiece(new MadPawn(Color.WHITE));        
+        tablero.getEscaque(6, 15).setPiece(new MadPawn(Color.BLACK));
+        tablero.getEscaque(9, 15).setPiece(new MadPawn(Color.BLACK));
         
-        tablero.getEscaque(7, 1).setPieza(new SuperPeon(Color.BLANCO));
-        tablero.getEscaque(8, 1).setPieza(new SuperPeon(Color.BLANCO));        
-        tablero.getEscaque(7, 15).setPieza(new SuperPeon(Color.NEGRO));
-        tablero.getEscaque(8, 15).setPieza(new SuperPeon(Color.NEGRO));
+        tablero.getEscaque(7, 1).setPiece(new SuperPawn(Color.WHITE));
+        tablero.getEscaque(8, 1).setPiece(new SuperPawn(Color.WHITE));        
+        tablero.getEscaque(7, 15).setPiece(new SuperPawn(Color.BLACK));
+        tablero.getEscaque(8, 15).setPiece(new SuperPawn(Color.BLACK));
         
-        tablero.getEscaque(0, 2).setPieza(new Ballesta(Color.BLANCO));
-        tablero.getEscaque(15, 2).setPieza(new Ballesta(Color.BLANCO));        
-        tablero.getEscaque(0, 14).setPieza(new Ballesta(Color.NEGRO));
-        tablero.getEscaque(15, 14).setPieza(new Ballesta(Color.NEGRO));
+        tablero.getEscaque(0, 2).setPiece(new Ballista(Color.WHITE));
+        tablero.getEscaque(15, 2).setPiece(new Ballista(Color.WHITE));        
+        tablero.getEscaque(0, 14).setPiece(new Ballista(Color.BLACK));
+        tablero.getEscaque(15, 14).setPiece(new Ballista(Color.BLACK));
         
-        tablero.getEscaque(1, 2).setPieza(new Arquero(Color.BLANCO));
-        tablero.getEscaque(14, 2).setPieza(new Arquero(Color.BLANCO));        
-        tablero.getEscaque(1, 14).setPieza(new Arquero(Color.NEGRO));
-        tablero.getEscaque(14, 14).setPieza(new Arquero(Color.NEGRO));
+        tablero.getEscaque(1, 2).setPiece(new Archer(Color.WHITE));
+        tablero.getEscaque(14, 2).setPiece(new Archer(Color.WHITE));        
+        tablero.getEscaque(1, 14).setPiece(new Archer(Color.BLACK));
+        tablero.getEscaque(14, 14).setPiece(new Archer(Color.BLACK));
         
-        tablero.getEscaque(2, 2).setPieza(new Arquero(Color.BLANCO));
-        tablero.getEscaque(13, 2).setPieza(new Arquero(Color.BLANCO));        
-        tablero.getEscaque(2, 14).setPieza(new Arquero(Color.NEGRO));
-        tablero.getEscaque(13, 14).setPieza(new Arquero(Color.NEGRO));
+        tablero.getEscaque(2, 2).setPiece(new Archer(Color.WHITE));
+        tablero.getEscaque(13, 2).setPiece(new Archer(Color.WHITE));        
+        tablero.getEscaque(2, 14).setPiece(new Archer(Color.BLACK));
+        tablero.getEscaque(13, 14).setPiece(new Archer(Color.BLACK));
         
-        tablero.getEscaque(3, 2).setPieza(new Defensor(Color.BLANCO));
-        tablero.getEscaque(12, 2).setPieza(new Defensor(Color.BLANCO));        
-        tablero.getEscaque(3, 14).setPieza(new Defensor(Color.NEGRO));
-        tablero.getEscaque(12, 14).setPieza(new Defensor(Color.NEGRO));
+        tablero.getEscaque(3, 2).setPiece(new ShieldBearer(Color.WHITE));
+        tablero.getEscaque(12, 2).setPiece(new ShieldBearer(Color.WHITE));        
+        tablero.getEscaque(3, 14).setPiece(new ShieldBearer(Color.BLACK));
+        tablero.getEscaque(12, 14).setPiece(new ShieldBearer(Color.BLACK));
         
-        tablero.getEscaque(0, 3).setPieza(new Peon(Color.BLANCO));
-        tablero.getEscaque(15, 3).setPieza(new Peon(Color.BLANCO));        
-        tablero.getEscaque(0, 13).setPieza(new Peon(Color.NEGRO));
-        tablero.getEscaque(15, 13).setPieza(new Peon(Color.NEGRO));
+        tablero.getEscaque(0, 3).setPiece(new Pawn(Color.WHITE));
+        tablero.getEscaque(15, 3).setPiece(new Pawn(Color.WHITE));        
+        tablero.getEscaque(0, 13).setPiece(new Pawn(Color.BLACK));
+        tablero.getEscaque(15, 13).setPiece(new Pawn(Color.BLACK));
         
-        tablero.getEscaque(1, 3).setPieza(new PeonLoco(Color.BLANCO));
-        tablero.getEscaque(14, 3).setPieza(new PeonLoco(Color.BLANCO));        
-        tablero.getEscaque(1, 13).setPieza(new PeonLoco(Color.NEGRO));
-        tablero.getEscaque(14, 13).setPieza(new PeonLoco(Color.NEGRO));
+        tablero.getEscaque(1, 3).setPiece(new MadPawn(Color.WHITE));
+        tablero.getEscaque(14, 3).setPiece(new MadPawn(Color.WHITE));        
+        tablero.getEscaque(1, 13).setPiece(new MadPawn(Color.BLACK));
+        tablero.getEscaque(14, 13).setPiece(new MadPawn(Color.BLACK));
         
-        tablero.getEscaque(2, 3).setPieza(new Peon(Color.BLANCO));
-        tablero.getEscaque(13, 3).setPieza(new Peon(Color.BLANCO));        
-        tablero.getEscaque(2, 13).setPieza(new Peon(Color.NEGRO));
-        tablero.getEscaque(13, 13).setPieza(new Peon(Color.NEGRO));
+        tablero.getEscaque(2, 3).setPiece(new Pawn(Color.WHITE));
+        tablero.getEscaque(13, 3).setPiece(new Pawn(Color.WHITE));        
+        tablero.getEscaque(2, 13).setPiece(new Pawn(Color.BLACK));
+        tablero.getEscaque(13, 13).setPiece(new Pawn(Color.BLACK));
         
-        TableroVisual tv = new TableroVisual(tablero);
+        BoardDisplay tv = new BoardDisplay(tablero);
         tv.mostrar();
-        
-        AI iaB = new SimpleDepthAI(tv, blancas, 1);
-        AI iaN = new SimpleDepthAI(tv, negras, 1);
-        reloj.addListener(e ->{ //TODO: stackoverflow, usar bien los listeners
-            if(tablero.getAllPiezasOfColor(e.getColor()).isEmpty()){
-                System.out.println(e.getColor() + " ha perdido!");
-                return;
-            }
-            if(e.getColor().equals(iaB.getJugador().getColor())){
-                System.out.print("jugar: ");
-                iaB.jugar();
-                System.out.println(tablero.getValoracionTotal(Color.BLANCO, Color.NEGRO, SimpleDepthAI.getValoresPiezas()));
-            }
-            if(e.getColor().equals(iaN.getJugador().getColor())){
-                System.out.print("jugar: ");
-                iaN.jugar();
-            }
-        });
-        System.out.print("jugar: ");
-        iaB.jugar();
-        long t1 = Calendar.getInstance().getTimeInMillis();
-        while(true){
-            if(Calendar.getInstance().getTimeInMillis() - t1 >= 2000){
-                t1 = Calendar.getInstance().getTimeInMillis();
-                reloj.ejecutarListeners();
-            }
-        }
     }
 }

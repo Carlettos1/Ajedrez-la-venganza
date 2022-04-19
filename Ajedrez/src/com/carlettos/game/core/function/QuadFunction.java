@@ -1,9 +1,9 @@
 package com.carlettos.game.core.function;
 
-import com.carlettos.game.core.Accion;
+import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.tablero.manager.Tablero;
-import com.carlettos.game.tablero.pieza.Pieza;
+import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Point;
 
 /**
@@ -12,7 +12,7 @@ import com.carlettos.game.core.Point;
  * @param <R> ClaseResultado.
  */
 @FunctionalInterface
-public interface QuadFunction<R> { //todo: quinfunction
+public interface QuadFunction<R> {
     public static final QuadFunction<ActionResult> PASS = (accion, tablero, pieza, inicio, final_) -> {
         return ActionResult.PASS;
     };
@@ -26,5 +26,5 @@ public interface QuadFunction<R> { //todo: quinfunction
         return false;
     };
     
-    public R apply(Accion accion, Tablero tablero, Pieza pieza, Point inicio, Point final_);
+    public R apply(Action accion, Board tablero, Piece pieza, Point inicio, Point final_);
 }
