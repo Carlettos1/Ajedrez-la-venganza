@@ -11,6 +11,7 @@ import com.carlettos.game.board.piece.pattern.action.ITake;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -27,10 +28,10 @@ public abstract class AbstractPawn<M extends PatternPawn, C extends PatternPawn>
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
-            case COMER -> this.canComer(tablero, inicio, final_, patronComer);
+            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
+            case COMER -> this.canComer(tablero, inicio, info, patronComer);
             default -> ActionResult.FAIL;
         };
     }

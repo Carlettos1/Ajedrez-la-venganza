@@ -14,6 +14,7 @@ import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternRook;
 import com.carlettos.game.board.property.ability.InfoNESW;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
+import com.carlettos.game.core.Action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -87,9 +88,9 @@ public class Rook extends SimplePiece<PatternRook> {
                                 break;
                             }
                             Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            if (t.tryTo(Action.COMER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            } else if (t.tryTo(Action.MOVER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
                             }
                         }
@@ -101,9 +102,9 @@ public class Rook extends SimplePiece<PatternRook> {
                                 break;
                             }
                             Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            if (t.tryTo(Action.COMER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            } else if (t.tryTo(Action.MOVER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
                             }
                         }
@@ -115,9 +116,9 @@ public class Rook extends SimplePiece<PatternRook> {
                                 break;
                             }
                             Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            if (t.tryTo(Action.COMER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            } else if (t.tryTo(Action.MOVER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
                             }
                         }
@@ -129,9 +130,9 @@ public class Rook extends SimplePiece<PatternRook> {
                                 break;
                             }
                             Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                            if (t.intentarComerPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            if (t.tryTo(Action.COMER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
-                            } else if (t.intentarMoverPieza(escaqueTorre.getPos(), puntoFinal).isPositive()) {
+                            } else if (t.tryTo(Action.MOVER, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
                                 break;
                             }
                         }

@@ -12,133 +12,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Esta clase sólo controlará el trablero, cualquier otra funcionalidad que no
- * sea la de controlar a sus piezas, o proveer méthodos de utilidad sobre si
- * mismo, no es de su responsabilidad, por lo tanto, no tendrá conocimiento de
- * jugadores, relojes o barajas.
+ * It's the board.
  *
  * @author Carlos
- *
- * @see Piece
  */
 public class Board extends AbstractBoard {
-    /**
-     * Reloj vinculado a este tablero.
-     */
-    protected final Clock reloj;
+    protected final Clock clock;
 
-    public Board(int columnas, int filas, Clock reloj) {
-        super(columnas, filas);
-        this.reloj = reloj;
+    public Board(int columns, int rows, Clock clock) {
+        super(columns, rows);
+        this.clock = clock;
     }
-
+    
     /**
-     * Come la pieza en la posición final_ con la pieza en la posición inicial.
+     * Tries to do an {@code Action}. In case of an action that needs other 
+     * point, use Point::toInfo.
      *
-     * @param inicio posición de la pieza que come.
-     * @param final_ posición de la pieza que es comida.
-     * @return ActionResult diciendo el resultado.
+     * @param action action to do.
+     * @param start start point.
+     * @param info information about the action.
+     * @return FAIL if it didn't do the action, PASS if the action has been 
+     * done.
      */
-    public ActionResult intentarComerPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPiece())){
+    public ActionResult tryTo(Action action, Point start, Info info){
+        Escaque s = getEscaque(start);
+        if (!canPlay(s.getPiece())) {
             return ActionResult.FAIL;
         }
-        Escaque escaqueInicio = this.getEscaque(inicio);
-        Escaque escaqueFinal = this.getEscaque(final_);
-
-        boolean can = escaqueInicio.getPiece().can(Action.COMER, this, inicio, final_).isPositive();
-        if (can) {
-            escaqueFinal.setPiece(escaqueInicio.getPiece());
-            escaqueInicio.removePiece();
-            escaqueFinal.getPiece().postAccion(Action.COMER, this, inicio, final_);
-            movement();
-            return ActionResult.PASS;
-        } else {
-            return ActionResult.FAIL;
+        Escaque f = null;
+        if(action == Action.ATACAR || action == Action.MOVER || action == Action.COMER){
+            try {
+                f = getEscaque((Point) info.getValor());
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
+            }
         }
-    }
-
-    /**
-     * Mueve la pieza en la posición inicial a la posición final_.
-     *
-     * @param inicio posición de la pieza.
-     * @param final_ posición al que la pieza se mueve.
-     * @return ActionResult diciendo el resultado.
-     */
-    public ActionResult intentarMoverPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPiece())){
-            return ActionResult.FAIL;
-        }
-        Escaque escaqueInicio = this.getEscaque(inicio);
-        Escaque escaqueFinal = this.getEscaque(final_);
-
-        boolean can = escaqueInicio.getPiece().can(Action.MOVER, this, inicio, final_).isPositive();
-        if (can) {
-            escaqueFinal.setPiece(escaqueInicio.getPiece());
-            escaqueInicio.removePiece();
-            escaqueFinal.getPiece().postAccion(Action.MOVER, this, inicio, final_);
-            movement();
-            return ActionResult.PASS;
-        } else {
-            return ActionResult.FAIL;
-        }
-    }
-
-    /**
-     * Ataca a la pieza en la posición final_.
-     *
-     * @param inicio posición de la pieza.
-     * @param final_ posición al que la ataca.
-     * @return ActionResult diciendo el resultado.
-     */
-    public ActionResult intentarAtacarPieza(Point inicio, Point final_) {
-        if(!canMoverPieza(getEscaque(inicio).getPiece())){
-            return ActionResult.FAIL;
-        }
-        Escaque escaqueInicio = this.getEscaque(inicio);
-        Escaque escaqueFinal = this.getEscaque(final_);
-
-        boolean can = escaqueInicio.getPiece().can(Action.ATACAR, this, inicio, final_).isPositive();
-        if (can) {
-            escaqueFinal.removePiece();
-            escaqueFinal.getPiece().postAccion(Action.ATACAR, this, inicio, final_);
-            movement();
-            return ActionResult.PASS;
-        } else {
-            return ActionResult.FAIL;
-        }
-    }
-
-    /**
-     * Usa la habilidad de la pieza en el punto indicado, hacia el punto que
-     * debe especificarse.
-     *
-     * @param inicio punto en el que la habilidad es lanzada.
-     * @param final_ punto hacia donde la habilidad se lanza.
-     * @param info String que contiene la información de la
-     * habilidad, por ejemplo, hacia dónde se va a aplicar la habilidad de la
-     * torre (NESW).
-     *
-     * @return un par que contiene un ActionResult y String a forma de ayuda
-     * para dar más información.
-     *
-     * @see ActionResult
-     */
-    public ActionResult intentarHabilidadPieza(Point inicio, Info info) {
-        if(!canMoverPieza(getEscaque(inicio).getPiece())){
-            return ActionResult.FAIL;
-        }
-        Escaque escaque = getEscaque(inicio);
-        ActionResult ar = escaque.getPiece().getHabilidad().canUse(this, escaque.getPiece(), inicio, info);
-        if (ar.isPositive()) {
-            escaque.getPiece().getHabilidad().use(this, escaque.getPiece(), inicio, info);
+        ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);
+        if(can.isPositive()) {
+            switch (action) {
+                case ATACAR -> {
+                    f.removePiece();
+                    f.getPiece().postAccion(action, this, start, info);
+                }
+                case MOVER, COMER -> {
+                    f.setPiece(s.getPiece());
+                    s.removePiece();
+                    f.getPiece().postAccion(action, this, start, info);
+                }
+                case HABILIDAD -> {
+                    s.getPiece().getAbility().use(this, s.getPiece(), start, info);
+                }
+            }
             movement();
         }
-        return ar;
+        return can;
     }
 
     public void movement() {
-        this.reloj.movement();
+        this.clock.movement();
         if(getClock().getMovements() >= getClock().turnOf().getMaxMovements()){
             for (Escaque[] escaques : chessBoard) {
                 for (Escaque escaque : escaques) {
@@ -149,23 +80,29 @@ public class Board extends AbstractBoard {
         }
     }
     
-    public boolean canMoverPieza(Piece pieza){
+    public boolean canPlay(Piece pieza){
         return getClock().turnOf().getColor().equals(pieza.getColor()) && getClock().canPlay(getClock().turnOf());
     }
     
-    public boolean canMoverColor(Color color){
+    public boolean canPlay(Color color){
         return getClock().turnOf().getColor().equals(color) && getClock().canPlay(getClock().turnOf());
     }
 
     public Clock getClock() {
-        return reloj;
+        return clock;
     }
     
-    public List<Piece> getAllPiezasOfColor(Color color){
+    /**
+     * It gets all the pieces of the given color.
+     *
+     * @param color color of the pieces to get.
+     * @return a List with all the pieces of the given color.
+     */
+    public List<Piece> getPiecesOf(Color color){
         List<Piece> piezas = new ArrayList<>();
         for (Escaque[] escaques : chessBoard) {
             for (Escaque escaque : escaques) {
-                if(escaque.isControladoPor(color)){
+                if(escaque.isControladoPor(color)) {
                     piezas.add(escaque.getPiece());
                 }
             }

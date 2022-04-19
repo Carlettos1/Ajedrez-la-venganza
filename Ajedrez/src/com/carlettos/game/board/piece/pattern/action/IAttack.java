@@ -4,6 +4,7 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.Pattern;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -19,11 +20,15 @@ public interface IAttack<P extends Pattern> {
      * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL}, 
      * dependiendo del caso.
      */
-    public default ActionResult canAtacar(AbstractBoard tablero, Point inicio, Point final_, P patron){
-        if (!this.checkAtacarCondition(tablero, inicio, final_)) {
-            return ActionResult.FAIL;
+    public default ActionResult canAtacar(AbstractBoard tablero, Point inicio, Info info, P patron){
+        if(info.getValor() instanceof Point p) {
+            if (!this.checkAtacarCondition(tablero, inicio, p)) {
+                return ActionResult.FAIL;
+            }
+            return ActionResult.fromBoolean(patron.match(tablero, inicio, p));
+        } else {
+            throw new IllegalArgumentException("Info is not Info<Point>");
         }
-        return ActionResult.fromBoolean(patron.match(tablero, inicio, final_));
     }
     /**
      * Comprueba que pueda atacar, sin fijarse en un patron.

@@ -11,6 +11,7 @@ import com.carlettos.game.board.piece.pattern.action.ITake;
 import com.carlettos.game.board.piece.pattern.classic.PatternQueen;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -25,10 +26,10 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, patron);
-            case COMER -> this.canComer(tablero, inicio, final_, patron);
+            case MOVER -> this.canMover(tablero, inicio, info, patron);
+            case COMER -> this.canComer(tablero, inicio, info, patron);
             default -> ActionResult.FAIL;
         };
     }

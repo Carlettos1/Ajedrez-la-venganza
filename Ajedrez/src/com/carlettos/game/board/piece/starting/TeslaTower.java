@@ -17,6 +17,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNone;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
 
@@ -36,10 +37,11 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
-            case COMER -> this.canComer(tablero, inicio, final_, patronComer);
+            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
+            case COMER -> this.canComer(tablero, inicio, info, patronComer);
+            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }

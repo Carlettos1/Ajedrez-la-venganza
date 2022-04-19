@@ -12,6 +12,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatternArcherAttack;
 import com.carlettos.game.board.piece.pattern.starting.PatternArcherMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -28,10 +29,10 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){ //TODO: que el ataque pueda fallar
-            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
-            case ATACAR -> this.canAtacar(tablero, inicio, final_, patronAtacar);
+            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
+            case ATACAR -> this.canAtacar(tablero, inicio, info, patronAtacar);
             default -> ActionResult.FAIL;
         };
     }

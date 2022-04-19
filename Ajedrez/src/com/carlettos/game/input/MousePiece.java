@@ -48,7 +48,7 @@ public class MousePiece implements MouseListener {
             BoardDisplay tv = DisplayHelper.getBoardDisplay(seleccionado);
             Board tablero = tv.getBoard();
 
-            if (!tablero.canMoverPieza(seleccionado.getEscaque().getPiece())) {
+            if (!tablero.canPlay(seleccionado.getEscaque().getPiece())) {
                 seleccionado = null;
                 return;
             }
@@ -63,9 +63,9 @@ public class MousePiece implements MouseListener {
             BoardDisplay tv = DisplayHelper.getBoardDisplay(seleccionado);
             Board tablero = tv.getBoard();
 
-            if (tablero.intentarMoverPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
-                if (tablero.intentarComerPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
-                    if (tablero.intentarAtacarPieza(escaqueSeleccionado.getPos(), escaqueObjetivo.getPos()).equals(ActionResult.FAIL)) {
+            if (tablero.tryTo(Action.MOVER, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
+                if (tablero.tryTo(Action.COMER, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
+                    if (tablero.tryTo(Action.ATACAR, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
                         if (escaqueSeleccionado.getPiece().getColor().equals(escaqueObjetivo.getPiece().getColor())) {
                             //si cambió de pieza
                             tv.offAll();

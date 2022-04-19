@@ -11,6 +11,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatternStructureMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNESW;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
 
@@ -29,9 +30,10 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     }
     
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
+            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
+            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }

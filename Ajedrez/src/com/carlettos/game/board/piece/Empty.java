@@ -6,6 +6,7 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
+import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNone;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
 
@@ -25,7 +26,7 @@ public class Empty extends Piece {
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return ActionResult.FAIL;
     }
 

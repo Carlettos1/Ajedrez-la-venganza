@@ -84,9 +84,9 @@ public class ClockDisplay extends JPanel{
             }
             if (container instanceof BoardDisplay tv) {
                 Escaque escaque = MousePiece.get().seleccionado.getEscaque();
-                Info infoHabilidad = escaque.getPiece().getHabilidad().getInfoHabilidad();
+                Info infoHabilidad = escaque.getPiece().getAbility().getInfoHabilidad();
                 
-                Object[] valores = escaque.getPiece().getHabilidad().getAllValoresPosibles(tv.getBoard(), escaque.getPos());
+                Object[] valores = escaque.getPiece().getAbility().getAllValoresPosibles(tv.getBoard(), escaque.getPos());
                 if (infoHabilidad instanceof InfoNone) {
                     valores = new String[]{"Usar"};
                 }
@@ -99,22 +99,22 @@ public class ClockDisplay extends JPanel{
                 Info infoUsada = new InfoNone();
                 ActionResult ar;
                 if (infoHabilidad instanceof InfoNone) {
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNone());
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNone());
                 } else if(infoHabilidad instanceof InfoInteger){
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
                 } else if(infoHabilidad instanceof InfoNESW){
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
                 } else if(infoHabilidad instanceof InfoPiece){
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPiece((Piece) valor));
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPiece((Piece) valor));
                 } else if(infoHabilidad instanceof InfoPoint){
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPoint((Point) valor));
                 } else if(infoHabilidad instanceof InfoString){
-                    ar = escaque.getPiece().getHabilidad().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoString((String) valor));
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoString((String) valor));
                 } else { //todo: compuesta
                     ar = ActionResult.FAIL;
                 }
                 if (ar.isPositive()) {
-                    escaque.getPiece().getHabilidad().use(tv.getBoard(),
+                    escaque.getPiece().getAbility().use(tv.getBoard(),
                             escaque.getPiece(),
                             escaque.getPos(),
                             infoUsada);

@@ -12,6 +12,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatternCannonAttack;
 import com.carlettos.game.board.piece.pattern.starting.PatternStructureMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
 
 /**
@@ -30,10 +31,10 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch (accion) {
-            case ATACAR -> this.canAtacar(tablero, inicio, final_, patronAtacar);
-            case MOVER -> this.canMover(tablero, inicio, final_, patronMover);
+            case ATACAR -> this.canAtacar(tablero, inicio, info, patronAtacar);
+            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
             default -> ActionResult.FAIL;
         };
     }

@@ -9,6 +9,7 @@ import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.Empty;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
+import com.carlettos.game.board.property.ability.Info;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class Wall extends Piece {
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return ActionResult.FAIL;
     }
 

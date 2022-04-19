@@ -20,6 +20,9 @@ public class SummonKnight extends Card {
         super("Invocar Caballo", "Invoca un caballo en la ubicación elegida al final del turno.", 2);
     }
 
+    /**
+     * @@inheritDoc 
+     */
     @Override
     public ActionResult canUse(Point point, Board board, Player caster) {
         if(caster.getMana() < this.getCost() || board.getEscaque(point).hasPiece()){

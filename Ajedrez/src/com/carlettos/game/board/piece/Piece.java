@@ -8,6 +8,7 @@ import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
+import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoPiece;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,9 +103,9 @@ public abstract class Piece {
      *
      * @return ActionResult.
      */
-    public abstract ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_);
+    public abstract ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info);
     
-    public void postAccion(Action accion, AbstractBoard tablero, Point inicio, Point final_){
+    public void postAccion(Action accion, AbstractBoard tablero, Point inicio, Info info){
         this.setIsMoved(true);
     }
     
@@ -129,13 +130,13 @@ public abstract class Piece {
         List<Tuple<Point, Action>> acciones = new ArrayList<>();
         for (int x = 0; x < tablero.columns; x++) {
             for (int y = 0; y < tablero.rows; y++) {
-                if (this.can(Action.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                if (this.can(Action.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.COMER));
-                } if (this.can(Action.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                } if (this.can(Action.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.MOVER));
-                } if (this.can(Action.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos()).isPositive()) {
+                } if (this.can(Action.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.ATACAR));
-                }
+                }// TODO: canHabilidad
             }
         }
         return acciones;
@@ -232,7 +233,7 @@ public abstract class Piece {
 
     /*FIXME: No se tiene en cuenta el <> de la habilidad, la cual es necesaria 
     para algunas habilidades*/
-    public Ability getHabilidad() {
+    public Ability getAbility() {
         return habilidad;
     }
 

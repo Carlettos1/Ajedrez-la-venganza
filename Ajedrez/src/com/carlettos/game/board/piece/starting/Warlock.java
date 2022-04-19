@@ -10,6 +10,7 @@ import com.carlettos.game.board.piece.pattern.action.IMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.piece.pattern.starting.PatternMagicianMove;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -24,9 +25,9 @@ public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
+    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, final_, this.patronMover);
+            case MOVER -> this.canMover(tablero, inicio, info, this.patronMover);
             default -> ActionResult.FAIL;
         };
     }

@@ -11,6 +11,7 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 import com.carlettos.game.board.piece.pattern.action.ITake;
 import com.carlettos.game.board.piece.pattern.action.IMove;
 import com.carlettos.game.board.property.ability.Ability;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
@@ -28,10 +29,11 @@ public abstract class SimplePiece<P extends Pattern> extends Piece implements IT
      * @@inheritDoc
      */
     @Override
-    public final ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Point final_) {
-        return switch (accion) {
-            case COMER -> this.canComer(tablero, inicio, final_, patron);
-            case MOVER -> this.canMover(tablero, inicio, final_, patron);
+    public final ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch (action) {
+            case COMER -> this.canComer(board, start, info, patron);
+            case MOVER -> this.canMover(board, start, info, patron);
+            case HABILIDAD -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }
