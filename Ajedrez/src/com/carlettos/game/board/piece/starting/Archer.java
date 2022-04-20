@@ -23,7 +23,7 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     protected final PatternArcherAttack patronAtacar;
     
     public Archer(Color color) {
-        super("Arquero", "ARQ", Empty.NO_HABILIDAD, color, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super("Arquero", "ARQ", Empty.NO_HABILIDAD, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         patronMover = new PatternArcherMove() {};
         patronAtacar = new PatternArcherAttack() {};
     }
@@ -31,8 +31,8 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){ //TODO: que el ataque pueda fallar
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case ATACAR -> this.canAtacar(tablero, inicio, info, patronAtacar);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case ATTACK -> this.canAtacar(tablero, inicio, info, patronAtacar);
             default -> ActionResult.FAIL;
         };
     }

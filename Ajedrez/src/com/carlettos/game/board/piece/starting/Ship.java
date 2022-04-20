@@ -14,7 +14,7 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.piece.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  *
@@ -26,7 +26,7 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
     protected final PatternKing patronComer;
 
     public Ship(Color color) {
-        super("Nave", "N", HABILIDAD_NAVE, color, PieceType.ESTRUCTURA);
+        super("Nave", "N", HABILIDAD_NAVE, color, PieceType.STRUCTURE);
         this.patronMover = new PatternMagicianMove() {};
         this.patronComer = new PatternKing() {};
     }
@@ -34,14 +34,14 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case COMER -> this.canComer(tablero, inicio, info, patronComer);
-            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case TAKE -> this.canComer(tablero, inicio, info, patronComer);
+            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }
 
-    public static class HabilidadNave<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo{
+    public static class HabilidadNave<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone{
 
         public HabilidadNave() {
             super("Ataque en area", 

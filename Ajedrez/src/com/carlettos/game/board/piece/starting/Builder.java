@@ -14,21 +14,21 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoNESW;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
 import java.util.function.Function;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
 
 /**
  *
  * @author Carlettos
  */
 public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<PatternLeechTake> {
-    public static final Ability<Builder, Direction, InfoNESW> HABILIDAD_CONSTRUCTOR = new HabilidadConstructor<>();
+    public static final Ability<Builder, Direction, InfoDirection> HABILIDAD_CONSTRUCTOR = new HabilidadConstructor<>();
     protected final PatternMagicianMove patronMover;
     protected final PatternLeechTake patronComer;
 
     public Builder(Color color) {
-        super("Constructor", "CO", HABILIDAD_CONSTRUCTOR, color, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super("Constructor", "CO", HABILIDAD_CONSTRUCTOR, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.patronMover = new PatternMagicianMove() {};
         this.patronComer = new PatternLeechTake() {};
     }
@@ -36,14 +36,14 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case COMER -> this.canComer(tablero, inicio, info, patronComer);
-            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case TAKE -> this.canComer(tablero, inicio, info, patronComer);
+            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadConstructor<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW{
+    public static class HabilidadConstructor<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection{
         protected final Function<Color, Wall> creator = Wall::new;
 
         public HabilidadConstructor() {
@@ -55,17 +55,17 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
             return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza));
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
             Point p1 = new Point(-1, -1);
             Point p2 = new Point(-1, -1);
             Point p3 = new Point(-1, -1);
             
-            switch(info.getValor()){
+            switch(info.getValue()){
                 case N -> {
                     p1 = inicio.add(1, 1);
                     p2 = inicio.add(0, 1);

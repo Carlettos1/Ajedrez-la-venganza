@@ -8,7 +8,7 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  * Es la pieza que funciona como place-holder, no hace nada y es negra por
@@ -30,7 +30,7 @@ public class Empty extends Piece {
         return ActionResult.FAIL;
     }
 
-    public static class NoHabilidad extends Ability<Piece, String, InfoNone> implements HabilidadSinInfo {
+    public static class NoHabilidad extends Ability<Piece, String, InfoNone> implements AbilityNone {
 
         public NoHabilidad() {
             super("Habilidad nula", "No hace nada", 0, 0, "Ninguno");

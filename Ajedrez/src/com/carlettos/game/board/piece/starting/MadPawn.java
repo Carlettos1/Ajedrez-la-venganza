@@ -14,7 +14,7 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  *
@@ -24,9 +24,9 @@ public class MadPawn extends SimplePiece<PatternMadPawn> {
     public final static Ability<MadPawn, String, InfoNone> HABILIDAD_PEON_LOCO = new HabilidadPeonLoco<>();
     
     public MadPawn(Color color) {
-        super("Peon Loco", "PE", HABILIDAD_PEON_LOCO, color, PatternMadPawn.PATRON_STANDAR, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super("Peon Loco", "PE", HABILIDAD_PEON_LOCO, color, PatternMadPawn.PATRON_STANDAR, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
-    public static class HabilidadPeonLoco<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo {
+    public static class HabilidadPeonLoco<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
         public HabilidadPeonLoco() {
             super("Terminar Sufrimiento",
                     "Elimina esta pieza del tablero y te da 2 cartas.", 

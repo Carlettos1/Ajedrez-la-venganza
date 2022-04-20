@@ -15,7 +15,7 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoCompound;
 import com.carlettos.game.board.property.ability.InfoInteger;
-import com.carlettos.game.board.property.ability.InfoNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
 import com.carlettos.game.util.MathHelper;
 
 /**
@@ -24,24 +24,24 @@ import com.carlettos.game.util.MathHelper;
  */
 public class Catapult extends Piece implements IMove<PatternStructureMove> {
 
-    public static final Ability<Catapult, Tuple<InfoNESW, InfoInteger>, InfoCompound<InfoNESW, InfoInteger>> HABILIDAD_CATAPULTA = new HabilidadCatapulta<>();
+    public static final Ability<Catapult, Tuple<InfoDirection, InfoInteger>, InfoCompound<InfoDirection, InfoInteger>> HABILIDAD_CATAPULTA = new HabilidadCatapulta<>();
     protected final PatternStructureMove patronMover;
     
     public Catapult(Color color) {
-        super("Catapulta", "CA", HABILIDAD_CATAPULTA, color, PieceType.ESTRUCTURA);
+        super("Catapulta", "CA", HABILIDAD_CATAPULTA, color, PieceType.STRUCTURE);
         patronMover = new PatternStructureMove() {};
     }
     
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };    
     }
     
-    public static class HabilidadCatapulta<P extends Piece> extends Ability<P, Tuple<InfoNESW, InfoInteger>, InfoCompound<InfoNESW, InfoInteger>> {
+    public static class HabilidadCatapulta<P extends Piece> extends Ability<P, Tuple<InfoDirection, InfoInteger>, InfoCompound<InfoDirection, InfoInteger>> {
         public HabilidadCatapulta() {
             super("Lanzar Pieza", 
                     "Lanza una pieza en una dirección.", 
@@ -55,11 +55,11 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoDirection, InfoInteger> info) {
             if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
-            Point posPieza = switch (info.getY().getValor()) {
+            Point posPieza = switch (info.getY().getValue()) {
                 case 1 -> new Point(inicio.x-1, inicio.y-1);
                 case 2 -> new Point(inicio.x, inicio.y-1);
                 case 3 -> new Point(inicio.x+1, inicio.y-1);
@@ -75,7 +75,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
                 return ActionResult.FAIL;
             }
             
-            int num = info.getY().getValor();
+            int num = info.getY().getValue();
             if(num >= 1 && num <= 9 && num != 5){
                 return ActionResult.PASS;
             }
@@ -84,8 +84,8 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoNESW, InfoInteger> info) {
-            Point posPieza = switch (info.getY().getValor()) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoCompound<InfoDirection, InfoInteger> info) {
+            Point posPieza = switch (info.getY().getValue()) {
                 case 1 -> new Point(inicio.x-1, inicio.y-1);
                 case 2 -> new Point(inicio.x, inicio.y-1);
                 case 3 -> new Point(inicio.x+1, inicio.y-1);
@@ -111,15 +111,15 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public InfoCompound<InfoNESW, InfoInteger> getInfoHabilidad() {
-            return new InfoCompound<>(new InfoNESW(Direction.N), new InfoInteger(0));
+        public InfoCompound<InfoDirection, InfoInteger> getInfo() {
+            return new InfoCompound<>(new InfoDirection(Direction.N), new InfoInteger(0));
         }
 
         @Override
-        public Tuple<InfoNESW, InfoInteger>[] getAllValoresPosibles(AbstractBoard tablero, Point point) {
+        public Tuple<InfoDirection, InfoInteger>[] getPossibleValues(AbstractBoard tablero, Point point) {
             Direction[] nesw = Direction.values();
             Integer[] nums = {1, 2, 3, 4, 6, 7, 8, 9};
-            Tuple<InfoNESW, InfoInteger>[] valores = new Tuple[nesw.length * nums.length];
+            Tuple<InfoDirection, InfoInteger>[] valores = new Tuple[nesw.length * nums.length];
             for (int i = 0; i < nesw.length; i++) {
                 for (int j = 0; j < nums.length; j++) {
                     valores[i * nums.length + j] = new Tuple<>(nesw[i].toInfo(), new InfoInteger(nums[j]));

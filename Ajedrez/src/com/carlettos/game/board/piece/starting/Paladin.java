@@ -21,15 +21,15 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     protected final PatternQueen patron;
 
     public Paladin(Color color) { //TODO: Habilidad
-        super("Paladin", "PA", Empty.NO_HABILIDAD, color, PieceType.HEROICA, PieceType.INMUNE);
+        super("Paladin", "PA", Empty.NO_HABILIDAD, color, PieceType.HEROIC, PieceType.IMMUNE);
         patron = new PatternQueen(){};
     }
 
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patron);
-            case COMER -> this.canComer(tablero, inicio, info, patron);
+            case MOVE -> this.canMover(tablero, inicio, info, patron);
+            case TAKE -> this.canComer(tablero, inicio, info, patron);
             default -> ActionResult.FAIL;
         };
     }

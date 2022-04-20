@@ -10,7 +10,7 @@ import com.carlettos.game.board.piece.pattern.classic.PatternPawnMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  *
@@ -24,7 +24,7 @@ public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake>
         super(() -> color, () -> color, "Defensor", "D", HABILIDAD_DEFENSOR, color);
     }
     
-    public static class HabilidadDefensor<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo {
+    public static class HabilidadDefensor<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
         public HabilidadDefensor() {//TODO: repensar la habilidad
             super("Defender",
                     "Defiende de ataques de ballesta",

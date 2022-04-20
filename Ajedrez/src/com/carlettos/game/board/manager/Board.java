@@ -35,14 +35,14 @@ public class Board extends AbstractBoard {
      * done.
      */
     public ActionResult tryTo(Action action, Point start, Info info){
-        Escaque s = getEscaque(start);
-        if (!canPlay(s.getPiece())) {
+        Escaque startEsq = getEscaque(start);
+        if (!canPlay(startEsq.getPiece())) {
             return ActionResult.FAIL;
         }
-        Escaque f = null;
-        if(action == Action.ATACAR || action == Action.MOVER || action == Action.COMER){
+        Escaque endEsq = null;
+        if(action == Action.ATTACK || action == Action.MOVE || action == Action.TAKE){
             try {
-                f = getEscaque((Point) info.getValor());
+                endEsq = getEscaque((Point) info.getValue());
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
             }
@@ -50,19 +50,18 @@ public class Board extends AbstractBoard {
         ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);
         if(can.isPositive()) {
             switch (action) {
-                case ATACAR -> {
-                    f.removePiece();
-                    f.getPiece().postAccion(action, this, start, info);
+                case ATTACK -> {
+                    endEsq.removePiece();
                 }
-                case MOVER, COMER -> {
-                    f.setPiece(s.getPiece());
-                    s.removePiece();
-                    f.getPiece().postAccion(action, this, start, info);
+                case MOVE, TAKE -> {
+                    endEsq.setPiece(startEsq.getPiece());
+                    startEsq.removePiece();
                 }
-                case HABILIDAD -> {
-                    s.getPiece().getAbility().use(this, s.getPiece(), start, info);
+                case ABILITY -> {
+                    startEsq.getPiece().getAbility().use(this, startEsq.getPiece(), start, info);
                 }
             }
+            endEsq.getPiece().postAction(action, this, start, info);
             movement();
         }
         return can;

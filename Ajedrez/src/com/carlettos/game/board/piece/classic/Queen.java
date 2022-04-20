@@ -11,19 +11,21 @@ import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternKnight;
 import com.carlettos.game.board.piece.pattern.classic.PatternQueen;
 import com.carlettos.game.board.property.ability.InfoPoint;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadPoint;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityPoint;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Queen extends SimplePiece<PatternQueen> {
 
-    public static final Ability<Queen, Point, InfoPoint> HABILIDAD_REINA = new HabilidadReina<>();
+    public static final Ability<Queen, Point, InfoPoint> ABILITY_QUEEN = new AbilityQueen<>();
 
     public Queen(Color color) {
-        super("Reina", "R", HABILIDAD_REINA, color, new PatternQueen(){}, PieceType.BIOLOGICA, PieceType.HEROICA);
+        super("Reina", "R", ABILITY_QUEEN, color, new PatternQueen(){}, PieceType.BIOLOGIC, PieceType.HEROIC);
     }
 
-    public static class HabilidadReina<P extends Piece> extends Ability<P, Point, InfoPoint> implements HabilidadPoint {
+    public static class AbilityQueen<P extends Piece> extends Ability<P, Point, InfoPoint> implements AbilityPoint {
 
-        public HabilidadReina() {
+        public AbilityQueen() {
             super("Movimiento Caballístico.",
                     "Permite a la reina moverse como caballo, comiendo cualquier pieza en la que caiga, incluida piezas aliadas.",
                     5,
@@ -32,36 +34,42 @@ public class Queen extends SimplePiece<PatternQueen> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
-            if (!this.commonCanUse(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard board, Piece piece, Point start, InfoPoint info) {
+            if (!this.commonCanUse(board, piece)) {
                 return ActionResult.FAIL;
             }
 
-            if(!new PatternKnight() {}.match(tablero, inicio, info.getValor())){
+            if(!new PatternKnight() {}.match(board, start, info.getValue())){
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
         }
 
         @Override
-        public void use(AbstractBoard tablero, Piece pieza, Point inicio, InfoPoint info) {
-            tablero.getEscaque(info.getValor()).setPiece(pieza);
-            tablero.removePiece(inicio);
-            this.commonUse(tablero, pieza);
+        public void use(AbstractBoard board, Piece piece, Point start, InfoPoint info) {
+            board.getEscaque(info.getValue()).setPiece(piece);
+            board.removePiece(start);
+            this.commonUse(board, piece);
         }
 
         @Override
-        public Point[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) { //todo: que no salga del mapa
-            Point[] valores = new Point[8];
-            valores[0] = (new Point(-2, -1));
-            valores[1] = (new Point(-2, 1));
-            valores[2] = (new Point(2, -1));
-            valores[3] = (new Point(2, 1));
-            valores[4] = (new Point(-1, -2));
-            valores[5] = (new Point(-1, 2));
-            valores[6] = (new Point(1, -2));
-            valores[7] = (new Point(1, 2));
-            return valores;
+        public Point[] getPossibleValues(AbstractBoard board, Point start) {
+            List<Point> allValues = new ArrayList<>(8);
+            List<Point> values = new ArrayList<>(8);
+            allValues.add(new Point(-2, -1));
+            allValues.add(new Point(-2, 1));
+            allValues.add(new Point(2, -1));
+            allValues.add(new Point(2, 1));
+            allValues.add(new Point(-1, -2));
+            allValues.add(new Point(-1, 2));
+            allValues.add(new Point(1, -2));
+            allValues.add(new Point(1, 2));
+            for (Point v : allValues) {
+                if(!board.isOutOfBorder(start.add(v))){
+                    values.add(v);
+                }
+            }
+            return values.toArray(Point[]::new);
         }
     }
 }

@@ -2,10 +2,9 @@ package com.carlettos.game.input;
 
 import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Tuple;
-import com.carlettos.game.core.Point;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.core.Point;
 import com.carlettos.game.visual.EscaqueDisplay;
 import com.carlettos.game.visual.BoardDisplay;
 import java.awt.event.MouseEvent;
@@ -53,8 +52,10 @@ public class MousePiece implements MouseListener {
                 return;
             }
             
-            seleccionado.getEscaque().getPiece().allAcciones(tablero, escaque.getPos()).forEach((accion) -> {
-                tv.getEscaqueVisual(accion.x).setAccion(accion.y);
+            seleccionado.getEscaque().getPiece().getAllActions(tablero, escaque.getPos()).forEach((accion) -> {
+                if (accion.y.getValue() instanceof Point p) {
+                    tv.getEscaqueVisual(p).setAccion(accion.x);
+                }
             });
         } else {
             EscaqueDisplay objetivo = (EscaqueDisplay) e.getSource();
@@ -63,15 +64,17 @@ public class MousePiece implements MouseListener {
             BoardDisplay tv = DisplayHelper.getBoardDisplay(seleccionado);
             Board tablero = tv.getBoard();
 
-            if (tablero.tryTo(Action.MOVER, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
-                if (tablero.tryTo(Action.COMER, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
-                    if (tablero.tryTo(Action.ATACAR, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
+            if (tablero.tryTo(Action.MOVE, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
+                if (tablero.tryTo(Action.TAKE, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
+                    if (tablero.tryTo(Action.ATTACK, escaqueSeleccionado.getPos(), escaqueObjetivo.getPos().toInfo()).equals(ActionResult.FAIL)) {
                         if (escaqueSeleccionado.getPiece().getColor().equals(escaqueObjetivo.getPiece().getColor())) {
                             //si cambió de pieza
                             tv.offAll();
                             seleccionado = objetivo;
-                            seleccionado.getEscaque().getPiece().allAcciones(tablero, escaqueObjetivo.getPos()).forEach((accion) -> {
-                                tv.getEscaqueVisual(accion.x).setAccion(accion.y);
+                            seleccionado.getEscaque().getPiece().getAllActions(tablero, escaqueObjetivo.getPos()).forEach((accion) -> {
+                                if (accion.y.getValue() instanceof Point p) {
+                                    tv.getEscaqueVisual(p).setAccion(accion.x);
+                                }
                             });
                             return;
                         }

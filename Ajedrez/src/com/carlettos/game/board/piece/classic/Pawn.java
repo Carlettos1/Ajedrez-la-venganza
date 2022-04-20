@@ -22,30 +22,23 @@ import com.carlettos.game.board.piece.starting.TeslaTower;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnTake;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnMove;
 import com.carlettos.game.board.property.ability.InfoPiece;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadPieza;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityPiece;
 
 /**
- * Pieza fundamental del ajedrez, solo que levemente transformada. Se mueve 2
- * escaques hacia al frente y come, en su escaque más próximo, en sus dos
- * diagonales frontales. Su habilidad es la de coronar, no come al paso.
  *
  * @author Carlos
  */
 public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
 
-    /**
-     * la habilidad default del peón, de utilidad por si necesita usarse en
-     * otras piezas.
-     */
-    public static final Ability<Pawn, Piece, InfoPiece> HABILIDAD_PEON = new HabilidadPeon<>();
+    public static final Ability<Pawn, Piece, InfoPiece> ABILITY_PAWN = new AbilityPawn<>();
 
     public Pawn(Color color) {
-        super(()->color, ()->color, "Peón", "P", HABILIDAD_PEON, color);
+        super(()->color, ()->color, "Peón", "P", ABILITY_PAWN, color);
     }
 
-    public static class HabilidadPeon<P extends Piece> extends Ability<P, Piece, InfoPiece> implements HabilidadPieza {
+    public static class AbilityPawn<P extends Piece> extends Ability<P, Piece, InfoPiece> implements AbilityPiece {
 
-        public HabilidadPeon() {
+        public AbilityPawn() {
             super("Coronar",
                     "Al estar en la última fila, puede transformarse en cualquier pieza de las que se permita.",
                     0,
@@ -54,18 +47,18 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
-            if(!this.commonCanUse(tablero, pieza)){
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoPiece info) {
+            if(!this.commonCanUse(board, piece)){
                 return ActionResult.FAIL;
             }
-            if (pieza.getColor().equals(Color.WHITE)) {
-                if (inicio.y + 1 == tablero.rows) {
+            if (piece.getColor().equals(Color.WHITE)) {
+                if (start.y + 1 == board.rows) {
                     return ActionResult.PASS;
                 } else {
                     return ActionResult.FAIL;
                 }
-            } else if (pieza.getColor().equals(Color.BLACK)) {
-                if (inicio.y == 0) {
+            } else if (piece.getColor().equals(Color.BLACK)) {
+                if (start.y == 0) {
                     return ActionResult.PASS;
                 } else {
                     return ActionResult.FAIL;
@@ -76,15 +69,15 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoPiece info) {
-            Piece p = info.getValor();
-            p.setColor(pieza.getColor());
-            tablero.getEscaque(inicio).setPiece(p);
+        public void use(AbstractBoard board, P piece, Point start, InfoPiece info) {
+            Piece p = info.getValue();
+            p.setColor(piece.getColor());
+            board.getEscaque(start).setPiece(p);
             p.setIsMoved(true);
         }
 
         @Override
-        public Piece[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
+        public Piece[] getPossibleValues(AbstractBoard board, Point start) {
             return new Piece[]{new Bishop(Color.GRAY),
                 new Knight(Color.GRAY),
                 new Queen(Color.GRAY),

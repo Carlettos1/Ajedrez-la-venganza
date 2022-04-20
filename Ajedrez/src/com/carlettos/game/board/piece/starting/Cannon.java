@@ -13,19 +13,19 @@ import com.carlettos.game.board.piece.pattern.starting.PatternStructureMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  *
  * @author Carlettos
  */
-public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove<PatternStructureMove>, HabilidadSinInfo {
+public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove<PatternStructureMove>, AbilityNone {
 
     protected final PatternCannonAttack patronAtacar;
     protected final PatternStructureMove patronMover;
 
     public Cannon(Color color) {
-        super("Cañón", "CAÑ", Empty.NO_HABILIDAD, color, PieceType.ESTRUCTURA);
+        super("Cañón", "CAÑ", Empty.NO_HABILIDAD, color, PieceType.STRUCTURE);
         patronAtacar = new PatternCannonAttack() {};
         patronMover = new PatternStructureMove() {};
     }
@@ -33,8 +33,8 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch (accion) {
-            case ATACAR -> this.canAtacar(tablero, inicio, info, patronAtacar);
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
+            case ATTACK -> this.canAtacar(tablero, inicio, info, patronAtacar);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
             default -> ActionResult.FAIL;
         };
     }

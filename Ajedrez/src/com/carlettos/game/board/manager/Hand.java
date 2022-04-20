@@ -2,6 +2,7 @@ package com.carlettos.game.board.manager;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.card.Card;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Hand {
     private final List<Card> cards;
 
     public Hand(Card... cards) {
-        this.cards = Arrays.asList(cards);
+        this.cards = new ArrayList<>(Arrays.asList(cards));
     }
 
     /**

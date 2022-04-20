@@ -20,14 +20,14 @@ public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove patronMover;
 
     public Warlock(Color color) { //TODO: habilidad
-        super("Brujo", "B", Empty.NO_HABILIDAD, color, PieceType.TRANSPORTABLE, PieceType.DEMONIACA, PieceType.INMUNE);
+        super("Brujo", "B", Empty.NO_HABILIDAD, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
         this.patronMover = new PatternMagicianMove() {};
     }
 
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, this.patronMover);
+            case MOVE -> this.canMover(tablero, inicio, info, this.patronMover);
             default -> ActionResult.FAIL;
         };
     }

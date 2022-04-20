@@ -12,8 +12,8 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoNESW;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
 
 /**
  *
@@ -21,24 +21,24 @@ import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
  */
 public class Ram extends Piece implements IMove<PatternStructureMove> {
     
-    public static final Ability<Ram, Direction, InfoNESW> HABILIDAD_ARIETE = new HabilidadAriete<>();
+    public static final Ability<Ram, Direction, InfoDirection> HABILIDAD_ARIETE = new HabilidadAriete<>();
     protected final PatternStructureMove patronMover;
     
     public Ram(Color color) {
-        super("Ariete", "AR", HABILIDAD_ARIETE, color, PieceType.ESTRUCTURA);
+        super("Ariete", "AR", HABILIDAD_ARIETE, color, PieceType.STRUCTURE);
         patronMover = new PatternStructureMove() {};
     }
     
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadAriete<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW{
+    public static class HabilidadAriete<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection{
         public HabilidadAriete() {
             super("Carga de Ariete", 
                     "El ariete carga en una dirección hasta alcanzar la primera "
@@ -51,7 +51,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
         }
         
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
             if (!this.commonCanUse(tablero, pieza)) {
                 return ActionResult.FAIL;
             }
@@ -59,7 +59,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
             int carga = 1;
             tablero.getEscaque(inicio).removePiece();
             if(info.isAxis(Direction.Axis.EW)) {

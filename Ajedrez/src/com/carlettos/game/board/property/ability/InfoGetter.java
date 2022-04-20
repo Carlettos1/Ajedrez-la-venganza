@@ -10,61 +10,61 @@ import com.carlettos.game.board.piece.Empty;
  *
  * @author Carlettos
  */
-public sealed interface InfoGetter<V> permits InfoGetter.HabilidadInteger, 
-        InfoGetter.HabilidadNESW, InfoGetter.HabilidadSinInfo, InfoGetter.HabilidadPieza, 
-        InfoGetter.HabilidadPoint, InfoGetter.HabilidadString, Ability {
+public sealed interface InfoGetter<V> permits InfoGetter.AbilityInteger, 
+        InfoGetter.AbilityDirection, InfoGetter.AbilityNone, InfoGetter.AbilityPiece, 
+        InfoGetter.AbilityPoint, InfoGetter.AbilityString, Ability {
     
-    Info<V> getInfoHabilidad();
-    V[] getAllValoresPosibles(AbstractBoard tablero, Point inicio);
+    Info<V> getInfo();
+    V[] getPossibleValues(AbstractBoard board, Point start);
     
-    public static non-sealed interface HabilidadInteger extends InfoGetter<Integer> {
+    public static non-sealed interface AbilityInteger extends InfoGetter<Integer> {
         @Override
-        default InfoInteger getInfoHabilidad(){
+        default InfoInteger getInfo(){
             return new InfoInteger(0);
         }
     }
     
-    public static non-sealed interface HabilidadNESW extends InfoGetter<Direction> {
+    public static non-sealed interface AbilityDirection extends InfoGetter<Direction> {
         @Override
-        default InfoNESW getInfoHabilidad(){
-            return new InfoNESW(Direction.N);
+        default InfoDirection getInfo(){
+            return new InfoDirection(Direction.N);
         }
 
         @Override
-        public default Direction[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
+        public default Direction[] getPossibleValues(AbstractBoard tablero, Point inicio) {
             return Direction.values();
         }
     }
     
-    public static non-sealed interface HabilidadSinInfo extends InfoGetter<String> {
+    public static non-sealed interface AbilityNone extends InfoGetter<String> {
         @Override
-        default InfoNone getInfoHabilidad(){
+        default InfoNone getInfo(){
             return new InfoNone();
         }
 
         @Override
-        public default String[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
+        public default String[] getPossibleValues(AbstractBoard tablero, Point inicio) {
             return new String[0];
         }
     }
     
-    public static non-sealed interface HabilidadPieza extends InfoGetter<Piece> {
+    public static non-sealed interface AbilityPiece extends InfoGetter<Piece> {
         @Override
-        default InfoPiece getInfoHabilidad(){
+        default InfoPiece getInfo(){
             return new InfoPiece(new Empty());
         }
     }
     
-    public static non-sealed interface HabilidadPoint extends InfoGetter<Point> {
+    public static non-sealed interface AbilityPoint extends InfoGetter<Point> {
         @Override
-        default InfoPoint getInfoHabilidad(){
+        default InfoPoint getInfo(){
             return new InfoPoint(new Point());
         }
     }
     
-    public static non-sealed interface HabilidadString extends InfoGetter {
+    public static non-sealed interface AbilityString extends InfoGetter {
         @Override
-        default InfoString getInfoHabilidad(){
+        default InfoString getInfo(){
             return new InfoString("");
         }
     }

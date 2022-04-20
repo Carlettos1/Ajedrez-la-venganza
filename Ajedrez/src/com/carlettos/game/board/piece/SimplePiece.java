@@ -31,9 +31,9 @@ public abstract class SimplePiece<P extends Pattern> extends Piece implements IT
     @Override
     public final ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
         return switch (action) {
-            case COMER -> this.canComer(board, start, info, patron);
-            case MOVER -> this.canMover(board, start, info, patron);
-            case HABILIDAD -> this.getAbility().canUse(board, this, start, info);
+            case TAKE -> this.canComer(board, start, info, patron);
+            case MOVE -> this.canMover(board, start, info, patron);
+            case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }

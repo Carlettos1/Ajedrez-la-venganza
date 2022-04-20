@@ -23,7 +23,7 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
     protected final PatternBallistaAttack patronAtacar;
 
     public Ballista(Color color) {
-        super("Ballesta", "BA", Empty.NO_HABILIDAD, color, PieceType.ESTRUCTURA);
+        super("Ballesta", "BA", Empty.NO_HABILIDAD, color, PieceType.STRUCTURE);
         patronMover = new PatternStructureMove() {};
         patronAtacar = new PatternBallistaAttack() {};
     }
@@ -31,8 +31,8 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case ATACAR -> this.canAtacar(tablero, inicio, info, patronAtacar);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case ATTACK -> this.canAtacar(tablero, inicio, info, patronAtacar);
             default -> ActionResult.FAIL;
         };
     }

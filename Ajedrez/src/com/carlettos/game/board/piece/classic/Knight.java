@@ -10,19 +10,19 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternKnight;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 public class Knight extends SimplePiece<PatternKnight> {
 
-    public static final Ability<Knight, String, InfoNone> HABILIDAD_CABALLO = new HabilidadCaballo<>();
+    public static final Ability<Knight, String, InfoNone> ABILITY_KNIGHT = new AbilityKnight<>();
 
     public Knight(Color color) {
-        super("Caballo", "C", HABILIDAD_CABALLO, color, new PatternKnight(){}, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super("Caballo", "C", ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
-    public static class HabilidadCaballo<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo {
+    public static class AbilityKnight<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
 
-        public HabilidadCaballo() {
+        public AbilityKnight() {
             super("Bajar Jinetes",
             "Invoca 2 peones, uno a cada lado del caballo (EW). Ambas casillas deben estar vacías",
             10,
@@ -31,27 +31,27 @@ public class Knight extends SimplePiece<PatternKnight> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if (!this.commonCanUse(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoNone info) {
+            if (!this.commonCanUse(board, piece)) {
                 return ActionResult.FAIL;
             }
 
-            Point p1 = new Point(inicio.x + 1, inicio.y);
-            Point p2 = new Point(inicio.x - 1, inicio.y);
+            Point p1 = new Point(start.x + 1, start.y);
+            Point p2 = new Point(start.x - 1, start.y);
 
-            if (tablero.getEscaque(p1).hasPiece() || tablero.getEscaque(p2).hasPiece()) {
+            if (board.getEscaque(p1).hasPiece() || board.getEscaque(p2).hasPiece()) {
                 return ActionResult.FAIL;
             }
             return ActionResult.PASS;
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            Point p1 = new Point(inicio.x + 1, inicio.y);
-            Point p2 = new Point(inicio.x - 1, inicio.y);
-            tablero.getEscaque(p1).setPiece(new Pawn(pieza.getColor()));
-            tablero.getEscaque(p2).setPiece(new Pawn(pieza.getColor()));
-            this.commonUse(tablero, pieza);
+        public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
+            Point p1 = new Point(start.x + 1, start.y);
+            Point p2 = new Point(start.x - 1, start.y);
+            board.getEscaque(p1).setPiece(new Pawn(piece.getColor()));
+            board.getEscaque(p2).setPiece(new Pawn(piece.getColor()));
+            this.commonUse(board, piece);
         }
     }
 }

@@ -9,6 +9,7 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.property.ability.Info;
+import com.carlettos.game.board.property.ability.InfoManager;
 import com.carlettos.game.board.property.ability.InfoPiece;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,152 +17,127 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Es la unidad base de la parte del gameplay, todos los métodos deberían ser,
- * idealmente, sobreescritos para crear una pieza en específico.
- *
- * <p>
- * La pieza en cuestión sólo deberá ser responsable de SABER si se puede, o no,
- * ejecutar una acción, nunca ejecutarla, el único caso excepción debe ser el
- * méthodo habilidad, ya que ejecuta la habilidad.
- * </p>
+ * It's a piece.
  *
  * @author Carlos
  */
 public abstract class Piece {
 
     /**
-     * Representa el estado de si se ha movido. Prácticamente sirve para no
-     * mover a la pieza en el mismo turno 2 veces, debe volver a {@code false}
-     * una vez haya terminado el turno.
+     * It's a convenience value to not move the same piece twice in a turn.
      */
-    protected boolean seHaMovidoEsteTurno;
+    protected boolean moved;
 
     /**
-     * Es el cooldown que tiene la habilidad de esta pieza, debería disminuir 1
-     * por cada turno que pasa, aunque podría llegar a ser modificado por otras
-     * piezas o cartas.
+     * It's the cooldown of the hability of this piece. When its 0, the ability
+     * can be used.
      */
-    protected int cdActual;
+    protected int cooldown;
 
-    /**
-     * El nombre de la pieza, por ejemplo, Peón, Caballo, Dama. Debe ser el
-     * nombre completo, no una abreviación.
-     */
-    protected String nombre;
-
-    /**
-     * Parámetro de utilidad, es la abreviación de la pieza.
-     */
-    public final String abreviacion;
-
-    /**
-     * Es la habilidad que tiene la pieza.
-     */
-    protected Ability habilidad;
-
-    /**
-     * Es el color que tiene la piza, si es un color "ninguno" quiere decir que
-     * es un place-holder.
-     */
+    protected String name;
+    public final String notation;
+    protected Ability ability;
     protected Color color;
-
-    /**
-     * Los tipos que es la determinada pieza, es posible cambiarlos en pleno
-     * juego por efectos de cartas o de otras piezas, pero son los tipos bases
-     * con los que empieza la pieza.
-     */
-    protected final List<PieceType> tipos;
-
+    protected final List<PieceType> types;
     
     /**
-     * Constructor general de la pieza.
+     * General constructor.
      *
-     * @param nombre nombre de la pieza.
-     * @param abreviacion abreviación de la pieza.
-     * @param habilidad la habilidad que tiene la pieza.
-     * @param tipos los tipos de la pieza.
-     * @param color color de la pieza, blanco o negro en el ajedrez normal.
+     * @param name name of the piece.
+     * @param notation notation of the piece. In normal chess pieces, it would 
+     * be something like P for Pawn, R for Rook, etc.
+     * @param ability ability of the piece.
+     * @param types types of the piece.
+     * @param color color of the piece.
      */
-    public Piece(String nombre, String abreviacion, Ability habilidad, Color color, PieceType... tipos) {
-        this.seHaMovidoEsteTurno = false;
-        this.cdActual = 0;
-        this.nombre = nombre;
-        this.abreviacion = abreviacion;
-        this.habilidad = habilidad;
+    public Piece(String name, String notation, Ability ability, Color color, PieceType... types) {
+        this.moved = false;
+        this.cooldown = 0;
+        this.name = name;
+        this.notation = notation;
+        this.ability = ability;
         this.color = color;
-        this.tipos = Arrays.asList(tipos);
+        this.types = Arrays.asList(types);
     }
 
     /**
-     * Actualización a sistema de acciones, se debe contemplar si la pieza puede
-     * comer, mover o atacar. La habilidad lo ve la habilidad de la pieza.
+     * Its says when the given action can be executed.
      *
-     * @param accion Accion a ejecutar, no incluye habilidad.
-     * @param tablero TableroManager del juego.
-     * @param inicio Point de la pieza seleccionada.
-     * @param final_ Point del Escaque hacia dónde se mueve.
+     * @param action action to do.
+     * @param board board in which the action is trying to occur.
+     * @param start point of the piece in the board.
+     * @param info info of the action to do, generally it would be an 
+     * {@literal Info<Point>} for every action except the ability, which can be
+     * any other Info.
      *
-     * @return ActionResult.
+     * @return PASS if the action can be performed, FAIL otherwise.
      */
-    public abstract ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info);
+    public abstract ActionResult can(Action action, AbstractBoard board, Point start, Info info);
     
-    public void postAccion(Action accion, AbstractBoard tablero, Point inicio, Info info){
+    /**
+     * Its excecuted after an action has been performed. Usually its just used
+     * to set the moved value to true of this piece, but can be used to other
+     * things.
+     *
+     * @param action action which has been performed.
+     * @param board board in which the action happen.
+     * @param start starting point of the piece before the action happen.
+     * @param info info of the excecuted action.
+     * @see Piece#can(Action, AbstractBoard, Point, Info).
+     */
+    public void postAction(Action action, AbstractBoard board, Point start, Info info){
         this.setIsMoved(true);
     }
     
     /**
-     * Este méthodo debe usarse solo en caso de urgencia, se sugiere
-     * sobreescribirlo y que se efectúen cálculos más específicos a la pieza
-     * correspondiente. Revisa Todos los Escaques del tablero y prueba si se
-     * puede efectuar alguna de las acciones básicas, por lo que es
-     * extremadamente ineficiente y revisa muchas casillas que, por obviedad, no
-     * debería revisar.
+     * Returns every action that can be performed by this piece in the given
+     * board in the given starting point, with the added info to the action.
      *
-     * @param tablero TableroManager del juego.
-     * @param seleccionado Point de la Pieza seleccionada.
-     * @return Una lista con todos los puntos de acción básica posibles, junto a
-     * la acción que corresponde. EXCLUYE A LA HABILIDAD.
-     *
-     * @see TableroManager
-     * @see Piece
-     * @see Escaque
+     * @param board Board in which the piece is in it.
+     * @param start current point of the piece.
+     * @return A list with a tuple containing every action-info that can be 
+     * performed by this piece.
      */
-    public List<Tuple<Point, Action>> allAcciones(AbstractBoard tablero, Point seleccionado) {
-        List<Tuple<Point, Action>> acciones = new ArrayList<>();
-        for (int x = 0; x < tablero.columns; x++) {
-            for (int y = 0; y < tablero.rows; y++) {
-                if (this.can(Action.COMER, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.COMER));
-                } if (this.can(Action.MOVER, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.MOVER));
-                } if (this.can(Action.ATACAR, tablero, seleccionado, tablero.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    acciones.add(new Tuple<>(tablero.getEscaque(x, y).getPos(), Action.ATACAR));
-                }// TODO: canHabilidad
+    public List<Tuple<Action, Info>> getAllActions(AbstractBoard board, Point start) {
+        List<Tuple<Action, Info>> actions = new ArrayList<>();
+        for (int x = 0; x < board.columns; x++) {
+            for (int y = 0; y < board.rows; y++) {
+                if (this.can(Action.TAKE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
+                    actions.add(new Tuple<>(Action.TAKE, board.getEscaque(x, y).getPos().toInfo()));
+                } if (this.can(Action.MOVE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
+                    actions.add(new Tuple<>(Action.MOVE, board.getEscaque(x, y).getPos().toInfo()));
+                } if (this.can(Action.ATTACK, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
+                    actions.add(new Tuple<>(Action.ATTACK, board.getEscaque(x, y).getPos().toInfo()));
+                }
             }
         }
-        return acciones;
+        for (Object values : getAbility().getPossibleValues(board, start)) {
+            if (this.getAbility().canUse(board, this, start, InfoManager.getInfo(values)).isPositive()) {
+                actions.add(new Tuple<>(Action.ABILITY, InfoManager.getInfo(values)));
+            }
+        }
+        return actions;
     }
     
-    public boolean isType(PieceType tipo){
-        return this.tipos.contains(tipo);
+    public boolean isType(PieceType type){
+        return this.types.contains(type);
     }
 
     /**
-     * Suma al cd actual. Valor mínimo es 0.
+     * Adds to the cooldown the given value. It can be negative.
      *
-     * @param numeroDeTurnos Numero de turnos a sumar, puede ser negativo para
-     * restar.
+     * @param cooldown number to add to the cooldown. It can be negative.
      */
-    public void changeCD(int numeroDeTurnos) {
-        if (cdActual + numeroDeTurnos < 0) {
-            cdActual = 0;
+    public void changeCD(int cooldown) {
+        if (this.cooldown + cooldown < 0) {
+            this.cooldown = 0;
         } else {
-            cdActual += numeroDeTurnos;
+            this.cooldown += cooldown;
         }
     }
 
-    public void setIsMoved(boolean seHaMovidoEsteTurno) {
-        this.seHaMovidoEsteTurno = seHaMovidoEsteTurno;
+    public void setIsMoved(boolean moved) {
+        this.moved = moved;
     }
 
     public Color getColor() {
@@ -172,77 +148,75 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public List<PieceType> getTipos() {
-        return tipos;
+    public List<PieceType> getTypes() {
+        return types;
     }
 
     /**
-     * Le quita el tipo especificado a la pieza, si es que lo tiene.
-     * @param tipo tipo que se quiera eliminar.
+     * Adds the type provided to this piece.
+     * @param type type to add.
      * @return PASS.
      */
-    public ActionResult addType(PieceType tipo) {
-        return ActionResult.fromBoolean(this.getTipos().add(tipo));
+    public ActionResult addType(PieceType type) {
+        return ActionResult.fromBoolean(this.getTypes().add(type));
     }
 
     
     /**
-     * Le quita el tipo especificado a la pieza, si es que lo tiene.
-     * @param tipo tipo que se quiera eliminar.
-     * @return PASS si se ha quitado el tipo, FAIL si no.
+     * Removes the type provided from this piece.
+     * @param type type to remove.
+     * @return FAIL if the piece doesn't contain the type provided, PASS 
+     * if the piece has the type and has been removed.
      */
-    public ActionResult removeType(PieceType tipo) {
-        return ActionResult.fromBoolean(this.getTipos().remove(tipo));
+    public ActionResult removeType(PieceType type) {
+        return ActionResult.fromBoolean(this.getTypes().remove(type));
     }
 
     /**
-     * Le agrega todos los tipos especificados a esta pieza.
-     * @param tipos tipos que se quieran agregar.
-     * @return PASS si se le han agregado todos los tipos a esta pieza, 
-     * FAIL en otro caso.
-     * @throws NullPointerException si hay algún null en el argumento.
+     * Adds every type provided to this piece.
+     * @param types types to add.
+     * @return PASS if every type has been added to this piece, FAIL otherwise.
+     * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult addTipos(PieceType... tipos) {
+    public ActionResult addTipos(PieceType... types) {
         boolean success = true;
-        for (PieceType tipo : tipos) {
+        for (PieceType tipo : types) {
             Objects.requireNonNull(tipo);
-            success = Boolean.logicalAnd(success, this.getTipos().add(tipo));
+            success = Boolean.logicalAnd(success, this.getTypes().add(tipo));
         }
         return ActionResult.fromBoolean(success);
     }
 
     /**
-     * Le quita todos los tipos especificados a esta pieza, si es que los tiene.
-     * @param tipos tipos que se quieran eliminar.
-     * @return PASS si la pieza tenía todos los tipos indicados y han sido 
-     * eliminados, FAIL en otro caso.
-     * @throws NullPointerException si hay algún null en el argumento.
+     * Removes every type provided from this piece.
+     * @param types types to remove.
+     * @return PASS if every type provided has been removed from this piece,
+     * FAIL otherwise.
+     * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult removeTipos(PieceType... tipos) {
+    public ActionResult removeTipos(PieceType... types) {
         boolean success = true;
-        for (PieceType tipo : tipos) {
+        for (PieceType tipo : types) {
             Objects.requireNonNull(tipo);
-            success = Boolean.logicalAnd(success, this.getTipos().remove(tipo));
+            success = Boolean.logicalAnd(success, this.getTypes().remove(tipo));
         }
         return ActionResult.fromBoolean(success);
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    /*FIXME: No se tiene en cuenta el <> de la habilidad, la cual es necesaria 
-    para algunas habilidades*/
     public Ability getAbility() {
-        return habilidad;
+        return ability;
     }
 
     public int getCD() {
-        return cdActual;
+        return cooldown;
     }
 
     public boolean isMoved() {
-        return seHaMovidoEsteTurno;
+        return moved;
     }
     
     public InfoPiece toInfo(){
@@ -251,24 +225,17 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return abreviacion;
+        return notation;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.nombre);
+        hash = 67 * hash + Objects.hashCode(this.name);
         hash = 67 * hash + Objects.hash(this.color);
         return hash;
     }
-
-    /**
-     * Revisa si las piezas tienen el mismo nombre y son del mismo color. De la
-     * misma que todos los peones blancos son iguales en el ajedrez normal.
-     * Si el color de una pieza es gris, sólo se verificará su nombre;
-     * @param obj la otra pieza
-     * @return true si tienen el mismo nombre y color, false si no.
-     */
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -281,7 +248,7 @@ public abstract class Piece {
             return false;
         }
         final Piece other = (Piece) obj;
-        if (!this.nombre.equals(other.nombre)) {
+        if (!this.name.equals(other.name)) {
             return false;
         }
         if(this.color == Color.GRAY || other.color == Color.GRAY){

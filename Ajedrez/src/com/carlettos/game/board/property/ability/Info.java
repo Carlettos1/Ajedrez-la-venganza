@@ -5,18 +5,18 @@ package com.carlettos.game.board.property.ability;
  * @author Carlettos
  */
 public abstract class Info<V> {
-    protected final V valor;
+    protected final V value;
 
-    public Info(V valor) {
-        this.valor = valor;
+    public Info(V value) {
+        this.value = value;
     }
 
-    public V getValor() {
-        return valor;
+    public V getValue() {
+        return value;
     }
 
     @Override
     public String toString() {
-        return "I:" + this.valor.toString();
+        return "I:" + this.value.toString();
     }
 }

@@ -47,7 +47,7 @@ public class EscaqueDisplay extends Component {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor((!isPar ? Constants.COLOR2 : Constants.COLOR1).getAWT());
         //TODO: cambiar String por una imagen.
-        g.drawString(escaque.getPiece().abreviacion, 2, 20);
+        g.drawString(escaque.getPiece().notation, 2, 20);
         g.drawString(escaque.isEmpty() ? "" : escaque.getPiece().getColor().name(), 2, 30);
 
         double w = Constants.PORCENTAJE * getWidth();

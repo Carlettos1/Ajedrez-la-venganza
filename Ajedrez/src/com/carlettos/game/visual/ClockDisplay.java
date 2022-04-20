@@ -12,7 +12,7 @@ import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoInteger;
-import com.carlettos.game.board.property.ability.InfoNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
 import com.carlettos.game.board.property.ability.InfoNone;
 import com.carlettos.game.board.property.ability.InfoPiece;
 import com.carlettos.game.board.property.ability.InfoPoint;
@@ -84,9 +84,9 @@ public class ClockDisplay extends JPanel{
             }
             if (container instanceof BoardDisplay tv) {
                 Escaque escaque = MousePiece.get().seleccionado.getEscaque();
-                Info infoHabilidad = escaque.getPiece().getAbility().getInfoHabilidad();
+                Info infoHabilidad = escaque.getPiece().getAbility().getInfo();
                 
-                Object[] valores = escaque.getPiece().getAbility().getAllValoresPosibles(tv.getBoard(), escaque.getPos());
+                Object[] valores = escaque.getPiece().getAbility().getPossibleValues(tv.getBoard(), escaque.getPos());
                 if (infoHabilidad instanceof InfoNone) {
                     valores = new String[]{"Usar"};
                 }
@@ -102,8 +102,8 @@ public class ClockDisplay extends JPanel{
                     ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNone());
                 } else if(infoHabilidad instanceof InfoInteger){
                     ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoInteger((Integer) valor));
-                } else if(infoHabilidad instanceof InfoNESW){
-                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoNESW((Direction) valor));
+                } else if(infoHabilidad instanceof InfoDirection){
+                    ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoDirection((Direction) valor));
                 } else if(infoHabilidad instanceof InfoPiece){
                     ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = new InfoPiece((Piece) valor));
                 } else if(infoHabilidad instanceof InfoPoint){

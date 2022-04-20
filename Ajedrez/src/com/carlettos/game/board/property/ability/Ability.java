@@ -92,21 +92,21 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
         //Da las opciones disponibles para la habilidad, es un all acciones
         //XXX: aquí hay mucho casteo y abstracción, 100% que falla 10 veces
         //por minuto, lo mejor es que cada clase rehaga este método para evitar errores
-        Info<V> info = this.getInfoHabilidad();
-        V[] valores = this.getAllValoresPosibles(tablero, inicio);
+        Info<V> info = this.getInfo();
+        V[] valores = this.getPossibleValues(tablero, inicio);
         List<V> lista = new ArrayList<>(tablero.columns * tablero.rows);
         
         if(info instanceof InfoNone){
             return List.of();
-        } else if (info instanceof InfoInteger) {
+        } else if (info instanceof AbilityInteger) {
             for (V valor : valores) {
                 if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoInteger((Integer) valor)).isPositive()){
                     lista.add(valor);
                 }
             }
-        } else if (info instanceof InfoNESW) {
+        } else if (info instanceof InfoDirection) {
             for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoNESW((Direction) valor)).isPositive()){
+                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoDirection((Direction) valor)).isPositive()){
                     lista.add(valor);
                 }
             }

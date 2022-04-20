@@ -21,7 +21,7 @@ public interface IMove<P extends Pattern> {
      * dependiendo del caso.
      */
     public default ActionResult canMover(AbstractBoard tablero, Point inicio, Info info, P patron) {
-        if(info.getValor() instanceof Point p) {
+        if(info.getValue() instanceof Point p) {
             if (!this.checkMoverCondition(tablero, inicio, p)) {
                 return ActionResult.FAIL;
             }

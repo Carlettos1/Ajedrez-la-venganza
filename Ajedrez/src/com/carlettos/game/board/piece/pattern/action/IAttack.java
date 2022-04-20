@@ -21,7 +21,7 @@ public interface IAttack<P extends Pattern> {
      * dependiendo del caso.
      */
     public default ActionResult canAtacar(AbstractBoard tablero, Point inicio, Info info, P patron){
-        if(info.getValor() instanceof Point p) {
+        if(info.getValue() instanceof Point p) {
             if (!this.checkAtacarCondition(tablero, inicio, p)) {
                 return ActionResult.FAIL;
             }

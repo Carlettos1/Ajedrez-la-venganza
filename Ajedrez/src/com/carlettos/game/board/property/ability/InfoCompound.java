@@ -17,10 +17,10 @@ public class InfoCompound<I1 extends Info<?>, I2 extends Info<?>> extends Info<T
     }
     
     public I1 getX(){
-        return valor.x;
+        return value.x;
     }
     
     public I2 getY(){
-        return valor.y;
+        return value.y;
     }
 }

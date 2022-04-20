@@ -17,22 +17,22 @@ public enum PieceType {
     /**
      * 
      */
-    BIOLOGICA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
+    BIOLOGIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
      * 
      */
-    ESTRUCTURA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
+    STRUCTURE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
      * Las piezas inmunes no reciben daño de ciertos ataques
      */
-    INMUNE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
+    IMMUNE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
      * Las piezas heroicas
      */
-    HEROICA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
+    HEROIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
 
     /**
      * Las Piezas transportables pueden ser utilizadas en la catapulta.
@@ -42,7 +42,7 @@ public enum PieceType {
     /**
      * Las Piezas transportables pueden ser utilizadas en la catapulta.
      */
-    DEMONIACA(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
+    DEMONIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
     
     private final QuadFunction<ActionResult> can;
     private final QuadFunction<ActionResult> on;

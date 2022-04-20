@@ -19,14 +19,14 @@ import com.carlettos.game.board.property.ability.Info;
 public class Magician extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove patronMover;
     public Magician(Color color) { //TODO: hacer lo de la habilidad
-        super("Hechicero", "HE", Empty.NO_HABILIDAD, color, PieceType.BIOLOGICA, PieceType.HEROICA, PieceType.INMUNE, PieceType.TRANSPORTABLE);
+        super("Hechicero", "HE", Empty.NO_HABILIDAD, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE, PieceType.TRANSPORTABLE);
         patronMover = new PatternMagicianMove() {};
     }
 
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion) {
-            case MOVER -> this.canMover(tablero, inicio, info, this.patronMover);
+            case MOVE -> this.canMover(tablero, inicio, info, this.patronMover);
             default -> ActionResult.FAIL;
         };
     }

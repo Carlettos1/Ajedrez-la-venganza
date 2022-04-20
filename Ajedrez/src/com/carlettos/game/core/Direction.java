@@ -1,6 +1,6 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.board.property.ability.InfoNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
 
 /**
  *
@@ -29,8 +29,8 @@ public enum Direction {
         return this.getAxis().equals(axis);
     }
     
-    public InfoNESW toInfo(){
-        return new InfoNESW(this);
+    public InfoDirection toInfo(){
+        return new InfoDirection(this);
     }
     
     public static enum Axis{

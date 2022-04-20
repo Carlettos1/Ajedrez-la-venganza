@@ -1,10 +1,8 @@
 package com.carlettos.game.board.piece.classic;
 
 import com.carlettos.game.board.piece.SimplePiece;
-import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.core.Direction;
-import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
@@ -12,10 +10,10 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternBishop;
-import com.carlettos.game.board.property.ability.InfoNESW;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadNESW;
+import com.carlettos.game.board.property.ability.InfoDirection;
 import java.util.ArrayList;
 import java.util.List;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
 
 /**
  *
@@ -23,14 +21,14 @@ import java.util.List;
  */
 public class Bishop extends SimplePiece<PatternBishop> {
 
-    public static final Ability<Bishop, Direction, InfoNESW> HABILIDAD_ALFIL = new HabilidadAlfil<>();
+    public static final Ability<Bishop, Direction, InfoDirection> ABILITY_BISHOP = new AbilityBishop<>();
 
     public Bishop(Color color) {
-        super("Alfil", "A", HABILIDAD_ALFIL, color, new PatternBishop(){}, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super("Alfil", "A", ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
-    public static class HabilidadAlfil<P extends Piece> extends Ability<P, Direction, InfoNESW> implements HabilidadNESW {
-        public HabilidadAlfil() {
+    public static class AbilityBishop<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {
+        public AbilityBishop() {
             super("Cambio de Color",
                     "El alfil cambia de color, pudiendo moverse una casilla en cualquiera de las 4 direcciones cardinales.",
                     2,
@@ -39,64 +37,64 @@ public class Bishop extends SimplePiece<PatternBishop> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
-            if (!super.commonCanUse(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoDirection info) {
+            if (!super.commonCanUse(board, piece)) {
                 return ActionResult.FAIL;
             }
             
-            boolean verificacion;
+            boolean can;
             
             if(info.isAxis(Direction.Axis.NS)){
-                if(tablero.isOutOfBorder(inicio.add(0, info.getSign()))){
-                    verificacion = false;
+                if(board.isOutOfBorder(start.add(0, info.getSign()))){
+                    can = false;
                 } else {
-                    verificacion = !tablero.getEscaque(inicio.add(0, info.getSign())).hasPiece();
+                    can = !board.getEscaque(start.add(0, info.getSign())).hasPiece();
                 }
             } else {
-                if(tablero.isOutOfBorder(inicio.add(info.getSign(), 0))){
-                    verificacion = false;
+                if(board.isOutOfBorder(start.add(info.getSign(), 0))){
+                    can = false;
                 } else {
-                    verificacion = !tablero.getEscaque(inicio.add(info.getSign(), 0)).hasPiece();
+                    can = !board.getEscaque(start.add(info.getSign(), 0)).hasPiece();
                 }
             }
-            return ActionResult.fromBoolean(verificacion);
+            return ActionResult.fromBoolean(can);
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNESW info) {
+        public void use(AbstractBoard board, P piece, Point start, InfoDirection info) {
             if(info.isAxis(Direction.Axis.NS)){
-                tablero.getEscaque(inicio.add(0, info.getSign())).setPiece(pieza);
+                board.getEscaque(start.add(0, info.getSign())).setPiece(piece);
             } else {
-                tablero.getEscaque(inicio.add(info.getSign(), 0)).setPiece(pieza);
+                board.getEscaque(start.add(info.getSign(), 0)).setPiece(piece);
             }
-            tablero.getEscaque(inicio).removePiece();
-            this.commonUse(tablero, pieza);
+            board.getEscaque(start).removePiece();
+            this.commonUse(board, piece);
         }
 
         @Override
-        public Direction[] getAllValoresPosibles(AbstractBoard tablero, Point inicio) {
-            List<Direction> valores = new ArrayList<>(4);
+        public Direction[] getPossibleValues(AbstractBoard board, Point start) {
+            List<Direction> values = new ArrayList<>(4);
             for (Direction direction : Direction.values()) {
-                boolean verificacion;
+                boolean can;
             
                 if(direction.isAxis(Direction.Axis.NS)){
-                    if(tablero.isOutOfBorder(inicio.add(0, direction.getSign()))){
-                        verificacion = false;
+                    if(board.isOutOfBorder(start.add(0, direction.getSign()))){
+                        can = false;
                     } else {
-                        verificacion = !tablero.getEscaque(inicio.add(0, direction.getSign())).hasPiece();
+                        can = !board.getEscaque(start.add(0, direction.getSign())).hasPiece();
                     }
                 } else {
-                    if(tablero.isOutOfBorder(inicio.add(direction.getSign(), 0))){
-                        verificacion = false;
+                    if(board.isOutOfBorder(start.add(direction.getSign(), 0))){
+                        can = false;
                     } else {
-                        verificacion = !tablero.getEscaque(inicio.add(direction.getSign(), 0)).hasPiece();
+                        can = !board.getEscaque(start.add(direction.getSign(), 0)).hasPiece();
                     }
                 }
-                if(verificacion){
-                    valores.add(direction);
+                if(can){
+                    values.add(direction);
                 }
             }
-            return valores.toArray(Direction[]::new);
+            return values.toArray(Direction[]::new);
         }
     }
 }

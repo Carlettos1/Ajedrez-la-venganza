@@ -22,7 +22,7 @@ public abstract class AbstractPawn<M extends PatternPawn, C extends PatternPawn>
     protected final M patronMover;
 
     public AbstractPawn(C patronComer, M patronMover, String nombre, String abreviacion, Ability habilidad, Color color) {
-        super(nombre, abreviacion, habilidad, color, PieceType.BIOLOGICA, PieceType.TRANSPORTABLE);
+        super(nombre, abreviacion, habilidad, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.patronComer = patronComer;
         this.patronMover = patronMover;
     }
@@ -30,8 +30,8 @@ public abstract class AbstractPawn<M extends PatternPawn, C extends PatternPawn>
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case COMER -> this.canComer(tablero, inicio, info, patronComer);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case TAKE -> this.canComer(tablero, inicio, info, patronComer);
             default -> ActionResult.FAIL;
         };
     }

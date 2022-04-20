@@ -19,7 +19,7 @@ import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.HabilidadSinInfo;
+import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
  *
@@ -31,7 +31,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     protected final PatternStructureMove patronComer;
 
     public TeslaTower(Color color) {
-        super("Torre Tesla", "TT", HABILIDAD_TORRE_TESLA, color, PieceType.ESTRUCTURA);
+        super("Torre Tesla", "TT", HABILIDAD_TORRE_TESLA, color, PieceType.STRUCTURE);
         this.patronMover = new PatternMagicianMove() {};
         this.patronComer = new PatternStructureMove() {};
     }
@@ -39,14 +39,14 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVER -> this.canMover(tablero, inicio, info, patronMover);
-            case COMER -> this.canComer(tablero, inicio, info, patronComer);
-            case HABILIDAD -> this.getAbility().canUse(tablero, this, inicio, info);
+            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case TAKE -> this.canComer(tablero, inicio, info, patronComer);
+            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadTorreTesla<P extends Piece> extends Ability<P, String, InfoNone> implements HabilidadSinInfo{
+    public static class HabilidadTorreTesla<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone{
         protected final Pattern patronHabilidad = new PatternCannonAttack() {};
         
         public HabilidadTorreTesla() {
@@ -67,7 +67,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
             if(tablero instanceof Board board){
                 board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.getNombre(), inicio), () -> {
                     board.getMatchingEscaques(patronHabilidad, inicio).stream()
-                            .filter(escaque -> escaque.getPiece().isType(PieceType.ESTRUCTURA))
+                            .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
                             .forEach(escaque -> escaque.getPiece().changeCD(10)); //TODO: que desactive de verdad
                 }));
             } else {
