@@ -12,9 +12,9 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternKnight extends Pattern{
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        int deltaX = final_.x - inicio.x;
-        int deltaY = final_.y - inicio.y;
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        int deltaX = end.x - start.x;
+        int deltaY = end.y - start.y;
         deltaX = Math.abs(deltaX);
         deltaY = Math.abs(deltaY);
 

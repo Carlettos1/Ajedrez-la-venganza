@@ -11,10 +11,10 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternKing extends Pattern{
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        if (Math.abs(inicio.x - final_.x) > 1) {
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        if (Math.abs(start.x - end.x) > 1) {
             return false;
         }
-        return Math.abs(inicio.y - final_.y) <= 1;
+        return Math.abs(start.y - end.y) <= 1;
     }
 }

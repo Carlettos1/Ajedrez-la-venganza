@@ -9,11 +9,11 @@ import com.carlettos.game.board.piece.pattern.Pattern;
  * @author Carlettos
  */
 public interface PatternQueen extends Pattern {
-    public static Pattern ALFIL = new PatternBishop() {};
-    public static Pattern TORRE = new PatternRook() {};
+    public static Pattern BISHOP = new PatternBishop() {};
+    public static Pattern ROOK = new PatternRook() {};
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        return ALFIL.match(tablero, inicio, final_) || TORRE.match(tablero, inicio, final_);
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        return BISHOP.match(board, start, end) || ROOK.match(board, start, end);
     }
 }

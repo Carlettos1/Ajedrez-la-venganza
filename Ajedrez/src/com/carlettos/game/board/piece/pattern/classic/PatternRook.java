@@ -11,22 +11,22 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternRook extends Pattern {
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        if (final_.x != inicio.x && final_.y != inicio.y) {
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        if (end.x != start.x && end.y != start.y) {
             return false;
         }
 
-        if (final_.x != inicio.x) { //se mueve el x
-            int direccion = final_.x > inicio.x ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.x - inicio.x); puntero++) {
-                if (tablero.getEscaque(inicio.x + puntero * direccion, inicio.y).hasPiece()) {
+        if (end.x != start.x) { //se mueve el x
+            int dir = end.x > start.x ? 1 : -1;
+            for (int plus = 1; plus < Math.abs(end.x - start.x); plus++) {
+                if (board.getEscaque(start.x + plus * dir, start.y).hasPiece()) {
                     return false;
                 }
             }
-        } else if (final_.y != inicio.y) { //se mueve en y
-            int direccion = final_.y > inicio.y ? 1 : -1;
-            for (int puntero = 1; puntero < Math.abs(final_.y - inicio.y); puntero++) {
-                if (tablero.getEscaque(inicio.x, inicio.y + puntero * direccion).hasPiece()) {
+        } else if (end.y != start.y) { //se mueve en y
+            int dir = end.y > start.y ? 1 : -1;
+            for (int plus = 1; plus < Math.abs(end.y - start.y); plus++) {
+                if (board.getEscaque(start.x, start.y + plus * dir).hasPiece()) {
                     return false;
                 }
             }
