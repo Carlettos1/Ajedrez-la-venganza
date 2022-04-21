@@ -11,14 +11,13 @@ import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoInteger;
-import com.carlettos.game.board.property.ability.InfoDirection;
-import com.carlettos.game.board.property.ability.InfoGetter;
+import com.carlettos.game.board.property.ability.info.InfoInteger;
+import com.carlettos.game.board.property.ability.info.InfoDirection;
 import com.carlettos.game.board.property.ability.InfoManager;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoPiece;
-import com.carlettos.game.board.property.ability.InfoPoint;
-import com.carlettos.game.board.property.ability.InfoString;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.info.InfoPiece;
+import com.carlettos.game.board.property.ability.info.InfoPoint;
+import com.carlettos.game.board.property.ability.info.InfoString;
 import com.carlettos.game.visual.info.InfoDisplay;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -30,6 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import com.carlettos.game.board.property.ability.InfoUse;
 
 /**
  * 

@@ -6,142 +6,87 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.core.Point;
 
 /**
- * IT IS AN ENGLISH "SQUARE" OF THE BOARD, BUT I DON'T LIKE THAT WORD, SO IT
- * WILL REMAIN AS "ESCAQUE".
- * <p>
- * Escaque, o sea, cada casilla de las 64 de un tablero de ajedrez o damas,
- * generalmente poseen un color negro o blanco que se omite en esta clase ya que
- * sólo es algo gráfico.
- * <p>
- * También tienen propiedades como la de emitir magia.
+ * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, 
+ * BUT I DON'T LIKE THAT WORD, SO IT WILL REMAIN AS "ESCAQUE".
  *
  * @author Carlos
  */
 public class Escaque {
-
-    /**
-     * Si el escaque es fuente de magia o no.
-     */
-    protected boolean isFuenteDeMagia;
-
-    /**
-     * Si el escaque admite que se pueda construir encima o no.
-     */
-    protected boolean isConstruible;
-
-    /**
-     * La ubicación, en coordendas cartesianas enteras, del escaque. Para todos
-     * los escaques de un tablero, usan el mismo punto de referencia.
-     */
+    protected boolean magic;
+    protected boolean buildable;
     protected final Point pos;
+    protected Piece piece;
 
     /**
-     * La pieza que contiene el escaque.
-     */
-    protected Piece pieza;
-
-    /**
-     * Constructor general.
+     * General constructor.
      *
-     * @param isFuenteDeMagia true si emite magia, false si no.
-     * @param isConstruible true si permite construcciones encima, false si no.
-     * @param pos pos del escaque en coordenadas enteras
-     * cartesianas respecto a un punto cualquiera pero común para todos los
-     * escaques.
-     * @param pieza pieza que tiene el escaque, si no tiene ninguna, usar una
-     * pieza Vacia.
+     * @param magic true if emits magic, false if not.
+     * @param buildable true if admits a {@code Type.ESTRUCTURE} on top.
+     * @param pos pos of the escaque on the board.
+     * @param piece piece of the escaque. CANNOT BE NULL, IT MUST BE AT LEAST A
+     * {@code Empty}
      */
-    public Escaque(boolean isFuenteDeMagia, boolean isConstruible, Point pos, Piece pieza) {
-        this.isFuenteDeMagia = isFuenteDeMagia;
-        this.isConstruible = isConstruible;
+    public Escaque(boolean magic, boolean buildable, Point pos, Piece piece) {
+        this.magic = magic;
+        this.buildable = buildable;
         this.pos = pos;
-        this.pieza = pieza;
+        this.piece = piece;
     }
 
     /**
-     * Constructor de uso rápido.
+     * Constructs a escaque without magic, buildable and with an empty piece.
      * 
-     * Inicializa al escaque sin fuente de magia, con posibilidad de construir
-     * en él, sin ninguna pieza.
-     *
-     * @param pos la posición del escaque en coordendas enteras
-     * cartesianas.
+     * @param pos pos of the escaque on the board.
      */
     public Escaque(Point pos) {
         this(false, true, pos, new Empty());
     }
-    
-    @Deprecated // USE Escaque::hasPieza() INSTEAD
-    public boolean isEmpty(){
-        return !hasPiece();
-    }
 
     /**
-     * @return Color de la pieza en la casilla.
+     * Returns color of the piece on top.
+     * 
+     * @return color of the piece on top (GRAY if empty, which is their color).
      */
     public Color getPieceColor() {
-        if (hasPiece()) {
-            return getPiece().getColor();
-        }
-        return Color.GRAY;
-    }
-
-    public boolean isControladoPor(Color color) {
-        if (this.hasPiece()) {
-            return getPiece().getColor().equals(color);
-        }
-        return false;
+        return getPiece().getColor();
     }
 
     /**
-     * Comprueba si tiene pieza, más específicamente, verifica si es una pieza
-     * Vacia.
+     * Checks if the piece on top is of the color provided.
+     * 
+     * @param color color to check.
+     * @return true if the color provided is the same of the piece on top. 
+     * False otherwise.
+     */
+    public boolean isControlledBy(Color color) {
+        return getPiece().getColor().equals(color);
+    }
+
+    /**
+     * Checks if the piece on top is not an empty one.
      *
-     * @return true si tiene pieza, false si no.
-     *
-     * @see Empty
+     * @return true if there is a piece on top, false if not.
      */
     public boolean hasPiece() {
-        return !pieza.equals(new Empty());
+        return !piece.equals(new Empty());
     }
 
     public Piece getPiece() {
-        return pieza;
+        return piece;
     }
 
-    /**
-     * Cambia la pieza actual por la nueva proporcionada.
-     *
-     * @param pieza nueva pieza a colocar en este escaque.
-     *
-     * @see Piece
-     */
     public void setPiece(Piece pieza) {
-        this.pieza = pieza;
+        this.piece = pieza;
     }
-
-    /**
-     * Cambia la pieza actual por la nueva proporcionada, sólo si está vacio
-     * el escaque.
-     *
-     * @param pieza nueva pieza a colocar en este escaque.
-     *
-     * @see Piece
-     */
+    
     public void setPieceIfEmpty(Piece pieza) {
-        if(this.isEmpty()){
-            this.pieza = pieza;
+        if(!this.hasPiece()){
+            this.piece = pieza;
         }
     }
 
-    /**
-     * Reemplaza la actual pieza por una vacia, es equivalente a
-     * {@code escaque.setPieza(new Vacia());}
-     *
-     * @see Empty
-     */
     public void removePiece() {
-        this.pieza = new Empty();
+        this.piece = new Empty();
     }
     
     public Point getPos() {
@@ -149,19 +94,19 @@ public class Escaque {
     }
 
     public boolean isMagic() {
-        return isFuenteDeMagia;
+        return magic;
     }
 
     public boolean isBuildable() {
-        return isConstruible;
+        return buildable;
     }
 
     public void setIsMagic(boolean isFuenteDeMagia) {
-        this.isFuenteDeMagia = isFuenteDeMagia;
+        this.magic = isFuenteDeMagia;
     }
 
     public void setIsBuildable(boolean isConstruible) {
-        this.isConstruible = isConstruible;
+        this.buildable = isConstruible;
     }
 
     @Override

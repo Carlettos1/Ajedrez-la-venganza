@@ -13,7 +13,7 @@ import com.carlettos.game.board.piece.pattern.starting.PatternStructureMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 
 /**
  *

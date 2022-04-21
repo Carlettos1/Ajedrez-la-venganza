@@ -40,7 +40,7 @@ public class MousePiece implements MouseListener {
         if (seleccionado == null) {
             seleccionado = (EscaqueDisplay) e.getSource();
             Escaque escaque = seleccionado.getEscaque();
-            if (escaque.isEmpty()) {
+            if (!escaque.hasPiece()) {
                 seleccionado = null;
                 return;
             }

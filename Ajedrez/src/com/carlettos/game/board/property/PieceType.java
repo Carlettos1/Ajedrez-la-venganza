@@ -8,67 +8,44 @@ import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Point;
 
 /**
- * Tipos de piezas que hay. TODO: javadoc
+ * Piece type, can be added or removed from a piece in mid game. They serve
+ * as a way to add characteristics to a piece.
  *
  * @author Carlos
  */
 public enum PieceType {
-
-    /**
-     * 
-     */
     BIOLOGIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     * 
-     */
     STRUCTURE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     * Las piezas inmunes no reciben daño de ciertos ataques
-     */
     IMMUNE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     * Las piezas heroicas
-     */
     HEROIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     * Las Piezas transportables pueden ser utilizadas en la catapulta.
-     */
     TRANSPORTABLE(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE),
-
-    /**
-     * Las Piezas transportables pueden ser utilizadas en la catapulta.
-     */
     DEMONIC(QuadFunction.PASS, QuadFunction.PASS, QuadFunction.TRUE, QuadFunction.TRUE);
     
     private final QuadFunction<ActionResult> can;
     private final QuadFunction<ActionResult> on;
-    private final QuadFunction<Boolean> canSer;
-    private final QuadFunction<Boolean> onSer;
+    private final QuadFunction<Boolean> canBe;
+    private final QuadFunction<Boolean> onBe;
 
-    private PieceType(QuadFunction<ActionResult> can, QuadFunction<ActionResult> on, QuadFunction<Boolean> canSer, QuadFunction<Boolean> onSer) {
+    private PieceType(QuadFunction<ActionResult> can, QuadFunction<ActionResult> on, QuadFunction<Boolean> canBe, QuadFunction<Boolean> onBe) {
         this.can = can;
         this.on = on;
-        this.canSer = canSer;
-        this.onSer = onSer;
+        this.canBe = canBe;
+        this.onBe = onBe;
     }
     
-    public ActionResult canAccion(Action accion, Board tablero, Piece pieza, Point inicio, Point final_){
-        return can.apply(accion, tablero, pieza, inicio, final_);
+    public ActionResult canAction(Action action, Board board, Piece piece, Point start, Point end){
+        return can.apply(action, board, piece, start, end);
     }
     
-    public ActionResult onAccion(Action accion, Board tablero, Piece pieza, Point inicio, Point final_){
-        return on.apply(accion, tablero, pieza, inicio, final_);
+    public ActionResult onAction(Action action, Board board, Piece piece, Point start, Point end){
+        return on.apply(action, board, piece, start, end);
     }
     
-    public boolean canSerAccion(Action accion, Board tablero, Piece pieza, Point inicio, Point final_){
-        return canSer.apply(accion, tablero, pieza, inicio, final_);
+    public boolean canBeAction(Action action, Board board, Piece piece, Point start, Point end){
+        return canBe.apply(action, board, piece, start, end);
     }
     
-    public boolean onSerAccion(Action accion, Board tablero, Piece pieza, Point inicio, Point final_){
-        return onSer.apply(accion, tablero, pieza, inicio, final_);
+    public boolean onBeAction(Action action, Board board, Piece piece, Point start, Point end){
+        return onBe.apply(action, board, piece, start, end);
     }
 }

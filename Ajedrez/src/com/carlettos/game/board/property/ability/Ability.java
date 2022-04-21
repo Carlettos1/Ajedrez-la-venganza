@@ -1,110 +1,90 @@
 package com.carlettos.game.board.property.ability;
 
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Direction;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.board.manager.AbstractBoard;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Es la habilidad de la pieza, contiene toda la información acerca de la
- * habilidad, tales como costos y descripciones, además de los parámetros que
- * serán los que se deberán pasar como información extra.
+ * It's the ability of the piece. It has all the information about itself. Also
+ * knows when and how excecute itself.
  *
  * @author Carlos
  *
- * @param <P> Pieza que la habilidad afecta.
- * @param <V> Valor que utiliza para información extra.
- * @param <I> Tipo de información extra que usa.
+ * @param <P> piece of which this ability is directed (can be the Piece class).
+ * @param <V> value to treat as information.
+ * @param <I> information to pass as argument.
  *
  * @see Piece
  */
-public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> implements InfoGetter<V>{
+public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> implements InfoUse<V>{
+
+    protected final Data data;
 
     /**
-     * Nombre de la habilidad.
-     */
-    protected final String name;
-
-    /**
-     * Descripción de la habilidad; dice lo que precisamente hace la habilidad.
-     */
-    protected final String description;
-
-    /**
-     * Turnos en los cuales no se puede volver a lanzar la habilidad.
-     */
-    protected final int cooldown;
-
-    /**
-     * Costo en maná de la habilidad.
-     */
-    protected final int manaCost;
-
-    /**
-     * Datos adicionales que se necesitan para usar la habilidad.
-     */
-    protected final String params;
-
-    /**
-     * Constructor general.
+     * General constructor.
      *
-     * @param name el nombre de la habilidad.
-     * @param description descripción de la habilidad.
-     * @param cooldown cooldown.
-     * @param manaCost coste de maná que cuesta lanzar la habilidad.
-     * @param params valores que debe proporcionar el jugador.
+     * @param name name of the ability.
+     * @param description description of the ability.
+     * @param cooldown cooldown of the ability.
+     * @param manaCost cost of mana of the ability.
+     * @param params parameters of the ability.
      *
      * @see Piece
      */
     public Ability(String name, String description, int cooldown, int manaCost, String params) {
-        this.name = name;
-        this.description = description;
-        this.cooldown = cooldown;
-        this.manaCost = manaCost;
-        this.params = params;
+        data = new Data(name, description, cooldown, manaCost, params);
     }
 
-    public abstract ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
+    /**
+     * Checks whenever the ability can be used or not.
+     *
+     * @param board board in which the ability is happening.
+     * @param piece piece that is using the ability.
+     * @param start position of the piece.
+     * @param info information to use the ability
+     * @return PASS if can be used, FAIL other case.
+     */
+    public abstract ActionResult canUse(AbstractBoard board, P piece, Point start, I info);
 
-    public abstract void use(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
+    /**
+     * Excecutes the ability.
+     *
+     * @param board board in which the ability is happening.
+     * @param piece piece that is using the ability.
+     * @param start position of the piece.
+     * @param info information to use the ability
+     */
+    public abstract void use(AbstractBoard board, P piece, Point start, I info);
     
-    public boolean commonCanUse(AbstractBoard tablero, Piece pieza){
-        boolean nomana = pieza.getCD() <= 0 && !pieza.isMoved();
-        if(tablero instanceof Board t){
-            return nomana && t.getClock().turnOf().getMana() >= this.manaCost;
+    /**
+     * Utility method, checks the cd and the mana acording to the info of
+     * this ability.
+     *
+     * @param board board in which the ability is happening.
+     * @param piece piece that is using the ability.
+     * @return true if can be used, false other case.
+     */
+    public boolean commonCanUse(AbstractBoard board, Piece piece){
+        boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
+        if(board instanceof Board t){
+            return nomana && t.getClock().turnOf().getMana() >= this.data.manaCost();
         }
         return nomana;
     }
     
-    public void commonUse(AbstractBoard tablero, Piece pieza){
-        pieza.setIsMoved(true);
-        pieza.changeCD(this.cooldown);
-        if (tablero instanceof Board t) {
-            t.getClock().turnOf().changeMana(-this.manaCost);
+    /**
+     * Utility method, adds the cd and removes the mana acording to the info of
+     * this ability.
+     *
+     * @param board board in which the ability is happening.
+     * @param piece piece that is using the ability.
+     */
+    public void commonUse(AbstractBoard board, Piece piece){
+        piece.setIsMoved(true);
+        piece.changeCD(this.data.cooldown());
+        if (board instanceof Board t) {
+            t.getClock().turnOf().changeMana(-this.data.manaCost());
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getCooldown() {
-        return cooldown;
-    }
-
-    public int getManaCost() {
-        return manaCost;
-    }
-
-    public String getParams() {
-        return params;
     }
 }

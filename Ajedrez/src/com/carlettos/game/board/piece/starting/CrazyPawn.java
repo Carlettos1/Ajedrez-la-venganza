@@ -12,8 +12,8 @@ import com.carlettos.game.board.piece.SimplePiece;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 import com.carlettos.game.board.piece.pattern.starting.PatternCrazyPawn;
 
 /**
@@ -45,7 +45,7 @@ public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
             if(board instanceof Board b){
                 final Player player = b.getClock().turnOf();
                 b.removePiece(start);
-                b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.getName()), () -> {
+                b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.name()), () -> {
                     player.takeCard(); //robar 2 cartas
                     player.takeCard();
                 }));

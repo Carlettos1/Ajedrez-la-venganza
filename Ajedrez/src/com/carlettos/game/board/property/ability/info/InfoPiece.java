@@ -1,6 +1,7 @@
-package com.carlettos.game.board.property.ability;
+package com.carlettos.game.board.property.ability.info;
 
 import com.carlettos.game.board.piece.Piece;
+import com.carlettos.game.board.property.ability.Info;
 
 /**
  *

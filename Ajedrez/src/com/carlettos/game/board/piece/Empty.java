@@ -7,8 +7,8 @@ import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 
 /**
  *

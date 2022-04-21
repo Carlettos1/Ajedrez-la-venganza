@@ -1,5 +1,12 @@
 package com.carlettos.game.board.property.ability;
 
+import com.carlettos.game.board.property.ability.info.InfoDirection;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.info.InfoTuple;
+import com.carlettos.game.board.property.ability.info.InfoPiece;
+import com.carlettos.game.board.property.ability.info.InfoString;
+import com.carlettos.game.board.property.ability.info.InfoPoint;
+import com.carlettos.game.board.property.ability.info.InfoInteger;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;

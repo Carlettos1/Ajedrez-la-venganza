@@ -13,8 +13,8 @@ import com.carlettos.game.board.piece.pattern.starting.PatternSuperPawnMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 
 /**
  *

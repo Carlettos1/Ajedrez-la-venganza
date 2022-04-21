@@ -21,8 +21,8 @@ import com.carlettos.game.board.piece.starting.SuperPawn;
 import com.carlettos.game.board.piece.starting.TeslaTower;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnTake;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnMove;
-import com.carlettos.game.board.property.ability.InfoPiece;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityPiece;
+import com.carlettos.game.board.property.ability.info.InfoPiece;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityPiece;
 
 /**
  *

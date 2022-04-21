@@ -1,6 +1,6 @@
 package com.carlettos.game.core;
 
-import com.carlettos.game.board.property.ability.InfoDirection;
+import com.carlettos.game.board.property.ability.info.InfoDirection;
 
 /**
  *

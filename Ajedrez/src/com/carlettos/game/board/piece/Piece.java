@@ -10,7 +10,7 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoManager;
-import com.carlettos.game.board.property.ability.InfoPiece;
+import com.carlettos.game.board.property.ability.info.InfoPiece;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

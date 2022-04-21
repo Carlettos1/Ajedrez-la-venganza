@@ -9,8 +9,8 @@ import com.carlettos.game.board.piece.pattern.classic.PatternPawnTake;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnMove;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 
 /**
  *

@@ -116,7 +116,7 @@ public class Board extends AbstractBoard {
         List<Piece> piezas = new ArrayList<>();
         for (Escaque[] escaques : chessBoard) {
             for (Escaque escaque : escaques) {
-                if(escaque.isControladoPor(color)) {
+                if(escaque.isControlledBy(color)) {
                     piezas.add(escaque.getPiece());
                 }
             }

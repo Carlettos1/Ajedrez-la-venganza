@@ -1,7 +1,6 @@
 package com.carlettos.game.board.property.ability;
 
 /**
- * Sistema utilizado en la habilidad para darle la información que necesite.
  * @author Carlettos
  */
 public abstract class Info<V> {

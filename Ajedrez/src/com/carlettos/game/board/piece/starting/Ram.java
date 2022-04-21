@@ -12,8 +12,8 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoDirection;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
+import com.carlettos.game.board.property.ability.info.InfoDirection;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityDirection;
 
 /**
  *

@@ -18,8 +18,8 @@ import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoNone;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.property.ability.info.InfoNone;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityNone;
 
 /**
  *
@@ -65,7 +65,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
         @Override
         public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
             if(board instanceof Board b){
-                b.getClock().addEvent(Event.create(EventInfo.of(b, 2, this.getName(), start), () -> {
+                b.getClock().addEvent(Event.create(EventInfo.of(b, 2, this.data.name(), start), () -> {
                     b.getMatchingEscaques(abilityPattern, start).stream()
                             .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
                             .forEach(escaque -> escaque.getPiece().changeCD(10)); //TODO: que desactive de verdad

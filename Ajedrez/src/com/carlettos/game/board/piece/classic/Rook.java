@@ -12,12 +12,12 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternRook;
-import com.carlettos.game.board.property.ability.InfoDirection;
+import com.carlettos.game.board.property.ability.info.InfoDirection;
 import com.carlettos.game.core.Action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityDirection;
 
 public class Rook extends SimplePiece<PatternRook> {
 

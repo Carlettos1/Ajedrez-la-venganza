@@ -8,10 +8,10 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.piece.pattern.classic.PatternKing;
-import com.carlettos.game.board.property.ability.InfoPoint;
+import com.carlettos.game.board.property.ability.info.InfoPoint;
 import java.util.ArrayList;
 import java.util.List;
-import com.carlettos.game.board.property.ability.InfoGetter.AbilityPoint;
+import com.carlettos.game.board.property.ability.InfoUse.AbilityPoint;
 
 public class King extends SimplePiece<PatternKing> {
 

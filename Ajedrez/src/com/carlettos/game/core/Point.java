@@ -1,7 +1,7 @@
 package com.carlettos.game.core;
 
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.InfoPoint;
+import com.carlettos.game.board.property.ability.info.InfoPoint;
 
 /**
  * Immutable version of java.awt.Point.

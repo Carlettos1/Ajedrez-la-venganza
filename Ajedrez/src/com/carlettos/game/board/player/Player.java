@@ -6,63 +6,53 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Es la clase que representa a un jugador.
+ * It's a player.
  *
  * @author Carlos
  */
 public class Player {
 
-    private int movimientosPorTurnos;
+    private int movements;
     private int mana;
     private final String id;
     private final Color color;
-    private final Hand mano;
+    private final Hand hand;
 
     /**
-     * Constructor general.
+     * General constructor.
      *
-     * @param movimientosPorTurnos cantidad de movimientos que tiene el jugador
-     * por cada turno, este número es 1 en el ajedrez normal.
-     * @param mana cantidad de maná que tiene el jugador, este número es 0 en el
-     * ajedrez normal.
-     * @param id id del jugador.
-     * @param color color del jugador.
-     * @param mano Mano del jugador, contiene todas las cartas del jugador, este
-     * objeto no tiene cartas en el ajedrez normal.
+     * @param movements number of movements per turn.
+     * @param mana mana of the player
+     * @param id id of the player.
+     * @param color color of the pieces of the player.
+     * @param hand hand of the player.
      *
      * @see Hand
      */
-    public Player(int movimientosPorTurnos, int mana, String id, Color color, Hand mano) {
+    public Player(int movements, int mana, String id, Color color, Hand hand) {
         this.color = color;
-        this.movimientosPorTurnos = movimientosPorTurnos;
+        this.movements = movements;
         this.id = id;
         this.mana = mana;
-        this.mano = mano;
+        this.hand = hand;
     }
 
     /**
-     * Constructor básico, inicializa con 1 movimiento por turno y 0 de maná.
-     * Para mayor personalización usar el constructor general o usar los métodos
-     * correspondientes.
+     * Constructs a Player with 1 movement per turn and 0 mana.
      *
-     * @param id id del jugador.
-     * @param color color del jugador.
-     * @param mano Mano del jugador.
+     * @param id id of the player.
+     * @param color color of the player.
+     * @param hand hand of the player.
      *
      * @see Hand
      */
-    public Player(String id, Hand mano, Color color) {
-        this(1, 0, id, color, mano);
+    public Player(String id, Hand hand, Color color) {
+        this(1, 0, id, color, hand);
     }
 
     /**
-     * Este constructor da como resultado un jugador del ajedrez normal.
-     *
-     * <p>
-     * Constructor de ayuda, se puede usar pero no es lo recomendable,
-     * inicializa con un ManoManager completamente nuevo, 0 de mana y 1
-     * movimiento por turno, para personalizar mejor al jugador, usar el
-     * constructor general o usar los métodos correspondientes.
+     * Construct a Player with 1 movement per turn, 0 mana, a random id, and a
+     * new hand with 0 cards.
      *
      * @param color color del jugador.
      *
@@ -77,7 +67,7 @@ public class Player {
     }
 
     public int getMaxMovements() {
-        return movimientosPorTurnos;
+        return movements;
     }
 
     public int getMana() {
@@ -85,13 +75,13 @@ public class Player {
     }
 
     public Hand getHand() {
-        return mano;
+        return hand;
     }
 
     /**
-     * Cambia la cantidad de mana del jugador sumándole el valor entregado.
+     * Adds the provided number to the mana. Can be negative.
      *
-     * @param mana Mana a sumar, puede ser negativo;
+     * @param mana mana to add. Can be negative.
      */
     public void changeMana(int mana) {
         if (this.mana + mana < 0) {
@@ -102,16 +92,15 @@ public class Player {
     }
 
     /**
-     * Cambia la cantidad de movimientos por turno del jugador, sumándole el
-     * valor entregado.
+     * Adds the provided number to the movements. Can be negative.
      *
-     * @param movimientos Movimientos a sumar, puede ser negativo;
+     * @param movements movements to add. Can be negative.
      */
-    public void cambiarMovimientos(int movimientos) {
-        if (this.movimientosPorTurnos + movimientos < 1) {
-            this.movimientosPorTurnos = 1;
+    public void changeMovements(int movements) {
+        if (this.movements + movements < 1) {
+            this.movements = 1;
         } else {
-            movimientosPorTurnos += movimientos;
+            this.movements += movements;
         }
     }
     
