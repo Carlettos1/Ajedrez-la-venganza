@@ -19,20 +19,20 @@ import com.carlettos.game.board.property.ability.Info;
  * @author Carlettos
  */
 public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<PatternArcherAttack> {
-    protected final PatternArcherMove patronMover;
-    protected final PatternArcherAttack patronAtacar;
+    protected final PatternArcherMove movePattern;
+    protected final PatternArcherAttack attackPattern;
     
     public Archer(Color color) {
-        super("Arquero", "ARQ", Empty.NO_HABILIDAD, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
-        patronMover = new PatternArcherMove() {};
-        patronAtacar = new PatternArcherAttack() {};
+        super("Arquero", "ARQ", Empty.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        movePattern = new PatternArcherMove() {};
+        attackPattern = new PatternArcherAttack() {};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){ //TODO: que el ataque pueda fallar
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case ATTACK -> this.canAttack(tablero, inicio, info, patronAtacar);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){ //TODO: que el ataque pueda fallar
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case ATTACK -> this.canAttack(board, start, info, attackPattern);
             default -> ActionResult.FAIL;
         };
     }

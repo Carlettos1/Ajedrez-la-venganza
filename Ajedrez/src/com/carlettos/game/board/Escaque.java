@@ -128,7 +128,7 @@ public class Escaque {
      *
      * @see Piece
      */
-    public void setPiezaIfEmpty(Piece pieza) {
+    public void setPieceIfEmpty(Piece pieza) {
         if(this.isEmpty()){
             this.pieza = pieza;
         }

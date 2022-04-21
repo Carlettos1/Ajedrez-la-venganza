@@ -21,20 +21,20 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
  */
 public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove<PatternStructureMove>, AbilityNone {
 
-    protected final PatternCannonAttack patronAtacar;
-    protected final PatternStructureMove patronMover;
+    protected final PatternCannonAttack attackPattern;
+    protected final PatternStructureMove movePattern;
 
     public Cannon(Color color) {
-        super("Cañón", "CAÑ", Empty.NO_HABILIDAD, color, PieceType.STRUCTURE);
-        patronAtacar = new PatternCannonAttack() {};
-        patronMover = new PatternStructureMove() {};
+        super("Cañón", "CAÑ", Empty.NO_ABILITY, color, PieceType.STRUCTURE);
+        attackPattern = new PatternCannonAttack() {};
+        movePattern = new PatternStructureMove() {};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch (accion) {
-            case ATTACK -> this.canAttack(tablero, inicio, info, patronAtacar);
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch (action) {
+            case ATTACK -> this.canAttack(board, start, info, attackPattern);
+            case MOVE -> this.canMove(board, start, info, movePattern);
             default -> ActionResult.FAIL;
         };
     }

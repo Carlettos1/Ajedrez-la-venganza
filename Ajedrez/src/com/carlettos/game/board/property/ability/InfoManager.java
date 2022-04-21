@@ -3,6 +3,7 @@ package com.carlettos.game.board.property.ability;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.core.Direction;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.core.Tuple;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -22,6 +23,7 @@ public class InfoManager {
         registerInfo(Piece.class, (o) -> new InfoPiece((Piece)o));
         registerInfo(Point.class, (o) -> new InfoPoint((Point)o));
         registerInfo(String.class, (o) -> new InfoString((String)o));
+        registerInfo(Tuple.class, (o) -> new InfoTuple<>((Tuple<?, ?>)o));
     }
     
     public static <V> void registerInfo(Class<V> value, Function<Object, Info<?>> info){

@@ -87,50 +87,6 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
             t.getClock().turnOf().changeMana(-this.costo);
         }
     }
-    
-    public List<V> getOpciones(AbstractBoard tablero, Point inicio){
-        //Da las opciones disponibles para la habilidad, es un all acciones
-        //XXX: aquí hay mucho casteo y abstracción, 100% que falla 10 veces
-        //por minuto, lo mejor es que cada clase rehaga este método para evitar errores
-        Info<V> info = this.getInfo();
-        V[] valores = this.getPossibleValues(tablero, inicio);
-        List<V> lista = new ArrayList<>(tablero.columns * tablero.rows);
-        
-        if(info instanceof InfoNone){
-            return List.of();
-        } else if (info instanceof AbilityInteger) {
-            for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoInteger((Integer) valor)).isPositive()){
-                    lista.add(valor);
-                }
-            }
-        } else if (info instanceof InfoDirection) {
-            for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoDirection((Direction) valor)).isPositive()){
-                    lista.add(valor);
-                }
-            }
-        } else if (info instanceof InfoPiece) {
-            for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoPiece((Piece) valor)).isPositive()){
-                    lista.add(valor);
-                }
-            }
-        } else if (info instanceof InfoPoint) {
-            for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoPoint((Point) valor)).isPositive()){
-                    lista.add(valor);
-                }
-            }
-        } else if (info instanceof InfoString) {
-            for (V valor : valores) {
-                if(this.canUse(tablero, (P) tablero.getEscaque(inicio).getPiece(), inicio, (I) new InfoString((String) valor)).isPositive()){
-                    lista.add(valor);
-                }
-            }
-        } //TODO: info compuesta
-        return lista;
-    }
 
     public String getNombre() {
         return nombre;

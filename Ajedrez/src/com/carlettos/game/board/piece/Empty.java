@@ -19,10 +19,10 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
  */
 public class Empty extends Piece {
 
-    public final static Ability NO_HABILIDAD = new NoHabilidad();
+    public final static Ability NO_ABILITY = new NoHabilidad();
 
     public Empty() {
-        super("Vacía", " ", NO_HABILIDAD, Color.GRAY);
+        super("Vacía", " ", NO_ABILITY, Color.GRAY);
     }
 
     @Override

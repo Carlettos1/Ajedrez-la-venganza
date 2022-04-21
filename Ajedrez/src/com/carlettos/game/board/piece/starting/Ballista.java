@@ -19,20 +19,20 @@ import com.carlettos.game.board.property.ability.Info;
  * @author Carlettos
  */
 public class Ballista extends Piece implements IMove<PatternStructureMove>, IAttack<PatternBallistaAttack> {
-    protected final PatternStructureMove patronMover;
-    protected final PatternBallistaAttack patronAtacar;
+    protected final PatternStructureMove movePattern;
+    protected final PatternBallistaAttack attackPattern;
 
     public Ballista(Color color) {
-        super("Ballesta", "BA", Empty.NO_HABILIDAD, color, PieceType.STRUCTURE);
-        patronMover = new PatternStructureMove() {};
-        patronAtacar = new PatternBallistaAttack() {};
+        super("Ballesta", "BA", Empty.NO_ABILITY, color, PieceType.STRUCTURE);
+        movePattern = new PatternStructureMove() {};
+        attackPattern = new PatternBallistaAttack() {};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case ATTACK -> this.canAttack(tablero, inicio, info, patronAtacar);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case ATTACK -> this.canAttack(board, start, info, attackPattern);
             default -> ActionResult.FAIL;
         };
     }

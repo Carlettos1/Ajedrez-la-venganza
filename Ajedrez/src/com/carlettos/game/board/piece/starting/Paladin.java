@@ -21,7 +21,7 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     protected final PatternQueen patron;
 
     public Paladin(Color color) { //TODO: Habilidad
-        super("Paladin", "PA", Empty.NO_HABILIDAD, color, PieceType.HEROIC, PieceType.IMMUNE);
+        super("Paladin", "PA", Empty.NO_ABILITY, color, PieceType.HEROIC, PieceType.IMMUNE);
         patron = new PatternQueen(){};
     }
 
