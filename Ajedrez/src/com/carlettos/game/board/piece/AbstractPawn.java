@@ -15,23 +15,23 @@ import com.carlettos.game.board.property.ability.Info;
 
 /**
  *
- * @author Carlettos <M extends PatronPeon, C extends PatronPeon> 
+ * @author Carlettos
  */
-public abstract class AbstractPawn<M extends PatternPawn, C extends PatternPawn> extends Piece implements IMove<M>, ITake<C> {
-    protected final C patronComer;
-    protected final M patronMover;
+public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn> extends Piece implements IMove<M>, ITake<T> {
+    protected final M movePattern;
+    protected final T takePattern;
 
-    public AbstractPawn(C patronComer, M patronMover, String nombre, String abreviacion, Ability habilidad, Color color) {
-        super(nombre, abreviacion, habilidad, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
-        this.patronComer = patronComer;
-        this.patronMover = patronMover;
+    public AbstractPawn(M movePattern, T takePattern, String name, String notation, Ability ability, Color color) {
+        super(name, notation, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        this.movePattern = movePattern;
+        this.takePattern = takePattern;
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case TAKE -> this.canTake(tablero, inicio, info, patronComer);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case TAKE -> this.canTake(board, start, info, takePattern);
             default -> ActionResult.FAIL;
         };
     }

@@ -178,7 +178,7 @@ public abstract class Piece {
      * @return PASS if every type has been added to this piece, FAIL otherwise.
      * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult addTipos(PieceType... types) {
+    public ActionResult addTypes(PieceType... types) {
         boolean success = true;
         for (PieceType tipo : types) {
             Objects.requireNonNull(tipo);
@@ -194,7 +194,7 @@ public abstract class Piece {
      * FAIL otherwise.
      * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult removeTipos(PieceType... types) {
+    public ActionResult removeTypes(PieceType... types) {
         boolean success = true;
         for (PieceType tipo : types) {
             Objects.requireNonNull(tipo);

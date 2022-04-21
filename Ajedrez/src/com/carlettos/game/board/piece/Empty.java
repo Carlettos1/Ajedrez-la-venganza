@@ -11,38 +11,35 @@ import com.carlettos.game.board.property.ability.InfoNone;
 import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
 
 /**
- * Es la pieza que funciona como place-holder, no hace nada y es negra por
- * defecto, la única utilidad que tiene es evitar que un Escaque tenga una
- * referencia null.
  *
  * @author Carlos
  */
 public class Empty extends Piece {
 
-    public final static Ability NO_ABILITY = new NoHabilidad();
+    public final static Ability NO_ABILITY = new NoAbility();
 
     public Empty() {
         super("Vacía", " ", NO_ABILITY, Color.GRAY);
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
         return ActionResult.FAIL;
     }
 
-    public static class NoHabilidad extends Ability<Piece, String, InfoNone> implements AbilityNone {
+    public static class NoAbility extends Ability<Piece, String, InfoNone> implements AbilityNone {
 
-        public NoHabilidad() {
+        public NoAbility() {
             super("Habilidad nula", "No hace nada", 0, 0, "Ninguno");
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
+        public ActionResult canUse(AbstractBoard board, Piece piece, Point start, InfoNone info) {
             return ActionResult.FAIL;
         }
 
         @Override
-        public void use(AbstractBoard tablero, Piece pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard board, Piece piece, Point start, InfoNone info) {
         }
     }
 }

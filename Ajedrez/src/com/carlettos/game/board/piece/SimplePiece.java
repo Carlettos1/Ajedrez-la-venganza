@@ -20,9 +20,9 @@ import com.carlettos.game.board.property.ability.Info;
 public abstract class SimplePiece<P extends Pattern> extends Piece implements ITake<P>, IMove<P>{
     protected final P patron;
 
-    public SimplePiece(String nombre, String abreviacion, Ability habilidad, Color color, P patron, PieceType... tipos) {
-        super(nombre, abreviacion, habilidad, color, tipos);
-        this.patron = patron;
+    public SimplePiece(String name, String notation, Ability ability, Color color, P pattern, PieceType... types) {
+        super(name, notation, ability, color, types);
+        this.patron = pattern;
     }
 
     /**
