@@ -8,53 +8,24 @@ import com.carlettos.game.board.property.Color;
  */
 public class Constants {
 
-    /**
-     * Ancho y largo preferido de cada escaque.
-     */
-    public static final int TAMAÑO_CASILLA = 30;
-
-    /**
-     * Ancho preferido de cada carta.
-     */
-    public static final int TAMAÑO_CARTA_X = 100;
-
-    /**
-     * Largo preferido de cada carta.
-     */
-    public static final int TAMAÑO_CARTA_Y = 120;
-
-    /**
-     * Cartas máximas admitidas por fila.
-     */
-    public static final int CARTAS_X = 3;
-
-    /**
-     * Cartas máximas admitidas por columna.
-     */
-    public static final int CARTAS_Y = 5;
-
-    /**
-     * Primer color de los escaques.
-     */
+    /** Preferred width and height of the escaque in display.*/
+    public static final int ESCAQUE_LENGTH = 30;
+    /** Preferred width of the card display.*/
+    public static final int CARD_X = 100;
+    /** Preferred height of the card display.*/
+    public static final int CARD_Y = 120;
+    /** Maximum ammount of cards per row.*/
+    public static final int CARDS_PER_ROW = 3;
+    /** Maximum ammount of cards per column.*/
+    public static final int CARDS_PER_COLUMN = 5;
+    /** First color of the escaques.*/
     public static final Color COLOR1 = Color.BLACK;
-
-    /**
-     * Segundo color de los escaques.
-     */
+    /** Second color of the escaques.*/
     public static final Color COLOR2 = Color.WHITE;
-
-    /**
-     * Porcentaje que recubren los círculos de indicación.
-     */
-    public static final double PORCENTAJE = 0.3;
-    
-    /**
-     * Porcentaje chico que recubren los círculos de indicación.
-     */
-    public static final double PORCENTAJE_PEQUEÑO = 0.25;
-    
-    /**
-     * Porcentaje chico que recubren los círculos de indicación.
-     */
-    public static final double PORCENTAJE_PEQUEÑITO = 0.2;
+    /** Percentage with 1 or 2 actions.*/
+    public static final double PERCENTAGE1 = 0.3;
+    /** Percentage with 3 actions.*/
+    public static final double PERCENTAGE3 = 0.25;
+    /** Percentage with 4 actions.*/
+    public static final double PERCENTAGE4 = 0.2;
 }

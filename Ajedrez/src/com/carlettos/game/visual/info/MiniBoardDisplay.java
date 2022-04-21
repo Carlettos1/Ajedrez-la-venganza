@@ -11,15 +11,15 @@ import javax.swing.JPanel;
  */
 public class MiniBoardDisplay extends JPanel {
     private final EscaqueDisplay[][] grid;
-    private final MiniBoard tablero;
+    private final MiniBoard board;
 
     public MiniBoardDisplay(MiniBoard tablero) {
         super(new GridLayout(tablero.rows, tablero.columns));
         this.grid = new EscaqueDisplay[tablero.rows][tablero.columns];
-        this.tablero = tablero;
-        for (int y = this.tablero.rows - 1; y >= 0; y--) {
-            for (int x = 0; x < this.tablero.columns; x++) {
-                EscaqueDisplay ev = new EscaqueDisplay(this.tablero.getEscaque(x, y));
+        this.board = tablero;
+        for (int y = this.board.rows - 1; y >= 0; y--) {
+            for (int x = 0; x < this.board.columns; x++) {
+                EscaqueDisplay ev = new EscaqueDisplay(this.board.getEscaque(x, y));
                 grid[y][x] = ev; //TODO: not display -1 -1 Escaques.
                 this.add(ev);
             }

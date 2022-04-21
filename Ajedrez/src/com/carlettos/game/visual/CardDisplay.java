@@ -12,19 +12,19 @@ import javax.swing.JComponent;
  * @author Carlos
  */
 public class CardDisplay extends JComponent {
-    private boolean seleccionado;
+    private boolean selected;
     private final Color color;
-    private final Card carta;
+    private final Card card;
 
     public CardDisplay(Color color, Card carta) {
-        this.seleccionado = false;
+        this.selected = false;
         this.color = color;
-        this.carta = carta;
+        this.card = carta;
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constants.TAMAÑO_CARTA_X, Constants.TAMAÑO_CARTA_Y);
+        return new Dimension(Constants.CARD_X, Constants.CARD_Y);
     }
 
     @Override
@@ -33,13 +33,13 @@ public class CardDisplay extends JComponent {
         g.setColor(color.getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(color.getColorNegativo());
-        g.drawString(carta.getName(), 2, 20);
-        g.drawString(carta.getDescription(), 2, 50);
+        g.drawString(card.getName(), 2, 20);
+        g.drawString(card.getDescription(), 2, 50);
         //TODO que se vea bonito y mostrar más datos de la carta
     }
 
     public Card getCard() {
-        return carta;
+        return card;
     }
 
     public Color getColor() {

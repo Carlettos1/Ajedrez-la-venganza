@@ -18,27 +18,27 @@ public class BoardDisplay extends JFrame{
 
     private final EscaqueDisplay[][] grid;
     private final JPanel rootPanel;
-    private final Board tablero;
-    private final ClockDisplay reloj;
-    private final HandDisplay cartas;
+    private final Board board;
+    private final ClockDisplay clock;
+    private final HandDisplay cards;
 
-    public BoardDisplay(Board tablero) throws HeadlessException {
+    public BoardDisplay(Board board) throws HeadlessException {
         super("Ajedrez");
-        this.grid = new EscaqueDisplay[tablero.rows][tablero.columns];
+        this.grid = new EscaqueDisplay[board.rows][board.columns];
         this.rootPanel = new JPanel(new BorderLayout());
-        this.tablero = tablero;
-        this.reloj = new ClockDisplay(tablero.getClock());
-        this.cartas = new HandDisplay(tablero.getClock());
+        this.board = board;
+        this.clock = new ClockDisplay(board.getClock());
+        this.cards = new HandDisplay(board.getClock());
         setup();
     }
 
     protected void setup() {
-        reloj.setPreferredSize(new Dimension(tablero.columns * 45, 200));
-        rootPanel.add(reloj, BorderLayout.PAGE_START);
-        JPanel panel = new JPanel(new GridLayout(tablero.rows, tablero.columns));
-        for (int y = tablero.rows - 1; y >= 0; y--) {
-            for (int x = 0; x < tablero.columns; x++) {
-                EscaqueDisplay ev = new EscaqueDisplay(tablero.getEscaque(x, y));
+        clock.setPreferredSize(new Dimension(board.columns * 45, 150)); //todo: add to config
+        rootPanel.add(clock, BorderLayout.PAGE_START);
+        JPanel panel = new JPanel(new GridLayout(board.rows, board.columns));
+        for (int y = board.rows - 1; y >= 0; y--) {
+            for (int x = 0; x < board.columns; x++) {
+                EscaqueDisplay ev = new EscaqueDisplay(board.getEscaque(x, y));
                 ev.addMouseListener(MousePiece.get());
                 grid[y][x] = ev;
                 panel.add(ev);
@@ -46,7 +46,7 @@ public class BoardDisplay extends JFrame{
         }
         rootPanel.add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        rootPanel.add(cartas, BorderLayout.LINE_END);
+        rootPanel.add(cards, BorderLayout.LINE_END);
         add(rootPanel);
     }
 
@@ -57,66 +57,41 @@ public class BoardDisplay extends JFrame{
     }
 
     public Board getBoard() {
-        return tablero;
+        return board;
     }
 
     public ClockDisplay getClockDisplay() {
-        return reloj;
+        return clock;
     }
 
     public HandDisplay getManoVisual() {
-        return cartas;
+        return cards;
     }
 
     public void offAll() {
         for (EscaqueDisplay[] escaqueVisuals : grid) {
             for (EscaqueDisplay escaqueVisual : escaqueVisuals) {
-                escaqueVisual.offAccion();
+                escaqueVisual.removeAllActions();
             }
         }
     }
-
-    /**
-     * Da el escaque en la posición especificada.
-     *
-     * @param punto punto del cuál se quiere sacar el escaque.
-     *
-     * @return el escaque en la posición solicidada.
-     *
-     * @throws IllegalArgumentException si alguna coordenada se sale de las
-     * dimensiones del tablero.
-     *
-     * @see EscaqueDisplay
-     */
-    public EscaqueDisplay getEscaqueVisual(Point punto) {
-        if (punto.x < 0) {
+    
+    public EscaqueDisplay getEscaqueVisual(Point point) {
+        if (point.x < 0) {
             throw new IllegalArgumentException("La coordenada x no puede ser negativa");
         }
-        if (punto.y < 0) {
+        if (point.y < 0) {
             throw new IllegalArgumentException("La coordenada y no puede ser negativa");
         }
-        if (punto.x >= tablero.columns) {
+        if (point.x >= board.columns) {
             throw new IllegalArgumentException("La coordenada x no puede ser mayor o igual que el número de columnas");
         }
-        if (punto.y >= tablero.rows) {
+        if (point.y >= board.rows) {
             throw new IllegalArgumentException("La coordenada y no puede ser mayor o igual que el número de filas");
         }
-        return grid[punto.y][punto.x];
+        return grid[point.y][point.x];
     }
 
-    /**
-     * Da el escaque en la posición especificada.
-     *
-     * @param x coordenada x de la posición.
-     * @param y coordenada y de la posición.
-     *
-     * @return el escaque en la posición solicidada.
-     *
-     * @throws IllegalArgumentException si alguna coordenada se sale de las
-     * dimensiones del tablero.
-     *
-     * @see EscaqueDisplay
-     */
     public EscaqueDisplay getEscaqueVisual(int x, int y) {
         return BoardDisplay.this.getEscaqueVisual(new Point(x, y));
     }

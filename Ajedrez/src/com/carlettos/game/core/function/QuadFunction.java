@@ -9,22 +9,22 @@ import com.carlettos.game.core.Point;
 /**
  *
  * @author Carlos
- * @param <R> ClaseResultado.
+ * @param <R> Result.
  */
 @FunctionalInterface
 public interface QuadFunction<R> {
-    public static final QuadFunction<ActionResult> PASS = (accion, tablero, pieza, inicio, final_) -> {
+    public static final QuadFunction<ActionResult> PASS = (action, board, piece, start, end) -> {
         return ActionResult.PASS;
     };
-    public static final QuadFunction<ActionResult> FAIL = (accion, tablero, pieza, inicio, final_) -> {
+    public static final QuadFunction<ActionResult> FAIL = (action, board, piece, start, end) -> {
         return ActionResult.FAIL;
     };
-    public static final QuadFunction<Boolean> TRUE = (accion, tablero, pieza, inicio, final_) -> {
+    public static final QuadFunction<Boolean> TRUE = (action, board, piece, start, end) -> {
         return true;
     };
-    public static final QuadFunction<Boolean> FALSE = (accion, tablero, pieza, inicio, final_) -> {
+    public static final QuadFunction<Boolean> FALSE = (action, board, piece, start, end) -> {
         return false;
     };
     
-    public R apply(Action accion, Board tablero, Piece pieza, Point inicio, Point final_);
+    public R apply(Action action, Board board, Piece piece, Point start, Point end);
 }

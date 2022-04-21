@@ -20,42 +20,42 @@ import javax.swing.JPanel;
  */
 public class HandDisplay extends JPanel {
 
-    private final JPanel panelesJugadores;
+    private final JPanel playersPanel;
 
-    public HandDisplay(Clock reloj) throws HeadlessException {
+    public HandDisplay(Clock clock) throws HeadlessException {
         super(new BorderLayout(0, 10));
-        this.panelesJugadores = new JPanel(new CardLayout());
-        for (Player player : reloj.getPlayers()) {
-            panelesJugadores.add(new PanelJugador(player), player.toString());
+        this.playersPanel = new JPanel(new CardLayout());
+        for (Player player : clock.getPlayers()) {
+            playersPanel.add(new PlayerPanel(player), player.toString());
         }
-        JComboBox cb = new JComboBox(reloj.getPlayers());
+        JComboBox cb = new JComboBox(clock.getPlayers());
         cb.setEditable(false);
         cb.addItemListener((ItemEvent e) -> {
-            CardLayout cl = (CardLayout) panelesJugadores.getLayout();
-            cl.show(panelesJugadores, ((Player) e.getItem()).toString());
+            CardLayout cl = (CardLayout) playersPanel.getLayout();
+            cl.show(playersPanel, ((Player) e.getItem()).toString());
         });
 
         add(cb, BorderLayout.PAGE_START);
-        add(panelesJugadores, BorderLayout.CENTER);
+        add(playersPanel, BorderLayout.CENTER);
     }
 
     public void rehacer() {
-        for (Component component : panelesJugadores.getComponents()) {
-            if (component instanceof PanelJugador panelJugador) {
-                panelJugador.rehacer();
+        for (Component component : playersPanel.getComponents()) {
+            if (component instanceof PlayerPanel playerPanel_) {
+                playerPanel_.rehacer();
             }
         }
     }
 
-    private static final class PanelJugador extends JPanel {
+    private static final class PlayerPanel extends JPanel {
 
-        private final Player jugador;
+        private final Player player;
 
-        public PanelJugador(Player jugador) {
-            super(new GridLayout(Constants.CARTAS_Y, Constants.CARTAS_X, 10, 10));
-            this.jugador = jugador;
-            jugador.getHand().getCards().forEach((carta) -> {
-                CardDisplay ecv = new CardDisplay(jugador.getColor(), carta);
+        public PlayerPanel(Player player) {
+            super(new GridLayout(Constants.CARDS_PER_COLUMN, Constants.CARDS_PER_ROW, 10, 10));
+            this.player = player;
+            player.getHand().getCards().forEach((carta) -> {
+                var ecv = new CardDisplay(player.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);
             });
@@ -63,8 +63,8 @@ public class HandDisplay extends JPanel {
 
         public void rehacer() {
             removeAll();
-            jugador.getHand().getCards().forEach((carta) -> {
-                CardDisplay ecv = new CardDisplay(jugador.getColor(), carta);
+            player.getHand().getCards().forEach((carta) -> {
+                var ecv = new CardDisplay(player.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);
             });
@@ -74,8 +74,8 @@ public class HandDisplay extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(Constants.CARTAS_X * Constants.TAMAÑO_CARTA_X,
-                    Constants.CARTAS_Y * Constants.TAMAÑO_CARTA_Y);
+            return new Dimension(Constants.CARDS_PER_ROW * Constants.CARD_X,
+                    Constants.CARDS_PER_COLUMN * Constants.CARD_Y);
         }
     }
 }

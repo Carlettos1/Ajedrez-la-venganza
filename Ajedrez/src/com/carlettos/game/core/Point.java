@@ -4,7 +4,7 @@ import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.info.InfoPoint;
 
 /**
- * Immutable version of java.awt.Point.
+ * Immutable version of {@code java.awt.Point}.
  * 
  * @author Carlos
  * @see java.awt.Point;

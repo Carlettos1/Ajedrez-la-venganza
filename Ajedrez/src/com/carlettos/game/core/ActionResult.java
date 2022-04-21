@@ -1,12 +1,8 @@
 package com.carlettos.game.core;
 
 /**
- * Son los posibles resultados de una acción, sirve para reaccionar de acuerdo a
- * lo que pueda ocurrir en cualquier méthodo.
- *
- * @author Carlos
  * 
- * @see Action
+ * @author Carlos
  */
 public enum ActionResult {
     PASS(true),

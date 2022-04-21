@@ -37,19 +37,19 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        CardDisplay card = (CardDisplay) (e.getSource());
-        BoardDisplay board = DisplayHelper.getBoardDisplay(card);
-        Component escaqueVisual = board.getComponentAt(e.getXOnScreen() - board.getX(), e.getYOnScreen() - board.getY());
+        var card = (CardDisplay) (e.getSource());
+        var board = DisplayHelper.getBoardDisplay(card);
+        Component ev = board.getComponentAt(e.getXOnScreen() - board.getX(), e.getYOnScreen() - board.getY());
         
-        while (escaqueVisual instanceof Container) {
-            Point componentLocation = DisplayHelper.getAbsoluteLocation(escaqueVisual);
-            escaqueVisual = DisplayHelper.getComponentAt(escaqueVisual, e.getXOnScreen() - componentLocation.x,
+        while (ev instanceof Container) {
+            var componentLocation = DisplayHelper.getAbsoluteLocation(ev);
+            ev = DisplayHelper.getComponentAt(ev, e.getXOnScreen() - componentLocation.x,
                     e.getYOnScreen() - componentLocation.y);
         }
         
-        if (escaqueVisual instanceof EscaqueDisplay escaque) {
-            Clock clock = board.getClockDisplay().getClock();
-            ActionResult can = card.getCard().canUse(escaque.getEscaque().getPos(),
+        if (ev instanceof EscaqueDisplay escaque) {
+            var clock = board.getClockDisplay().getClock();
+            var can = card.getCard().canUse(escaque.getEscaque().getPos(),
                     board.getBoard(),
                     clock.getPlayerOfColor(card.getColor()));
             if (can.isPositive()) {

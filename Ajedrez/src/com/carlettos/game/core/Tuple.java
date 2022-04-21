@@ -3,21 +3,14 @@ package com.carlettos.game.core;
 import java.util.Objects;
 
 /**
- * Clase de utilidad.
  *
  * @author Carlos
- * @param <X> clase del primer parámetro del constructor
- * @param <Y> clase del segundo parámetro del constructor
  */
 public class Tuple<X, Y> {
 
     public final X x;
     public final Y y;
 
-    /**
-     * @param x el valor de clase X a mantener.
-     * @param y el valor de clase Y a mantener.
-     */
     public Tuple(X x, Y y) {
         this.x = x;
         this.y = y;

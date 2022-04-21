@@ -1,23 +1,14 @@
 package com.carlettos.game.visual;
 
 import com.carlettos.game.core.ActionResult;
-import com.carlettos.game.core.Direction;
 import com.carlettos.game.board.manager.clock.event.Event;
-import com.carlettos.game.core.Tuple;
-import com.carlettos.game.core.Point;
 import com.carlettos.game.input.MousePiece;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.manager.clock.Clock;
-import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.ability.Info;
-import com.carlettos.game.board.property.ability.info.InfoInteger;
-import com.carlettos.game.board.property.ability.info.InfoDirection;
 import com.carlettos.game.board.property.ability.InfoManager;
 import com.carlettos.game.board.property.ability.info.InfoNone;
-import com.carlettos.game.board.property.ability.info.InfoPiece;
-import com.carlettos.game.board.property.ability.info.InfoPoint;
-import com.carlettos.game.board.property.ability.info.InfoString;
 import com.carlettos.game.visual.info.InfoDisplay;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -25,11 +16,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import com.carlettos.game.board.property.ability.InfoUse;
 
 /**
  * 
@@ -37,35 +25,35 @@ import com.carlettos.game.board.property.ability.InfoUse;
  */
 public class ClockDisplay extends JPanel{
 
-    private final Clock reloj;
-    private StringBuilder ordenJugadores;
-    private StringBuilder ordenEventos;
-    private StringBuilder turnoActual;
-    private final JLabel jugadoresLabel;
-    private final JLabel eventosLabel;
-    private final JLabel turnoLabel;
-    private final JButton turno;
-    private final JButton habilidad;
+    private final Clock clock;
+    private StringBuilder playerOrder;
+    private StringBuilder eventsOrder;
+    private StringBuilder turn;
+    private final JLabel playerLabel;
+    private final JLabel eventsLabel;
+    private final JLabel turnLabel;
+    private final JButton turnButton;
+    private final JButton abilityButton;
 
-    public ClockDisplay(Clock reloj) {
+    public ClockDisplay(Clock clock) {
         super(new BorderLayout());
-        this.reloj = reloj;
-        actualizarTextos();
-        this.jugadoresLabel = new JLabel(ordenJugadores.toString());
-        this.eventosLabel = new JLabel(ordenEventos.toString());
-        this.turnoLabel = new JLabel(turnoActual.toString());
-        this.turno = new JButton("Avanzar turno");
-        this.habilidad = new JButton("Usar Habilidad");
+        this.clock = clock;
+        updateTexts();
+        this.playerLabel = new JLabel(playerOrder.toString());
+        this.eventsLabel = new JLabel(eventsOrder.toString());
+        this.turnLabel = new JLabel(turn.toString());
+        this.turnButton = new JButton("Avanzar turno");
+        this.abilityButton = new JButton("Usar Habilidad");
         setup();
     }
 
     //TODO: listeners por favor
     protected void setup() {
-        add(jugadoresLabel, BorderLayout.PAGE_START);
-        add(eventosLabel, BorderLayout.CENTER);
-        add(turnoLabel, BorderLayout.PAGE_END);
-        turno.addActionListener((ActionEvent e) -> {
-            reloj.endTurn();
+        add(playerLabel, BorderLayout.PAGE_START);
+        add(eventsLabel, BorderLayout.CENTER);
+        add(turnLabel, BorderLayout.PAGE_END);
+        turnButton.addActionListener((ActionEvent e) -> {
+            clock.endTurn();
             Container container = this;
             while (container.getParent() != null) {
                 container = container.getParent();
@@ -76,8 +64,8 @@ public class ClockDisplay extends JPanel{
                 tv.offAll();
             }
         });
-        habilidad.addActionListener((e) -> {
-            if (MousePiece.get().seleccionado == null) {
+        abilityButton.addActionListener((e) -> {
+            if (MousePiece.get().selected == null) {
                 return;
             }
             Container container = this;
@@ -85,70 +73,70 @@ public class ClockDisplay extends JPanel{
                 container = container.getParent();
             }
             if (container instanceof BoardDisplay tv) {
-                Escaque escaque = MousePiece.get().seleccionado.getEscaque();
+                Escaque escaque = MousePiece.get().selected.getEscaque();
                 
-                Object[] valores = escaque.getPiece().getAbility().getPossibleValues(tv.getBoard(), escaque.getPos());
-                int i = InfoDisplay.showOptions(tv.getBoard(), escaque.getPos(), valores);
+                Object[] values = escaque.getPiece().getAbility().getPossibleValues(tv.getBoard(), escaque.getPos());
+                int i = InfoDisplay.showOptions(tv.getBoard(), escaque.getPos(), values);
                 if(i == -1){
                     return;
                 }
                 
-                Object valor = valores[i];
-                Info infoUsada = new InfoNone();
-                ActionResult ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), infoUsada = InfoManager.getInfo(valor));
+                Object valor = values[i];
+                Info usedInfo = new InfoNone();
+                ActionResult ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), usedInfo = InfoManager.getInfo(valor));
                 
                 if (ar.isPositive()) {
                     escaque.getPiece().getAbility().use(tv.getBoard(),
                             escaque.getPiece(),
                             escaque.getPos(),
-                            infoUsada);
+                            usedInfo);
                     tv.getBoard().movement();
-                    MousePiece.get().seleccionado = null;
+                    MousePiece.get().selected = null;
                     tv.offAll();
                 }
             } else {
                 System.err.println("tv no es TableroVisual");
             }
         });
-        JPanel temp = new JPanel(new BorderLayout(0, 10));
-        temp.add(turno, BorderLayout.NORTH);
-        temp.add(habilidad, BorderLayout.SOUTH);
-        add(temp, BorderLayout.EAST);
+        JPanel tmp = new JPanel(new BorderLayout(0, 10));
+        tmp.add(turnButton, BorderLayout.NORTH);
+        tmp.add(abilityButton, BorderLayout.SOUTH);
+        add(tmp, BorderLayout.EAST);
     }
 
-    public void actualizarTextos() {
-        ordenJugadores = new StringBuilder("El orden de los jugadores es: ");
-        for (Player player : reloj.getPlayers()) {
-            ordenJugadores.append(player.getColor()).append(", ");
+    public void updateTexts() {
+        playerOrder = new StringBuilder("El orden de los jugadores es: ");
+        for (Player player : clock.getPlayers()) {
+            playerOrder.append(player.getColor()).append(", ");
             
         }
-        ordenJugadores.delete(ordenJugadores.lastIndexOf(", "), ordenJugadores.length());
-        ordenJugadores.append(".");
+        playerOrder.delete(playerOrder.lastIndexOf(", "), playerOrder.length());
+        playerOrder.append(".");
 
-        ordenEventos = new StringBuilder("<html>Evento(s) más próximos: <br/>");
-        List<Event> eventos = reloj.getEventosOrdenados();
-        for (Event evento : (eventos.stream().filter((evento) -> {
-            return evento.info.getTurns() == eventos.get(0).info.getTurns();
+        eventsOrder = new StringBuilder("<html>Evento(s) más próximos: <br/>");
+        List<Event> events = clock.getEventosOrdenados();
+        for (Event event : (events.stream().filter((e) -> {
+            return e.info.getTurns() == events.get(0).info.getTurns();
         }).toArray(Event[]::new))) {
-            ordenEventos.append(evento).append("<br/>");
+            eventsOrder.append(event).append("<br/>");
 
         }
-        ordenEventos.append("</html>");
+        eventsOrder.append("</html>");
 
-        turnoActual = new StringBuilder("Es el turno del jugador ");
-        turnoActual.append(reloj.turnOf().getColor()).append('.');
+        turn = new StringBuilder("Es el turno del jugador ");
+        turn.append(clock.turnOf().getColor()).append('.');
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        actualizarTextos();
-        jugadoresLabel.setText(ordenJugadores.toString());
-        eventosLabel.setText(ordenEventos.toString());
-        turnoLabel.setText(turnoActual.toString());
+        updateTexts();
+        playerLabel.setText(playerOrder.toString());
+        eventsLabel.setText(eventsOrder.toString());
+        turnLabel.setText(turn.toString());
     }
 
     public Clock getClock() {
-        return reloj;
+        return clock;
     }
 }
