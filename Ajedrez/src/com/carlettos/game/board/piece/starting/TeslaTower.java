@@ -26,30 +26,30 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
  * @author Carlettos
  */
 public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITake<PatternStructureMove> {
-    public final static Ability<TeslaTower, String, InfoNone> HABILIDAD_TORRE_TESLA = new HabilidadTorreTesla<>();
-    protected final PatternMagicianMove patronMover;
-    protected final PatternStructureMove patronComer;
+    public final static Ability<TeslaTower, String, InfoNone> ABILITY_TESLA_TOWER = new AbilityTeslaTower<>();
+    protected final PatternMagicianMove movePattern;
+    protected final PatternStructureMove takePattern;
 
     public TeslaTower(Color color) {
-        super("Torre Tesla", "TT", HABILIDAD_TORRE_TESLA, color, PieceType.STRUCTURE);
-        this.patronMover = new PatternMagicianMove() {};
-        this.patronComer = new PatternStructureMove() {};
+        super("Torre Tesla", "TT", ABILITY_TESLA_TOWER, color, PieceType.STRUCTURE);
+        this.movePattern = new PatternMagicianMove() {};
+        this.takePattern = new PatternStructureMove() {};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case TAKE -> this.canTake(tablero, inicio, info, patronComer);
-            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case TAKE -> this.canTake(board, start, info, takePattern);
+            case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadTorreTesla<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone{
-        protected final Pattern patronHabilidad = new PatternCannonAttack() {};
+    public static class AbilityTeslaTower<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
+        protected final Pattern abilityPattern = new PatternCannonAttack() {};
         
-        public HabilidadTorreTesla() {
+        public AbilityTeslaTower() {
             super("PEM", 
                     "Emite un PEM que desactiva todas las estructuras", 
                     20, 
@@ -58,22 +58,22 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza) && tablero instanceof Board);
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(board, piece) && board instanceof Board);
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if(tablero instanceof Board board){
-                board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.getNombre(), inicio), () -> {
-                    board.getMatchingEscaques(patronHabilidad, inicio).stream()
+        public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
+            if(board instanceof Board b){
+                b.getClock().addEvent(Event.create(EventInfo.of(b, 2, this.getName(), start), () -> {
+                    b.getMatchingEscaques(abilityPattern, start).stream()
                             .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
                             .forEach(escaque -> escaque.getPiece().changeCD(10)); //TODO: que desactive de verdad
                 }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");
             }
-            this.commonUse(tablero, pieza);
+            this.commonUse(board, piece);
         }
     }
 }

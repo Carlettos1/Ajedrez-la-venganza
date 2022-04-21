@@ -27,12 +27,12 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
     /**
      * Nombre de la habilidad.
      */
-    protected final String nombre;
+    protected final String name;
 
     /**
      * Descripción de la habilidad; dice lo que precisamente hace la habilidad.
      */
-    protected final String descripcion;
+    protected final String description;
 
     /**
      * Turnos en los cuales no se puede volver a lanzar la habilidad.
@@ -42,30 +42,30 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
     /**
      * Costo en maná de la habilidad.
      */
-    protected final int costo;
+    protected final int manaCost;
 
     /**
      * Datos adicionales que se necesitan para usar la habilidad.
      */
-    protected final String parametros;
+    protected final String params;
 
     /**
      * Constructor general.
      *
-     * @param nombre el nombre de la habilidad.
-     * @param descripcion descripción de la habilidad.
+     * @param name el nombre de la habilidad.
+     * @param description descripción de la habilidad.
      * @param cooldown cooldown.
-     * @param costo coste de maná que cuesta lanzar la habilidad.
-     * @param parametros valores que debe proporcionar el jugador.
+     * @param manaCost coste de maná que cuesta lanzar la habilidad.
+     * @param params valores que debe proporcionar el jugador.
      *
      * @see Piece
      */
-    public Ability(String nombre, String descripcion, int cooldown, int costo, String parametros) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+    public Ability(String name, String description, int cooldown, int manaCost, String params) {
+        this.name = name;
+        this.description = description;
         this.cooldown = cooldown;
-        this.costo = costo;
-        this.parametros = parametros;
+        this.manaCost = manaCost;
+        this.params = params;
     }
 
     public abstract ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, I informacionExtra);
@@ -75,7 +75,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
     public boolean commonCanUse(AbstractBoard tablero, Piece pieza){
         boolean nomana = pieza.getCD() <= 0 && !pieza.isMoved();
         if(tablero instanceof Board t){
-            return nomana && t.getClock().turnOf().getMana() >= this.costo;
+            return nomana && t.getClock().turnOf().getMana() >= this.manaCost;
         }
         return nomana;
     }
@@ -84,27 +84,27 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
         pieza.setIsMoved(true);
         pieza.changeCD(this.cooldown);
         if (tablero instanceof Board t) {
-            t.getClock().turnOf().changeMana(-this.costo);
+            t.getClock().turnOf().changeMana(-this.manaCost);
         }
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
     public int getCooldown() {
         return cooldown;
     }
 
-    public int getCosto() {
-        return costo;
+    public int getManaCost() {
+        return manaCost;
     }
 
-    public String getParametros() {
-        return parametros;
+    public String getParams() {
+        return params;
     }
 }

@@ -21,13 +21,13 @@ import com.carlettos.game.board.piece.pattern.starting.PatternCrazyPawn;
  * @author Carlettos
  */
 public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
-    public final static Ability<CrazyPawn, String, InfoNone> HABILIDAD_PEON_LOCO = new HabilidadPeonLoco<>();
+    public final static Ability<CrazyPawn, String, InfoNone> ABILITY_CRAZY_PAWN = new AbilityCrazyPawn<>();
     
     public CrazyPawn(Color color) {
-        super("Peon Loco", "PE", HABILIDAD_PEON_LOCO, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("Peon Loco", "PE", ABILITY_CRAZY_PAWN, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
-    public static class HabilidadPeonLoco<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
-        public HabilidadPeonLoco() {
+    public static class AbilityCrazyPawn<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
+        public AbilityCrazyPawn() {
             super("Terminar Sufrimiento",
                     "Elimina esta pieza del tablero y te da 2 cartas.", 
                     0, 
@@ -36,18 +36,18 @@ public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza) && tablero instanceof Board);
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(board, piece) && board instanceof Board);
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            if(tablero instanceof Board board){
-                final Player jugador = board.getClock().turnOf();
-                board.removePiece(inicio);
-                board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.getNombre()), () -> {
-                    jugador.robarCarta(); //robar 2 cartas
-                    jugador.robarCarta();
+        public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
+            if(board instanceof Board b){
+                final Player player = b.getClock().turnOf();
+                b.removePiece(start);
+                b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.getName()), () -> {
+                    player.takeCard(); //robar 2 cartas
+                    player.takeCard();
                 }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");

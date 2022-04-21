@@ -21,14 +21,14 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
  * @author Carlettos
  */
 public class SuperPawn extends AbstractPawn<PatternSuperPawnMove, PatternSuperPawnTake> {
-    public static final Ability<SuperPawn, String, InfoNone> HABILIDAD_SUPER_PEON = new HabilidadSuperPeon<>();
+    public static final Ability<SuperPawn, String, InfoNone> ABILITY_SUPER_PAWN = new AbilitySuperPawn<>();
     
     public SuperPawn(Color color) {
-        super(()->color, ()->color, "Super Peon", "SU", HABILIDAD_SUPER_PEON, color);
+        super(() -> color, () -> color, "Super Peon", "SU", ABILITY_SUPER_PAWN, color);
     }
     
-    public static class HabilidadSuperPeon<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone{
-        public HabilidadSuperPeon() {
+    public static class AbilitySuperPawn<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
+        public AbilitySuperPawn() {
             super("Defender", 
                     "Añade el tipo inmune a esta pieza.", 
                     10, 0, 

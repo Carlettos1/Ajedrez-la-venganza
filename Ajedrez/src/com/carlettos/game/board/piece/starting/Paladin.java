@@ -18,18 +18,18 @@ import com.carlettos.game.board.property.ability.Info;
  * @author Carlettos
  */
 public class Paladin extends Piece implements IMove<PatternQueen>, ITake<PatternQueen> {
-    protected final PatternQueen patron;
+    protected final PatternQueen pattern;
 
     public Paladin(Color color) { //TODO: Habilidad
         super("Paladin", "PA", Empty.NO_ABILITY, color, PieceType.HEROIC, PieceType.IMMUNE);
-        patron = new PatternQueen(){};
+        pattern = new PatternQueen(){};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patron);
-            case TAKE -> this.canTake(tablero, inicio, info, patron);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, pattern);
+            case TAKE -> this.canTake(board, start, info, pattern);
             default -> ActionResult.FAIL;
         };
     }

@@ -21,25 +21,25 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityDirection;
  */
 public class Ram extends Piece implements IMove<PatternStructureMove> {
     
-    public static final Ability<Ram, Direction, InfoDirection> HABILIDAD_ARIETE = new HabilidadAriete<>();
-    protected final PatternStructureMove patronMover;
+    public static final Ability<Ram, Direction, InfoDirection> ABILITY_RAM = new AbilityRam<>();
+    protected final PatternStructureMove movePattern;
     
     public Ram(Color color) {
-        super("Ariete", "AR", HABILIDAD_ARIETE, color, PieceType.STRUCTURE);
-        patronMover = new PatternStructureMove() {};
+        super("Ariete", "AR", ABILITY_RAM, color, PieceType.STRUCTURE);
+        movePattern = new PatternStructureMove() {};
     }
     
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }
     
-    public static class HabilidadAriete<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection{
-        public HabilidadAriete() {
+    public static class AbilityRam<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {
+        public AbilityRam() {
             super("Carga de Ariete", 
                     "El ariete carga en una dirección hasta alcanzar la primera "
                             + "pieza, luego procede a avanzar, comiendo lo que atraviese, "
@@ -51,55 +51,52 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
         }
         
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
-            if (!this.commonCanUse(tablero, pieza)) {
-                return ActionResult.FAIL;
-            }
-            return ActionResult.PASS;
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoDirection info) {
+            return ActionResult.fromBoolean(this.commonCanUse(board, piece));
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoDirection info) {
-            int carga = 1;
-            tablero.getEscaque(inicio).removePiece();
+        public void use(AbstractBoard board, P piece, Point start, InfoDirection info) {
+            int charge = 1;
+            board.getEscaque(start).removePiece();
             if(info.isAxis(Direction.Axis.EW)) {
-                for(int x = inicio.x + info.getSign();;x += info.getSign()){
-                    if(tablero.isOutOfBorder(new Point(x, inicio.y))){
-                        tablero.getEscaque(x - info.getSign(), inicio.y).setPiece(pieza);
+                for(int x = start.x + info.getSign();;x += info.getSign()){
+                    if(board.isOutOfBorder(new Point(x, start.y))){
+                        board.getEscaque(x - info.getSign(), start.y).setPiece(piece);
                         break;
                     }
-                    if(tablero.getEscaque(x, inicio.y).hasPiece()) {
-                        for (int dx = 0; dx < carga/5 + 1; dx++) {
-                            if(!tablero.isOutOfBorder(new Point(x + dx, inicio.y))){
-                                tablero.getEscaque(x + dx, inicio.y).setPiece(pieza);
-                                tablero.getEscaque(x + dx - info.getSign(), inicio.y).removePiece();
+                    if(board.getEscaque(x, start.y).hasPiece()) {
+                        for (int dx = 0; dx < charge/5 + 1; dx++) {
+                            if(!board.isOutOfBorder(new Point(x + dx, start.y))){
+                                board.getEscaque(x + dx, start.y).setPiece(piece);
+                                board.getEscaque(x + dx - info.getSign(), start.y).removePiece();
                             }
                         }
                         break;
                     } else {
-                        carga++;
+                        charge++;
                     }
                 }
             } else {
-                for(int y = inicio.y + info.getSign();;y += info.getSign()){
-                    if(tablero.isOutOfBorder(new Point(inicio.x, y))){
-                        tablero.getEscaque(inicio.x, y - info.getSign()).setPiece(pieza);
+                for(int y = start.y + info.getSign();;y += info.getSign()){
+                    if(board.isOutOfBorder(new Point(start.x, y))){
+                        board.getEscaque(start.x, y - info.getSign()).setPiece(piece);
                         break;
                     }
-                    if(tablero.getEscaque(inicio.x, y).hasPiece()) {
-                        for (int dy = 0; dy < carga/5 + 1; dy++) {
-                            if(!tablero.isOutOfBorder(new Point(inicio.x, y + dy))){
-                                tablero.getEscaque(inicio.x, y + dy).setPiece(pieza);
-                                tablero.getEscaque(inicio.x, y + dy - info.getSign()).removePiece();
+                    if(board.getEscaque(start.x, y).hasPiece()) {
+                        for (int dy = 0; dy < charge/5 + 1; dy++) {
+                            if(!board.isOutOfBorder(new Point(start.x, y + dy))){
+                                board.getEscaque(start.x, y + dy).setPiece(piece);
+                                board.getEscaque(start.x, y + dy - info.getSign()).removePiece();
                             }
                         }
                         break;
                     } else {
-                        carga++;
+                        charge++;
                     }
                 }
             }
-            this.commonUse(tablero, pieza);
+            this.commonUse(board, piece);
         }
     }
 }

@@ -115,7 +115,7 @@ public class Player {
         }
     }
     
-    public void robarCarta(){
+    public void takeCard(){
         //TODO: robar carta
     }
 

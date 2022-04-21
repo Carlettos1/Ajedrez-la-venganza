@@ -20,7 +20,7 @@ public class Wall extends Piece {
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
         return ActionResult.FAIL;
     }
 }

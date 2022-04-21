@@ -14,10 +14,10 @@ import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoTuple;
-import com.carlettos.game.board.property.ability.InfoInteger;
-import com.carlettos.game.board.property.ability.InfoDirection;
 import com.carlettos.game.board.property.ability.InfoGetter.AbilityTuple;
 import com.carlettos.game.util.MathHelper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,25 +25,25 @@ import com.carlettos.game.util.MathHelper;
  */
 public class Catapult extends Piece implements IMove<PatternStructureMove> {
 
-    public static final Ability<Catapult, Tuple<Direction, Integer>, InfoTuple<Direction, Integer>> HABILIDAD_CATAPULTA = new HabilidadCatapulta<>();
-    protected final PatternStructureMove patronMover;
+    public static final Ability<Catapult, Tuple<Direction, Integer>, InfoTuple<Direction, Integer>> ABILITY_CATAPULT = new AbilityCatapult<>();
+    protected final PatternStructureMove movePattern;
     
     public Catapult(Color color) {
-        super("Catapulta", "CA", HABILIDAD_CATAPULTA, color, PieceType.STRUCTURE);
-        patronMover = new PatternStructureMove() {};
+        super("Catapulta", "CA", ABILITY_CATAPULT, color, PieceType.STRUCTURE);
+        movePattern = new PatternStructureMove() {};
     }
     
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
-            case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, movePattern);
+            case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };    
     }
     
-    public static class HabilidadCatapulta<P extends Piece> extends Ability<P, Tuple<Direction, Integer>, InfoTuple<Direction, Integer>> implements AbilityTuple<Direction, Integer>{
-        public HabilidadCatapulta() {
+    public static class AbilityCatapult<P extends Piece> extends Ability<P, Tuple<Direction, Integer>, InfoTuple<Direction, Integer>> implements AbilityTuple<Direction, Integer> {
+        public AbilityCatapult() {
             super("Lanzar Pieza", 
                     "Lanza una pieza en una dirección.", 
                     5, 
@@ -56,23 +56,69 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoTuple<Direction, Integer> info) {
-            if (!this.commonCanUse(tablero, pieza)) {
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoTuple<Direction, Integer> info) {
+            if (!this.commonCanUse(board, piece)) {
                 return ActionResult.FAIL;
             }
-            Point posPieza = switch (info.getB()) {
-                case 1 -> new Point(inicio.x-1, inicio.y-1);
-                case 2 -> new Point(inicio.x, inicio.y-1);
-                case 3 -> new Point(inicio.x+1, inicio.y-1);
-                case 4 -> new Point(inicio.x-1, inicio.y);
-                case 6 -> new Point(inicio.x+1, inicio.y);
-                case 7 -> new Point(inicio.x-1, inicio.y+1);
-                case 8 -> new Point(inicio.x, inicio.y+1);
-                case 9 -> new Point(inicio.x+1, inicio.y+1);
+            return defaultCan(board, start, info);
+        }
+
+        @Override
+        public void use(AbstractBoard board, P piece, Point start, InfoTuple<Direction, Integer> info) {
+            Point posPiece = switch (info.getB()) {
+                case 1 -> new Point(start.x-1, start.y-1);
+                case 2 -> new Point(start.x, start.y-1);
+                case 3 -> new Point(start.x+1, start.y-1);
+                case 4 -> new Point(start.x-1, start.y);
+                case 6 -> new Point(start.x+1, start.y);
+                case 7 -> new Point(start.x-1, start.y+1);
+                case 8 -> new Point(start.x, start.y+1);
+                case 9 -> new Point(start.x+1, start.y+1);
+                default -> throw new IllegalArgumentException("Lanzamiento de catapulta inválido");
+            };
+            if(info.getA().isAxis(Direction.Axis.NS)){
+                int x = info.getA().getSign() * 6 + start.x;
+                x = MathHelper.clamp(0, board.columns - 1, x);
+                board.getEscaque(x, start.y).setPiece(board.getEscaque(posPiece).getPiece());
+                board.removePiece(posPiece);
+            } else {
+                int y = info.getA().getSign() * 6 + start.y;
+                y = MathHelper.clamp(0, board.rows - 1, y);
+                board.getEscaque(start.x, y).setPiece(board.getEscaque(posPiece).getPiece());
+                board.removePiece(posPiece);
+            }
+            this.commonUse(board, piece);
+        }
+
+        @Override
+        public Tuple<Direction, Integer>[] getPossibleValues(AbstractBoard board, Point start) {
+            Direction[] dirs = Direction.values();
+            Integer[] nums = {1, 2, 3, 4, 6, 7, 8, 9};
+            List<Tuple<Direction, Integer>> valores = new ArrayList<>(dirs.length * nums.length);
+            for (int i = 0; i < dirs.length; i++) {
+                for (int j = 0; j < nums.length; j++) {
+                    if(defaultCan(board, start, new InfoTuple<>(dirs[i], nums[j])).isPositive()) {
+                        valores.add(new Tuple<>(dirs[i], nums[j]));
+                    }
+                }
+            }
+            return valores.toArray(Tuple[]::new);
+        }
+        
+        private ActionResult defaultCan(AbstractBoard board, Point start, InfoTuple<Direction, Integer> info){
+            Point posPiece = switch (info.getB()) {
+                case 1 -> new Point(start.x-1, start.y-1);
+                case 2 -> new Point(start.x, start.y-1);
+                case 3 -> new Point(start.x+1, start.y-1);
+                case 4 -> new Point(start.x-1, start.y);
+                case 6 -> new Point(start.x+1, start.y);
+                case 7 -> new Point(start.x-1, start.y+1);
+                case 8 -> new Point(start.x, start.y+1);
+                case 9 -> new Point(start.x+1, start.y+1);
                 default -> new Point(-1, -1);
             };
             
-            if(tablero.isOutOfBorder(posPieza)){
+            if(board.isOutOfBorder(posPiece)){
                 return ActionResult.FAIL;
             }
             
@@ -82,46 +128,6 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
             }
             
             return ActionResult.FAIL;
-        }
-
-        @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoTuple<Direction, Integer> info) {
-            Point posPieza = switch (info.getB()) {
-                case 1 -> new Point(inicio.x-1, inicio.y-1);
-                case 2 -> new Point(inicio.x, inicio.y-1);
-                case 3 -> new Point(inicio.x+1, inicio.y-1);
-                case 4 -> new Point(inicio.x-1, inicio.y);
-                case 6 -> new Point(inicio.x+1, inicio.y);
-                case 7 -> new Point(inicio.x-1, inicio.y+1);
-                case 8 -> new Point(inicio.x, inicio.y+1);
-                case 9 -> new Point(inicio.x+1, inicio.y+1);
-                default -> throw new IllegalArgumentException("Lanzamiento de catapulta inválido");
-            };
-            if(info.getA().isAxis(Direction.Axis.NS)){
-                int x = info.getA().getSign() * 6 + inicio.x;
-                x = MathHelper.clamp(0, tablero.columns - 1, x);
-                tablero.getEscaque(x, inicio.y).setPiece(tablero.getEscaque(posPieza).getPiece());
-                tablero.removePiece(posPieza);
-            } else {
-                int y = info.getA().getSign() * 6 + inicio.y;
-                y = MathHelper.clamp(0, tablero.rows - 1, y);
-                tablero.getEscaque(inicio.x, y).setPiece(tablero.getEscaque(posPieza).getPiece());
-                tablero.removePiece(posPieza);
-            }
-            this.commonUse(tablero, pieza);
-        }
-
-        @Override //TODO: que los valores sean los reales
-        public Tuple<Direction, Integer>[] getPossibleValues(AbstractBoard tablero, Point point) {
-            Direction[] nesw = Direction.values();
-            Integer[] nums = {1, 2, 3, 4, 6, 7, 8, 9};
-            Tuple<Direction, Integer>[] valores = new Tuple[nesw.length * nums.length];
-            for (int i = 0; i < nesw.length; i++) {
-                for (int j = 0; j < nums.length; j++) {
-                    valores[i * nums.length + j] = new Tuple<>(nesw[i], nums[j]);
-                }
-            }
-            return valores;
         }
     }
 }

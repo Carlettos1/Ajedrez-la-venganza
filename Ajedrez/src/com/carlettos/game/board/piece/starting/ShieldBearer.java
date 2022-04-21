@@ -18,14 +18,14 @@ import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
  */
 public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
 
-    public static final Ability<Piece, String, InfoNone> HABILIDAD_DEFENSOR = new HabilidadDefensor<>();
+    public static final Ability<Piece, String, InfoNone> ABILITY_SHIELD_BEARER = new AbilityShieldBearer<>();
 
     public ShieldBearer(Color color) {
-        super(() -> color, () -> color, "Defensor", "D", HABILIDAD_DEFENSOR, color);
+        super(() -> color, () -> color, "Defensor", "D", ABILITY_SHIELD_BEARER, color);
     }
     
-    public static class HabilidadDefensor<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
-        public HabilidadDefensor() {//TODO: repensar la habilidad
+    public static class AbilityShieldBearer<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
+        public AbilityShieldBearer() {//TODO: repensar la habilidad
             super("Defender",
                     "Defiende de ataques de ballesta",
                     6,
@@ -34,12 +34,12 @@ public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake>
         }
 
         @Override
-        public ActionResult canUse(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
-            return ActionResult.fromBoolean(this.commonCanUse(tablero, pieza));
+        public ActionResult canUse(AbstractBoard board, P piece, Point start, InfoNone info) {
+            return ActionResult.fromBoolean(this.commonCanUse(board, piece));
         }
 
         @Override
-        public void use(AbstractBoard tablero, P pieza, Point inicio, InfoNone info) {
+        public void use(AbstractBoard board, P piece, Point start, InfoNone info) {
             System.out.println("USAR HABILIDAD DEFENSOR");
         }
     }

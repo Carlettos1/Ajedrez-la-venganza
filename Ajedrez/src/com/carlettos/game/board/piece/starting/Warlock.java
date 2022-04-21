@@ -17,17 +17,17 @@ import com.carlettos.game.board.property.ability.Info;
  * @author Carlettos
  */
 public class Warlock extends Piece implements IMove<PatternMagicianMove> {
-    protected final PatternMagicianMove patronMover;
+    protected final PatternMagicianMove movePattern;
 
     public Warlock(Color color) { //TODO: habilidad
         super("Brujo", "B", Empty.NO_ABILITY, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
-        this.patronMover = new PatternMagicianMove() {};
+        this.movePattern = new PatternMagicianMove() {};
     }
 
     @Override
-    public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
-        return switch(accion){
-            case MOVE -> this.canMove(tablero, inicio, info, this.patronMover);
+    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+        return switch(action){
+            case MOVE -> this.canMove(board, start, info, this.movePattern);
             default -> ActionResult.FAIL;
         };
     }
