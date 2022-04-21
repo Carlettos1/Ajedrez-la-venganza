@@ -30,8 +30,8 @@ public abstract class AbstractPawn<M extends PatternPawn, C extends PatternPawn>
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
-            case TAKE -> this.canComer(tablero, inicio, info, patronComer);
+            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
+            case TAKE -> this.canTake(tablero, inicio, info, patronComer);
             default -> ActionResult.FAIL;
         };
     }

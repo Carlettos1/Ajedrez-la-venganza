@@ -13,39 +13,44 @@ import com.carlettos.game.board.property.ability.Info;
 public interface IAttack<P extends Pattern> {
 
     /**
+     * Checks the pattern and the standard condition.
      * 
-     * @param tablero tablero en el que se quiere atacar.
-     * @param inicio donde está la pieza.
-     * @param final_ donde quiere atacar.
-     * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL}, 
-     * dependiendo del caso.
+     * @param board board in which the attack is happening.
+     * @param start position of the piece.
+     * @param info info containing a Point to where the attack is being 
+     * excecuted.
+     * @param pattern pattern to check.
+     * @return PASS if the conditions are both true. FAIL otherwise.
+     * @throws IllegalArgumentException if the info is not an implementation of
+     * {@literal Info<Point>}
      */
-    public default ActionResult canAtacar(AbstractBoard tablero, Point inicio, Info info, P patron){
+    public default ActionResult canAttack(AbstractBoard board, Point start, Info info, P pattern){
         if(info.getValue() instanceof Point p) {
-            if (!this.checkAtacarCondition(tablero, inicio, p)) {
+            if (!this.checkAttackConditions(board, start, p)) {
                 return ActionResult.FAIL;
             }
-            return ActionResult.fromBoolean(patron.match(tablero, inicio, p));
+            return ActionResult.fromBoolean(pattern.match(board, start, p));
         } else {
             throw new IllegalArgumentException("Info is not Info<Point>");
         }
     }
+    
     /**
-     * Comprueba que pueda atacar, sin fijarse en un patron.
+     * Checks the standard conditions.
      *
-     * @param tablero tablero en el que se quiere comer.
-     * @param inicio donde está la pieza.
-     * @param final_ donde quiere comer.
-     * @return true si no se ha movido y la pieza que se quiere comer no es de
-     * su mismo color. False si no.
+     * @param board board in which the attack is happening.
+     * @param start position of the piece.
+     * @param end position to attack.
+     * @return true if the end pos has a piece, if is a different color of the 
+     * piece at the start pos, and if the start piece hasn't moved.
      */
-    public default boolean checkAtacarCondition(AbstractBoard tablero, Point inicio, Point final_) {
-        if (!tablero.getEscaque(final_).hasPiece()) {
+    public default boolean checkAttackConditions(AbstractBoard board, Point start, Point end) {
+        if (!board.getEscaque(end).hasPiece()) {
             return false;
         }
-        if (tablero.getEscaque(final_).getPiece().getColor().equals(tablero.getEscaque(inicio).getPiece().getColor())) {
+        if (board.getEscaque(end).getPiece().getColor().equals(board.getEscaque(start).getPiece().getColor())) {
             return false;
         }
-        return !tablero.getEscaque(inicio).getPiece().isMoved();
+        return !board.getEscaque(start).getPiece().isMoved();
     }
 }

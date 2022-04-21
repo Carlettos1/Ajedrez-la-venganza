@@ -27,7 +27,7 @@ public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVE -> this.canMover(tablero, inicio, info, this.patronMover);
+            case MOVE -> this.canMove(tablero, inicio, info, this.patronMover);
             default -> ActionResult.FAIL;
         };
     }

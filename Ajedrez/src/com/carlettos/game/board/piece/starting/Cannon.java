@@ -33,8 +33,8 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch (accion) {
-            case ATTACK -> this.canAtacar(tablero, inicio, info, patronAtacar);
-            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case ATTACK -> this.canAttack(tablero, inicio, info, patronAtacar);
+            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
             default -> ActionResult.FAIL;
         };
     }

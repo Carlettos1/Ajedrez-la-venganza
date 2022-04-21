@@ -32,7 +32,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVE -> this.canMover(tablero, inicio, info, patronMover);
+            case MOVE -> this.canMove(tablero, inicio, info, patronMover);
             case ABILITY -> this.getAbility().canUse(tablero, this, inicio, info);
             default -> ActionResult.FAIL;
         };

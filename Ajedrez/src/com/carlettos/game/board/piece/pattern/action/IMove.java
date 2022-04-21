@@ -13,35 +13,38 @@ import com.carlettos.game.board.property.ability.Info;
 public interface IMove<P extends Pattern> {
 
     /**
-     *
-     * @param tablero tablero en el que se quiere mover.
-     * @param inicio donde está la pieza.
-     * @param final_ donde quiere mover.
-     * @return {@code ActionResult.PASS} o {@code ActionResult.FAIL},
-     * dependiendo del caso.
+     * Checks the pattern and the standard condition.
+     * 
+     * @param board board in which the move is happening.
+     * @param start position of the piece.
+     * @param info info containing a Point to where the move is being 
+     * excecuted.
+     * @param pattern pattern to check.
+     * @return PASS if the conditions are both true. FAIL otherwise.
+     * @throws IllegalArgumentException if the info is not an implementation of
+     * {@literal Info<Point>}
      */
-    public default ActionResult canMover(AbstractBoard tablero, Point inicio, Info info, P patron) {
+    public default ActionResult canMove(AbstractBoard board, Point start, Info info, P pattern) {
         if(info.getValue() instanceof Point p) {
-            if (!this.checkMoverCondition(tablero, inicio, p)) {
+            if (!this.checkMoveCondition(board, start, p)) {
                 return ActionResult.FAIL;
             }
-            return ActionResult.fromBoolean(patron.match(tablero, inicio, p));
+            return ActionResult.fromBoolean(pattern.match(board, start, p));
         } else {
             throw new IllegalArgumentException("Info is not Info<Point>");
         }
     }
-
+    
     /**
-     * Comprueba que la pieza no se haya movido en este turno y que a donde
-     * quiera moverse está vacío.
+     * Checks the standard conditions.
      *
-     * @param tablero tablero en el que se quiere mover.
-     * @param inicio donde está la pieza.
-     * @param final_ donde quiere mover.
-     * @return true si no se ha movido y está desocupado el escaque final, false
-     * sino.
+     * @param board board in which the move is happening.
+     * @param start position of the piece.
+     * @param end position to move.
+     * @return true if the end pos doesn't have a piece, and if the start piece
+     * hasn't moved.
      */
-    public default boolean checkMoverCondition(AbstractBoard tablero, Point inicio, Point final_) {
-        return !(tablero.getEscaque(final_).hasPiece() || tablero.getEscaque(inicio).getPiece().isMoved());
+    public default boolean checkMoveCondition(AbstractBoard board, Point start, Point end) {
+        return !(board.getEscaque(end).hasPiece() || board.getEscaque(start).getPiece().isMoved());
     }
 }

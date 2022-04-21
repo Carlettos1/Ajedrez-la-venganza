@@ -28,8 +28,8 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     @Override
     public ActionResult can(Action accion, AbstractBoard tablero, Point inicio, Info info) {
         return switch(accion){
-            case MOVE -> this.canMover(tablero, inicio, info, patron);
-            case TAKE -> this.canComer(tablero, inicio, info, patron);
+            case MOVE -> this.canMove(tablero, inicio, info, patron);
+            case TAKE -> this.canTake(tablero, inicio, info, patron);
             default -> ActionResult.FAIL;
         };
     }
