@@ -16,7 +16,7 @@ import com.carlettos.game.board.piece.starting.Cannon;
 import com.carlettos.game.board.piece.starting.Builder;
 import com.carlettos.game.board.piece.starting.ShieldBearer;
 import com.carlettos.game.board.piece.starting.Ship;
-import com.carlettos.game.board.piece.starting.MadPawn;
+import com.carlettos.game.board.piece.starting.CrazyPawn;
 import com.carlettos.game.board.piece.starting.SuperPawn;
 import com.carlettos.game.board.piece.starting.TeslaTower;
 import com.carlettos.game.board.piece.pattern.classic.PatternPawnTake;
@@ -91,7 +91,7 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
                 new Builder(Color.GRAY),
                 new ShieldBearer(Color.GRAY),
                 new Ship(Color.GRAY),
-                new MadPawn(Color.GRAY),
+                new CrazyPawn(Color.GRAY),
                 new SuperPawn(Color.GRAY),
                 new TeslaTower(Color.GRAY)};
         }

@@ -12,15 +12,15 @@ import com.carlettos.game.board.property.Color;
 public interface PatternSuperPawnTake extends PatternPawn {
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
+    public default boolean match(AbstractBoard board, Point start, Point end) {
         int sign = getColor().equals(Color.WHITE) ? 1 : -1;
-        if(inicio.add(1, sign * 1).equals(final_)){
+        if(start.add(1, sign * 1).equals(end)){
             return true;
         }
-        if(inicio.add(0, sign * 1).equals(final_)){
+        if(start.add(0, sign * 1).equals(end)){
             return true;
         }
-        if(inicio.add(-1, sign * 1).equals(final_)){
+        if(start.add(-1, sign * 1).equals(end)){
             return true;
         }
         return false;

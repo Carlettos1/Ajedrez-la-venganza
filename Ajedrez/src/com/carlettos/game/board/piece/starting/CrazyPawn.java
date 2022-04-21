@@ -9,22 +9,22 @@ import com.carlettos.game.board.manager.AbstractBoard;
 import com.carlettos.game.board.manager.clock.event.EventInfo;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.SimplePiece;
-import com.carlettos.game.board.piece.pattern.starting.PatternMadPawn;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Ability;
 import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.InfoNone;
 import com.carlettos.game.board.property.ability.InfoGetter.AbilityNone;
+import com.carlettos.game.board.piece.pattern.starting.PatternCrazyPawn;
 
 /**
  *
  * @author Carlettos
  */
-public class MadPawn extends SimplePiece<PatternMadPawn> {
-    public final static Ability<MadPawn, String, InfoNone> HABILIDAD_PEON_LOCO = new HabilidadPeonLoco<>();
+public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
+    public final static Ability<CrazyPawn, String, InfoNone> HABILIDAD_PEON_LOCO = new HabilidadPeonLoco<>();
     
-    public MadPawn(Color color) {
-        super("Peon Loco", "PE", HABILIDAD_PEON_LOCO, color, PatternMadPawn.PATRON_STANDAR, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+    public CrazyPawn(Color color) {
+        super("Peon Loco", "PE", HABILIDAD_PEON_LOCO, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
     public static class HabilidadPeonLoco<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
         public HabilidadPeonLoco() {

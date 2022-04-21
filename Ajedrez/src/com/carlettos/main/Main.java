@@ -23,7 +23,7 @@ import com.carlettos.game.board.piece.starting.ShieldBearer;
 import com.carlettos.game.board.piece.starting.Magician;
 import com.carlettos.game.board.piece.starting.Ship;
 import com.carlettos.game.board.piece.starting.Paladin;
-import com.carlettos.game.board.piece.starting.MadPawn;
+import com.carlettos.game.board.piece.starting.CrazyPawn;
 import com.carlettos.game.board.piece.starting.SuperPawn;
 import com.carlettos.game.board.piece.starting.TeslaTower;
 
@@ -114,10 +114,10 @@ public class Main {
         tablero.getEscaque(5, 15).setPiece(new Pawn(Color.BLACK));
         tablero.getEscaque(10, 15).setPiece(new Pawn(Color.BLACK));
                 
-        tablero.getEscaque(6, 1).setPiece(new MadPawn(Color.WHITE));
-        tablero.getEscaque(9, 1).setPiece(new MadPawn(Color.WHITE));        
-        tablero.getEscaque(6, 15).setPiece(new MadPawn(Color.BLACK));
-        tablero.getEscaque(9, 15).setPiece(new MadPawn(Color.BLACK));
+        tablero.getEscaque(6, 1).setPiece(new CrazyPawn(Color.WHITE));
+        tablero.getEscaque(9, 1).setPiece(new CrazyPawn(Color.WHITE));        
+        tablero.getEscaque(6, 15).setPiece(new CrazyPawn(Color.BLACK));
+        tablero.getEscaque(9, 15).setPiece(new CrazyPawn(Color.BLACK));
         
         tablero.getEscaque(7, 1).setPiece(new SuperPawn(Color.WHITE));
         tablero.getEscaque(8, 1).setPiece(new SuperPawn(Color.WHITE));        
@@ -149,10 +149,10 @@ public class Main {
         tablero.getEscaque(0, 13).setPiece(new Pawn(Color.BLACK));
         tablero.getEscaque(15, 13).setPiece(new Pawn(Color.BLACK));
         
-        tablero.getEscaque(1, 3).setPiece(new MadPawn(Color.WHITE));
-        tablero.getEscaque(14, 3).setPiece(new MadPawn(Color.WHITE));        
-        tablero.getEscaque(1, 13).setPiece(new MadPawn(Color.BLACK));
-        tablero.getEscaque(14, 13).setPiece(new MadPawn(Color.BLACK));
+        tablero.getEscaque(1, 3).setPiece(new CrazyPawn(Color.WHITE));
+        tablero.getEscaque(14, 3).setPiece(new CrazyPawn(Color.WHITE));        
+        tablero.getEscaque(1, 13).setPiece(new CrazyPawn(Color.BLACK));
+        tablero.getEscaque(14, 13).setPiece(new CrazyPawn(Color.BLACK));
         
         tablero.getEscaque(2, 3).setPiece(new Pawn(Color.WHITE));
         tablero.getEscaque(13, 3).setPiece(new Pawn(Color.WHITE));        

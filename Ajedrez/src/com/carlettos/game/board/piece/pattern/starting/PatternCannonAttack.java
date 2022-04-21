@@ -8,14 +8,14 @@ import com.carlettos.game.board.piece.pattern.Pattern;
  *
  * @author Carlettos
  */
-public interface PatternCannonAttack extends Pattern{
+public interface PatternCannonAttack extends Pattern {
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        if (Math.abs(inicio.x - final_.x) > 3) {
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        if (Math.abs(start.x - end.x) > 3) {
             return false;
         }
-        if (Math.abs(inicio.y - final_.y) > 3) {
+        if (Math.abs(start.y - end.y) > 3) {
             return false;
         }
 

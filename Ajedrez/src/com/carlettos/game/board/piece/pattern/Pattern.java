@@ -4,25 +4,24 @@ import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.AbstractBoard;
 
 /**
- * Se define como patrón el "patrón" de acción de una pieza. Básicamente es para
- * abstraer el "A se mueve como B y come como C", de la forma: B implementa el
- * patrón 1, C el patrón 2, y A implementa ambos, utilizando el patrón 1 para 
- * mover y el 2 para comer.
- * Por extensión se pueden usar los patrones para mover, comer, atacar e incluso 
- * para habilidades.
+ * The pattern of a piece is defined as "the way that a piece moves". It's a 
+ * way to reduce the (for example) movement of the queen to rook + bishop 
+ * without needing to rewrite code, and applicable to other pieces (like most
+ * structures moves the same, so they use the same pattern).
+ * But, its applicable to every other action, like take and attack. And, can be
+ * used to certain abilities.
  *
  * @author Carlettos
  */
 public interface Pattern {
 
     /**
-     * Revisa si el punto de inicio y el punto final corresponden al patrón
-     * representado.
+     * Checks if the end point matches the pattern centered on the start point.
      *
-     * @param tablero tablero en el que se quiere comprobar el patrón.
-     * @param inicio donde está la pieza.
-     * @param final_ donde se quiere comprobar si cumple el patrón.
-     * @return Si cumple con el patrón {@code true}, sino, {@code false}.
+     * @param board board to check the pattern.
+     * @param start center of the pattern.
+     * @param end point to match.
+     * @return true if the start-end matches the pattern, false other case.
      */
-    public boolean match(AbstractBoard tablero, Point inicio, Point final_);
+    public boolean match(AbstractBoard board, Point start, Point end);
 }

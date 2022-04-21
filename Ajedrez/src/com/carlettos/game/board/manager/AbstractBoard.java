@@ -16,7 +16,7 @@ import com.carlettos.game.board.piece.starting.Ballista;
 import com.carlettos.game.board.piece.starting.Builder;
 import com.carlettos.game.board.piece.starting.Cannon;
 import com.carlettos.game.board.piece.starting.Catapult;
-import com.carlettos.game.board.piece.starting.MadPawn;
+import com.carlettos.game.board.piece.starting.CrazyPawn;
 import com.carlettos.game.board.piece.starting.Magician;
 import com.carlettos.game.board.piece.starting.Paladin;
 import com.carlettos.game.board.piece.starting.Ram;
@@ -254,7 +254,7 @@ public abstract class AbstractBoard {
                     case Wall p -> new Wall(p.getColor());
                     case Ship p -> new Ship(p.getColor());
                     case Paladin p -> new Paladin(p.getColor());
-                    case MadPawn p -> new MadPawn(p.getColor());
+                    case CrazyPawn p -> new CrazyPawn(p.getColor());
                     case SuperPawn p -> new SuperPawn(p.getColor());
                     case TeslaTower p -> new TeslaTower(p.getColor());
                     default -> new Empty();

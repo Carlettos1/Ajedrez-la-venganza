@@ -3,15 +3,14 @@ package com.carlettos.game.board.piece.pattern;
 import com.carlettos.game.board.property.Color;
 
 /**
- * Interfaz para piezas tipo peón; que necesiten ir en cierta dirección del
- * tablero.
+ * 
  * @author Carlettos
  */
 public interface PatternPawn extends Pattern {
 
     /**
-     * Devuelve el color del peon. //TODO: cambiar por dirección de tablero
-     * @return Color del peon.
+     * Returns the color of the pawn. //TODO: cambiar por dirección de tablero
+     * @return the color of the pawn.
      */
     public Color getColor();
 }

@@ -10,11 +10,11 @@ import com.carlettos.game.board.piece.pattern.classic.PatternKing;
  * @author Carlettos
  */
 public interface PatternArcherMove extends Pattern {
-    public static Pattern REY = new PatternKing() {};
-    public static Pattern HECHICERO = new PatternMagicianMove() {};
+    public static Pattern KING = new PatternKing() {};
+    public static Pattern MAGICIAN = new PatternMagicianMove() {};
     
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        return HECHICERO.match(tablero, inicio, final_) || REY.match(tablero, inicio, final_);
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        return MAGICIAN.match(board, start, end) || KING.match(board, start, end);
     }
 }

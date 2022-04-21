@@ -11,29 +11,29 @@ import com.carlettos.game.board.piece.pattern.Pattern;
 public interface PatternMagicianMove extends Pattern {
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_) {
-        if (final_.equals(inicio.add(1, 0))) {
+    public default boolean match(AbstractBoard board, Point start, Point end) {
+        if (end.equals(start.add(1, 0))) {
             return true;
         }
-        if (final_.equals(inicio.add(2, 0))) {
+        if (end.equals(start.add(2, 0))) {
             return true;
         }
-        if (final_.equals(inicio.add(0, 1))) {
+        if (end.equals(start.add(0, 1))) {
             return true;
         }
-        if (final_.equals(inicio.add(0, 2))) {
+        if (end.equals(start.add(0, 2))) {
             return true;
         }
-        if (final_.equals(inicio.add(-1, 0))) {
+        if (end.equals(start.add(-1, 0))) {
             return true;
         }
-        if (final_.equals(inicio.add(-2, 0))) {
+        if (end.equals(start.add(-2, 0))) {
             return true;
         }
-        if (final_.equals(inicio.add(0, -1))) {
+        if (end.equals(start.add(0, -1))) {
             return true;
         }
-        if (final_.equals(inicio.add(0, -2))) {
+        if (end.equals(start.add(0, -2))) {
             return true;
         }
         return false;

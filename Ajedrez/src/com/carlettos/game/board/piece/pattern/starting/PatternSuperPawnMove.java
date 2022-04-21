@@ -12,25 +12,25 @@ import com.carlettos.game.board.property.Color;
 public interface PatternSuperPawnMove extends PatternPawn {
 
     @Override
-    public default boolean match(AbstractBoard tablero, Point inicio, Point final_){
+    public default boolean match(AbstractBoard board, Point start, Point end){
         int sign = getColor().equals(Color.WHITE) ? 1 : -1;
-        if(inicio.add(1, sign * 1).equals(final_)){
+        if(start.add(1, sign * 1).equals(end)){
             return true;
         }
-        if(inicio.add(0, sign * 1).equals(final_)){
+        if(start.add(0, sign * 1).equals(end)){
             return true;
         }
-        if(inicio.add(-1, sign * 1).equals(final_)){
+        if(start.add(-1, sign * 1).equals(end)){
             return true;
         }
-        if(inicio.add(1, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(1, sign * 1)).hasPiece();
+        if(start.add(1, sign * 2).equals(end)){
+            return !board.getEscaque(start.add(1, sign * 1)).hasPiece();
         }
-        if(inicio.add(0, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(0, sign * 1)).hasPiece();
+        if(start.add(0, sign * 2).equals(end)){
+            return !board.getEscaque(start.add(0, sign * 1)).hasPiece();
         }
-        if(inicio.add(-1, sign * 2).equals(final_)){
-            return !tablero.getEscaque(inicio.add(-1, sign * 1)).hasPiece();
+        if(start.add(-1, sign * 2).equals(end)){
+            return !board.getEscaque(start.add(-1, sign * 1)).hasPiece();
         }
         return false;
     }
