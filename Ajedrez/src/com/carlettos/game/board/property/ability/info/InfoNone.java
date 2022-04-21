@@ -9,6 +9,6 @@ import com.carlettos.game.board.property.ability.Info;
 public class InfoNone extends Info<String> {
 
     public InfoNone() {
-        super("Ninguna");
+        super("Usar");
     }
 }

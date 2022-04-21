@@ -38,7 +38,7 @@ public class InfoManager {
     }
 
     public static <V> Info<?> getInfo(V value) {
-        if(value == null){
+        if(value == null || value.equals("Usar")){
             return new InfoNone();
         }
         for (Map.Entry<Class<?>, Function<Object, Info<?>>> entry : map.entrySet()) {
