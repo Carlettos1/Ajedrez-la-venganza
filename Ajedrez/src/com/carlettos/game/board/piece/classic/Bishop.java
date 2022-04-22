@@ -24,7 +24,7 @@ public class Bishop extends SimplePiece<PatternBishop> {
     public static final Ability<Bishop, Direction, InfoDirection> ABILITY_BISHOP = new AbilityBishop<>();
 
     public Bishop(Color color) {
-        super("Alfil", "A", ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("bishop", "A", ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
     public static class AbilityBishop<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {

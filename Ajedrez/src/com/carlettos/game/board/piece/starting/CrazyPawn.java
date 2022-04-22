@@ -24,7 +24,7 @@ public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
     public final static Ability<CrazyPawn, String, InfoNone> ABILITY_CRAZY_PAWN = new AbilityCrazyPawn<>();
     
     public CrazyPawn(Color color) {
-        super("Peon Loco", "PE", ABILITY_CRAZY_PAWN, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("crazy_pawn", "PE", ABILITY_CRAZY_PAWN, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
     public static class AbilityCrazyPawn<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
         public AbilityCrazyPawn() {

@@ -33,7 +33,7 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
     public static final Ability<Pawn, Piece, InfoPiece> ABILITY_PAWN = new AbilityPawn<>();
 
     public Pawn(Color color) {
-        super(()->color, ()->color, "Peón", "P", ABILITY_PAWN, color);
+        super(()->color, ()->color, "pawn", "P", ABILITY_PAWN, color);
     }
 
     public static class AbilityPawn<P extends Piece> extends Ability<P, Piece, InfoPiece> implements AbilityPiece {

@@ -24,7 +24,7 @@ public class SuperPawn extends AbstractPawn<PatternSuperPawnMove, PatternSuperPa
     public static final Ability<SuperPawn, String, InfoNone> ABILITY_SUPER_PAWN = new AbilitySuperPawn<>();
     
     public SuperPawn(Color color) {
-        super(() -> color, () -> color, "Super Peon", "SU", ABILITY_SUPER_PAWN, color);
+        super(() -> color, () -> color, "super_pawn", "SU", ABILITY_SUPER_PAWN, color);
     }
     
     public static class AbilitySuperPawn<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {

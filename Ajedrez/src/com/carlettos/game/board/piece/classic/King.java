@@ -20,7 +20,7 @@ public class King extends SimplePiece<PatternKing> {
     public static final Ability<King, Point, InfoPoint> ABILITY_KING = new AbilityKing<>();
 
     public King(Color color) {
-        super("Rey", "RE", ABILITY_KING, color, new PatternKing(){}, PieceType.BIOLOGIC, PieceType.IMMUNE, PieceType.HEROIC);
+        super("king", "RE", ABILITY_KING, color, new PatternKing(){}, PieceType.BIOLOGIC, PieceType.IMMUNE, PieceType.HEROIC);
         this.hasUsedTP = false;
     }
     

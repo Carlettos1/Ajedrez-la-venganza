@@ -20,7 +20,7 @@ public class Queen extends SimplePiece<PatternQueen> {
     public static final Ability<Queen, Point, InfoPoint> ABILITY_QUEEN = new AbilityQueen<>();
 
     public Queen(Color color) {
-        super("Reina", "R", ABILITY_QUEEN, color, new PatternQueen(){}, PieceType.BIOLOGIC, PieceType.HEROIC);
+        super("queen", "R", ABILITY_QUEEN, color, new PatternQueen(){}, PieceType.BIOLOGIC, PieceType.HEROIC);
     }
 
     public static class AbilityQueen<P extends Piece> extends Ability<P, Point, InfoPoint> implements AbilityPoint {

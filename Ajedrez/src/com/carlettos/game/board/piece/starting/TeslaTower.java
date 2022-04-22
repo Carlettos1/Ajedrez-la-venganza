@@ -31,7 +31,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     protected final PatternStructureMove takePattern;
 
     public TeslaTower(Color color) {
-        super("Torre Tesla", "TT", ABILITY_TESLA_TOWER, color, PieceType.STRUCTURE);
+        super("tesla_tower", "TT", ABILITY_TESLA_TOWER, color, PieceType.STRUCTURE);
         this.movePattern = new PatternMagicianMove() {};
         this.takePattern = new PatternStructureMove() {};
     }

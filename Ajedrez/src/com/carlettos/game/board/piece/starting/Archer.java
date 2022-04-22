@@ -23,7 +23,7 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     protected final PatternArcherAttack attackPattern;
     
     public Archer(Color color) {
-        super("Arquero", "ARQ", Empty.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("archer", "ARQ", Empty.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         movePattern = new PatternArcherMove() {};
         attackPattern = new PatternArcherAttack() {};
     }

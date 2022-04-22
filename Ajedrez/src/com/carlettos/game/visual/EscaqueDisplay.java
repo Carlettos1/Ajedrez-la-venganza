@@ -6,6 +6,8 @@ import com.carlettos.game.board.Escaque;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +38,12 @@ public class EscaqueDisplay extends Component {
         g.setColor((isEven ? Constants.COLOR2 : Constants.COLOR1).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor((!isEven ? Constants.COLOR2 : Constants.COLOR1).getAWT());
-        //TODO: cambiar String por una imagen.
-        g.drawString(escaque.getPiece().notation, 2, 20);
-        g.drawString(!escaque.hasPiece()? "" : escaque.getPiece().getColor().name(), 2, 30);
+        
+        if(escaque.hasPiece()){ //todo: registrar imagenes
+            Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/" +
+                    escaque.getPiece().getName().toLowerCase() + "_" + escaque.getPieceColor().name().toLowerCase() + ".png");
+            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+        }
 
         double w = Constants.PERCENTAGE1 * getWidth();
         double h = Constants.PERCENTAGE1 * getHeight();

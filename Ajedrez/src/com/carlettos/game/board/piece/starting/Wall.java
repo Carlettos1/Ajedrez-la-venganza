@@ -16,7 +16,7 @@ import com.carlettos.game.board.property.ability.Info;
  */
 public class Wall extends Piece {
     public Wall(Color color) {
-        super("Muro", "MU", Empty.NO_ABILITY, color, PieceType.STRUCTURE);
+        super("wall", "MU", Empty.NO_ABILITY, color, PieceType.STRUCTURE);
     }
 
     @Override

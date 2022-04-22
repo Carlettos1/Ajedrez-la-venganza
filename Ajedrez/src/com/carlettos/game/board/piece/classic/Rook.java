@@ -24,7 +24,7 @@ public class Rook extends SimplePiece<PatternRook> {
     public static final Ability<Rook, Direction, InfoDirection> ABILITY_ROOK = new AbilityRook<>();
 
     public Rook(Color color) {
-        super("Torre", "T", ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
+        super("rook", "T", ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
     }
 
     public static class AbilityRook<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {

@@ -20,7 +20,7 @@ public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
 
     public Warlock(Color color) { //TODO: habilidad
-        super("Brujo", "B", Empty.NO_ABILITY, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
+        super("warlock", "B", Empty.NO_ABILITY, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
         this.movePattern = new PatternMagicianMove() {};
     }
 

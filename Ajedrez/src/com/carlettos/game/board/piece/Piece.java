@@ -112,7 +112,6 @@ public abstract class Piece {
             }
         }
         for (Object values : getAbility().getPossibleValues(board, start)) {
-            System.out.println(values);
             if (this.getAbility().canUse(board, this, start, InfoManager.getInfo(values)).isPositive()) {
                 actions.add(new Tuple<>(Action.ABILITY, InfoManager.getInfo(values)));
             }

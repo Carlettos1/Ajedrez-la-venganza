@@ -17,7 +17,7 @@ public class Knight extends SimplePiece<PatternKnight> {
     public static final Ability<Knight, String, InfoNone> ABILITY_KNIGHT = new AbilityKnight<>();
 
     public Knight(Color color) {
-        super("Caballo", "C", ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("knight", "C", ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
     public static class AbilityKnight<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
