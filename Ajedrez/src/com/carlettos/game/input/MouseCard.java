@@ -1,18 +1,11 @@
 package com.carlettos.game.input;
 
 import com.carlettos.game.core.helper.DisplayHelper;
-import com.carlettos.game.core.Tuple;
-import com.carlettos.game.board.manager.clock.Clock;
-import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
 import com.carlettos.game.display.board.BoardDisplay;
-import com.carlettos.game.core.Point;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.SwingUtilities;
 
 /**
  * Listener implementation class.
@@ -53,7 +46,7 @@ public class MouseCard implements MouseListener {
                 card.getCard().use(escaque.getEscaque().getPos(),
                         board.getBoard(),
                         clock.getPlayerOfColor(card.getColor()));
-                board.getManoVisual().rehacer();
+                board.getManoVisual().redo();
                 board.repaint();
             }
         }

@@ -121,6 +121,11 @@ public abstract class Card {
     }
 
     @Override
+    public String toString() {
+        return "Card{" + "name=" + name + '}';
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

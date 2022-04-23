@@ -1,6 +1,7 @@
 package com.carlettos.game.board.player;
 
 import com.carlettos.game.board.manager.Hand;
+import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.board.property.Color;
 import java.util.Objects;
 import java.util.Random;
@@ -104,8 +105,9 @@ public class Player {
         }
     }
     
-    public void takeCard(){
-        //TODO: robar carta
+    public void takeCard(Clock clock) {
+        this.hand.addCard(clock.getDeckOf(this).takeCard());
+        System.out.println(this.hand);
     }
 
     @Override

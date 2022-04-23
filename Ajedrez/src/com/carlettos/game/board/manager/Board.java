@@ -5,6 +5,10 @@ import com.carlettos.game.core.Action;
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.card.invocation.SummonKnight;
+import com.carlettos.game.board.card.invocation.SummonWarlock;
+import com.carlettos.game.board.card.utility.AddMovement;
+import com.carlettos.game.board.manager.clock.listener.ClockEvent;
+import com.carlettos.game.board.manager.clock.listener.ClockListener;
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.piece.Piece;
 import com.carlettos.game.board.piece.classic.Bishop;
@@ -30,6 +34,8 @@ import com.carlettos.game.board.piece.starting.Warlock;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.Color;
 import com.carlettos.game.board.property.ability.Info;
+import com.carlettos.game.core.helper.DeckHelper;
+import com.carlettos.game.display.board.BoardDisplay;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +107,13 @@ public class Board extends AbstractBoard {
                 }
             }
             getClock().endTurn();
+            try {
+                var bd = BoardDisplay.getInstance();
+                bd.getManoVisual().redo();
+                bd.repaint();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     
@@ -152,20 +165,34 @@ public class Board extends AbstractBoard {
         Clock clock = new Clock(white, black);
         Board board = new Board(16, 17, clock);
         
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        black.getHand().addCards(new SummonKnight());
-        white.getHand().addCards(new SummonKnight());
+        //adds 1 mana every 7 turns
+        clock.addListener(new ClockListener() {
+            @Override
+            public void onEndTurn(ClockEvent e) {
+                if (e.getSource().getTurn() % 7 == 0) {
+                    for (Player player : e.getSource().getPlayers()) {
+                        player.changeMana(1);
+                    }
+                }
+            }
+        });
+        
+        black.getHand().addCard(new AddMovement());
+        white.getHand().addCard(new AddMovement());
         white.changeMana(5);
         black.changeMana(5);
+        
+        Deck.defaultInit(clock.getDeck());
+        
+        var blackDeck = clock.getDeckOf(black);
+        var whiteDeck = clock.getDeckOf(white);
+        
+        DeckHelper.addToAll(() -> new SummonWarlock(), 4, blackDeck, whiteDeck);
+        DeckHelper.addToAll(() -> new AddMovement(), 3, blackDeck, whiteDeck);
+        DeckHelper.addToAll(() -> new SummonKnight(), 2, blackDeck, whiteDeck);
+        
+        whiteDeck.shuffle();
+        blackDeck.shuffle();
         
         board.getEscaque(0, 0).setPiece(new Cannon(Color.WHITE));
         board.getEscaque(15, 0).setPiece(new Cannon(Color.WHITE));        

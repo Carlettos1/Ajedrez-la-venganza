@@ -39,7 +39,7 @@ public class HandDisplay extends JPanel {
         add(playersPanel, BorderLayout.CENTER);
     }
 
-    public void rehacer() {
+    public void redo() {
         for (Component component : playersPanel.getComponents()) {
             if (component instanceof PlayerPanel playerPanel_) {
                 playerPanel_.rehacer();
@@ -55,7 +55,7 @@ public class HandDisplay extends JPanel {
             super(new GridLayout(ConfigHelper.getInstance().getIntConfig("cards_per_column"),
                     ConfigHelper.getInstance().getIntConfig("cards_per_row"), 10, 10));
             this.player = player;
-            player.getHand().getCards().forEach((carta) -> {
+            player.getHand().forEach((carta) -> {
                 var ecv = new CardDisplay(player.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);
@@ -64,7 +64,7 @@ public class HandDisplay extends JPanel {
 
         public void rehacer() {
             removeAll();
-            player.getHand().getCards().forEach((carta) -> {
+            player.getHand().forEach((carta) -> {
                 var ecv = new CardDisplay(player.getColor(), carta);
                 ecv.addMouseListener(MouseCard.get());
                 add(ecv);

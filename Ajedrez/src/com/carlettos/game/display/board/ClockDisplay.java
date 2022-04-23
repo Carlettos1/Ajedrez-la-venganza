@@ -100,6 +100,10 @@ public class ClockDisplay extends JPanel{
         turn.append(clock.turnOf().getColor())
                 .append("(Mana: ")
                 .append(clock.turnOf().getMana())
+                .append(", Movs: ")
+                .append(clock.turnOf().getMaxMovements() - clock.getMovements())
+                .append("/")
+                .append(clock.turnOf().getMaxMovements())
                 .append(").");
     }
 

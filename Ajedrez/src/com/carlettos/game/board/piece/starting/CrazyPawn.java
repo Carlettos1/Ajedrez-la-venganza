@@ -46,8 +46,8 @@ public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
                 final Player player = b.getClock().turnOf();
                 b.removePiece(start);
                 b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.name()), () -> {
-                    player.takeCard(); //robar 2 cartas
-                    player.takeCard();
+                    player.takeCard(b.getClock());
+                    player.takeCard(b.getClock());
                 }));
             } else {
                 throw new IllegalArgumentException("Tablero no es instanceof Tablero");

@@ -1,5 +1,7 @@
 package com.carlettos.game.board.manager.clock;
 
+import com.carlettos.game.board.manager.Deck;
+import com.carlettos.game.board.manager.PlayerDeck;
 import com.carlettos.game.board.manager.clock.event.Event;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.manager.clock.listener.ClockEvent;
@@ -20,6 +22,8 @@ public class Clock {
     private int turn;
     private int movements;
     private final Player[] players;
+    private final PlayerDeck[] playerDecks;
+    private final Deck deck;
     private final List<Event> events;
     private final List<ClockListener> listeners;
 
@@ -33,6 +37,11 @@ public class Clock {
         this.turn = 1;
         this.movements = 0;
         this.players = players;
+        this.playerDecks = new PlayerDeck[players.length];
+        for (int i = 0; i < players.length; i++) {
+            this.playerDecks[i] = new PlayerDeck(this.players[i]);
+        }
+        this.deck = new Deck();
         this.events = new ArrayList<>();
         this.listeners = new ArrayList<>();
     }
@@ -98,7 +107,8 @@ public class Clock {
         });
         events.removeIf(event -> event.info.getTurns() <= 0);
         
-        this.listeners.forEach(l -> l.onEndTurn(new ClockEvent(this)));
+        var event = new ClockEvent(this);
+        this.listeners.forEach(l -> l.onEndTurn(event));
         System.out.println("Juega el jugador: " + turnOf());
     }
 
@@ -157,6 +167,27 @@ public class Clock {
 
     public int getMovements() {
         return movements;
+    }
+    
+    public PlayerDeck getDeckOf(Player player) {
+        for (PlayerDeck playerDeck : playerDecks) {
+            if (playerDeck.getOwner().equals(player)) {
+                return playerDeck;
+            }
+        }
+        throw new IllegalArgumentException("player %s doesn't have a deck".formatted(player));
+    }
+    
+    public void takeFromDeck(PlayerDeck playerDeck) {
+        playerDeck.addCard(getDeck().takeCard());
+    }
+    
+    public void takeFromDeck(Player player) {
+        takeFromDeck(getDeckOf(player));
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     @Override
