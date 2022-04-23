@@ -1,8 +1,9 @@
 package com.carlettos.game.display.board;
 
 import com.carlettos.game.core.Action;
-import com.carlettos.game.core.Constants;
 import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.property.Color;
+import com.carlettos.game.core.helper.ConfigHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,29 +30,33 @@ public class EscaqueDisplay extends Component {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constants.ESCAQUE_LENGTH, Constants.ESCAQUE_LENGTH);
+        return new Dimension(ConfigHelper.getInstance().getIntConfig("escaque_lenght"), ConfigHelper.getInstance().getIntConfig("escaque_lenght"));
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor((isEven ? Constants.COLOR2 : Constants.COLOR1).getAWT());
+        g.setColor((isEven ? Color.values()[ConfigHelper.getInstance().getIntConfig("color_2_id")]
+                : Color.values()[ConfigHelper.getInstance().getIntConfig("color_1_id")]).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor((!isEven ? Constants.COLOR2 : Constants.COLOR1).getAWT());
+        g.setColor((!isEven ? Color.values()[ConfigHelper.getInstance().getIntConfig("color_2_id")] 
+                : Color.values()[ConfigHelper.getInstance().getIntConfig("color_1_id")]).getAWT());
         
         if(escaque.hasPiece()){ //todo: registrar imagenes
             Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/textures/" +
                     escaque.getPiece().getName().toLowerCase() + "_" + escaque.getPieceColor().name().toLowerCase() + ".png");
             g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         }
+        
+        if(this.actions.isEmpty()) {
+            return;
+        }
 
-        double w = Constants.PERCENTAGE1 * getWidth();
-        double h = Constants.PERCENTAGE1 * getHeight();
+        double w = ConfigHelper.getInstance().getDoubleConfig("percentage_" + this.actions.size()) * getWidth();
+        double h = ConfigHelper.getInstance().getDoubleConfig("percentage_" + this.actions.size()) * getHeight();
         double x = (getWidth() - w) / 2D;
         double y = (getHeight() - h) / 2D;
         switch (this.actions.size()) {
-            case 0:
-                break;
             case 1:
                 g.setColor(actions.get(0).getColor().getAWT());
                 g.fillOval((int) x, (int) y, (int) w, (int) h);
@@ -66,8 +71,6 @@ public class EscaqueDisplay extends Component {
                         (int) (w), (int) (h));
                 break;
             case 3:
-                w = Constants.PERCENTAGE3 * getWidth();
-                h = Constants.PERCENTAGE3 * getHeight();
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
                 
@@ -84,8 +87,6 @@ public class EscaqueDisplay extends Component {
                         (int) (w), (int) (h));
                 break;
             case 4:
-                w = Constants.PERCENTAGE4 * getWidth();
-                h = Constants.PERCENTAGE4 * getHeight();
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
                 

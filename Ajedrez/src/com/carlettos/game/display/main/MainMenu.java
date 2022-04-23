@@ -1,5 +1,9 @@
 package com.carlettos.game.display.main;
 
+import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.display.board.BoardDisplay;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,16 +36,24 @@ public class MainMenu extends JFrame {
     private void startInit(){
         start = new JPanel();
         start.setLayout(new BoxLayout(start, BoxLayout.PAGE_AXIS));
-        var op = new JButton("Opciones");
-        op.addActionListener(e -> options());
-        var ju = new JButton("Jugar");
-        ju.addActionListener(e -> play());
-        start.add(op);
+        var options = new JButton("Opciones");
+        options.addActionListener(e -> options());
+        var play = new JButton("Jugar");
+        play.addActionListener(e -> play());
+        start.add(options);
         start.add(Box.createVerticalGlue());
-        start.add(ju);
+        start.add(play);
         start.add(Box.createVerticalGlue());
         start.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         start.setPreferredSize(new Dimension(400, 400));
+    }
+    
+    private void addOptions() {
+        for (var entry : ConfigHelper.getInstance().getConfigEntries()) {
+            options.add(Box.createVerticalGlue());
+            var entryPanel = new ConfigEntryPanel(entry);
+            options.add(entryPanel);
+        }
     }
     
     private void start(){
@@ -56,14 +68,30 @@ public class MainMenu extends JFrame {
     private void options(){
         options = new JPanel();
         options.setLayout(new BoxLayout(options, BoxLayout.PAGE_AXIS));
-        var returnB = new JButton("Volver");
-        returnB.addActionListener(e -> start());
-        options.add(Box.createVerticalGlue()); //todo: config
-        options.add(new JLabel("ola"));
+        var goBack = new JButton("Volver");
+        goBack.addActionListener(e -> start());
+        var save = new JButton("Save");
+        save.addActionListener(e -> {
+            for (Component component : options.getComponents()) {
+                if(component instanceof ConfigEntryPanel cep){
+                    cep.saveConfig();
+                }
+            }
+            if(ConfigEntryPanel.CHANGES) {
+                ConfigHelper.getInstance().writeConfigs();
+                ConfigEntryPanel.CHANGES = false;
+            }
+        });
+        this.addOptions();
         options.add(Box.createVerticalGlue());
-        options.add(new JLabel("chau"));
-        options.add(Box.createVerticalGlue());
-        options.add(returnB);
+        var buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.LINE_AXIS));
+        buttonsPanel.add(Box.createHorizontalGlue());
+        buttonsPanel.add(goBack);
+        buttonsPanel.add(Box.createHorizontalGlue());
+        buttonsPanel.add(save);
+        buttonsPanel.add(Box.createHorizontalGlue());
+        options.add(buttonsPanel);
         options.add(Box.createVerticalGlue());
         options.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         options.setPreferredSize(new Dimension(400, 400));
@@ -75,6 +103,8 @@ public class MainMenu extends JFrame {
     }
     
     private void play(){
-        
+        var board = Board.getDefaultInstance(); //TODO: que sea una transición decente (?)
+        var display = new BoardDisplay(board);
+        display.mostrar();
     }
 }

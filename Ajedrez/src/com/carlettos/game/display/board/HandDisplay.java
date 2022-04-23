@@ -1,9 +1,9 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.core.Constants;
 import com.carlettos.game.input.MouseCard;
 import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.manager.clock.Clock;
+import com.carlettos.game.core.helper.ConfigHelper;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -52,7 +52,8 @@ public class HandDisplay extends JPanel {
         private final Player player;
 
         public PlayerPanel(Player player) {
-            super(new GridLayout(Constants.CARDS_PER_COLUMN, Constants.CARDS_PER_ROW, 10, 10));
+            super(new GridLayout(ConfigHelper.getInstance().getIntConfig("cards_per_column"),
+                    ConfigHelper.getInstance().getIntConfig("cards_per_row"), 10, 10));
             this.player = player;
             player.getHand().getCards().forEach((carta) -> {
                 var ecv = new CardDisplay(player.getColor(), carta);
@@ -74,8 +75,8 @@ public class HandDisplay extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(Constants.CARDS_PER_ROW * Constants.CARD_WIDTH,
-                    Constants.CARDS_PER_COLUMN * Constants.CARD_HEIGHT);
+            return new Dimension(ConfigHelper.getInstance().getIntConfig("cards_per_row") * ConfigHelper.getInstance().getIntConfig("card_width"),
+                    ConfigHelper.getInstance().getIntConfig("cards_per_column") * ConfigHelper.getInstance().getIntConfig("card_height"));
         }
     }
 }

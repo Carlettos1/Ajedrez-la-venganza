@@ -1,8 +1,8 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.core.Constants;
 import com.carlettos.game.board.card.Card;
 import com.carlettos.game.board.property.Color;
+import com.carlettos.game.core.helper.ConfigHelper;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
@@ -24,7 +24,7 @@ public class CardDisplay extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constants.CARD_WIDTH, Constants.CARD_HEIGHT);
+        return new Dimension(ConfigHelper.getInstance().getIntConfig("card_width"), ConfigHelper.getInstance().getIntConfig("card_height"));
     }
 
     @Override

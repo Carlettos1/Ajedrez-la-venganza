@@ -3,6 +3,7 @@ package com.carlettos.game.display.board;
 import com.carlettos.game.input.MousePiece;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.Point;
+import com.carlettos.game.core.helper.ConfigHelper;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -33,7 +34,7 @@ public class BoardDisplay extends JFrame {
     }
 
     protected void setup() {
-        clock.setPreferredSize(new Dimension(board.columns * 45, 150)); //todo: add to config
+        clock.setPreferredSize(new Dimension(board.columns * ConfigHelper.getInstance().getIntConfig("escaque_lenght"), ConfigHelper.getInstance().getIntConfig("clock_height")));
         rootPanel.add(clock, BorderLayout.PAGE_START);
         JPanel panel = new JPanel(new GridLayout(board.rows, board.columns));
         for (int y = board.rows - 1; y >= 0; y--) {
