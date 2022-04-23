@@ -1,4 +1,4 @@
-package com.carlettos.game.visual;
+package com.carlettos.game.display.board;
 
 import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.manager.clock.event.Event;
@@ -9,7 +9,7 @@ import com.carlettos.game.board.player.Player;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoManager;
 import com.carlettos.game.board.property.ability.info.InfoNone;
-import com.carlettos.game.visual.info.InfoDisplay;
+import com.carlettos.game.display.info.InfoDisplay;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;

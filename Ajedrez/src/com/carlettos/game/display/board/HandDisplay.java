@@ -1,4 +1,4 @@
-package com.carlettos.game.visual;
+package com.carlettos.game.display.board;
 
 import com.carlettos.game.core.Constants;
 import com.carlettos.game.input.MouseCard;
@@ -74,8 +74,8 @@ public class HandDisplay extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(Constants.CARDS_PER_ROW * Constants.CARD_X,
-                    Constants.CARDS_PER_COLUMN * Constants.CARD_Y);
+            return new Dimension(Constants.CARDS_PER_ROW * Constants.CARD_WIDTH,
+                    Constants.CARDS_PER_COLUMN * Constants.CARD_HEIGHT);
         }
     }
 }

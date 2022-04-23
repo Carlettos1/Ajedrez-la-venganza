@@ -1,7 +1,7 @@
 package com.carlettos.game.input;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.visual.BoardDisplay;
+import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.Component;
 import java.awt.Container;
 

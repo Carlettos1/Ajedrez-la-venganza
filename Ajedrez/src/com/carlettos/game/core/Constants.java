@@ -11,9 +11,9 @@ public class Constants {
     /** Preferred width and height of the escaque in display.*/
     public static final int ESCAQUE_LENGTH = 30;
     /** Preferred width of the card display.*/
-    public static final int CARD_X = 100;
+    public static final int CARD_WIDTH = 100;
     /** Preferred height of the card display.*/
-    public static final int CARD_Y = 120;
+    public static final int CARD_HEIGHT = 120;
     /** Maximum ammount of cards per row.*/
     public static final int CARDS_PER_ROW = 3;
     /** Maximum ammount of cards per column.*/

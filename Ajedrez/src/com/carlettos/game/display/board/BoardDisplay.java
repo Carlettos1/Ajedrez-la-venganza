@@ -1,4 +1,4 @@
-package com.carlettos.game.visual;
+package com.carlettos.game.display.board;
 
 import com.carlettos.game.input.MousePiece;
 import com.carlettos.game.board.manager.Board;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author Carlos
  */
-public class BoardDisplay extends JFrame{
+public class BoardDisplay extends JFrame {
 
     private final EscaqueDisplay[][] grid;
     private final JPanel rootPanel;

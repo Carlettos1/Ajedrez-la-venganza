@@ -1,4 +1,4 @@
-package com.carlettos.game.visual;
+package com.carlettos.game.display.board;
 
 import com.carlettos.game.core.Action;
 import com.carlettos.game.core.Constants;
@@ -40,7 +40,7 @@ public class EscaqueDisplay extends Component {
         g.setColor((!isEven ? Constants.COLOR2 : Constants.COLOR1).getAWT());
         
         if(escaque.hasPiece()){ //todo: registrar imagenes
-            Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/" +
+            Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/textures/" +
                     escaque.getPiece().getName().toLowerCase() + "_" + escaque.getPieceColor().name().toLowerCase() + ".png");
             g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         }

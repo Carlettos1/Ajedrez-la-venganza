@@ -1,4 +1,4 @@
-package com.carlettos.game.util;
+package com.carlettos.game.core.helper;
 
 /**
  *

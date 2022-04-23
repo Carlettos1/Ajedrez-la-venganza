@@ -15,7 +15,7 @@ import com.carlettos.game.board.property.PieceType;
 import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.info.InfoTuple;
 import com.carlettos.game.board.property.ability.InfoUse.AbilityTuple;
-import com.carlettos.game.util.MathHelper;
+import com.carlettos.game.core.helper.MathHelper;
 import java.util.ArrayList;
 import java.util.List;
 

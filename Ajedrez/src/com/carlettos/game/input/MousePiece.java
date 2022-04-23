@@ -5,8 +5,8 @@ import com.carlettos.game.core.ActionResult;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.manager.Board;
 import com.carlettos.game.core.Point;
-import com.carlettos.game.visual.EscaqueDisplay;
-import com.carlettos.game.visual.BoardDisplay;
+import com.carlettos.game.display.board.EscaqueDisplay;
+import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

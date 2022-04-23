@@ -1,4 +1,4 @@
-package com.carlettos.game.visual.info;
+package com.carlettos.game.display.info;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.board.manager.MiniBoard;
