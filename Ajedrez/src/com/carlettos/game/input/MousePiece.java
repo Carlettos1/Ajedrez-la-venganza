@@ -41,7 +41,7 @@ public class MousePiece implements MouseListener {
                 selected = null;
                 return;
             }
-            var tv = DisplayHelper.getBoardDisplay(selected);
+            var tv = BoardDisplay.getInstance();
             var board = tv.getBoard();
 
             if (!board.canPlay(selected.getEscaque().getPiece())) {
@@ -58,7 +58,7 @@ public class MousePiece implements MouseListener {
             var objetive = (EscaqueDisplay) e.getSource();
             var eSelected = selected.getEscaque();
             var eObjetive = objetive.getEscaque();
-            var tv = DisplayHelper.getBoardDisplay(selected);
+            var tv = BoardDisplay.getInstance();
             var board1 = tv.getBoard();
 
             if (board1.tryTo(Action.MOVE, eSelected.getPos(), eObjetive.getPos().toInfo()).equals(ActionResult.FAIL)) {

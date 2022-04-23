@@ -1,5 +1,6 @@
 package com.carlettos.game.input;
 
+import com.carlettos.game.core.helper.DisplayHelper;
 import com.carlettos.game.core.Tuple;
 import com.carlettos.game.board.manager.clock.Clock;
 import com.carlettos.game.core.ActionResult;
@@ -11,6 +12,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.SwingUtilities;
 
 /**
  * Listener implementation class.
@@ -38,14 +40,9 @@ public class MouseCard implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         var card = (CardDisplay) (e.getSource());
-        var board = DisplayHelper.getBoardDisplay(card);
-        Component ev = board.getComponentAt(e.getXOnScreen() - board.getX(), e.getYOnScreen() - board.getY());
-        
-        while (ev instanceof Container) {
-            var componentLocation = DisplayHelper.getAbsoluteLocation(ev);
-            ev = DisplayHelper.getComponentAt(ev, e.getXOnScreen() - componentLocation.x,
-                    e.getYOnScreen() - componentLocation.y);
-        }
+        var board = BoardDisplay.getInstance();
+        var frame = board.getRootPane().getParent();
+        var ev = DisplayHelper.getLastComponentAt(frame, e.getXOnScreen(), e.getYOnScreen());
         
         if (ev instanceof EscaqueDisplay escaque) {
             var clock = board.getClockDisplay().getClock();
@@ -57,7 +54,7 @@ public class MouseCard implements MouseListener {
                         board.getBoard(),
                         clock.getPlayerOfColor(card.getColor()));
                 board.getManoVisual().rehacer();
-                board.getClockDisplay().repaint();
+                board.repaint();
             }
         }
     }

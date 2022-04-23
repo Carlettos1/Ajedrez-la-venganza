@@ -24,10 +24,10 @@ public class SummonPiece<P extends Piece> extends Card {
 
     @Override
     public ActionResult canUse(Point point, Board board, Player caster) {
-        if(caster.getMana() < this.getCost() || board.getEscaque(point).hasPiece()){
+        if(board.getEscaque(point).hasPiece()){
             return ActionResult.FAIL; //todo: use summoneable range method from board.
         }
-        return ActionResult.PASS;
+        return this.commonCanUse(point, board, caster);
     }
 
     @Override
@@ -35,8 +35,6 @@ public class SummonPiece<P extends Piece> extends Card {
         board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.name, point), () -> {
             board.getEscaque(point).setPiece(builder.apply(caster.getColor()));
         }));
-        caster.getHand().removeCard(this);
-        caster.changeMana(-getCost());
-        board.movement();
+        this.commonUse(point, board, caster);
     }
 }

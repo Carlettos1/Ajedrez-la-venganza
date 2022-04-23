@@ -10,11 +10,15 @@ import com.carlettos.game.board.property.ability.Info;
 import com.carlettos.game.board.property.ability.InfoManager;
 import com.carlettos.game.board.property.ability.info.InfoNone;
 import com.carlettos.game.display.info.InfoDisplay;
+import com.carlettos.game.input.ClickAbilityButton;
+import com.carlettos.game.input.ClickTurnButton;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,7 +40,8 @@ public class ClockDisplay extends JPanel{
     private final JButton abilityButton;
 
     public ClockDisplay(Clock clock) {
-        super(new BorderLayout());
+        super();
+        this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         this.clock = clock;
         updateTexts();
         this.playerLabel = new JLabel(playerOrder.toString());
@@ -47,61 +52,29 @@ public class ClockDisplay extends JPanel{
         setup();
     }
 
-    //TODO: listeners por favor
     protected void setup() {
-        add(playerLabel, BorderLayout.PAGE_START);
-        add(eventsLabel, BorderLayout.CENTER);
-        add(turnLabel, BorderLayout.PAGE_END);
-        turnButton.addActionListener((ActionEvent e) -> {
-            clock.endTurn();
-            Container container = this;
-            while (container.getParent() != null) {
-                container = container.getParent();
-            }
-            container.repaint();
-            if (container instanceof BoardDisplay) {
-                BoardDisplay tv = (BoardDisplay) container;
-                tv.offAll();
-            }
-        });
-        abilityButton.addActionListener((e) -> {
-            if (MousePiece.get().selected == null) {
-                return;
-            }
-            Container container = this;
-            while (container.getParent() != null) {
-                container = container.getParent();
-            }
-            if (container instanceof BoardDisplay tv) {
-                Escaque escaque = MousePiece.get().selected.getEscaque();
-                
-                Object[] values = escaque.getPiece().getAbility().getPossibleValues(tv.getBoard(), escaque.getPos());
-                int i = InfoDisplay.showOptions(tv.getBoard(), escaque.getPos(), values);
-                if(i == -1){
-                    return;
-                }
-                
-                Object valor = values[i];
-                Info usedInfo = new InfoNone();
-                ActionResult ar = escaque.getPiece().getAbility().canUse(tv.getBoard(), escaque.getPiece(), escaque.getPos(), usedInfo = InfoManager.getInfo(valor));
-                
-                if (ar.isPositive()) {
-                    escaque.getPiece().getAbility().use(tv.getBoard(),
-                            escaque.getPiece(),
-                            escaque.getPos(),
-                            usedInfo);
-                    tv.getBoard().movement();
-                    MousePiece.get().selected = null;
-                    tv.offAll();
-                }
-            } else {
-                System.err.println("tv no es TableroVisual");
-            }
-        });
-        JPanel tmp = new JPanel(new BorderLayout(0, 10));
-        tmp.add(turnButton, BorderLayout.NORTH);
-        tmp.add(abilityButton, BorderLayout.SOUTH);
-        add(tmp, BorderLayout.EAST);
+        JPanel labels = new JPanel();
+        labels.setLayout(new BoxLayout(labels, BoxLayout.PAGE_AXIS));
+        labels.add(Box.createVerticalGlue());
+        labels.add(playerLabel);
+        labels.add(Box.createVerticalGlue());
+        labels.add(eventsLabel);
+        labels.add(Box.createVerticalGlue());
+        labels.add(turnLabel);
+        labels.add(Box.createVerticalGlue());
+        turnButton.addActionListener(ClickTurnButton.get());
+        abilityButton.addActionListener(ClickAbilityButton.get());
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
+        buttons.add(Box.createVerticalGlue());
+        buttons.add(turnButton);
+        buttons.add(Box.createVerticalGlue());
+        buttons.add(abilityButton);
+        buttons.add(Box.createVerticalGlue());
+        
+        this.add(labels);
+        this.add(Box.createHorizontalGlue());
+        this.add(buttons);
     }
 
     public void updateTexts() {
@@ -124,7 +97,10 @@ public class ClockDisplay extends JPanel{
         eventsOrder.append("</html>");
 
         turn = new StringBuilder("Es el turno del jugador ");
-        turn.append(clock.turnOf().getColor()).append('.');
+        turn.append(clock.turnOf().getColor())
+                .append("(Mana: ")
+                .append(clock.turnOf().getMana())
+                .append(").");
     }
 
     @Override

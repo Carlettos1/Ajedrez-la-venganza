@@ -1,9 +1,10 @@
-package com.carlettos.game.input;
+package com.carlettos.game.core.helper;
 
 import com.carlettos.game.core.Point;
 import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.Component;
 import java.awt.Container;
+import java.util.Arrays;
 
 /**
  * It provides methods of help to other classes.
@@ -12,23 +13,17 @@ import java.awt.Container;
  */
 public class DisplayHelper {
 
-    /**
-     * It gets the last parent of the component and cast it to BoardDisplay.
-     * 
-     * @param component
-     * 
-     * @return BoardDisplay of the component.
-     */
-    public static BoardDisplay getBoardDisplay(Component component){
-        Container lastParent = component.getParent();
-        while (lastParent.getParent() != null) {
-            lastParent = lastParent.getParent();
-        }
-        return (BoardDisplay) lastParent;
-    }
-
     public static Component getComponentAt(Component component, Point point) {
         return getComponentAt(component, point.x, point.y);
+    }
+    
+    public static Component getLastComponentAt(Component component, int x, int y) {
+        var comp = component;
+        while(comp instanceof Container) {
+            var loc = getAbsoluteLocation(comp);
+            comp = getComponentAt(comp, x - loc.x, y - loc.y);
+        }
+        return comp;
     }
 
     public static Component getComponentAt(Component component, int x, int y) {
@@ -52,6 +47,9 @@ public class DisplayHelper {
     public static Point getAbsoluteLocation(Component component) {
         int x = component.getX(), y = component.getY();
         Container container = component.getParent();
+        if (container == null) {
+            return new Point(x, y);
+        }
         while (container.getParent() != null) {
             x += container.getX();
             y += container.getY();

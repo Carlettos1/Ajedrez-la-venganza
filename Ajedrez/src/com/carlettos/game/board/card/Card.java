@@ -50,6 +50,42 @@ public abstract class Card {
      * @param caster caster of the card.
      */
     public abstract void use(Point point, Board board, Player caster);
+    
+    /**
+     * Utility method, checks if the player has enough mana and if the 
+     * player using the card is the owner of this card and is currently
+     * playing.
+     *
+     * @param point refference point.
+     * @param board board in which occurs.
+     * @param caster caster of the card.
+     *
+     * @return ActionResult.PASS if can be used, FAIL other case.
+     */
+    public ActionResult commonCanUse(Point point, Board board, Player caster) {
+        if(caster.getMana() < this.manaCost) {
+            return ActionResult.FAIL;
+        }
+        if (board.getClock().turnOf().getHand().hasCard(this) 
+                && board.getClock().turnOf().equals(caster)) {
+            return ActionResult.PASS;
+        }
+        return ActionResult.FAIL;
+    }
+    
+    /**
+     * Utility method, it substracts mana from the caster, remove this card
+     * from the caster and notifies the board of a movement.
+     *
+     * @param point refference point.
+     * @param board board in which occurs.
+     * @param caster caster of the card.
+     */
+    public void commonUse(Point point, Board board, Player caster) {
+        caster.getHand().removeCard(this);
+        caster.changeMana(-getCost());
+        board.movement();
+    }
 
     /**
      * Adds the amount of mana to the cost of this card. Can be negative.

@@ -15,27 +15,40 @@ import javax.swing.JPanel;
  *
  * @author Carlos
  */
-public class BoardDisplay extends JFrame {
+public class BoardDisplay extends JPanel {
+    private static BoardDisplay INSTANCE;
 
     private final EscaqueDisplay[][] grid;
-    private final JPanel rootPanel;
     private final Board board;
     private final ClockDisplay clock;
     private final HandDisplay cards;
 
-    public BoardDisplay(Board board) throws HeadlessException {
-        super("Ajedrez");
+    private BoardDisplay(Board board) {
+        super(new BorderLayout());
         this.grid = new EscaqueDisplay[board.rows][board.columns];
-        this.rootPanel = new JPanel(new BorderLayout());
         this.board = board;
         this.clock = new ClockDisplay(board.getClock());
         this.cards = new HandDisplay(board.getClock());
         setup();
     }
+    
+    public static BoardDisplay createInstance(Board board) {
+        if(INSTANCE == null) {
+            INSTANCE = new BoardDisplay(board);
+        }
+        return INSTANCE;
+    }
+    
+    public static BoardDisplay getInstance() {
+        if(INSTANCE == null) {
+            throw new NullPointerException("BoardDisplay instance not ready yet");
+        }
+        return INSTANCE;
+    }
 
     protected void setup() {
         clock.setPreferredSize(new Dimension(board.columns * ConfigHelper.getInstance().getIntConfig("escaque_lenght"), ConfigHelper.getInstance().getIntConfig("clock_height")));
-        rootPanel.add(clock, BorderLayout.PAGE_START);
+        this.add(clock, BorderLayout.PAGE_START);
         JPanel panel = new JPanel(new GridLayout(board.rows, board.columns));
         for (int y = board.rows - 1; y >= 0; y--) {
             for (int x = 0; x < board.columns; x++) {
@@ -45,16 +58,8 @@ public class BoardDisplay extends JFrame {
                 panel.add(ev);
             }
         }
-        rootPanel.add(panel, BorderLayout.CENTER);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        rootPanel.add(cards, BorderLayout.LINE_END);
-        add(rootPanel);
-    }
-
-    public void mostrar() {
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        this.add(panel, BorderLayout.CENTER);
+        this.add(cards, BorderLayout.LINE_END);
     }
 
     public Board getBoard() {

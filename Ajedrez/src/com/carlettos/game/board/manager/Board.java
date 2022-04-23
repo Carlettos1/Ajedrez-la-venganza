@@ -153,6 +153,16 @@ public class Board extends AbstractBoard {
         Board board = new Board(16, 17, clock);
         
         black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
+        black.getHand().addCards(new SummonKnight());
         white.getHand().addCards(new SummonKnight());
         white.changeMana(5);
         black.changeMana(5);

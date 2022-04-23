@@ -5,14 +5,11 @@ import com.carlettos.game.core.helper.ConfigHelper;
 import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +19,7 @@ import javax.swing.JPanel;
 public class MainMenu extends JFrame {
     private JPanel start;
     private JPanel options;
+    private JPanel play;
 
     public MainMenu() {
         super("Ajedrez");
@@ -103,8 +101,12 @@ public class MainMenu extends JFrame {
     }
     
     private void play(){
-        var board = Board.getDefaultInstance(); //TODO: que sea una transición decente (?)
-        var display = new BoardDisplay(board);
-        display.mostrar();
+        var board = Board.getDefaultInstance();
+        play = BoardDisplay.createInstance(board);
+        this.removeAll();
+        this.revalidate();
+        this.frameInit();
+        this.add(play);
+        this.pack();
     }
 }
