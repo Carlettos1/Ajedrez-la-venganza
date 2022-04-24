@@ -12,7 +12,8 @@ public enum Color {
     CYAN("#00FFFF"),
     MAGENTA("#FF00FF"),
     RED("#FF0000"), 
-    ORANGE("#FFA500");
+    ORANGE("#FFA500"),
+    AQUA("#03FDFC");
 
     private final String color;
     private final java.awt.Color colorAWT;
@@ -42,7 +43,7 @@ public enum Color {
      *
      * @return the negative of this color.
      */
-    public java.awt.Color getColorNegativo() {
+    public java.awt.Color getNegativeColor() {
         return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(), 255 - this.getAWT().getBlue());
     }
 }

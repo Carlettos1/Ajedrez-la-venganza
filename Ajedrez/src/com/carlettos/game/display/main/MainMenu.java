@@ -34,20 +34,20 @@ public class MainMenu extends JFrame {
     private void startInit(){
         start = new JPanel();
         start.setLayout(new BoxLayout(start, BoxLayout.PAGE_AXIS));
-        var options = new JButton("Opciones");
-        options.addActionListener(e -> options());
-        var play = new JButton("Jugar");
-        play.addActionListener(e -> play());
-        start.add(options);
+        var optBttn = new JButton("Opciones");
+        optBttn.addActionListener(e -> options());
+        var playBttn = new JButton("Jugar");
+        playBttn.addActionListener(e -> play());
+        start.add(optBttn);
         start.add(Box.createVerticalGlue());
-        start.add(play);
+        start.add(playBttn);
         start.add(Box.createVerticalGlue());
         start.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         start.setPreferredSize(new Dimension(400, 400));
     }
     
     private void addOptions() {
-        for (var entry : ConfigHelper.getInstance().getConfigEntries()) {
+        for (var entry : ConfigHelper.get().getConfigEntries()) {
             options.add(Box.createVerticalGlue());
             var entryPanel = new ConfigEntryPanel(entry);
             options.add(entryPanel);
@@ -76,7 +76,7 @@ public class MainMenu extends JFrame {
                 }
             }
             if(ConfigEntryPanel.CHANGES) {
-                ConfigHelper.getInstance().writeConfigs();
+                ConfigHelper.get().writeConfigs();
                 ConfigEntryPanel.CHANGES = false;
             }
         });

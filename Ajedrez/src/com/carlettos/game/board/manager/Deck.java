@@ -113,7 +113,7 @@ public class Deck {
     }
 
     public static void defaultInit(Deck deck) {
-        if (deck.getCardCount() == 0) {
+        if (deck.getCardCount() != 0) {
             throw new IllegalStateException("Deck cannot be default initialized with cards on it");
         }
         DeckHelper.addTo(() -> new AddMovement(), 4, deck);

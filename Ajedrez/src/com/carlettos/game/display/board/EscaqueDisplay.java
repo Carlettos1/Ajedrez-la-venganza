@@ -30,17 +30,17 @@ public class EscaqueDisplay extends Component {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(ConfigHelper.getInstance().getIntConfig("escaque_lenght"), ConfigHelper.getInstance().getIntConfig("escaque_lenght"));
+        return new Dimension(ConfigHelper.get().getInt("escaque_lenght"), ConfigHelper.get().getInt("escaque_lenght"));
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor((isEven ? Color.values()[ConfigHelper.getInstance().getIntConfig("color_2_id")]
-                : Color.values()[ConfigHelper.getInstance().getIntConfig("color_1_id")]).getAWT());
+        g.setColor((isEven ? Color.values()[ConfigHelper.get().getInt("color_2_id")]
+                : Color.values()[ConfigHelper.get().getInt("color_1_id")]).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor((!isEven ? Color.values()[ConfigHelper.getInstance().getIntConfig("color_2_id")] 
-                : Color.values()[ConfigHelper.getInstance().getIntConfig("color_1_id")]).getAWT());
+        g.setColor((!isEven ? Color.values()[ConfigHelper.get().getInt("color_2_id")] 
+                : Color.values()[ConfigHelper.get().getInt("color_1_id")]).getAWT());
         
         if(escaque.hasPiece()){ //todo: registrar imagenes
             Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/textures/" +
@@ -52,8 +52,8 @@ public class EscaqueDisplay extends Component {
             return;
         }
 
-        double w = ConfigHelper.getInstance().getDoubleConfig("percentage_" + this.actions.size()) * getWidth();
-        double h = ConfigHelper.getInstance().getDoubleConfig("percentage_" + this.actions.size()) * getHeight();
+        double w = ConfigHelper.get().getDouble("percentage_" + this.actions.size()) * getWidth();
+        double h = ConfigHelper.get().getDouble("percentage_" + this.actions.size()) * getHeight();
         double x = (getWidth() - w) / 2D;
         double y = (getHeight() - h) / 2D;
         switch (this.actions.size()) {

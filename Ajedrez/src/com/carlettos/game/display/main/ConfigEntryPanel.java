@@ -39,8 +39,22 @@ public class ConfigEntryPanel extends JPanel {
     
     public void saveConfig(){
         if(!entry.getValue().toString().equals(value.getText())) {
-            ConfigHelper.getInstance().setNumberConfig(entry.getKey(), Double.parseDouble(value.getText()));
-            this.entry.setValue(new JsonPrimitive(Double.parseDouble(value.getText())));
+            //XXX: try chain must no exist
+            try {
+                var val = Integer.parseInt(value.getText());
+                ConfigHelper.get().setInt(entry.getKey(), val);
+                this.entry.setValue(new JsonPrimitive(val));
+            } catch (Exception e) {
+                try {
+                    var val = Double.parseDouble(value.getText());
+                    ConfigHelper.get().setDouble(entry.getKey(), val);
+                    this.entry.setValue(new JsonPrimitive(val));
+                } catch (Exception ex) {
+                    var val = value.getText();
+                    ConfigHelper.get().setString(entry.getKey(), val);
+                    this.entry.setValue(new JsonPrimitive(val));
+                }
+            }
             CHANGES = true;
         }
     }

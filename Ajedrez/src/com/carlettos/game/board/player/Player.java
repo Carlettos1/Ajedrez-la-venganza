@@ -107,7 +107,6 @@ public class Player {
     
     public void takeCard(Clock clock) {
         this.hand.addCard(clock.getDeckOf(this).takeCard());
-        System.out.println(this.hand);
     }
 
     @Override

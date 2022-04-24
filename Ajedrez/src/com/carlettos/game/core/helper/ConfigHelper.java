@@ -57,26 +57,50 @@ public final class ConfigHelper {
         }
     }
 
-    public double getDoubleConfig(String config) {
+    public double getDouble(String config) {
         return configs.get(config).getAsDouble();
     }
 
-    public int getIntConfig(String config) {
+    public int getInt(String config) { //no usar estos
         return configs.get(config).getAsInt();
     }
+
+    public String getString(String config) {
+        return configs.get(config).getAsString();
+    }
     
-    public void setNumberConfig(String config, double number){
+    public void setDouble(String config, double number){
         this.configs.addProperty(config, number);
+    }
+    
+    public void setInt(String config, int number){
+        this.configs.addProperty(config, number);
+    }
+    
+    public void setString(String config, String str){
+        this.configs.addProperty(config, str);
     }
     
     public Set<Map.Entry<String, JsonElement>> getConfigEntries(){
         return this.configs.entrySet();
     }
 
-    public static final ConfigHelper getInstance() {
+    public static final ConfigHelper get() {
         if (INSTANCE == null) {
             INSTANCE = new ConfigHelper();
         }
         return INSTANCE;
+    }
+    
+    public static double getDoubleConfig(String config) {
+        return get().getDouble(config);
+    }
+
+    public static int getIntConfig(String config) {
+        return get().getInt(config);
+    }
+
+    public static String getStringConfig(String config) {
+        return get().getString(config);
     }
 }

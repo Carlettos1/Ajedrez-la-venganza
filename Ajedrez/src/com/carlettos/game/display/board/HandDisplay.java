@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
@@ -52,8 +53,9 @@ public class HandDisplay extends JPanel {
         private final Player player;
 
         public PlayerPanel(Player player) {
-            super(new GridLayout(ConfigHelper.getInstance().getIntConfig("cards_per_column"),
-                    ConfigHelper.getInstance().getIntConfig("cards_per_row"), 10, 10));
+            super(new GridLayout(ConfigHelper.get().getInt("cards_per_column"),
+                    ConfigHelper.get().getInt("cards_per_row"), 10, 10));
+            this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.player = player;
             player.getHand().forEach((carta) -> {
                 var ecv = new CardDisplay(player.getColor(), carta);
@@ -75,8 +77,8 @@ public class HandDisplay extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(ConfigHelper.getInstance().getIntConfig("cards_per_row") * ConfigHelper.getInstance().getIntConfig("card_width"),
-                    ConfigHelper.getInstance().getIntConfig("cards_per_column") * ConfigHelper.getInstance().getIntConfig("card_height"));
+            return new Dimension(ConfigHelper.get().getInt("cards_per_row") * ConfigHelper.get().getInt("card_width"),
+                    ConfigHelper.get().getInt("cards_per_column") * ConfigHelper.get().getInt("card_height"));
         }
     }
 }

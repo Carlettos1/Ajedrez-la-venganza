@@ -1,10 +1,9 @@
 package com.carlettos.game.core.helper;
 
 import com.carlettos.game.core.Point;
-import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.Component;
 import java.awt.Container;
-import java.util.Arrays;
+import java.awt.Font;
 
 /**
  * It provides methods of help to other classes.
@@ -12,6 +11,14 @@ import java.util.Arrays;
  * @author Carlos
  */
 public class DisplayHelper {
+    private static Font FONT;
+    
+    public static Font getFont() {
+        if (FONT == null) {
+            FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
+        }
+        return FONT;
+    }
 
     public static Component getComponentAt(Component component, Point point) {
         return getComponentAt(component, point.x, point.y);
