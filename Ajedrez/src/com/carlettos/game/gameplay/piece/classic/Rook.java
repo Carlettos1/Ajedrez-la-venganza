@@ -24,7 +24,7 @@ public class Rook extends SimplePiece<PatternRook> {
     public static final Ability<Rook, Direction, InfoDirection> ABILITY_ROOK = new AbilityRook<>();
 
     public Rook(Color color) {
-        super("rook", "T", ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
+        super("rook", "r", ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
     }
 
     public static class AbilityRook<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {
@@ -37,8 +37,7 @@ public class Rook extends SimplePiece<PatternRook> {
                     + "2.- Comen una pieza enemiga"
                     + "3.- Colisionan con una pieza aliada.",
                     10,
-                    0,
-                    "La dirección cardinal hacia dónde se mueve el alfil (NESW).");
+                    0);
         }
 
         @Override

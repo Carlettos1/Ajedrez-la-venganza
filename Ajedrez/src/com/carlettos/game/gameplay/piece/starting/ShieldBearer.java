@@ -21,7 +21,7 @@ public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake>
     public static final Ability<Piece, String, InfoNone> ABILITY_SHIELD_BEARER = new AbilityShieldBearer<>();
 
     public ShieldBearer(Color color) {
-        super(() -> color, () -> color, "shield_bearer", "D", ABILITY_SHIELD_BEARER, color);
+        super(() -> color, () -> color, "shield_bearer", "sb", ABILITY_SHIELD_BEARER, color);
     }
     
     public static class AbilityShieldBearer<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
@@ -29,8 +29,7 @@ public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake>
             super("Defender",
                     "Defiende de ataques de ballesta",
                     6,
-                    0,
-                    "ninguno");
+                    0);
         }
 
         @Override

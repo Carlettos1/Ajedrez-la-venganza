@@ -42,16 +42,16 @@ public class ConfigEntryPanel extends JPanel {
             //XXX: try chain must no exist
             try {
                 var val = Integer.parseInt(value.getText());
-                ConfigHelper.get().setInt(entry.getKey(), val);
+                ConfigHelper.setInt(entry.getKey(), val);
                 this.entry.setValue(new JsonPrimitive(val));
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 try {
                     var val = Double.parseDouble(value.getText());
-                    ConfigHelper.get().setDouble(entry.getKey(), val);
+                    ConfigHelper.setDouble(entry.getKey(), val);
                     this.entry.setValue(new JsonPrimitive(val));
-                } catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     var val = value.getText();
-                    ConfigHelper.get().setString(entry.getKey(), val);
+                    ConfigHelper.setString(entry.getKey(), val);
                     this.entry.setValue(new JsonPrimitive(val));
                 }
             }

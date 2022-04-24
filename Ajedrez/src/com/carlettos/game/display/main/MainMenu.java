@@ -3,6 +3,7 @@ package com.carlettos.game.display.main;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.FileHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
@@ -47,7 +48,7 @@ public class MainMenu extends JFrame {
     }
     
     private void addOptions() {
-        for (var entry : ConfigHelper.get().getConfigEntries()) {
+        for (var entry : ConfigHelper.getConfigEntries()) {
             options.add(Box.createVerticalGlue());
             var entryPanel = new ConfigEntryPanel(entry);
             options.add(entryPanel);
@@ -76,7 +77,7 @@ public class MainMenu extends JFrame {
                 }
             }
             if(ConfigEntryPanel.CHANGES) {
-                ConfigHelper.get().writeConfigs();
+                FileHelper.updateHelpers();
                 ConfigEntryPanel.CHANGES = false;
             }
         });

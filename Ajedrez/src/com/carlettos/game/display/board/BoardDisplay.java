@@ -45,7 +45,7 @@ public class BoardDisplay extends JPanel {
     }
 
     protected void setup() {
-        clock.setPreferredSize(new Dimension(board.columns * ConfigHelper.get().getInt("escaque_lenght"), ConfigHelper.get().getInt("clock_height")));
+        clock.setPreferredSize(new Dimension(board.columns * ConfigHelper.getEscaqueLength(), ConfigHelper.getClockHeight()));
         this.add(clock, BorderLayout.PAGE_START);
         JPanel panel = new JPanel(new GridLayout(board.rows, board.columns));
         for (int y = board.rows - 1; y >= 0; y--) {

@@ -23,7 +23,7 @@ public final class MathHelper {
      * @param num number to check
      * @param min minimum value of the number
      * @param max maximum value of the number
-     * @throws IllegalArgumentException in case that the number is higher than 
+     * @throws IndexOutOfBoundsException in case that the number is higher than 
      * max or lower than min.
      */
     public static final void requireInBounds(int num, int min, int max) {

@@ -24,7 +24,7 @@ public class Bishop extends SimplePiece<PatternBishop> {
     public static final Ability<Bishop, Direction, InfoDirection> ABILITY_BISHOP = new AbilityBishop<>();
 
     public Bishop(Color color) {
-        super("bishop", "A", ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("bishop", "b", ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
     public static class AbilityBishop<P extends Piece> extends Ability<P, Direction, InfoDirection> implements AbilityDirection {
@@ -32,8 +32,7 @@ public class Bishop extends SimplePiece<PatternBishop> {
             super("Cambio de Color",
                     "El alfil cambia de color, pudiendo moverse una casilla en cualquiera de las 4 direcciones cardinales.",
                     2,
-                    0,
-                    "La dirección cardinal hacia dónde se mueve el alfil (NESW).");
+                    0);
         }
 
         @Override

@@ -2,8 +2,8 @@ package com.carlettos.game.display.board;
 
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.FileHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -30,21 +30,19 @@ public class EscaqueDisplay extends Component {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(ConfigHelper.get().getInt("escaque_lenght"), ConfigHelper.get().getInt("escaque_lenght"));
+        return new Dimension(ConfigHelper.getEscaqueLength(), ConfigHelper.getEscaqueLength());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor((isEven ? Color.values()[ConfigHelper.get().getInt("color_2_id")]
-                : Color.values()[ConfigHelper.get().getInt("color_1_id")]).getAWT());
+        g.setColor((isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor((!isEven ? Color.values()[ConfigHelper.get().getInt("color_2_id")] 
-                : Color.values()[ConfigHelper.get().getInt("color_1_id")]).getAWT());
+        g.setColor((!isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
         
         if(escaque.hasPiece()){ //todo: registrar imagenes
-            Image img = Toolkit.getDefaultToolkit().getImage("./src/com/carlettos/resources/textures/" +
-                    escaque.getPiece().getName().toLowerCase() + "_" + escaque.getPieceColor().name().toLowerCase() + ".png");
+            Image img = Toolkit.getDefaultToolkit().getImage(FileHelper.TEXTURES_FOLDER +
+                    escaque.getPiece().getResourceLocation().getTexture(escaque.getPieceColor()) + ".png");
             g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         }
         
@@ -52,8 +50,8 @@ public class EscaqueDisplay extends Component {
             return;
         }
 
-        double w = ConfigHelper.get().getDouble("percentage_" + this.actions.size()) * getWidth();
-        double h = ConfigHelper.get().getDouble("percentage_" + this.actions.size()) * getHeight();
+        double w = ConfigHelper.getPercentage(this.actions.size()) * getWidth();
+        double h = ConfigHelper.getPercentage(this.actions.size()) * getHeight();
         double x = (getWidth() - w) / 2D;
         double y = (getHeight() - h) / 2D;
         switch (this.actions.size()) {

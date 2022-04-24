@@ -1,17 +1,8 @@
 package com.carlettos.game.util.helper;
 
-import com.google.gson.Gson;
+import com.carlettos.game.util.enums.Color;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,87 +11,116 @@ import java.util.Set;
  * @author Carlettos
  */
 public final class ConfigHelper {
-    private static ConfigHelper INSTANCE;
-    private Gson gson;
-    private JsonObject configs;
-
-    private ConfigHelper() {
-        this.gson = new Gson();
-        this.readConfigs();
+    
+    static {
+        updateConfigs();
     }
     
-    public void readConfigs() {
-        try {
-            var file = new File("./src/com/carlettos/resources/config.json");
-            var reader = new BufferedReader(new FileReader(file));
-            var jr = new JsonReader(reader);
-            configs = gson.getAdapter(JsonObject.class).read(jr);
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Read config file not found");
-        } catch (IOException e) {
-            System.out.println("Read config file IOException");
-        }
+    private static JsonObject CONFIGS;
+    
+    public static void updateConfigs() {
+        CONFIGS = FileHelper.getFromFile(FileHelper.CONFIG_FILE);
     }
     
-    public void writeConfigs() {
-        try {
-            var file = new File("./src/com/carlettos/resources/config.json");
-            var writer = new BufferedWriter(new FileWriter(file));
-            var jw = new JsonWriter(writer);
-            gson.getAdapter(JsonObject.class).write(jw, configs);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Writing config file not found");
-        } catch (IOException e) {
-            System.out.println("Writing config file IOException");
-        }
+    public static void saveConfigs() {
+        FileHelper.setToFile(FileHelper.CONFIG_FILE, CONFIGS);
     }
 
-    public double getDouble(String config) {
-        return configs.get(config).getAsDouble();
+    public static double getDouble(String config) {
+        return CONFIGS.get(config).getAsDouble();
     }
 
-    public int getInt(String config) { //no usar estos
-        return configs.get(config).getAsInt();
+    public static int getInt(String config) {
+        return CONFIGS.get(config).getAsInt();
     }
 
-    public String getString(String config) {
-        return configs.get(config).getAsString();
+    public static String getString(String config) {
+        return CONFIGS.get(config).getAsString();
     }
     
-    public void setDouble(String config, double number){
-        this.configs.addProperty(config, number);
+    public static void setDouble(String config, double number){
+        CONFIGS.addProperty(config, number);
     }
     
-    public void setInt(String config, int number){
-        this.configs.addProperty(config, number);
+    public static void setInt(String config, int number){
+        CONFIGS.addProperty(config, number);
     }
     
-    public void setString(String config, String str){
-        this.configs.addProperty(config, str);
+    public static void setString(String config, String str){
+        CONFIGS.addProperty(config, str);
     }
     
-    public Set<Map.Entry<String, JsonElement>> getConfigEntries(){
-        return this.configs.entrySet();
-    }
-
-    public static final ConfigHelper get() {
-        if (INSTANCE == null) {
-            INSTANCE = new ConfigHelper();
-        }
-        return INSTANCE;
+    public static Set<Map.Entry<String, JsonElement>> getConfigEntries(){
+        return CONFIGS.entrySet();
     }
     
-    public static double getDoubleConfig(String config) {
-        return get().getDouble(config);
+    public static int getEscaqueLength() {
+        return getInt("escaque_lenght");
     }
-
-    public static int getIntConfig(String config) {
-        return get().getInt(config);
+    
+    public static int getCardWidth() {
+        return getInt("card_width");
     }
-
-    public static String getStringConfig(String config) {
-        return get().getString(config);
+    
+    public static int getCardHeight() {
+        return getInt("card_height");
+    }
+    
+    public static int getCardsPerRow() {
+        return getInt("cards_per_row");
+    }
+    
+    public static int getCardsPerColumn() {
+        return getInt("cards_per_column");
+    }
+    
+    public static int getClockHeight() {
+        return getInt("clock_height");
+    }
+    
+    public static Color getColor1() {
+        return Color.fromIndex(getInt("color_1_id"));
+    }
+    
+    public static Color getColor2() {
+        return Color.fromIndex(getInt("color_2_id"));
+    }
+    
+    public static Color getColorMana() {
+        return Color.fromIndex(getInt("color_mana_id"));
+    }
+    
+    public static double getPercentage1() {
+        return getDouble("percentage_1");
+    }
+    
+    public static double getPercentage2() {
+        return getDouble("percentage_2");
+    }
+    
+    public static double getPercentage3() {
+        return getDouble("percentage_3");
+    }
+    
+    public static double getPercentage4() {
+        return getDouble("percentage_4");
+    }
+    
+    public static double getPercentage(int number) {
+        return switch (number) {
+            case 1 -> getPercentage1();
+            case 2 -> getPercentage2();
+            case 3 -> getPercentage3();
+            case 4 -> getPercentage4();
+            default -> getPercentage4();
+        };
+    }
+    
+    public static String getManaSymbol() {
+        return getString("mana_symbol");
+    }
+    
+    public static String getLanguage() {
+        return getString("language");
     }
 }

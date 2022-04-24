@@ -25,7 +25,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     protected final PatternStructureMove movePattern;
     
     public Ram(Color color) {
-        super("ram", "AR", ABILITY_RAM, color, PieceType.STRUCTURE);
+        super("ram", "ram", ABILITY_RAM, color, PieceType.STRUCTURE);
         movePattern = new PatternStructureMove() {};
     }
     
@@ -46,8 +46,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
                             + "dependiendo de cuanto haya cargado "
                             + "(avanza 1 escaque por cada 5 que carge, +1 de base).", 
                     4, 
-                    0, 
-                    "La dirección cardinal hacia dónde se mueve el alfil (NESW).");
+                    0);
         }
         
         @Override

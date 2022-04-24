@@ -31,7 +31,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     protected final PatternStructureMove takePattern;
 
     public TeslaTower(Color color) {
-        super("tesla_tower", "TT", ABILITY_TESLA_TOWER, color, PieceType.STRUCTURE);
+        super("tesla_tower", "tt", ABILITY_TESLA_TOWER, color, PieceType.STRUCTURE);
         this.movePattern = new PatternMagicianMove() {};
         this.takePattern = new PatternStructureMove() {};
     }
@@ -53,8 +53,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
             super("PEM", 
                     "Emite un PEM que desactiva todas las estructuras", 
                     20, 
-                    1, 
-                    "ninguno");
+                    1);
         }
 
         @Override

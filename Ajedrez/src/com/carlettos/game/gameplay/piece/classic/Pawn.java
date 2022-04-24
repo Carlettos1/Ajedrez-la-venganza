@@ -33,7 +33,7 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
     public static final Ability<Pawn, Piece, InfoPiece> ABILITY_PAWN = new AbilityPawn<>();
 
     public Pawn(Color color) {
-        super(()->color, ()->color, "pawn", "P", ABILITY_PAWN, color);
+        super(()->color, ()->color, "pawn", "p", ABILITY_PAWN, color);
     }
 
     public static class AbilityPawn<P extends Piece> extends Ability<P, Piece, InfoPiece> implements AbilityPiece {
@@ -42,8 +42,7 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
             super("Coronar",
                     "Al estar en la última fila, puede transformarse en cualquier pieza de las que se permita.",
                     0,
-                    0,
-                    "El nombre de la pieza a transformar. Ejemplo: Dama.");
+                    0);
         }
 
         @Override

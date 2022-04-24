@@ -40,7 +40,7 @@ public class ClockDisplay extends JPanel{
         this.turnLabel = new JLabel(turn.toString());
         this.manaLabel = new JLabel(manaStr);
         this.manaLabel.setFont(DisplayHelper.FONT_6);
-        this.manaLabel.setForeground(Color.values()[ConfigHelper.get().getInt("color_mana_id")].getAWT());
+        this.manaLabel.setForeground(ConfigHelper.getColorMana().getAWT());
         this.turnButton = new JButton("Avanzar turno");
         this.abilityButton = new JButton("Usar Habilidad");
         setup();
@@ -87,7 +87,7 @@ public class ClockDisplay extends JPanel{
                 .append(clock.turnOf().getMaxMovements())
                 .append(").");
         
-        manaStr = ConfigHelper.getStringConfig("mana_symbol").repeat(clock.turnOf().getMana());
+        manaStr = ConfigHelper.getManaSymbol().repeat(clock.turnOf().getMana());
     }
 
     @Override

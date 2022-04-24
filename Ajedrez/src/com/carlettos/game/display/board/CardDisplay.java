@@ -35,11 +35,11 @@ public class CardDisplay extends JPanel {
         
         this.name = new JLabel(card.getName());
         this.desc = new JLabel("<html>" + card.getDescription() + "</html>");
-        this.mana = new JLabel(ConfigHelper.getStringConfig("mana_symbol").repeat(card.getCost()));
+        this.mana = new JLabel(ConfigHelper.getManaSymbol().repeat(card.getCost()));
         
         this.name.setForeground(color.getNegativeColor());
         this.desc.setForeground(color.getNegativeColor());
-        this.mana.setForeground(Color.values()[ConfigHelper.get().getInt("color_mana_id")].getAWT());
+        this.mana.setForeground(ConfigHelper.getColorMana().getAWT());
         
         this.name.setFont(DisplayHelper.FONT_12);
         this.desc.setFont(DisplayHelper.FONT_10);
@@ -58,7 +58,7 @@ public class CardDisplay extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(ConfigHelper.get().getInt("card_width"), ConfigHelper.get().getInt("card_height"));
+        return new Dimension(ConfigHelper.getCardWidth(), ConfigHelper.getCardHeight());
     }
 
     public Card getCard() {

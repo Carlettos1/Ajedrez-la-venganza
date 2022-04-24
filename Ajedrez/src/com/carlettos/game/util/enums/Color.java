@@ -1,5 +1,7 @@
 package com.carlettos.game.util.enums;
 
+import com.carlettos.game.util.helper.MathHelper;
+
 /**
  * Black color, white color, etc. An interface with java.awt.Color.
  *
@@ -45,5 +47,10 @@ public enum Color {
      */
     public java.awt.Color getNegativeColor() {
         return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(), 255 - this.getAWT().getBlue());
+    }
+    
+    public static Color fromIndex(int idx) {
+        MathHelper.requireInBounds(idx, 0, Color.values().length);
+        return Color.values()[idx];
     }
 }

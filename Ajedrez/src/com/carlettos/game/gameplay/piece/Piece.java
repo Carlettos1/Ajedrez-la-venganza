@@ -6,6 +6,7 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.ability.InfoManager;
 import com.carlettos.game.gameplay.ability.info.InfoPiece;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
@@ -34,8 +35,8 @@ public abstract class Piece {
      */
     protected int cooldown;
 
-    protected String name;
-    public final String notation;
+    protected ResourceLocation name;
+    public final ResourceLocation notation;
     protected Ability ability;
     protected Color color;
     protected final List<PieceType> types;
@@ -53,8 +54,8 @@ public abstract class Piece {
     public Piece(String name, String notation, Ability ability, Color color, PieceType... types) {
         this.moved = false;
         this.cooldown = 0;
-        this.name = name;
-        this.notation = notation;
+        this.name = new ResourceLocation("piece." + name);
+        this.notation = new ResourceLocation("notation." + notation);
         this.ability = ability;
         this.color = color;
         this.types = Arrays.asList(types);
@@ -202,9 +203,13 @@ public abstract class Piece {
         }
         return ActionResult.fromBoolean(success);
     }
+    
+    public ResourceLocation getResourceLocation() {
+        return name;
+    }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 
     public Ability getAbility() {
@@ -225,7 +230,7 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return notation;
+        return notation.getName();
     }
 
     @Override

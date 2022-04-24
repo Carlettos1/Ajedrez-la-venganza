@@ -29,7 +29,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
     protected final PatternStructureMove movePattern;
     
     public Catapult(Color color) {
-        super("catapult", "CA", ABILITY_CATAPULT, color, PieceType.STRUCTURE);
+        super("catapult", "ca", ABILITY_CATAPULT, color, PieceType.STRUCTURE);
         movePattern = new PatternStructureMove() {};
     }
     
@@ -47,12 +47,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
             super("Lanzar Pieza", 
                     "Lanza una pieza en una dirección.", 
                     5, 
-                    0, """
-                       (NESW) + un número, siguiendo la distribución:
-                       7 8 9
-                       4 C 6
-                       1 2 3.
-                       Ej: N 3.""");
+                    0);
         }
 
         @Override

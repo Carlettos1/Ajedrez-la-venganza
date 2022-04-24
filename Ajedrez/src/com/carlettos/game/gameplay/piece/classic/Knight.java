@@ -17,7 +17,7 @@ public class Knight extends SimplePiece<PatternKnight> {
     public static final Ability<Knight, String, InfoNone> ABILITY_KNIGHT = new AbilityKnight<>();
 
     public Knight(Color color) {
-        super("knight", "C", ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("knight", "n", ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 
     public static class AbilityKnight<P extends Piece> extends Ability<P, String, InfoNone> implements AbilityNone {
@@ -26,8 +26,7 @@ public class Knight extends SimplePiece<PatternKnight> {
             super("Bajar Jinetes",
             "Invoca 2 peones, uno a cada lado del caballo (EW). Ambas casillas deben estar vacías",
             10,
-            1,
-            "No requiere información adicional");
+            1);
         }
 
         @Override

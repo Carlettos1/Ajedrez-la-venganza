@@ -53,8 +53,8 @@ public class HandDisplay extends JPanel {
         private final Player player;
 
         public PlayerPanel(Player player) {
-            super(new GridLayout(ConfigHelper.get().getInt("cards_per_column"),
-                    ConfigHelper.get().getInt("cards_per_row"), 10, 10));
+            super(new GridLayout(ConfigHelper.getCardsPerColumn(),
+                    ConfigHelper.getCardsPerRow(), 10, 10));
             this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.player = player;
             player.getHand().forEach((carta) -> {
@@ -77,8 +77,8 @@ public class HandDisplay extends JPanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(ConfigHelper.get().getInt("cards_per_row") * ConfigHelper.get().getInt("card_width"),
-                    ConfigHelper.get().getInt("cards_per_column") * ConfigHelper.get().getInt("card_height"));
+            return new Dimension(ConfigHelper.getCardsPerRow() * ConfigHelper.getCardWidth(),
+                    ConfigHelper.getCardsPerColumn() * ConfigHelper.getCardHeight());
         }
     }
 }

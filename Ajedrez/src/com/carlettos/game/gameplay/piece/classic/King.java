@@ -20,7 +20,7 @@ public class King extends SimplePiece<PatternKing> {
     public static final Ability<King, Point, InfoPoint> ABILITY_KING = new AbilityKing<>();
 
     public King(Color color) {
-        super("king", "RE", ABILITY_KING, color, new PatternKing(){}, PieceType.BIOLOGIC, PieceType.IMMUNE, PieceType.HEROIC);
+        super("king", "k", ABILITY_KING, color, new PatternKing(){}, PieceType.BIOLOGIC, PieceType.IMMUNE, PieceType.HEROIC);
         this.hasUsedTP = false;
     }
     
@@ -30,8 +30,7 @@ public class King extends SimplePiece<PatternKing> {
             super("Teletransportación",
                     "Se teletransporta a cualquier casilla en un rango de 5",
                     0,
-                    2,
-                    "Debe ser algo de la forma \"dx dy\", con espacio incluido");
+                    2);
         }
 
         @Override

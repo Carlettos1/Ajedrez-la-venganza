@@ -28,7 +28,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
     protected final PatternLeechTake takePattern;
 
     public Builder(Color color) {
-        super("builder", "CO", ABILITY_BUILDER, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("builder", "bui", ABILITY_BUILDER, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.movePattern = new PatternMagicianMove() {};
         this.takePattern = new PatternLeechTake() {};
     }
@@ -50,8 +50,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
             super("Construir Barrera", 
                     "Construye 3 muros en la dirección indicada. No reemplaza piezas.", 
                     10, 
-                    0, 
-                    "Dirección (NESW).");
+                    0);
         }
 
         @Override

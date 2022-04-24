@@ -6,5 +6,5 @@ package com.carlettos.game.gameplay.ability;
  *
  * @author Carlettos
  */
-public record Data(String name, String description, int cooldown, int manaCost, String params) {
+public record Data(String name, String description, int cooldown, int manaCost) {
 }

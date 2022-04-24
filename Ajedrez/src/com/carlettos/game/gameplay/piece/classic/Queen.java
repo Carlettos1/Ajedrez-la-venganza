@@ -20,7 +20,7 @@ public class Queen extends SimplePiece<PatternQueen> {
     public static final Ability<Queen, Point, InfoPoint> ABILITY_QUEEN = new AbilityQueen<>();
 
     public Queen(Color color) {
-        super("queen", "R", ABILITY_QUEEN, color, new PatternQueen(){}, PieceType.BIOLOGIC, PieceType.HEROIC);
+        super("queen", "q", ABILITY_QUEEN, color, new PatternQueen(){}, PieceType.BIOLOGIC, PieceType.HEROIC);
     }
 
     public static class AbilityQueen<P extends Piece> extends Ability<P, Point, InfoPoint> implements AbilityPoint {
@@ -29,8 +29,7 @@ public class Queen extends SimplePiece<PatternQueen> {
             super("Movimiento Caballístico.",
                     "Permite a la reina moverse como caballo, comiendo cualquier pieza en la que caiga, incluida piezas aliadas.",
                     5,
-                    0,
-                    "\"dx dy\", literalmente");
+                    0);
         }
 
         @Override

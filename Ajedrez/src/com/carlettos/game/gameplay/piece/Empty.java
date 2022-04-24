@@ -19,7 +19,7 @@ public class Empty extends Piece {
     public final static Ability NO_ABILITY = new NoAbility();
 
     public Empty() {
-        super("Vacía", " ", NO_ABILITY, Color.GRAY);
+        super("empty", "non", NO_ABILITY, Color.GRAY);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Empty extends Piece {
     public static class NoAbility extends Ability<Piece, String, InfoNone> implements AbilityNone {
 
         public NoAbility() {
-            super("Habilidad nula", "No hace nada", 0, 0, "Ninguno");
+            super("Habilidad nula", "No hace nada", 0, 0);
         }
 
         @Override

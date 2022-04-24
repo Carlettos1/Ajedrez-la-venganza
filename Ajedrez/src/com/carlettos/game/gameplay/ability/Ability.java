@@ -2,10 +2,10 @@ package com.carlettos.game.gameplay.ability;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Board;
-import com.carlettos.game.gameplay.ability.Data;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
+
 /**
  * It's the ability of the piece. It has all the information about itself. Also
  * knows when and how excecute itself.
@@ -29,12 +29,11 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      * @param description description of the ability.
      * @param cooldown cooldown of the ability.
      * @param manaCost cost of mana of the ability.
-     * @param params parameters of the ability.
      *
      * @see Piece
      */
-    public Ability(String name, String description, int cooldown, int manaCost, String params) {
-        data = new Data(name, description, cooldown, manaCost, params);
+    public Ability(String name, String description, int cooldown, int manaCost) {
+        data = new Data(name, description, cooldown, manaCost);
     }
 
     /**
