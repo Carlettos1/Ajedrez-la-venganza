@@ -1,6 +1,5 @@
 package com.carlettos.main;
 
-import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.main.MainMenu;
 
 /**

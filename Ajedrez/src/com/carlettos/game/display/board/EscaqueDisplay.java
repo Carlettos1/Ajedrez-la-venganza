@@ -1,9 +1,9 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.core.Action;
 import com.carlettos.game.board.Escaque;
-import com.carlettos.game.board.property.Color;
-import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.util.enums.Action;
+import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;

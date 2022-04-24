@@ -1,6 +1,6 @@
 package com.carlettos.game.display.main;
 
-import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.util.helper.ConfigHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import java.awt.Dimension;

@@ -1,9 +1,9 @@
 package com.carlettos.game.board;
 
-import com.carlettos.game.board.piece.Empty;
-import com.carlettos.game.board.piece.Piece;
-import com.carlettos.game.board.property.Color;
-import com.carlettos.game.core.Point;
+import com.carlettos.game.gameplay.piece.Empty;
+import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.util.Point;
+import com.carlettos.game.util.enums.Color;
 
 /**
  * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, 

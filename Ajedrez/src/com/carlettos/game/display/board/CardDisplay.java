@@ -1,11 +1,10 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.board.card.Card;
-import com.carlettos.game.board.property.Color;
-import com.carlettos.game.core.helper.ConfigHelper;
-import com.carlettos.game.core.helper.DisplayHelper;
+import com.carlettos.game.gameplay.card.Card;
+import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.DisplayHelper;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -42,9 +41,9 @@ public class CardDisplay extends JPanel {
         this.desc.setForeground(color.getNegativeColor());
         this.mana.setForeground(Color.values()[ConfigHelper.get().getInt("color_mana_id")].getAWT());
         
-        this.name.setFont(DisplayHelper.getFont().deriveFont(12f));
-        this.desc.setFont(DisplayHelper.getFont());
-        this.mana.setFont(DisplayHelper.getFont().deriveFont(6f));
+        this.name.setFont(DisplayHelper.FONT_12);
+        this.desc.setFont(DisplayHelper.FONT_10);
+        this.mana.setFont(DisplayHelper.FONT_6);
         
         this.name.setToolTipText(card.getName());
         this.desc.setToolTipText(card.getDescription());

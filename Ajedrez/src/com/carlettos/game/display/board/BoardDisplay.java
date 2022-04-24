@@ -1,14 +1,12 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.input.MousePiece;
-import com.carlettos.game.board.manager.Board;
-import com.carlettos.game.core.Point;
-import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.board.Board;
+import com.carlettos.game.display.listeners.MousePiece;
+import com.carlettos.game.util.Point;
+import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**

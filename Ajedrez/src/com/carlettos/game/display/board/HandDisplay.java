@@ -1,9 +1,9 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.input.MouseCard;
-import com.carlettos.game.board.player.Player;
-import com.carlettos.game.board.manager.clock.Clock;
-import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.display.listeners.MouseCard;
+import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;

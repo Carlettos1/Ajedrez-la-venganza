@@ -1,8 +1,8 @@
 package com.carlettos.game.display.info;
 
-import com.carlettos.game.core.Point;
-import com.carlettos.game.board.manager.MiniBoard;
-import com.carlettos.game.board.manager.Board;
+import com.carlettos.game.board.Board;
+import com.carlettos.game.board.MiniBoard;
+import com.carlettos.game.util.Point;
 import javax.swing.JOptionPane;
 
 /**

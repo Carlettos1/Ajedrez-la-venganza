@@ -1,8 +1,8 @@
 package com.carlettos.game.display.main;
 
-import com.carlettos.game.board.manager.Board;
-import com.carlettos.game.core.helper.ConfigHelper;
+import com.carlettos.game.board.Board;
 import com.carlettos.game.display.board.BoardDisplay;
+import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
