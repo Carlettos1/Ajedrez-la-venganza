@@ -1,9 +1,11 @@
 package com.carlettos.game.util.helper;
 
+import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.util.Point;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import javax.swing.JRootPane;
 
 /**
  * It provides methods of help to other classes.
@@ -22,7 +24,7 @@ public class DisplayHelper {
     
     public static Component getLastComponentAt(Component component, int x, int y) {
         var comp = component;
-        while(comp instanceof Container) {
+        while(comp instanceof Container && ((Container)comp).getComponents().length != 0) {
             var loc = getAbsoluteLocation(comp);
             comp = getComponentAt(comp, x - loc.x, y - loc.y);
         }
@@ -35,10 +37,8 @@ public class DisplayHelper {
         }
         Container container = (Container) component;
         for (Component comp : container.getComponents()) {
-            if (comp instanceof Container) {
-                if (((Container) (comp)).getComponents().length == 0) {
-                    continue;
-                }
+            if ("null.glassPane".equals(comp.getName())) {
+                continue;
             }
             if (comp.contains(x - comp.getX(), y - comp.getY())) {
                 return comp;

@@ -109,7 +109,6 @@ public class Clock {
         
         var event = new ClockEvent(this);
         this.listeners.forEach(l -> l.onEndTurn(event));
-        System.out.println("Juega el jugador: " + turnOf());
     }
 
     /**

@@ -57,19 +57,13 @@ public class HandDisplay extends JPanel {
                     ConfigHelper.getCardsPerRow(), 10, 10));
             this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.player = player;
-            player.getHand().forEach((carta) -> {
-                var ecv = new CardDisplay(player.getColor(), carta);
-                ecv.addMouseListener(MouseCard.get());
-                add(ecv);
-            });
+            rehacer();
         }
 
         public void rehacer() {
             removeAll();
             player.getHand().forEach((carta) -> {
-                var ecv = new CardDisplay(player.getColor(), carta);
-                ecv.addMouseListener(MouseCard.get());
-                add(ecv);
+                add(new CardDisplay(player.getColor(), carta));
             });
             revalidate();
             repaint();

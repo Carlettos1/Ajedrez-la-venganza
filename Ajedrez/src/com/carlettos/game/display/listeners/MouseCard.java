@@ -4,6 +4,8 @@ import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
 import com.carlettos.game.util.helper.DisplayHelper;
+import com.carlettos.game.util.helper.LogHelper;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -32,7 +34,14 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        var card = (CardDisplay) (e.getSource());
+        Component source = (Component) e.getSource();
+        while (!(source instanceof CardDisplay)) {
+            if (source.getParent() == null) {
+                return;
+            }
+            source = source.getParent();
+        }
+        var card = (CardDisplay) source;
         var board = BoardDisplay.getInstance();
         var frame = board.getRootPane().getParent();
         var ev = DisplayHelper.getLastComponentAt(frame, e.getXOnScreen(), e.getYOnScreen());

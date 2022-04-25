@@ -1,5 +1,6 @@
 package com.carlettos.game.display.board;
 
+import com.carlettos.game.display.listeners.MouseCard;
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
@@ -54,6 +55,11 @@ public class CardDisplay extends JPanel {
         add(Box.createVerticalGlue());
         add(this.desc);
         add(Box.createVerticalGlue());
+        
+        this.addMouseListener(MouseCard.get());
+        mana.addMouseListener(MouseCard.get());
+        name.addMouseListener(MouseCard.get());
+        desc.addMouseListener(MouseCard.get());
     }
 
     @Override

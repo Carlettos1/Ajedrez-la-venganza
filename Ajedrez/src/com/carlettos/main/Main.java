@@ -1,6 +1,7 @@
 package com.carlettos.main;
 
 import com.carlettos.game.display.main.MainMenu;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  *
@@ -9,6 +10,7 @@ import com.carlettos.game.display.main.MainMenu;
 public class Main {
 
     public static void main(String... args) {
+        LogHelper.startLogger();
         var menu = new MainMenu();
     }
 }

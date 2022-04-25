@@ -3,20 +3,18 @@ package com.carlettos.game.display.board;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.FileHelper;
-import java.awt.Component;
+import com.carlettos.game.util.helper.ImageHelper;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
 
 /**
  *
  * @author Carlos
  */
-public class EscaqueDisplay extends Component {
+public class EscaqueDisplay extends JComponent {
 
     private final Escaque escaque;
     private final boolean isEven;
@@ -40,10 +38,9 @@ public class EscaqueDisplay extends Component {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor((!isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
         
-        if(escaque.hasPiece()){ //todo: registrar imagenes
-            Image img = Toolkit.getDefaultToolkit().getImage(FileHelper.TEXTURES_FOLDER +
-                    escaque.getPiece().getResourceLocation().getTexture(escaque.getPieceColor()) + ".png");
-            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+        if(escaque.hasPiece()) {
+            g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
+            this.setToolTipText(escaque.getPiece().getName());
         }
         
         if(this.actions.isEmpty()) {

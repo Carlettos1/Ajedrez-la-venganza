@@ -25,8 +25,8 @@ public record ResourceLocation(String key) {
         requireStandard(key);
     }
     
-    public String getTexture(Color color) { //TODO: texturas no dependientes del color
-        return key.substring(key.lastIndexOf(".") + 1) + "_" + color.name().toLowerCase();
+    public String getTextureName() {
+        return key.substring(key.lastIndexOf(".") + 1);
     }
     
     public String getName() {
