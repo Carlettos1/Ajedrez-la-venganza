@@ -12,8 +12,13 @@ import java.util.TreeMap;
  */
 public class ImageHelper {
     public static final String PATH_PATTERN = FileHelper.TEXTURES_FOLDER + "%s.png";
-    private static Map<String, BufferedImage> IMAGES = new TreeMap<>();
-    private static Map<String, BufferedImage> IMAGES_WHITE = new TreeMap<>();
+    private static final Map<String, BufferedImage> IMAGES = new TreeMap<>();
+    private static final Map<String, BufferedImage> IMAGES_WHITE = new TreeMap<>();
+    
+    public static final synchronized void clearTextures() {
+        IMAGES.clear();
+        IMAGES_WHITE.clear();
+    }
     
     public static final synchronized BufferedImage getImage(String textureName) {
         if (IMAGES.containsKey(textureName)) {

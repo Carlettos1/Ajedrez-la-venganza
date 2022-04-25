@@ -66,6 +66,9 @@ public class FileHelper {
     public static final void updateHelpers() {
         LogHelper.LOG.info("Updating helpers");
         ConfigHelper.saveConfigs();
+        
+        ImageHelper.clearTextures();
+        
         ResourceLocation.updateResurces();
         ConfigHelper.updateConfigs();
     }
