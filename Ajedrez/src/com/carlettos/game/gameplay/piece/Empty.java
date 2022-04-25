@@ -34,6 +34,11 @@ public class Empty extends Piece {
         }
 
         @Override
+        public boolean commonCanUse(AbstractBoard board, Piece piece) {
+            return false;
+        }
+
+        @Override
         public ActionResult canUse(AbstractBoard board, Piece piece, Point start, InfoNone info) {
             return ActionResult.FAIL;
         }

@@ -17,6 +17,10 @@ public sealed interface InfoUse<V> permits InfoUse.AbilityInteger,
     
     V[] getPossibleValues(AbstractBoard board, Point start);
     
+    default String formatInfo(V info) {
+        return info.toString();
+    }
+    
     public static non-sealed interface AbilityDirection extends InfoUse<Direction> {
         @Override
         public default Direction[] getPossibleValues(AbstractBoard tablero, Point inicio) {
@@ -38,11 +42,19 @@ public sealed interface InfoUse<V> permits InfoUse.AbilityInteger,
     }
     
     public static non-sealed interface AbilityPoint extends InfoUse<Point> {
+        @Override
+        public default String formatInfo(Point info) {
+            return "%s, %s".formatted(info.x, info.y);
+        }
     }
     
     public static non-sealed interface AbilityString extends InfoUse<String> {
     }
     
     public static non-sealed interface AbilityTuple<A, B> extends InfoUse<Tuple<A, B>> {
+        @Override
+        public default String formatInfo(Tuple<A, B> info) {
+            return "%s, %s".formatted(info.x, info.y);
+        }
     }
 }

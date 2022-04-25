@@ -1,3 +1,23 @@
 {
-    "piece.pawn": "Peón"
+    "piece.knight": "Caballo",
+    "piece.pawn": "Peón",
+    "piece.king": "Rey",
+    "piece.queen": "Reina",
+    "piece.rook": "Torre",
+    "piece.bishop": "Alfil",
+    "piece.archer": "Arquero",
+    "piece.ballista": "Ballesta",
+    "piece.builder": "Constructor",
+    "piece.cannon": "Cañón",
+    "piece.catapult": "Catapulta",
+    "piece.crazy_pawn": "Peón Loco",
+    "piece.magician": "Hechicero",
+    "piece.paladin": "Paladín",
+    "piece.ram": "Ariete",
+    "piece.shield_bearer": "Defensor",
+    "piece.ship": "Nave",
+    "piece.super_pawn": "Super Peón",
+    "piece.tesla_tower": "Torre Tesla",
+    "piece.wall": "Muro",
+    "piece.warlock": "Brujo"
 }

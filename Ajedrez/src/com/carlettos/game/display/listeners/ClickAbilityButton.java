@@ -27,9 +27,14 @@ public class ClickAbilityButton implements ActionListener {
         }
         var escaque = MousePiece.get().selected.getEscaque();
         var board = BoardDisplay.getInstance();
-        var values = escaque.getPiece().getAbility().getPossibleValues(board.getBoard(), escaque.getPos());
         
-        int i = InfoDisplay.showOptions(board.getBoard(), escaque.getPos(), values); //TODO: ahorrar código
+        if (!escaque.getPiece().getAbility().commonCanUse(board.getBoard(), escaque.getPiece())) {
+            return;
+        }
+        
+        var values = escaque.getPiece().getAbility().getPossibleValues(board.getBoard(), escaque.getPos());
+        //board, escaque
+        int i = InfoDisplay.showOptions(board.getBoard(), escaque); //TODO: ahorrar código
         if(i == -1){
             return;
         }

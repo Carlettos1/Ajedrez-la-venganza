@@ -94,5 +94,10 @@ public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
                 new SuperPawn(Color.GRAY),
                 new TeslaTower(Color.GRAY)};
         }
+
+        @Override
+        public String formatInfo(Piece info) {
+            return info.getName();
+        }
     }
 }

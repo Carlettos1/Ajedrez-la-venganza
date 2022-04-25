@@ -1,4 +1,23 @@
 {
     "piece.knight": "Knight",
-    "piece.pawn": "Pawn"
+    "piece.pawn": "Pawn",
+    "piece.king": "King",
+    "piece.queen": "Queen",
+    "piece.rook": "Rook",
+    "piece.bishop": "Bishop",
+    "piece.archer": "Archer",
+    "piece.ballista": "Ballista",
+    "piece.builder": "Builder",
+    "piece.cannon": "Cannon",
+    "piece.catapult": "Catapult",
+    "piece.crazy_pawn": "Crazy Pawn",
+    "piece.magician": "Magician",
+    "piece.paladin": "Paladin",
+    "piece.ram": "Ram",
+    "piece.shield_bearer": "Shield Bearer",
+    "piece.ship": "Ship",
+    "piece.super_pawn": "Super Pawn",
+    "piece.tesla_tower": "Tesla Tower",
+    "piece.wall": "Wall",
+    "piece.warlock": "Warlock"
 }
