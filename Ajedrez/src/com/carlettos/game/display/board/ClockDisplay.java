@@ -3,8 +3,8 @@ package com.carlettos.game.display.board;
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.display.listeners.ClickAbilityButton;
+import com.carlettos.game.display.listeners.ClickDeckButton;
 import com.carlettos.game.display.listeners.ClickTurnButton;
-import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.DisplayHelper;
 import java.awt.Graphics;
@@ -30,6 +30,7 @@ public class ClockDisplay extends JPanel{
     private final JLabel manaLabel;
     private final JButton turnButton;
     private final JButton abilityButton;
+    private final JButton deckButton;
 
     public ClockDisplay(Clock clock) {
         super();
@@ -43,6 +44,7 @@ public class ClockDisplay extends JPanel{
         this.manaLabel.setForeground(ConfigHelper.getColorMana().getAWT());
         this.turnButton = new JButton("Avanzar turno");
         this.abilityButton = new JButton("Usar Habilidad");
+        this.deckButton = new JButton("Ver decks"); //todo: usar keys
         setup();
     }
 
@@ -55,12 +57,15 @@ public class ClockDisplay extends JPanel{
         labels.add(manaLabel);
         turnButton.addActionListener(ClickTurnButton.get());
         abilityButton.addActionListener(ClickAbilityButton.get());
+        deckButton.addActionListener(ClickDeckButton.get());
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
         buttons.add(Box.createVerticalGlue());
         buttons.add(turnButton);
         buttons.add(Box.createVerticalGlue());
         buttons.add(abilityButton);
+        buttons.add(Box.createVerticalGlue());
+        buttons.add(deckButton);
         buttons.add(Box.createVerticalGlue());
         
         this.add(labels);

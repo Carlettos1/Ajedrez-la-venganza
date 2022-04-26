@@ -1,11 +1,9 @@
 package com.carlettos.game.util.helper;
 
-import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.util.Point;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
-import javax.swing.JRootPane;
 
 /**
  * It provides methods of help to other classes.

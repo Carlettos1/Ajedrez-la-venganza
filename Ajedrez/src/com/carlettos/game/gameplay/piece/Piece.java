@@ -12,7 +12,6 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.PieceType;
-import com.carlettos.game.util.helper.LogHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

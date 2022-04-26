@@ -1,7 +1,6 @@
 package com.carlettos.game.display.board;
 
 import com.carlettos.game.board.clock.Clock;
-import com.carlettos.game.display.listeners.MouseCard;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.BorderLayout;

@@ -4,7 +4,6 @@ import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
 import com.carlettos.game.util.helper.DisplayHelper;
-import com.carlettos.game.util.helper.LogHelper;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

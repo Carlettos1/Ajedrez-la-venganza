@@ -1,6 +1,5 @@
 package com.carlettos.game.util;
 
-import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.FileHelper;
 import com.google.gson.JsonObject;

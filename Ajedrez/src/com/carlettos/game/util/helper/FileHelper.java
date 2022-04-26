@@ -1,7 +1,6 @@
 package com.carlettos.game.util.helper;
 
 import com.carlettos.game.util.ResourceLocation;
-import com.carlettos.game.util.function.Action;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
@@ -11,9 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
