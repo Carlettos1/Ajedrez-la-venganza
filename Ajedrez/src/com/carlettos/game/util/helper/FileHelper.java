@@ -28,7 +28,7 @@ public class FileHelper {
     public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "undefined.png";
 
     public static final JsonObject getFromFile(String path) {
-        LogHelper.LOG.info("Reading file: %s".formatted(path));
+        LogHelper.LOG.info(() -> "Reading file: %s".formatted(path));
         try (var reader = new JsonReader(new FileReader(path))) {
             return GSON.getAdapter(JsonObject.class).read(reader);
         } catch (IOException ex) {
@@ -37,7 +37,7 @@ public class FileHelper {
     }
     
     public static final void setToFile(String path, JsonObject jsonObject) {
-        LogHelper.LOG.info("Saving file: %s".formatted(path));
+        LogHelper.LOG.info(() -> "Saving file: %s".formatted(path));
         try (var writer = new JsonWriter(new FileWriter(path))) {
             GSON.getAdapter(JsonObject.class).write(writer, jsonObject);
         } catch (IOException ex) {
@@ -49,7 +49,7 @@ public class FileHelper {
         var file = new File(path);
         if (!file.exists()) {
             file = new File(UNDEFINED_TEXTURE);
-            LogHelper.LOG.warning("Texture at %s doesn't exists, using undefined one".formatted(path));
+            LogHelper.LOG.warning(() -> "Texture at %s doesn't exists, using undefined one".formatted(path));
         }
         try {
             return ImageIO.read(file);

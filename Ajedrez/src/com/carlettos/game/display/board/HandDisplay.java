@@ -19,8 +19,8 @@ import javax.swing.JPanel;
  * @author Carlos
  */
 public class HandDisplay extends JPanel {
-
-    private final JPanel playersPanel;
+	private static final long serialVersionUID = 6749397947510998299L;
+	private final JPanel playersPanel;
 
     public HandDisplay(Clock clock) throws HeadlessException {
         super(new BorderLayout(0, 10));
@@ -28,7 +28,7 @@ public class HandDisplay extends JPanel {
         for (Player player : clock.getPlayers()) {
             playersPanel.add(new PlayerPanel(player), player.toString());
         }
-        JComboBox cb = new JComboBox(clock.getPlayers());
+        JComboBox<Player> cb = new JComboBox<>(clock.getPlayers());
         cb.setEditable(false);
         cb.addItemListener((ItemEvent e) -> {
             CardLayout cl = (CardLayout) playersPanel.getLayout();
@@ -41,15 +41,18 @@ public class HandDisplay extends JPanel {
 
     public void redo() {
         for (Component component : playersPanel.getComponents()) {
-            if (component instanceof PlayerPanel playerPanel_) {
-                playerPanel_.rehacer();
+            if (component instanceof PlayerPanel pp) {
+                pp.rehacer();
             }
         }
     }
 
     private static final class PlayerPanel extends JPanel {
 
-        private final Player player;
+		private static final long serialVersionUID = 4861537177427017355L;
+		
+		//todo: transient?
+		private final transient Player player;
 
         public PlayerPanel(Player player) {
             super(new GridLayout(ConfigHelper.getCardsPerColumn(),
@@ -61,9 +64,7 @@ public class HandDisplay extends JPanel {
 
         public void rehacer() {
             removeAll();
-            player.getHand().forEach((carta) -> {
-                add(new CardDisplay(player.getColor(), carta));
-            });
+            player.getHand().forEach(card -> add(new CardDisplay(player.getColor(), card)));
             revalidate();
             repaint();
         }

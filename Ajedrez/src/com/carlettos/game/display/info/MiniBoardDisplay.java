@@ -10,8 +10,10 @@ import javax.swing.JPanel;
  * @author Carlettos
  */
 public class MiniBoardDisplay extends JPanel {
-    private final EscaqueDisplay[][] grid;
-    private final MiniBoard board;
+	private static final long serialVersionUID = -6114779705263991014L;
+	private final EscaqueDisplay[][] grid;
+	//todo: transient?
+	private final transient MiniBoard board;
 
     public MiniBoardDisplay(MiniBoard tablero) {
         super(new GridLayout(tablero.rows, tablero.columns));

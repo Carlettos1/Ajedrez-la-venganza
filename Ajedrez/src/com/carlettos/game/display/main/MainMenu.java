@@ -18,7 +18,8 @@ import javax.swing.JPanel;
  * @author Carlettos
  */
 public class MainMenu extends JFrame {
-    private JPanel start;
+    private static final long serialVersionUID = -336175332512925147L;
+	private JPanel start;
     private JPanel options;
     private JPanel play;
 
@@ -64,7 +65,7 @@ public class MainMenu extends JFrame {
         pack();
     }
     
-    private void options(){
+    private void options() {
         options = new JPanel();
         options.setLayout(new BoxLayout(options, BoxLayout.PAGE_AXIS));
         var goBack = new JButton("Volver");
@@ -101,7 +102,8 @@ public class MainMenu extends JFrame {
         this.pack();
     }
     
-    private void play(){
+    //todo: volver a mainmenu
+    private void play() {
         var board = Board.getDefaultInstance();
         play = BoardDisplay.createInstance(board);
         this.removeAll();

@@ -77,16 +77,12 @@ public class Board extends AbstractBoard {
         ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);
         if(can.isPositive()) {
             switch (action) {
-                case ATTACK -> {
-                    endEsq.removePiece();
-                }
+                case ATTACK -> endEsq.removePiece();
                 case MOVE, TAKE -> {
                     endEsq.setPiece(startEsq.getPiece());
                     startEsq.removePiece();
                 }
-                case ABILITY -> {
-                    startEsq.getPiece().getAbility().use(this, startEsq.getPiece(), start, info);
-                }
+                case ABILITY -> startEsq.getPiece().getAbility().use(this, startEsq.getPiece(), start, info);
             }
             endEsq.getPiece().postAction(action, this, start, info);
             movement();
@@ -186,9 +182,9 @@ public class Board extends AbstractBoard {
         var blackDeck = clock.getDeckOf(black);
         var whiteDeck = clock.getDeckOf(white);
         
-        DeckHelper.addToAll(() -> new SummonWarlock(), 4, blackDeck, whiteDeck);
-        DeckHelper.addToAll(() -> new AddMovement(), 3, blackDeck, whiteDeck);
-        DeckHelper.addToAll(() -> new SummonKnight(), 2, blackDeck, whiteDeck);
+        DeckHelper.addToAll(SummonWarlock::new, 4, blackDeck, whiteDeck);
+        DeckHelper.addToAll(AddMovement::new, 3, blackDeck, whiteDeck);
+        DeckHelper.addToAll(SummonKnight::new, 2, blackDeck, whiteDeck);
         
         whiteDeck.shuffle();
         blackDeck.shuffle();

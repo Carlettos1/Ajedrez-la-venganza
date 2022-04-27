@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
  * @author Carlettos
  */
 public class InfoDisplay extends JOptionPane {
-    public static int showOptions(Board board, Point start, Object... options){
+	private static final long serialVersionUID = 2242482205630386186L;
+
+	public static int showOptions(Board board, Point start, Object... options){
         return JOptionPane.showOptionDialog(null, 
                 new MiniBoardDisplay(MiniBoard.fromBoard(board, start)),
                 "Habilidad", //todo: use key-translation
