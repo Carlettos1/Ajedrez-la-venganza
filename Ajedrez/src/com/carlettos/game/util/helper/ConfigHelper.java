@@ -1,10 +1,11 @@
 package com.carlettos.game.util.helper;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.carlettos.game.util.enums.Color;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -12,46 +13,49 @@ import java.util.Set;
  */
 public final class ConfigHelper {
     
-    static {
+    private ConfigHelper() {
+	}
+
+	static {
         updateConfigs();
     }
     
-    private static JsonObject CONFIGS;
+    private static JsonObject configs;
     
     public static void updateConfigs() {
-        CONFIGS = FileHelper.getFromFile(FileHelper.CONFIG_FILE);
+        configs = FileHelper.getFromFile(FileHelper.CONFIG_FILE);
     }
     
     public static void saveConfigs() {
-        FileHelper.setToFile(FileHelper.CONFIG_FILE, CONFIGS);
+        FileHelper.setToFile(FileHelper.CONFIG_FILE, configs);
     }
 
     public static double getDouble(String config) {
-        return CONFIGS.get(config).getAsDouble();
+        return configs.get(config).getAsDouble();
     }
 
     public static int getInt(String config) {
-        return CONFIGS.get(config).getAsInt();
+        return configs.get(config).getAsInt();
     }
 
     public static String getString(String config) {
-        return CONFIGS.get(config).getAsString();
+        return configs.get(config).getAsString();
     }
     
     public static void setDouble(String config, double number){
-        CONFIGS.addProperty(config, number);
+        configs.addProperty(config, number);
     }
     
     public static void setInt(String config, int number){
-        CONFIGS.addProperty(config, number);
+        configs.addProperty(config, number);
     }
     
     public static void setString(String config, String str){
-        CONFIGS.addProperty(config, str);
+        configs.addProperty(config, str);
     }
     
     public static Set<Map.Entry<String, JsonElement>> getConfigEntries(){
-        return CONFIGS.entrySet();
+        return configs.entrySet();
     }
     
     public static int getEscaqueLength() {

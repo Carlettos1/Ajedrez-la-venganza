@@ -1,15 +1,16 @@
 package com.carlettos.game.board;
 
-import com.carlettos.game.gameplay.card.Card;
-import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
-import com.carlettos.game.gameplay.card.utility.AddMovement;
-import com.carlettos.game.util.helper.DeckHelper;
-import com.carlettos.game.util.helper.MathHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.carlettos.game.gameplay.card.Card;
+import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
+import com.carlettos.game.gameplay.card.utility.AddMovement;
+import com.carlettos.game.util.helper.DeckHelper;
+import com.carlettos.game.util.helper.MathHelper;
 
 /**
  *

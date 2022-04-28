@@ -1,10 +1,11 @@
 package com.carlettos.game.gameplay.pattern.starting;
 
+import java.util.Random;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
-import java.util.Random;
 
 /**
  *
@@ -20,6 +21,7 @@ public interface PatternCrazyPawn extends Pattern {
         private final Random rng = new Random();
         private int turn = -1;
         private int randomNumber;
+        
         @Override
         public int getRandomNumber(int turn) {
             if(this.turn != turn){
@@ -32,11 +34,10 @@ public interface PatternCrazyPawn extends Pattern {
 
     @Override
     public default boolean match(AbstractBoard board, Point start, Point end) {
-        int turn;
-        switch (board) {
-            case Board t -> turn = t.getClock().getTurn();
-            case default -> throw new IllegalArgumentException("Tablero no es instanceof Tablero");
-        }
+        int turn = switch (board) {
+            case Board t -> t.getClock().getTurn();
+            default -> throw new IllegalArgumentException("Tablero no es instanceof Tablero");
+        };
         return switch(this.getRandomNumber(turn)) {
             case 0 -> end.equals(start.add(0, 1)) || end.equals(start.add(0, 2));
             case 1 -> end.equals(start.add(1, 1)) || end.equals(start.add(2, 2));

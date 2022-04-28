@@ -17,18 +17,18 @@ public enum Color {
     ORANGE("#FFA500"),
     AQUA("#03FDFC");
 
-    private final String color;
+    private final String hex;
     private final java.awt.Color colorAWT;
 
     /**
      * General constructor.
      * 
-     * @param color rgb code in the form {@code #rrggbb}.
+     * @param hex rgb code in the form {@code #rrggbb}.
      * @see java.awt.Color#decode.
      */
-    Color(String color) {
-        this.color = color;
-        this.colorAWT = java.awt.Color.decode(this.color);
+    Color(String hex) {
+        this.hex = hex;
+        this.colorAWT = java.awt.Color.decode(this.hex);
     }
 
     /**

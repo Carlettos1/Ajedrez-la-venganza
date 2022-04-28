@@ -1,10 +1,11 @@
 package com.carlettos.game.display.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.info.InfoDisplay;
 import com.carlettos.game.gameplay.ability.InfoManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *

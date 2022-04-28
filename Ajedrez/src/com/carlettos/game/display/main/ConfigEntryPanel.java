@@ -1,24 +1,27 @@
 package com.carlettos.game.display.main;
 
-import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.LogHelper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
 import java.awt.Dimension;
 import java.util.Map;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.LogHelper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 /**
  *
  * @author Carlettos
  */
 public class ConfigEntryPanel extends JPanel {
-    public static boolean CHANGES = false;
-    protected Map.Entry<String, JsonElement> entry;
+    private static final long serialVersionUID = -8233781700595332261L;
+	private static boolean changed = false;
+    protected transient Map.Entry<String, JsonElement> entry;
     private JLabel property;
     private JTextField value;
 
@@ -40,7 +43,7 @@ public class ConfigEntryPanel extends JPanel {
     
     public void saveConfig(){
         if(!entry.getValue().toString().equals(value.getText())) {
-            LogHelper.LOG.info("Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(), value.getText()));
+            LogHelper.LOG.info(() -> "Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(), value.getText()));
             //XXX: try chain must no exist
             try {
                 var val = Integer.parseInt(value.getText());
@@ -57,7 +60,15 @@ public class ConfigEntryPanel extends JPanel {
                     this.entry.setValue(new JsonPrimitive(val));
                 }
             }
-            CHANGES = true;
+            setChanged(true);
         }
+    }
+    
+    public static synchronized void setChanged(boolean changed) {
+    	ConfigEntryPanel.changed = changed;
+    }
+    
+    public static synchronized boolean getChanged() {
+    	return changed;
     }
 }

@@ -1,5 +1,9 @@
 package com.carlettos.game.gameplay.ability;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 import com.carlettos.game.gameplay.ability.info.InfoDirection;
 import com.carlettos.game.gameplay.ability.info.InfoInteger;
 import com.carlettos.game.gameplay.ability.info.InfoNone;
@@ -11,9 +15,6 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  *

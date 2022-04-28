@@ -1,5 +1,8 @@
 package com.carlettos.game.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
@@ -35,8 +38,6 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.DeckHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * It's the board.
@@ -61,30 +62,28 @@ public class Board extends AbstractBoard {
      * @return FAIL if it didn't do the action, PASS if the action has been 
      * done.
      */
-    public ActionResult tryTo(Action action, Point start, Info info){
-        Escaque startEsq = getEscaque(start);
-        if (!canPlay(startEsq.getPiece())) {
+    public ActionResult tryTo(Action action, Point start, Info<?> info){
+        var startEsq = getEscaque(start);
+        var piece = startEsq.getPiece();
+        if (!canPlay(piece)) {
             return ActionResult.FAIL;
         }
-        Escaque endEsq = null;
-        if(action == Action.ATTACK || action == Action.MOVE || action == Action.TAKE){
-            try {
-                endEsq = getEscaque((Point) info.getValue());
-            } catch (ClassCastException e) {
-                throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
-            }
+        if((action == Action.ATTACK || action == Action.MOVE || action == Action.TAKE)
+        		&& !(info.getValue() instanceof Point)) {
+        	throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
         ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);
         if(can.isPositive()) {
             switch (action) {
-                case ATTACK -> endEsq.removePiece();
+                case ATTACK -> getEscaque((Point)info.getValue()).removePiece();
                 case MOVE, TAKE -> {
-                    endEsq.setPiece(startEsq.getPiece());
+                	getEscaque((Point)info.getValue()).setPiece(piece);
                     startEsq.removePiece();
                 }
-                case ABILITY -> startEsq.getPiece().getAbility().use(this, startEsq.getPiece(), start, info);
+                case ABILITY -> startEsq.getPiece().getAbility().use(this, piece, start, info);
+                default -> throw new IllegalArgumentException("Action not expected");
             }
-            endEsq.getPiece().postAction(action, this, start, info);
+        	piece.postAction(action, this, start, info);
             movement();
         }
         return can;
@@ -170,6 +169,9 @@ public class Board extends AbstractBoard {
                     }
                 }
             }
+
+			@Override
+			public void onEndMovement(ClockEvent e) { /* Doesn't use the method*/ }
         });
         
         black.getHand().addCard(new AddMovement());

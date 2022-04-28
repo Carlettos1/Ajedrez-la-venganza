@@ -1,11 +1,13 @@
 package com.carlettos.game.display.info;
 
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import com.carlettos.game.board.Board;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.MiniBoard;
 import com.carlettos.game.util.Point;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *

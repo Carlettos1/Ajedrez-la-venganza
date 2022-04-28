@@ -1,9 +1,11 @@
 package com.carlettos.game.display.info;
 
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+
 import com.carlettos.game.board.MiniBoard;
 import com.carlettos.game.display.board.EscaqueDisplay;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
 
 /**
  *

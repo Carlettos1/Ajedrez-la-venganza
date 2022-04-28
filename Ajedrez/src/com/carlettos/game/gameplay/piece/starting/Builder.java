@@ -1,5 +1,7 @@
 package com.carlettos.game.gameplay.piece.starting;
 
+import java.util.function.Function;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
@@ -16,7 +18,6 @@ import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.enums.PieceType;
-import java.util.function.Function;
 
 /**
  *

@@ -1,5 +1,7 @@
 package com.carlettos.game.gameplay.card;
 
+import java.util.function.Function;
+
 import com.carlettos.game.board.Board;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
@@ -8,7 +10,6 @@ import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import java.util.function.Function;
 
 /**
  *

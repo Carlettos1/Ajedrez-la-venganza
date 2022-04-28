@@ -1,10 +1,11 @@
 package com.carlettos.game.gameplay.card;
 
+import java.util.Objects;
+
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
-import java.util.Objects;
 
 /**
  * It's the representation of a card.

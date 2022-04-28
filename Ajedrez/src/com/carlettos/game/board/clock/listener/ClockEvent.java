@@ -1,8 +1,9 @@
 package com.carlettos.game.board.clock.listener;
 
+import java.util.EventObject;
+
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.util.enums.Color;
-import java.util.EventObject;
 
 /**
  * Clock event. WIP.
@@ -10,8 +11,8 @@ import java.util.EventObject;
  * @author Carlettos
  */
 public class ClockEvent extends EventObject {
-
-    private final Color color;
+	private static final long serialVersionUID = 1621816868141513013L;
+	private final Color color;
 
     /**
      * General constructor.

@@ -1,8 +1,9 @@
 package com.carlettos.game.display.listeners;
 
-import com.carlettos.game.display.board.BoardDisplay;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.carlettos.game.display.board.BoardDisplay;
 
 /**
  *

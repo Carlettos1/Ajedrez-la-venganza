@@ -1,5 +1,8 @@
 package com.carlettos.game.gameplay.piece.classic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.InfoUse.AbilityPoint;
@@ -10,8 +13,6 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.PieceType;
-import java.util.ArrayList;
-import java.util.List;
 
 public class King extends SimplePiece<PatternKing> {
 

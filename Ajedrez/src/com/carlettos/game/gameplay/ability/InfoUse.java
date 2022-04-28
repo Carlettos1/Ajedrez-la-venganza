@@ -13,7 +13,7 @@ import com.carlettos.game.util.enums.Direction;
 public sealed interface InfoUse<V> permits InfoUse.AbilityInteger, 
         InfoUse.AbilityDirection, InfoUse.AbilityNone, InfoUse.AbilityPiece, 
         InfoUse.AbilityPoint, InfoUse.AbilityString, 
-        InfoUse.AbilityTuple, Ability {
+        InfoUse.AbilityTuple<?, ?>, Ability<?, ?, ?> {
     
     V[] getPossibleValues(AbstractBoard board, Point start);
     

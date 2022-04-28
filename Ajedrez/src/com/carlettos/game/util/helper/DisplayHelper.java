@@ -1,9 +1,10 @@
 package com.carlettos.game.util.helper;
 
-import com.carlettos.game.util.Point;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+
+import com.carlettos.game.util.Point;
 
 /**
  * It provides methods of help to other classes.

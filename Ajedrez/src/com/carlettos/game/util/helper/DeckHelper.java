@@ -1,8 +1,9 @@
 package com.carlettos.game.util.helper;
 
+import java.util.function.Supplier;
+
 import com.carlettos.game.board.Deck;
 import com.carlettos.game.gameplay.card.Card;
-import java.util.function.Supplier;
 
 /**
  *

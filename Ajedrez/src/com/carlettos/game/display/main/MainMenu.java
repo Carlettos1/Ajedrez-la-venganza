@@ -1,17 +1,19 @@
 package com.carlettos.game.display.main;
 
-import com.carlettos.game.board.Board;
-import com.carlettos.game.display.board.BoardDisplay;
-import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.FileHelper;
 import java.awt.Component;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.carlettos.game.board.Board;
+import com.carlettos.game.display.board.BoardDisplay;
+import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.FileHelper;
 
 /**
  *
@@ -77,9 +79,8 @@ public class MainMenu extends JFrame {
                     cep.saveConfig();
                 }
             }
-            if(ConfigEntryPanel.CHANGES) {
+            if(ConfigEntryPanel.getChanged()) {
                 FileHelper.updateHelpers();
-                ConfigEntryPanel.CHANGES = false;
             }
         });
         this.addOptions();

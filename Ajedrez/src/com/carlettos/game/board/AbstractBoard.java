@@ -1,5 +1,9 @@
 package com.carlettos.game.board;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -26,9 +30,6 @@ import com.carlettos.game.gameplay.piece.starting.Wall;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Generic board. It doesn't have a clock and doesn't manage turns. It's just

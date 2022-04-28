@@ -1,10 +1,11 @@
 package com.carlettos.game.gameplay.player;
 
+import java.util.Objects;
+import java.util.Random;
+
 import com.carlettos.game.board.Hand;
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.util.enums.Color;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * It's a player.

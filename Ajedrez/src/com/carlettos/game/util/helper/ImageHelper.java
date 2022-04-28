@@ -1,10 +1,11 @@
 package com.carlettos.game.util.helper;
 
-import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.util.enums.Color;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.util.enums.Color;
 
 /**
  *

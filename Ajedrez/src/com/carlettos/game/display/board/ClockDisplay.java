@@ -1,5 +1,14 @@
 package com.carlettos.game.display.board;
 
+import java.awt.Graphics;
+import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.display.listeners.ClickAbilityButton;
@@ -7,21 +16,15 @@ import com.carlettos.game.display.listeners.ClickDeckButton;
 import com.carlettos.game.display.listeners.ClickTurnButton;
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.DisplayHelper;
-import java.awt.Graphics;
-import java.util.List;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * 
  * @author Carlos
  */
 public class ClockDisplay extends JPanel{
-
-    private final Clock clock;
+	private static final long serialVersionUID = 4989644933314930863L;
+	//todo: transient?
+	private final transient Clock clock;
     private StringBuilder eventsOrder;
     private StringBuilder turn;
     private String manaStr;
@@ -42,9 +45,10 @@ public class ClockDisplay extends JPanel{
         this.manaLabel = new JLabel(manaStr);
         this.manaLabel.setFont(DisplayHelper.FONT_6);
         this.manaLabel.setForeground(ConfigHelper.getColorMana().getAWT());
+        //todo: usar keys
         this.turnButton = new JButton("Avanzar turno");
         this.abilityButton = new JButton("Usar Habilidad");
-        this.deckButton = new JButton("Ver decks"); //todo: usar keys
+        this.deckButton = new JButton("Ver decks");
         setup();
     }
 
@@ -76,11 +80,9 @@ public class ClockDisplay extends JPanel{
     public void updateTexts() {
         eventsOrder = new StringBuilder("<html>Evento(s) más próximos: <br/>");
         List<Event> events = clock.getEventosOrdenados();
-        for (Event event : (events.stream().filter((e) -> {
-            return e.info.getTurns() == events.get(0).info.getTurns();
-        }).toArray(Event[]::new))) {
+        for (Event event : (events.stream().filter(e -> e.info.getTurns() == events.get(0).info.getTurns())
+        		.toArray(Event[]::new))) {
             eventsOrder.append(event).append("<br/>");
-
         }
         eventsOrder.append("</html>");
 

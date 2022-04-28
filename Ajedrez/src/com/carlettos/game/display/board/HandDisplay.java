@@ -1,8 +1,5 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.board.clock.Clock;
-import com.carlettos.game.gameplay.player.Player;
-import com.carlettos.game.util.helper.ConfigHelper;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -10,9 +7,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+
+import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.helper.ConfigHelper;
 
 /**
  *

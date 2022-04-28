@@ -1,7 +1,8 @@
 package com.carlettos.game.board;
 
-import com.carlettos.game.gameplay.card.Card;
 import java.util.function.Consumer;
+
+import com.carlettos.game.gameplay.card.Card;
 
 /**
  * It's the hand.

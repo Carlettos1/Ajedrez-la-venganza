@@ -1,10 +1,11 @@
 package com.carlettos.game.util;
 
+import java.util.Objects;
+import java.util.regex.Pattern;
+
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.FileHelper;
 import com.google.gson.JsonObject;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  *

@@ -1,5 +1,8 @@
 package com.carlettos.game.gameplay.piece.starting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
@@ -16,8 +19,6 @@ import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.enums.PieceType;
 import com.carlettos.game.util.helper.MathHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -71,7 +72,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
                 case 9 -> new Point(start.x+1, start.y+1);
                 default -> throw new IllegalArgumentException("Lanzamiento de catapulta inválido");
             };
-            if(info.getA().isAxis(Direction.Axis.NS)){
+            if(info.getA().isAxis(Direction.Axis.EW)){
                 int x = info.getA().getSign() * 6 + start.x;
                 x = MathHelper.clamp(0, board.columns - 1, x);
                 board.getEscaque(x, start.y).setPiece(board.getEscaque(posPiece).getPiece());

@@ -1,12 +1,13 @@
 package com.carlettos.game.display.listeners;
 
+import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
 import com.carlettos.game.util.helper.DisplayHelper;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * Listener implementation class.

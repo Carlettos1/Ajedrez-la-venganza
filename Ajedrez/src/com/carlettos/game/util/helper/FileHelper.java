@@ -1,16 +1,19 @@
 package com.carlettos.game.util.helper;
 
-import com.carlettos.game.util.ResourceLocation;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
+import com.carlettos.game.display.main.ConfigEntryPanel;
+import com.carlettos.game.util.ResourceLocation;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 /**
  *
@@ -60,6 +63,7 @@ public class FileHelper {
     }
     
     public static final void updateHelpers() {
+        ConfigEntryPanel.setChanged(false);
         LogHelper.LOG.info("Updating helpers");
         ConfigHelper.saveConfigs();
         

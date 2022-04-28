@@ -1,23 +1,26 @@
 package com.carlettos.game.display.board;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+
 import com.carlettos.game.board.Board;
 import com.carlettos.game.display.listeners.MousePiece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.helper.ConfigHelper;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
 
 /**
  *
  * @author Carlos
  */
 public class BoardDisplay extends JPanel {
-    private static BoardDisplay INSTANCE;
+	private static final long serialVersionUID = 7741137468814114783L;
+	private static BoardDisplay instance;
 
     private final EscaqueDisplay[][] grid;
-    private final Board board;
+    private final transient Board board;
     private final ClockDisplay clock;
     private final HandDisplay cards;
 
@@ -31,17 +34,17 @@ public class BoardDisplay extends JPanel {
     }
     
     public static BoardDisplay createInstance(Board board) {
-        if(INSTANCE == null) {
-            INSTANCE = new BoardDisplay(board);
+        if(instance == null) {
+            instance = new BoardDisplay(board);
         }
-        return INSTANCE;
+        return instance;
     }
     
     public static BoardDisplay getInstance() {
-        if(INSTANCE == null) {
+        if(instance == null) {
             throw new NullPointerException("BoardDisplay instance not ready yet");
         }
-        return INSTANCE;
+        return instance;
     }
 
     protected void setup() {

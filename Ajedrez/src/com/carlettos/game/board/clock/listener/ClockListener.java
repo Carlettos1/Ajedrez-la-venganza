@@ -15,4 +15,11 @@ public interface ClockListener extends EventListener {
      * @param e clock event.
      */
     void onEndTurn(ClockEvent e);
+    
+    /**
+     * It excecutes at the end of every movement.
+     * 
+     * @param e clock event.
+     */
+    void onEndMovement(ClockEvent e);
 }

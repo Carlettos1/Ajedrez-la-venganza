@@ -32,7 +32,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      *
      * @see Piece
      */
-    public Ability(String name, String description, int cooldown, int manaCost) {
+    protected Ability(String name, String description, int cooldown, int manaCost) {
         data = new Data(name, description, cooldown, manaCost);
     }
 

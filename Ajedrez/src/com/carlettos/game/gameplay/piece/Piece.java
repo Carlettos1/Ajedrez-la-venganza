@@ -1,5 +1,10 @@
 package com.carlettos.game.gameplay.piece;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
@@ -12,10 +17,6 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.PieceType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * It's a piece.

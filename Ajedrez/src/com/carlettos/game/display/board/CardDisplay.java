@@ -1,25 +1,29 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.display.listeners.MouseCard;
-import com.carlettos.game.gameplay.card.Card;
-import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.DisplayHelper;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.carlettos.game.display.listeners.MouseCard;
+import com.carlettos.game.gameplay.card.Card;
+import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.DisplayHelper;
+
 /**
  *
  * @author Carlos
  */
 public class CardDisplay extends JPanel {
-    protected boolean selected;
+	private static final long serialVersionUID = 6871650869282376214L;
+	protected boolean selected;
     protected final Color color;
-    protected final Card card;
+    //todo: transient?
+    protected final transient Card card;
     protected JLabel name;
     protected JLabel desc;
     protected JLabel mana;

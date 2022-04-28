@@ -1,14 +1,16 @@
 package com.carlettos.game.display.board;
 
-import com.carlettos.game.board.Escaque;
-import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.ImageHelper;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
+
+import com.carlettos.game.board.Escaque;
+import com.carlettos.game.util.enums.Action;
+import com.carlettos.game.util.helper.ConfigHelper;
+import com.carlettos.game.util.helper.ImageHelper;
 
 /**
  *

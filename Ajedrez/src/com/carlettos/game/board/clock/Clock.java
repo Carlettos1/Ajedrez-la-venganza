@@ -1,5 +1,10 @@
 package com.carlettos.game.board.clock;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.carlettos.game.board.Deck;
 import com.carlettos.game.board.PlayerDeck;
 import com.carlettos.game.board.clock.event.Event;
@@ -7,10 +12,6 @@ import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.enums.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * It represent the chess clock.
@@ -62,6 +63,8 @@ public class Clock {
      */
     public void movement() {
         movements += 1;
+        var event = new ClockEvent(this);
+        this.listeners.forEach(l -> l.onEndMovement(event));
     }
 
     /**
@@ -97,14 +100,8 @@ public class Clock {
     public void endTurn() {
         turn++;
         movements = 0;
-        events.forEach((event) -> {
-            event.info.reduceTurn();
-        });
-        events.stream().filter((event) -> {
-            return event.info.getTurns() <= 0;
-        }).forEach((event) -> {
-            event.act();
-        });
+        events.forEach(event -> event.info.reduceTurn());
+        events.stream().filter(event -> event.info.getTurns() <= 0).forEach(Event::act);
         events.removeIf(event -> event.info.getTurns() <= 0);
         
         var event = new ClockEvent(this);
