@@ -4,6 +4,7 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.ActionResult;
 
 /**
@@ -12,13 +13,9 @@ import com.carlettos.game.util.enums.ActionResult;
  *
  * @author Carlos
  *
- * @param <P> piece of which this ability is directed (can be the Piece class).
- * @param <V> value to treat as information.
- * @param <I> information to pass as argument.
- *
  * @see Piece
  */
-public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> implements InfoUse<V>{
+public abstract class Ability {
 
     protected final Data data;
 
@@ -45,7 +42,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      * @param info information to use the ability
      * @return PASS if can be used, FAIL other case.
      */
-    public abstract ActionResult canUse(AbstractBoard board, P piece, Point start, I info);
+    public abstract ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info);
 
     /**
      * Excecutes the ability.
@@ -55,7 +52,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      * @param start position of the piece.
      * @param info information to use the ability
      */
-    public abstract void use(AbstractBoard board, P piece, Point start, I info);
+    public abstract void use(AbstractBoard board, Piece piece, Point start, Info info);
     
     /**
      * Utility method, checks the cd and the mana acording to the info of
@@ -65,7 +62,7 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      * @param piece piece that is using the ability.
      * @return true if can be used, false other case.
      */
-    public boolean commonCanUse(AbstractBoard board, Piece piece){
+    public boolean commonCanUse(AbstractBoard board, Piece piece) {
         boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
         if(board instanceof Board t){
             return nomana && t.getClock().turnOf().getMana() >= this.data.manaCost();
@@ -80,11 +77,21 @@ public abstract non-sealed class Ability<P extends Piece, V, I extends Info<V>> 
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      */
-    public void commonUse(AbstractBoard board, Piece piece){
+    public void commonUse(AbstractBoard board, Piece piece) {
         piece.setIsMoved(true);
         piece.changeCD(this.data.cooldown());
         if (board instanceof Board t) {
             t.getClock().turnOf().changeMana(-this.data.manaCost());
         }
+    }
+
+    public abstract Object[] getValues(AbstractBoard board, Point start);
+    
+    public String formatInfo(Object info) {
+    	return switch (info) {
+	    	case Point p -> "%s, %s".formatted(p.x, p.y);
+	    	case Tuple<?, ?> t -> "%s, %s".formatted(t.x, t.y);
+	    	default -> info.toString();
+    	};
     }
 }

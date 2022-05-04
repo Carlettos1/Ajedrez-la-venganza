@@ -25,7 +25,7 @@ public class InfoDisplay extends JOptionPane {
     
     public static int showOptions(Board board, Escaque escaque) {
         var mini = new MiniBoardDisplay(MiniBoard.fromBoard(board, escaque.getPos()));
-        var options = escaque.getPiece().getAbility().getPossibleValues(board, escaque.getPos());
+        var options = escaque.getPiece().getAbility().getValues(board, escaque.getPos());
         var formatted = new ArrayList<Object>();
         for (Object option : options) {
             formatted.add(escaque.getPiece().getAbility().formatInfo(option));

@@ -8,8 +8,6 @@ import java.util.Objects;
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.ability.InfoManager;
-import com.carlettos.game.gameplay.ability.info.InfoPiece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
@@ -52,7 +50,7 @@ public abstract class Piece {
      * @param types types of the piece.
      * @param color color of the piece.
      */
-    public Piece(String name, String notation, Ability ability, Color color, PieceType... types) {
+    protected Piece(String name, String notation, Ability ability, Color color, PieceType... types) {
         this.moved = false;
         this.cooldown = 0;
         this.name = new ResourceLocation("piece." + name);
@@ -106,16 +104,20 @@ public abstract class Piece {
             for (int y = 0; y < board.rows; y++) {
                 if (this.can(Action.TAKE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     actions.add(new Tuple<>(Action.TAKE, board.getEscaque(x, y).getPos().toInfo()));
-                } if (this.can(Action.MOVE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
+                } 
+                
+                if (this.can(Action.MOVE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     actions.add(new Tuple<>(Action.MOVE, board.getEscaque(x, y).getPos().toInfo()));
-                } if (this.can(Action.ATTACK, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
+                } 
+                
+                if (this.can(Action.ATTACK, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
                     actions.add(new Tuple<>(Action.ATTACK, board.getEscaque(x, y).getPos().toInfo()));
                 }
             }
         }
-        for (Object values : getAbility().getPossibleValues(board, start)) {
-            if (this.getAbility().canUse(board, this, start, InfoManager.getInfo(values)).isPositive()) {
-                actions.add(new Tuple<>(Action.ABILITY, InfoManager.getInfo(values)));
+        for (Object value : getAbility().getValues(board, start)) {
+            if (this.getAbility().canUse(board, this, start, Info.getInfo(value)).isPositive()) {
+                actions.add(new Tuple<>(Action.ABILITY, Info.getInfo(value)));
             }
         }
         return actions;
@@ -212,6 +214,10 @@ public abstract class Piece {
     public String getName() {
         return name.getName();
     }
+    
+    public String getNotation() {
+        return notation.getName();
+    }
 
     public Ability getAbility() {
         return ability;
@@ -225,13 +231,13 @@ public abstract class Piece {
         return moved;
     }
     
-    public InfoPiece toInfo(){
-        return new InfoPiece(this);
+    public Info toInfo(){
+        return Info.getInfo(this);
     }
 
     @Override
     public String toString() {
-        return notation.getName();
+        return getName();
     }
 
     @Override

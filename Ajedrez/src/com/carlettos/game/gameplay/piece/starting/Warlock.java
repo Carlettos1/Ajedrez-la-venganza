@@ -1,10 +1,10 @@
 package com.carlettos.game.gameplay.piece.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
-import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -19,8 +19,8 @@ import com.carlettos.game.util.enums.PieceType;
 public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
 
-    public Warlock(Color color) { //TODO: habilidad
-        super("warlock", "wa", Empty.NO_ABILITY, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
+    public Warlock(Color color) {
+        super("warlock", "wa", Abilities.ABILITY_WARLOCK, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC, PieceType.IMMUNE);
         this.movePattern = new PatternMagicianMove() {};
     }
 

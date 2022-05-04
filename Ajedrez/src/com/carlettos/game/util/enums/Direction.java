@@ -1,6 +1,7 @@
 package com.carlettos.game.util.enums;
 
-import com.carlettos.game.gameplay.ability.info.InfoDirection;
+import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.util.Point;
 
 /**
  *
@@ -18,22 +19,29 @@ public enum Direction {
         return sign;
     }
     
-    public Axis getAxis(){
+    public Axis getAxis() {
         return switch(this){
             case N, S -> Axis.NS;
             case E, W -> Axis.EW;
         };
     }
     
-    public boolean isAxis(Axis axis){
+    public boolean isAxis(Axis axis) {
         return this.getAxis().equals(axis);
     }
     
-    public InfoDirection toInfo(){
-        return new InfoDirection(this);
+    public Info toInfo() {
+        return Info.getInfo(this);
     }
     
-    public static enum Axis {
+    public Point toPoint() {
+    	return switch(this.getAxis()) {
+			case NS -> new Point(0, getSign());
+			case EW -> new Point(getSign(), 0);
+    	};
+    }
+    
+    public enum Axis {
         NS, EW;
     }
 }

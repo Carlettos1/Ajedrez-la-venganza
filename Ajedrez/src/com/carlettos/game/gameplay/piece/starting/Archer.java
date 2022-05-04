@@ -1,12 +1,12 @@
 package com.carlettos.game.gameplay.piece.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IAttack;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternArcherAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternArcherMove;
-import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -23,7 +23,7 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     protected final PatternArcherAttack attackPattern;
     
     public Archer(Color color) {
-        super("archer", "arc", Empty.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("archer", "arc", Abilities.ABILITY_NONE, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         movePattern = new PatternArcherMove() {};
         attackPattern = new PatternArcherAttack() {};
     }
@@ -35,5 +35,15 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

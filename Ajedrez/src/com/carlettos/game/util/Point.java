@@ -1,7 +1,6 @@
 package com.carlettos.game.util;
 
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.ability.info.InfoPoint;
 
 /**
  * Immutable version of {@code java.awt.Point}.
@@ -9,7 +8,7 @@ import com.carlettos.game.gameplay.ability.info.InfoPoint;
  * @author Carlos
  * @see java.awt.Point;
  */
-public final class Point implements Cloneable {
+public final class Point {
     public final int x;
     public final int y;
 
@@ -17,7 +16,7 @@ public final class Point implements Cloneable {
         this(0, 0);
     }
     
-    public Point(Point point){
+    public Point(Point point) {
         this(point.x, point.y);
     }
 
@@ -34,7 +33,7 @@ public final class Point implements Cloneable {
         return y;
     }
     
-    public Point add(Point point){
+    public Point add(Point point) {
         return this.add(point.x, point.y);
     }
 
@@ -42,25 +41,24 @@ public final class Point implements Cloneable {
         return new Point(this.x + dx, this.y + dy);
     }
     
-    public double getDistanceTo(Point other){
+    public Point scale(int scalar) {
+    	return new Point(this.x * scalar, this.y * scalar);
+    }
+    
+    public double getDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
         return Math.sqrt(dx*dx + dy*dy);
     }
     
-    public double getSquaredDistanceTo(Point other){
+    public double getSquaredDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
         return dx*dx + dy*dy;
     }
     
-    public Info<Point> toInfo(){
-        return new InfoPoint(this);
-    }
-
-    @Override
-    public Object clone() {
-        return new Point(this.x, this.y);
+    public Info toInfo() {
+        return Info.getInfo(this);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package com.carlettos.game.gameplay.piece.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.classic.PatternQueen;
-import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -21,7 +21,7 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     protected final PatternQueen pattern;
 
     public Paladin(Color color) { //TODO: Habilidad
-        super("paladin", "pa", Empty.NO_ABILITY, color, PieceType.HEROIC, PieceType.IMMUNE);
+        super("paladin", "pa", Abilities.ABILITY_PALADIN, color, PieceType.HEROIC, PieceType.IMMUNE);
         pattern = new PatternQueen(){};
     }
 
@@ -32,5 +32,15 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
             case TAKE -> this.canTake(board, start, info, pattern);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

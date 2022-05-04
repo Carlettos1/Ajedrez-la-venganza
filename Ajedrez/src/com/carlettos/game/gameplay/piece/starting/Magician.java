@@ -1,10 +1,10 @@
 package com.carlettos.game.gameplay.piece.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
-import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -18,8 +18,8 @@ import com.carlettos.game.util.enums.PieceType;
  */
 public class Magician extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
-    public Magician(Color color) { //TODO: hacer lo de la habilidad
-        super("magician", "mag", Empty.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE, PieceType.TRANSPORTABLE);
+    public Magician(Color color) { 
+        super("magician", "mag", Abilities.ABILITY_MAGICIAN, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE, PieceType.TRANSPORTABLE);
         movePattern = new PatternMagicianMove() {};
     }
 
@@ -29,5 +29,15 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
             case MOVE -> this.canMove(board, start, info, this.movePattern);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

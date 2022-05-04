@@ -26,7 +26,7 @@ public abstract class Card {
      * @param description detailed description of the card.
      * @param manaCost the cost in mana.
      */
-    public Card(String name, String description, int manaCost) {
+    protected Card(String name, String description, int manaCost) {
         this.name = name;
         this.description = description;
         this.manaCost = manaCost;

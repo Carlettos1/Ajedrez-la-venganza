@@ -112,13 +112,17 @@ public class Deck {
     public void shuffle() {
         Collections.shuffle(cards);
     }
+    
+    public List<Card> getCards() {
+    	return List.copyOf(this.cards);
+    }
 
     public static void defaultInit(Deck deck) {
         if (deck.getCardCount() != 0) {
             throw new IllegalStateException("Deck cannot be default initialized with cards on it");
         }
-        DeckHelper.addTo(() -> new AddMovement(), 4, deck);
-        DeckHelper.addTo(() -> new SummonWarlock(), 8, deck);
+        DeckHelper.addTo(AddMovement::new, 4, deck);
+        DeckHelper.addTo(SummonWarlock::new, 8, deck);
         deck.shuffle();
     }
 

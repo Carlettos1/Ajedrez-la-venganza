@@ -165,6 +165,10 @@ public class Clock {
         return movements;
     }
     
+    public List<PlayerDeck> getPlayerDecks() {
+    	return List.of(playerDecks);
+    }
+    
     public PlayerDeck getDeckOf(Player player) {
         for (PlayerDeck playerDeck : playerDecks) {
             if (playerDeck.getOwner().equals(player)) {

@@ -1,12 +1,12 @@
 package com.carlettos.game.gameplay.piece.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IAttack;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternBallistaAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
-import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -23,7 +23,7 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
     protected final PatternBallistaAttack attackPattern;
 
     public Ballista(Color color) {
-        super("ballista", "ba", Empty.NO_ABILITY, color, PieceType.STRUCTURE);
+        super("ballista", "ba", Abilities.ABILITY_NONE, color, PieceType.STRUCTURE);
         movePattern = new PatternStructureMove() {};
         attackPattern = new PatternBallistaAttack() {};
     }
@@ -35,5 +35,15 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -62,7 +62,7 @@ public class Board extends AbstractBoard {
      * @return FAIL if it didn't do the action, PASS if the action has been 
      * done.
      */
-    public ActionResult tryTo(Action action, Point start, Info<?> info){
+    public ActionResult tryTo(Action action, Point start, Info info){
         var startEsq = getEscaque(start);
         var piece = startEsq.getPiece();
         if (!canPlay(piece)) {
