@@ -48,10 +48,10 @@ public final class Point {
     public double getDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
-        return Math.sqrt(dx*dx + dy*dy);
+        return Math.sqrt((double)dx*dx + dy*dy);
     }
     
-    public double getSquaredDistanceTo(Point other) {
+    public int getSquaredDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
         return dx*dx + dy*dy;

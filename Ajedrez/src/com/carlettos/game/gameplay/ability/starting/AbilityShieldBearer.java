@@ -11,10 +11,7 @@ import com.carlettos.game.util.helper.LogHelper;
 public class AbilityShieldBearer extends AbilityNoInfo {
     public AbilityShieldBearer() {
         //TODO: repensar la habilidad
-        super("Defender",
-                "Defiende de ataques de ballesta",
-                6,
-                0);
+        super("shield_bearer", 6, 0);
     }
 
     @Override

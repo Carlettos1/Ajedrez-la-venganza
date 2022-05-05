@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.enums.ActionResult;
 
 /**
@@ -15,8 +16,8 @@ import com.carlettos.game.util.enums.ActionResult;
  * @see Player
  */
 public abstract class Card {
-    protected final String name;
-    protected final String description;
+    protected final ResourceLocation name;
+    protected final ResourceLocation description;
     protected int manaCost;
 
     /**
@@ -26,9 +27,9 @@ public abstract class Card {
      * @param description detailed description of the card.
      * @param manaCost the cost in mana.
      */
-    protected Card(String name, String description, int manaCost) {
-        this.name = name;
-        this.description = description;
+    protected Card(String key, int manaCost) {
+        this.name = new ResourceLocation("card.name." + key);
+        this.description = new ResourceLocation("card.description" + key);
         this.manaCost = manaCost;
     }
 
@@ -102,11 +103,11 @@ public abstract class Card {
     }
 
     public String getName() {
-        return name;
+        return name.getTranslated();
     }
 
     public String getDescription() {
-        return description;
+        return description.getTranslated();
     }
 
     public int getCost() {

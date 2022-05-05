@@ -11,7 +11,7 @@ public class AbilityWarlock extends Ability {
 
     //todo: que funcione
     public AbilityWarlock() {
-        super("xd", "nonn", 1, 1);
+        super("warlock", 1, 1);
     } 
 
     @Override

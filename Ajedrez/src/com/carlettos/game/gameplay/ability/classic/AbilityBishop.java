@@ -14,10 +14,7 @@ import com.carlettos.game.util.enums.Direction;
 public class AbilityBishop extends Ability {
 
     public AbilityBishop() {
-        super("Cambio de Color",
-                "El alfil cambia de color, pudiendo moverse una casilla en cualquiera de las 4 direcciones cardinales.",
-                2,
-                0);
+        super("bishop", 2, 0);
     }
 
     @Override

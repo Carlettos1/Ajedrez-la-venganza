@@ -37,4 +37,14 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
             default -> ActionResult.FAIL;
         };
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

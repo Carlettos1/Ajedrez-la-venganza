@@ -17,10 +17,7 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     protected final Pattern abilityPattern = new PatternCannonAttack() {};
     
     public AbilityTeslaTower() {
-        super("PEM", 
-                "Emite un PEM que desactiva todas las estructuras", 
-                20, 
-                1);
+        super("tesla_tower", 20, 1);
     }
 
     @Override
@@ -30,15 +27,12 @@ public class AbilityTeslaTower extends AbilityNoInfo {
 
     @Override
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        if(board instanceof Board b){
-            //TODO: que desactive de verdad
-            b.getClock().addEvent(Event.create(EventInfo.of(b, 2, this.data.name(), start), () -> 
-                b.getMatchingEscaques(abilityPattern, start).stream()
-                        .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
-                        .forEach(escaque -> escaque.getPiece().changeCD(10))));
-        } else {
-            throw new IllegalArgumentException("Tablero no es instanceof Tablero");
-        }
+        var b = (Board) board;
+        //TODO: que desactive de verdad
+        b.getClock().addEvent(Event.create(EventInfo.of(b, 2, this.data.getName(), start), () -> 
+            b.getMatchingEscaques(abilityPattern, start).stream()
+                    .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
+                    .forEach(escaque -> escaque.getPiece().changeCD(10))));
         this.commonUse(board, piece);
     }
 }

@@ -8,7 +8,7 @@ import com.carlettos.game.util.enums.ActionResult;
 public class AbilityNone extends AbilityNoInfo {
 
     public AbilityNone() {
-        super("Habilidad nula", "No hace nada", 0, 0);
+        super("none", 0, 0);
     }
 
     @Override

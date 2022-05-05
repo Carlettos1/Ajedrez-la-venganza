@@ -59,7 +59,7 @@ public abstract class AbstractBoard {
      * @param columns how many columns it has.
      * @param rows how many rows it has,
      */
-    public AbstractBoard(int columns, int rows) {
+    protected AbstractBoard(int columns, int rows) {
         this.chessBoard = new Escaque[rows][columns];
         this.columns = columns;
         this.rows = rows;
@@ -271,9 +271,9 @@ public abstract class AbstractBoard {
         StringBuilder str = new StringBuilder(5 * columns * rows);
         for (int y = rows - 1; y >= 0; y--) {
             for (int x = 0; x < columns; x++) {
-                str.append("[")
+                str.append('[')
                         .append(getEscaque(x, y).getPiece().notation)
-                        .append("]");
+                        .append(']');
             }
             str.append('\n');
         }

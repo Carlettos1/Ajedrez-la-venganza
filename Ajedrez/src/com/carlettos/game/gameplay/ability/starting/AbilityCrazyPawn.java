@@ -13,10 +13,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityCrazyPawn extends AbilityNoInfo {
     public AbilityCrazyPawn() {
-        super("Terminar Sufrimiento",
-                "Elimina esta pieza del tablero y te da 2 cartas.", 
-                0, 
-                0);
+        super("crazy_pawn", 0, 0);
     }
 
     @Override
@@ -26,15 +23,13 @@ public class AbilityCrazyPawn extends AbilityNoInfo {
 
     @Override
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        if(board instanceof Board b){
-            final Player player = b.getClock().turnOf();
-            b.removePiece(start);
-            b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.name()), () -> {
-                player.takeCard(b.getClock());
-                player.takeCard(b.getClock());
-            }));
-        } else {
-            throw new IllegalArgumentException("Tablero no es instanceof Tablero");
-        }
+        var b = (Board) board;
+        final Player player = b.getClock().turnOf();
+        b.removePiece(start);
+        b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.getName()), () -> {
+            player.takeCard(b.getClock());
+            player.takeCard(b.getClock());
+        }));
+        
     }
 }

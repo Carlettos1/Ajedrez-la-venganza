@@ -52,6 +52,7 @@ public class CardDisplay extends JPanel {
         
         this.name.setToolTipText(card.getName());
         this.desc.setToolTipText(card.getDescription());
+        //todo: usar resourcelocations
         this.mana.setToolTipText("Cost:" + card.getCost());
         
         add(this.mana);

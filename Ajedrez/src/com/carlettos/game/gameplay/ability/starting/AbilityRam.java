@@ -10,13 +10,7 @@ import com.carlettos.game.util.enums.Direction;
 
 public class AbilityRam extends Ability {
     public AbilityRam() {
-        super("Carga de Ariete", 
-                "El ariete carga en una dirección hasta alcanzar la primera "
-                        + "pieza, luego procede a avanzar, comiendo lo que atraviese, "
-                        + "dependiendo de cuanto haya cargado "
-                        + "(avanza 1 escaque por cada 5 que carge, +1 de base).", 
-                4, 
-                0);
+        super("ram", 4, 0);
     }
     
     @Override

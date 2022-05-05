@@ -91,9 +91,7 @@ public class ClickDeckButton implements ActionListener {
 			}
 			var cb = new JComboBox<Card>(deck.getCards().toArray(Card[]::new));
 			cb.setEditable(false);
-			cb.addItemListener(item -> {
-				((CardLayout) getLayout()).show(this, item.getItem().toString());
-			});
+			cb.addItemListener(item -> ((CardLayout) getLayout()).show(this, item.getItem().toString()));
 			add(cb);
 			revalidate();
 		}

@@ -4,6 +4,7 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.ActionResult;
 
@@ -22,15 +23,14 @@ public abstract class Ability {
     /**
      * General constructor.
      *
-     * @param name name of the ability.
-     * @param description description of the ability.
+     * @param key name of the piece of the ability.
      * @param cooldown cooldown of the ability.
      * @param manaCost cost of mana of the ability.
      *
      * @see Piece
      */
-    protected Ability(String name, String description, int cooldown, int manaCost) {
-        data = new Data(name, description, cooldown, manaCost);
+    protected Ability(String key, int cooldown, int manaCost) {
+        data = new Data(new ResourceLocation("ability.name." + key), new ResourceLocation("ability.description." + key), cooldown, manaCost);
     }
 
     /**

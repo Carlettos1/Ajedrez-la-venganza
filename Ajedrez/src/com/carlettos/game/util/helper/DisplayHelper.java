@@ -16,6 +16,8 @@ public class DisplayHelper {
     public static final Font FONT_8 = new Font(Font.SANS_SERIF, Font.PLAIN, 8);
     public static final Font FONT_10 = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
     public static final Font FONT_12 = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+    
+    private DisplayHelper() {}
 
     public static Component getComponentAt(Component component, Point point) {
         return getComponentAt(component, point.x, point.y);
@@ -47,7 +49,9 @@ public class DisplayHelper {
     }
 
     public static Point getAbsoluteLocation(Component component) {
-        int x = component.getX(), y = component.getY();
+        int x = component.getX();
+        int y = component.getY(); 
+        
         Container container = component.getParent();
         if (container == null) {
             return new Point(x, y);

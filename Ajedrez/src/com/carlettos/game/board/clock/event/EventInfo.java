@@ -2,6 +2,7 @@ package com.carlettos.game.board.clock.event;
 
 import com.carlettos.game.board.Board;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.ResourceLocation;
 
 /**
  * The info of an event.
@@ -9,6 +10,7 @@ import com.carlettos.game.util.Point;
  * @author Carlettos
  */
 public class EventInfo {
+    private static final ResourceLocation generic_event = new ResourceLocation("generic_event.name");
     protected int turns;
     protected final String name;
     protected Point point;
@@ -64,7 +66,7 @@ public class EventInfo {
     }
     
     public static EventInfo of(Board board, int turns, Point point){
-        return of(board, turns, "Generic event", point);
+        return of(board, turns, generic_event.getTranslated(), point);
     }
     
     public static EventInfo of(Board board, String name, Point point){
@@ -72,7 +74,7 @@ public class EventInfo {
     }
     
     public static EventInfo of(Board board, int turns){
-        return of(board, turns, "Generic event", new Point(0, 0));
+        return of(board, turns, generic_event.getTranslated(), new Point(0, 0));
     }
     
     public static EventInfo of(Board board, String name){
@@ -80,10 +82,10 @@ public class EventInfo {
     }
     
     public static EventInfo of(Board board, Point point){
-        return of(board, 1, "Generic event", point);
+        return of(board, 1, generic_event.getTranslated(), point);
     }
     
     public static EventInfo of(Board board){
-        return of(board, 1, "Generic event", new Point(0, 0));
+        return of(board, 1, generic_event.getTranslated(), new Point(0, 0));
     }
 }

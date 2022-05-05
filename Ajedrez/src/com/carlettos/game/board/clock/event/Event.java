@@ -1,12 +1,11 @@
 package com.carlettos.game.board.clock.event;
 
-import com.carlettos.game.board.Board;
 import com.carlettos.game.board.clock.Clock;
-import com.carlettos.game.util.Point;
 import com.carlettos.game.util.function.Action;
 
 /**
  * An event is something that will happen in n turns, with n >= 1.
+ * Note: this class has a natural ordering that is inconsistent with equals.
  *
  * @author Carlos
  *
@@ -15,21 +14,6 @@ import com.carlettos.game.util.function.Action;
 public abstract class Event implements Comparable<Event> {
 
     public final EventInfo info;
-
-    /**
-     * It creates the info object for itself to work.
-     *
-     * @param turns time in turns to the event to happen.
-     * @param name name of the event.
-     * @param point point of refference.
-     * @param board board in which will happen.
-     * 
-     * @deprecated is here because of legacy.
-     */
-    @Deprecated
-    private Event(int turns, String name, Point point, Board board) {
-        this(new EventInfo(turns, name, point, board));
-    }
 
     /**
      * General constructor.

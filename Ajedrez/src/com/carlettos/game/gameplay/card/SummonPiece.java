@@ -18,24 +18,33 @@ import com.carlettos.game.util.enums.Color;
 public class SummonPiece<P extends Piece> extends Card {
     protected final Function<Color, P> builder;
 
-    public SummonPiece(String name, String description, int manaCost, Function<Color, P> builder) {
-        super(name, description, manaCost);
+    public SummonPiece(String key, int manaCost, Function<Color, P> builder) {
+        super("summon_" + key, manaCost);
         this.builder = builder;
     }
 
     @Override
     public ActionResult canUse(Point point, Board board, Player caster) {
         if(board.getEscaque(point).hasPiece()){
-            return ActionResult.FAIL; //todo: use summoneable range method from board.
+            return ActionResult.FAIL; 
+            //todo: use summoneable range method from board.
         }
         return this.commonCanUse(point, board, caster);
     }
 
     @Override
     public void use(Point point, Board board, Player caster) {
-        board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.name, point), () -> {
-            board.getEscaque(point).setPiece(builder.apply(caster.getColor()));
-        }));
+        board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.getName(), point), () -> board.getEscaque(point).setPiece(builder.apply(caster.getColor()))));
         this.commonUse(point, board, caster);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

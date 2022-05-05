@@ -13,10 +13,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityKing extends Ability{
     public AbilityKing() {
-        super("Teletransportación",
-                "Se teletransporta a cualquier casilla en un rango de 5",
-                0,
-                2);
+        super("king", 0, 2);
     }
 
     @Override

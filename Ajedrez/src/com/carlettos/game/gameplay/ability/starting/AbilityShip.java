@@ -10,9 +10,7 @@ import com.carlettos.game.util.enums.ActionResult;
 public class AbilityShip extends AbilityNoInfo {
 
     public AbilityShip() {
-        super("Ataque en area", 
-                "Ataca a las 6 casillas adyacentes",
-                12, 0);
+        super("ship", 12, 0);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class AbilityPaladin extends Ability {
 
     //todo: que funcione
     public AbilityPaladin() {
-        super("xd", "nonn", 1, 1);
+        super("paladin", 1, 1);
     } 
 
     @Override

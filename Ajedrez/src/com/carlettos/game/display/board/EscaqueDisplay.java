@@ -11,14 +11,16 @@ import com.carlettos.game.board.Escaque;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.ImageHelper;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  *
  * @author Carlos
  */
 public class EscaqueDisplay extends JComponent {
-
-    private final Escaque escaque;
+    private static final long serialVersionUID = -8856530496715601233L;
+    //todo: transient?
+    private transient final Escaque escaque;
     private final boolean isEven;
     private final List<Action> actions;
 
@@ -104,7 +106,7 @@ public class EscaqueDisplay extends JComponent {
                         (int) (w), (int) (h));
                 break;
             default:
-                System.err.println("Cantidad de acciones: " + this.actions.size() + ", no manejada");
+                LogHelper.LOG.severe(() -> "Cantidad de acciones: " + this.actions.size() + ", no manejada");
         }
     }
 

@@ -27,13 +27,8 @@ import com.carlettos.game.util.helper.LogHelper;
 
 public class AbilityPawn extends Ability {
 
-
-
     public AbilityPawn() {
-        super("Coronar",
-                "Al estar en la última fila, puede transformarse en cualquier pieza de las que se permita.",
-                0,
-                0);
+        super("pawn", 0, 0);
     }
 
     @Override

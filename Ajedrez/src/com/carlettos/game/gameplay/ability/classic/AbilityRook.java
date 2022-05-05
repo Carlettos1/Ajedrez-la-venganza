@@ -15,18 +15,12 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
+import com.carlettos.game.util.enums.Direction.Axis;
 
 public class AbilityRook extends Ability {
 
     public AbilityRook() {
-        super("Muro de Berlín",
-                "\"Lanza\" todas las torres contiguas en una dirección y se detienen "
-                + "si y solo si se cumple alguna de las siguientes condicioens: "
-                + "1.- Alcanza el borde del tablero"
-                + "2.- Comen una pieza enemiga"
-                + "3.- Colisionan con una pieza aliada.",
-                10,
-                0);
+        super("rook", 10, 0);
     }
 
     @Override
@@ -41,131 +35,81 @@ public class AbilityRook extends Ability {
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var b = (Board) board;
         var dir = (Direction) info.getValue();
+        List<Escaque> rooks = new ArrayList<>(getNearbyRookEscaques(board, piece, start));
         
-        List<Escaque> escaquesTorres = new ArrayList<>(getNearbyRookEscaques(board, piece, start));
-        escaquesTorres.add(board.getEscaque(start));
-
-        boolean seHaEncontradoNuevaTorre = true;
-        while (seHaEncontradoNuevaTorre) {
+        rooks.add(board.getEscaque(start));
+        this.addAllRookEscaques(rooks, board, piece);
+        this.orderEscaques(rooks, dir);
+        this.throwRooks(rooks, b, dir);
+        
+        for (Escaque escaque : rooks) {
+            this.commonUse(board, escaque.getPiece());
+        }
+    }
+    
+    protected void throwRooks(List<Escaque> rooks, Board board, Direction dir) {
+        rooks.forEach(et -> throwTo(et, board, dir));
+    }
+    
+    protected void throwTo(Escaque et, Board board, Direction dir) {
+        var sign = dir.getSign();
+        var isNegative = sign == -1;
+        var isNS = dir.isAxis(Axis.NS);
+        
+        et.getPiece().setIsMoved(false); //por conveniencia
+        
+        if (isNS) {
+            var to = isNegative ? 0 : board.columns - 1;
+            while (to != et.getPos().y 
+                    && !this.tryToGo(board, et, new Point(et.getPos().x, to))) {
+                to += sign;
+            }
+        } else {
+            var to = isNegative ? 0 : board.rows - 1;
+            while (to != et.getPos().x 
+                    && !this.tryToGo(board, et, new Point(to, et.getPos().y))) {
+                to += sign;
+            }
+        }
+    }
+    
+    protected boolean tryToGo(Board board, Escaque escaqueTorre, Point puntoFinal) {
+        return board.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive() 
+                || board.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive();
+    }
+    
+    protected void addAllRookEscaques(List<Escaque> rooks, AbstractBoard board, Piece piece) {
+        var rookFinded = true;
+        while (rookFinded) {
             List<Escaque> tmp = new ArrayList<>();
-            seHaEncontradoNuevaTorre = false;
-            for (Escaque escaqueTorre : escaquesTorres) {
-                for (Escaque escaqueTorreAdyacente : getNearbyRookEscaques(board, piece, escaqueTorre.getPos())) {
-                    if (!(escaquesTorres.contains(escaqueTorreAdyacente) || tmp.contains(escaqueTorreAdyacente))) {
-                        tmp.add(escaqueTorreAdyacente);
-                        seHaEncontradoNuevaTorre = true;
+            rookFinded = false;
+            for (Escaque escaqueRook : rooks) {
+                for (Escaque escaqueRookSide : getNearbyRookEscaques(board, piece, escaqueRook.getPos())) {
+                    if (!(rooks.contains(escaqueRookSide) || tmp.contains(escaqueRookSide))) {
+                        tmp.add(escaqueRookSide);
+                        rookFinded = true;
                     }
                 }
             }
             if (!tmp.isEmpty()) {
-                escaquesTorres.addAll(tmp);
+                rooks.addAll(tmp);
             }
-        }
-
-        escaquesTorres = AbilityRook.this.orderEscaques(escaquesTorres, board, dir);
-
-        switch (dir) {
-            case S -> escaquesTorres.forEach((escaqueTorre) -> {
-                    escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
-                    for (int y = 0; y < board.rows; y++) {
-                        if (y == escaqueTorre.getPos().y) {
-                            break;
-                        }
-                        Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                        if (b.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        } else if (b.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        }
-                    }
-                });
-            case E -> escaquesTorres.forEach((escaqueTorre) -> {
-                    escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
-                    for (int x = board.columns - 1; x >= 0; x--) {
-                        if (x == escaqueTorre.getPos().x) {
-                            break;
-                        }
-                        Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                        if (b.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        } else if (b.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        }
-                    }
-                });
-            case N -> escaquesTorres.forEach((escaqueTorre) -> {
-                    escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
-                    for (int y = board.rows - 1; y >= 0; y--) {
-                        if (y == escaqueTorre.getPos().y) {
-                            break;
-                        }
-                        Point puntoFinal = new Point(escaqueTorre.getPos().x, y);
-                        if (b.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        } else if (b.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        }
-                    }
-                });
-            case W -> escaquesTorres.forEach((escaqueTorre) -> {
-                    escaqueTorre.getPiece().setIsMoved(false); //por conveniencia
-                    for (int x = 0; x < board.columns; x++) {
-                        if (x == escaqueTorre.getPos().y) {
-                            break;
-                        }
-                        Point puntoFinal = new Point(x, escaqueTorre.getPos().y);
-                        if (b.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        } else if (b.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()) {
-                            break;
-                        }
-                    }
-                });
-        }
-        for (Escaque escaque : escaquesTorres) {
-            this.commonUse(board, escaque.getPiece());
         }
     }
 
     protected List<Escaque> getNearbyRookEscaques(AbstractBoard board, Piece piece, Point start) {
-        return Arrays.<Escaque>asList(board.getNearbyEscaques(board.getEscaque(start)).stream().filter((escaque) -> {
-            return escaque.getPiece() instanceof Rook && piece.getColor().equals(escaque.getPiece().getColor());
-        }).toArray(Escaque[]::new));
+        return Arrays.<Escaque>asList(board.getNearbyEscaques(board.getEscaque(start)).stream().filter(escaque -> 
+            escaque.getPiece() instanceof Rook && piece.getColor().equals(escaque.getPiece().getColor())
+        ).toArray(Escaque[]::new));
     }
 
-    protected List<Escaque> orderEscaques(List<Escaque> rooks, AbstractBoard board, Direction direction) {
-        List<Escaque> ordered = new ArrayList<>();
+    protected void orderEscaques(List<Escaque> rooks, Direction direction) {
         switch (direction) {
-            case S -> {for (int y = 0; y < board.rows; y++) {
-                    for (int x = 0; x < board.columns; x++) {
-                        if (rooks.contains(board.getEscaque(x, y))) {
-                            ordered.add(board.getEscaque(x, y));
-                        }
-                    }
-                }}
-            case E -> {for (int x = board.columns - 1; x >= 0; x--) {
-                    for (int y = 0; y < board.rows; y++) {
-                        if (rooks.contains(board.getEscaque(x, y))) {
-                            ordered.add(board.getEscaque(x, y));
-                        }
-                    }
-                }}
-            case N ->{for (int y = board.rows - 1; y >= 0; y--) {
-                    for (int x = 0; x < board.columns; x++) {
-                        if (rooks.contains(board.getEscaque(x, y))) {
-                            ordered.add(board.getEscaque(x, y));
-                        }
-                    }
-                }}
-            case W ->{for (int x = 0; x < board.columns; x++) {
-                    for (int y = 0; y < board.rows; y++) {
-                        if (rooks.contains(board.getEscaque(x, y))) {
-                            ordered.add(board.getEscaque(x, y));
-                        }
-                    }
-                }}
+            case N -> rooks.sort((e1, e2) -> Math.max(e1.getPos().y, e2.getPos().y));
+            case S -> rooks.sort((e1, e2) -> Math.min(e1.getPos().y, e2.getPos().y));
+            case E -> rooks.sort((e1, e2) -> Math.max(e1.getPos().x, e2.getPos().x));
+            case W -> rooks.sort((e1, e2) -> Math.min(e1.getPos().x, e2.getPos().x));
         }
-        return ordered;
     }
 
     @Override

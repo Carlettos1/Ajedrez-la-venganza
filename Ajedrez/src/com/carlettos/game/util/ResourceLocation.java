@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.FileHelper;
+import com.carlettos.game.util.helper.LogHelper;
 import com.google.gson.JsonObject;
 
 /**
@@ -29,12 +30,13 @@ public record ResourceLocation(String key) {
         return key.substring(key.lastIndexOf(".") + 1);
     }
     
-    public String getName() {
+    public String getTranslated() {
         if (CUSTOM.getAsJsonPrimitive(this.key()) != null) {
             return CUSTOM.getAsJsonPrimitive(this.key()).getAsString();
         } else if (ENGLISH.getAsJsonPrimitive(this.key()) != null) {
             return ENGLISH.getAsJsonPrimitive(this.key()).getAsString();
         } else {
+            LogHelper.LOG.info(() -> this.key() + " doesn't exists in either CUSTOM nor ENGLISH, using key instead");
             return this.key();
         }
     }

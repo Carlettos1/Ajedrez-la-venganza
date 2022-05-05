@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author Carlettos
  */
 public class LogHelper {
-    private static boolean STARTED = false;
+    private static boolean started = false;
     public static final Logger LOG = Logger.getLogger("ola");
     public static final Formatter LOG_FORMATTER = new Formatter() {
         @Override
@@ -33,8 +33,10 @@ public class LogHelper {
         }
     };
     
+    private LogHelper() {}
+
     public static final void startLogger() {
-        if (!STARTED){ 
+        if (!started){ 
             try {
                 FileHandler fh = new FileHandler("./src/com/carlettos/log.log");
                 LOG.addHandler(fh);

@@ -13,10 +13,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityQueen extends Ability {
     public AbilityQueen() {
-        super("Movimiento Caballístico.",
-                "Permite a la reina moverse como caballo, comiendo cualquier pieza en la que caiga, incluida piezas aliadas.",
-                5,
-                0);
+        super("queen", 5, 0);
     }
 
     @Override

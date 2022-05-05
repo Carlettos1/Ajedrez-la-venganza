@@ -10,8 +10,6 @@ import com.carlettos.game.gameplay.piece.classic.Knight;
 public class SummonKnight extends SummonPiece<Knight> {
 
     public SummonKnight() {
-        super("Invocar Caballo", 
-                "Invoca un caballo en la ubicación elegida al final del turno.",
-                2, c -> new Knight(c));
+        super("knight", 2, Knight::new);
     }
 }

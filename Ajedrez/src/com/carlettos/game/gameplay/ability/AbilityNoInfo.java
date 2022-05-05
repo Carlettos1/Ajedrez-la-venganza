@@ -5,8 +5,8 @@ import com.carlettos.game.util.Point;
 
 public abstract class AbilityNoInfo extends Ability {
 
-	protected AbilityNoInfo(String name, String description, int cooldown, int manaCost) {
-		super(name, description, cooldown, manaCost);
+	protected AbilityNoInfo(String key, int cooldown, int manaCost) {
+		super(key, cooldown, manaCost);
 	}
 	
 	@Override

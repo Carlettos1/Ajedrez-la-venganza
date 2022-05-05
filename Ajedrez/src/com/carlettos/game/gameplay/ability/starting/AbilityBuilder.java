@@ -16,10 +16,7 @@ public class AbilityBuilder extends Ability {
     protected final Function<Color, Wall> creator = Wall::new;
 
     public AbilityBuilder() {
-        super("Construir Barrera", 
-                "Construye 3 muros en la dirección indicada. No reemplaza piezas.", 
-                10, 
-                0);
+        super("builder", 10, 0);
     }
 
     @Override

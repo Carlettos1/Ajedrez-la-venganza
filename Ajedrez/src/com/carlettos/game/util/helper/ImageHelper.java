@@ -16,6 +16,8 @@ public class ImageHelper {
     private static final Map<String, BufferedImage> IMAGES = new TreeMap<>();
     private static final Map<String, BufferedImage> IMAGES_WHITE = new TreeMap<>();
     
+    private ImageHelper() {}
+    
     public static final synchronized void clearTextures() {
         IMAGES.clear();
         IMAGES_WHITE.clear();
@@ -58,11 +60,11 @@ public class ImageHelper {
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 boolean modified = false;
-                checkColors: for (int i = 0; i < from.length; i++) {
+                for (int i = 0; i < from.length; i++) {
                     if (image.getRGB(x, y) == from[i].getAWT().getRGB()) {
                         copy.setRGB(x, y, to[i].getAWT().getRGB());
                         modified = true;
-                        break checkColors;
+                        break;
                     }
                 }
                 if (!modified) {

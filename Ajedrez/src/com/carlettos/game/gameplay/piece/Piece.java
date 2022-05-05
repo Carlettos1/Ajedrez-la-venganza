@@ -54,6 +54,7 @@ public abstract class Piece {
         this.moved = false;
         this.cooldown = 0;
         this.name = new ResourceLocation("piece." + name);
+        //todo: remover notation
         this.notation = new ResourceLocation("notation." + notation);
         this.ability = ability;
         this.color = color;
@@ -212,11 +213,11 @@ public abstract class Piece {
     }
 
     public String getName() {
-        return name.getName();
+        return name.getTranslated();
     }
     
     public String getNotation() {
-        return notation.getName();
+        return notation.getTranslated();
     }
 
     public Ability getAbility() {

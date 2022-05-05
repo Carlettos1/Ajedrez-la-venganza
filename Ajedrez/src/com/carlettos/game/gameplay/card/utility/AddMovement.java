@@ -15,8 +15,7 @@ import com.carlettos.game.util.enums.ActionResult;
 public class AddMovement extends Card {
 
     public AddMovement() {
-        super("Add movement", "Adds 1 movement per turn to this player at the"
-                + " end of the turn", 1);
+        super("add_mov", 1);
     }
 
     @Override
@@ -26,9 +25,7 @@ public class AddMovement extends Card {
 
     @Override
     public void use(Point point, Board board, Player caster) {
-        board.getClock().addEvent(Event.create(EventInfo.of(board, manaCost, name), () -> {
-            caster.changeMovements(1);
-        }));
+        board.getClock().addEvent(Event.create(EventInfo.of(board, manaCost, this.getName()), () -> caster.changeMovements(1)));
         this.commonUse(point, board, caster);
     }
 }

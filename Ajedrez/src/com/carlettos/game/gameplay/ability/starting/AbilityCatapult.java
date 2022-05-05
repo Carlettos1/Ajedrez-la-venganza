@@ -15,10 +15,7 @@ import com.carlettos.game.util.helper.MathHelper;
 
 public class AbilityCatapult extends Ability {
     public AbilityCatapult() {
-        super("Lanzar Pieza", 
-                "Lanza una pieza en una dirección.", 
-                5, 
-                0);
+        super("catapult", 5, 0);
     }
 
     @Override

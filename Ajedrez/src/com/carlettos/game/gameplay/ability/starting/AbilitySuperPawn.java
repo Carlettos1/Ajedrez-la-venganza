@@ -13,9 +13,7 @@ import com.carlettos.game.util.enums.PieceType;
 
 public class AbilitySuperPawn extends AbilityNoInfo {
     public AbilitySuperPawn() {
-        super("Defender", 
-                "Añade el tipo inmune a esta pieza.", 
-                10, 0);
+        super("super_pawn", 10, 0);
     }
 
     @Override
@@ -25,15 +23,10 @@ public class AbilitySuperPawn extends AbilityNoInfo {
 
     @Override
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        if(board instanceof Board board1){
-            piece.addType(PieceType.IMMUNE);
-            //TODO: que sea impenetrable
-            board1.getClock().addEvent(Event.create(EventInfo.of(board1, 5,"Expiración Defender"), () -> {
-                piece.removeType(PieceType.IMMUNE);
-            }));
-        } else {
-            throw new IllegalArgumentException("Tablero no es instanceof Tablero");
-        }
+        var board1 = (Board) board;
+        piece.addType(PieceType.IMMUNE);
+        //TODO: que sea impenetrable
+        board1.getClock().addEvent(Event.create(EventInfo.of(board1, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
         this.commonUse(board, piece);
     }
 }

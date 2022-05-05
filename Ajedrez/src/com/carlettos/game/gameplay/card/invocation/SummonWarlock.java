@@ -10,8 +10,6 @@ import com.carlettos.game.gameplay.piece.starting.Warlock;
 public class SummonWarlock extends SummonPiece<Warlock> {
 
     public SummonWarlock() {
-        super("Invocar Brujo", 
-                "Invoca un brujo en la ubicación elegida al final del turno.",
-                5, c -> new Warlock(c));
+        super("warlock", 5, Warlock::new);
     }
 }

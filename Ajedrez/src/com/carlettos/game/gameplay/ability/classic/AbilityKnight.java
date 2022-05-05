@@ -10,10 +10,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityKnight extends AbilityNoInfo {
     public AbilityKnight() {
-        super("Bajar Jinetes",
-        "Invoca 2 peones, uno a cada lado del caballo (EW). Ambas casillas deben estar vacías",
-        10,
-        1);
+        super("knight", 10, 1);
     }
 
     @Override

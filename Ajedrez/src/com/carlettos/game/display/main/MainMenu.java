@@ -27,6 +27,7 @@ public class MainMenu extends JFrame {
 
     public MainMenu() {
         super("Ajedrez");
+        //todo: usar translation ?
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         startInit();
         add(start);

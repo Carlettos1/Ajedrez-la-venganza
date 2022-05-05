@@ -11,7 +11,7 @@ public class AbilityMagician extends Ability {
 
     //todo: que funcione
     public AbilityMagician() {
-        super("xd", "nonn", 1, 1);
+        super("magician", 1, 1);
     } 
 
     @Override
