@@ -20,7 +20,7 @@ import com.carlettos.game.util.helper.LogHelper;
 public class EscaqueDisplay extends JComponent {
     private static final long serialVersionUID = -8856530496715601233L;
     //todo: transient?
-    private transient final Escaque escaque;
+    private final transient Escaque escaque;
     private final boolean isEven;
     private final List<Action> actions;
 

@@ -19,7 +19,7 @@ import com.carlettos.game.util.enums.PieceType;
 public abstract class SimplePiece<P extends Pattern> extends Piece implements ITake<P>, IMove<P>{
     protected final P patron;
 
-    public SimplePiece(String name, String notation, Ability ability, Color color, P pattern, PieceType... types) {
+    protected SimplePiece(String name, String notation, Ability ability, Color color, P pattern, PieceType... types) {
         super(name, notation, ability, color, types);
         this.patron = pattern;
     }
@@ -35,5 +35,15 @@ public abstract class SimplePiece<P extends Pattern> extends Piece implements IT
             case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

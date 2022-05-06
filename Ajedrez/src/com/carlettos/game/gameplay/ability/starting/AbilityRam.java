@@ -21,45 +21,30 @@ public class AbilityRam extends Ability {
     @Override
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var dir = (Direction) info.getValue();
-        int charge = 1;
-        board.getEscaque(start).removePiece();
-        if(dir.isAxis(Direction.Axis.EW)) {
-            for(int x = start.x + dir.getSign();;x += dir.getSign()){
-                if(board.isOutOfBorder(new Point(x, start.y))){
-                    board.getEscaque(x - dir.getSign(), start.y).setPiece(piece);
-                    break;
-                }
-                if(board.getEscaque(x, start.y).hasPiece()) {
-                    for (int dx = 0; dx < charge/5 + 1; dx++) {
-                        if(!board.isOutOfBorder(new Point(x + dx, start.y))){
-                            board.getEscaque(x + dx, start.y).setPiece(piece);
-                            board.getEscaque(x + dx - dir.getSign(), start.y).removePiece();
-                        }
-                    }
-                    break;
-                } else {
-                    charge++;
-                }
+        int charge = 0;
+        var isCharged = false;
+
+        var to = start.add(dir.toPoint());
+        while (!board.isOutOfBorder(to) && !isCharged) {
+            isCharged = board.getEscaque(to).hasPiece();
+            to = to.add(dir.toPoint()); //next point
+            charge++;
+        }
+        
+        to = to.add(dir.toPoint().scale(-1)); //it's actually marking the next point, now it doesn't
+        board.removePiece(start);
+        if (isCharged) {
+            var distance = charge/5 + 1;
+            var maxTo = to.add(dir.toPoint().scale(distance));
+            while (board.isOutOfBorder(maxTo)) {
+                maxTo = maxTo.add(dir.toPoint().scale(-1)); //adjusted to not go OofB
             }
-        } else {
-            for(int y = start.y + dir.getSign();;y += dir.getSign()){
-                if(board.isOutOfBorder(new Point(start.x, y))){
-                    board.getEscaque(start.x, y - dir.getSign()).setPiece(piece);
-                    break;
-                }
-                if(board.getEscaque(start.x, y).hasPiece()) {
-                    for (int dy = 0; dy < charge/5 + 1; dy++) {
-                        if(!board.isOutOfBorder(new Point(start.x, y + dy))){
-                            board.getEscaque(start.x, y + dy).setPiece(piece);
-                            board.getEscaque(start.x, y + dy - dir.getSign()).removePiece();
-                        }
-                    }
-                    break;
-                } else {
-                    charge++;
-                }
+            while (!to.equals(maxTo)) { //removing from to to maxTo, without maxTo
+                board.removePiece(to);
+                to = to.add(dir.toPoint());
             }
         }
+        board.getEscaque(to).setPiece(piece);
         this.commonUse(board, piece);
     }
 

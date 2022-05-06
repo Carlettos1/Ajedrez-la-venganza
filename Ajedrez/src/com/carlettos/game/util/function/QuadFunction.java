@@ -13,18 +13,10 @@ import com.carlettos.game.util.enums.ActionResult;
  */
 @FunctionalInterface
 public interface QuadFunction<R> {
-    public static final QuadFunction<ActionResult> PASS = (action, board, piece, start, end) -> {
-        return ActionResult.PASS;
-    };
-    public static final QuadFunction<ActionResult> FAIL = (action, board, piece, start, end) -> {
-        return ActionResult.FAIL;
-    };
-    public static final QuadFunction<Boolean> TRUE = (action, board, piece, start, end) -> {
-        return true;
-    };
-    public static final QuadFunction<Boolean> FALSE = (action, board, piece, start, end) -> {
-        return false;
-    };
+    public static final QuadFunction<ActionResult> PASS = (action, board, piece, start, end) -> ActionResult.PASS;
+    public static final QuadFunction<ActionResult> FAIL = (action, board, piece, start, end) -> ActionResult.FAIL;
+    public static final QuadFunction<Boolean> TRUE = (action, board, piece, start, end) -> true;
+    public static final QuadFunction<Boolean> FALSE = (action, board, piece, start, end) -> false;
     
     public R apply(Action action, Board board, Piece piece, Point start, Point end);
 }

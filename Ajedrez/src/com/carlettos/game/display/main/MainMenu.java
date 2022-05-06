@@ -23,7 +23,7 @@ public class MainMenu extends JFrame {
     private static final long serialVersionUID = -336175332512925147L;
 	private JPanel start;
     private JPanel options;
-    private JPanel play;
+    private BoardDisplay play;
 
     public MainMenu() {
         super("Ajedrez");
@@ -113,5 +113,9 @@ public class MainMenu extends JFrame {
         this.frameInit();
         this.add(play);
         this.pack();
+    }
+    
+    public BoardDisplay getDisplay() {
+        return play;
     }
 }

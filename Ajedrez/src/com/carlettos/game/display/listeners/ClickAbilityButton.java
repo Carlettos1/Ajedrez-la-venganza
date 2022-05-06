@@ -23,10 +23,10 @@ public class ClickAbilityButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (MousePiece.get().selected == null) {
+        if (MousePiece.get().getSelected() == null) {
             return;
         }
-        var escaque = MousePiece.get().selected.getEscaque();
+        var escaque = MousePiece.get().getSelected().getEscaque();
         var board = BoardDisplay.getInstance();
         
         if (!escaque.getPiece().getAbility().commonCanUse(board.getBoard(), escaque.getPiece())) {
@@ -51,7 +51,7 @@ public class ClickAbilityButton implements ActionListener {
                     escaque.getPos(),
                     info);
             board.getBoard().movement();
-            MousePiece.get().selected = null;
+            MousePiece.get().setSelected(null);
             board.offAll();
             board.repaint();
         }

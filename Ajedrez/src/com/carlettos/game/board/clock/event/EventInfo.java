@@ -1,5 +1,7 @@
 package com.carlettos.game.board.clock.event;
 
+import java.util.Objects;
+
 import com.carlettos.game.board.Board;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
@@ -34,6 +36,23 @@ public class EventInfo {
         this.point = point;
     }
     
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, turns);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EventInfo other = (EventInfo) obj;
+        return Objects.equals(name, other.name) && turns == other.turns;
+    }
+
     /**
      * Reduces the turns by 1.
      */

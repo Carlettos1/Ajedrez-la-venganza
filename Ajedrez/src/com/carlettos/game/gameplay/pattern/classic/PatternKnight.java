@@ -12,12 +12,8 @@ public interface PatternKnight extends Pattern{
 
     @Override
     public default boolean match(AbstractBoard board, Point start, Point end) {
-        int deltaX = end.x - start.x;
-        int deltaY = end.y - start.y;
-        deltaX = Math.abs(deltaX);
-        deltaY = Math.abs(deltaY);
-
-        boolean can = (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
-        return can;
+        int deltaX = Math.abs(end.x - start.x);
+        int deltaY = Math.abs(end.y - start.y);
+        return (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
     }
 }

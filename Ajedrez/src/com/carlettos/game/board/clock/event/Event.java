@@ -1,11 +1,12 @@
 package com.carlettos.game.board.clock.event;
 
+import java.util.Objects;
+
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.util.function.Action;
 
 /**
  * An event is something that will happen in n turns, with n >= 1.
- * Note: this class has a natural ordering that is inconsistent with equals.
  *
  * @author Carlos
  *
@@ -37,6 +38,23 @@ public abstract class Event implements Comparable<Event> {
     @Override
     public int compareTo(Event other) {
         return Integer.compare(this.info.turns, other.info.turns);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Event other = (Event) obj;
+        return Objects.equals(info, other.info);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(info);
     }
 
     /**

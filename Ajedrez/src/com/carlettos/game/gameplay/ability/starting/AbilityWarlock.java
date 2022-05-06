@@ -21,6 +21,7 @@ public class AbilityWarlock extends Ability {
 
     @Override
     public void use(AbstractBoard board, Piece piece, Point start, Info info) {
+        //todo: body ablity
     }
 
     @Override

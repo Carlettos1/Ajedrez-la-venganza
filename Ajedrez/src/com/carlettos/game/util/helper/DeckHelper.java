@@ -10,6 +10,8 @@ import com.carlettos.game.gameplay.card.Card;
  * @author Carlettos
  */
 public class DeckHelper {
+    
+    private DeckHelper() {}
 
     /**
      * Adds a certain ammount of the same card to the deck.

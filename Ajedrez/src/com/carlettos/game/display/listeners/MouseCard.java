@@ -26,10 +26,12 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+      // doesn't need it
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        // doesn't need it
     }
 
     @Override
@@ -63,9 +65,11 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        // doesn't need it
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        // doesn't need it
     }
 }

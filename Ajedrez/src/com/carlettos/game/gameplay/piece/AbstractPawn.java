@@ -20,7 +20,7 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
     protected final M movePattern;
     protected final T takePattern;
 
-    public AbstractPawn(M movePattern, T takePattern, String name, String notation, Ability ability, Color color) {
+    protected AbstractPawn(M movePattern, T takePattern, String name, String notation, Ability ability, Color color) {
         super(name, notation, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.movePattern = movePattern;
         this.takePattern = takePattern;
@@ -33,5 +33,15 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
             case TAKE -> this.canTake(board, start, info, takePattern);
             default -> ActionResult.FAIL;
         };
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

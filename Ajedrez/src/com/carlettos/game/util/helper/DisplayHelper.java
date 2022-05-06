@@ -25,7 +25,7 @@ public class DisplayHelper {
     
     public static Component getLastComponentAt(Component component, int x, int y) {
         var comp = component;
-        while(comp instanceof Container && ((Container)comp).getComponents().length != 0) {
+        while(comp instanceof Container cont && cont.getComponents().length != 0) {
             var loc = getAbsoluteLocation(comp);
             comp = getComponentAt(comp, x - loc.x, y - loc.y);
         }
