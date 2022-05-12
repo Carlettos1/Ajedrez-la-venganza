@@ -23,7 +23,7 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
     protected final PatternKing takePattern;
 
     public Ship(Color color) {
-        super("ship", "sh", Abilities.ABILITY_SHIP, color, PieceType.STRUCTURE);
+        super("ship", Abilities.ABILITY_SHIP, color, PieceType.STRUCTURE);
         this.movePattern = new PatternMagicianMove() {};
         this.takePattern = new PatternKing() {};
     }

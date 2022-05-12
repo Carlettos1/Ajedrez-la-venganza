@@ -1,4 +1,4 @@
-package com.carlettos.game.board;
+package com.carlettos.game.board.cards;
 
 import java.util.function.Consumer;
 

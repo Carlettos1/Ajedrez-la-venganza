@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.enums.ActionResult;
@@ -15,7 +16,9 @@ import com.carlettos.game.util.enums.ActionResult;
  *
  * @see Player
  */
-public abstract class Card {
+public abstract class Card implements IResourceKey {
+    //todo: record cardData
+    protected final String key;
     protected final ResourceLocation name;
     protected final ResourceLocation description;
     protected int manaCost;
@@ -28,8 +31,9 @@ public abstract class Card {
      * @param manaCost the cost in mana.
      */
     protected Card(String key, int manaCost) {
-        this.name = new ResourceLocation("card.name." + key);
-        this.description = new ResourceLocation("card.description" + key);
+        this.key = key;
+        this.name = new ResourceLocation("card.name.".concat(key));
+        this.description = new ResourceLocation("card.description.".concat(key));
         this.manaCost = manaCost;
     }
 
@@ -100,6 +104,11 @@ public abstract class Card {
         } else {
             this.manaCost += mana;
         }
+    }
+    
+    @Override
+    public String getBaseKey() {
+        return key;
     }
 
     public String getName() {

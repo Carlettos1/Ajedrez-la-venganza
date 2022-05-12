@@ -272,7 +272,7 @@ public abstract class AbstractBoard {
         for (int y = rows - 1; y >= 0; y--) {
             for (int x = 0; x < columns; x++) {
                 str.append('[')
-                        .append(getEscaque(x, y).getPiece().notation)
+                        .append(getEscaque(x, y).getPiece().getBaseKey().charAt(0))
                         .append(']');
             }
             str.append('\n');

@@ -56,7 +56,7 @@ public class EventInfo {
     /**
      * Reduces the turns by 1.
      */
-    public void reduceTurn(){
+    public void tick(){
         this.turns--;
     }
 

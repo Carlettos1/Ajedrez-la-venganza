@@ -12,6 +12,6 @@ import com.carlettos.game.util.enums.Color;
  */
 public class SuperPawn extends AbstractPawn<PatternSuperPawnMove, PatternSuperPawnTake> {
     public SuperPawn(Color color) {
-        super(() -> color, () -> color, "super_pawn", "sp", Abilities.ABILITY_SUPER_PAWN, color);
+        super(() -> color, () -> color, "super_pawn", Abilities.ABILITY_SUPER_PAWN, color);
     }
 }

@@ -44,7 +44,7 @@ public class EscaqueDisplay extends JComponent {
         
         if(escaque.hasPiece()) {
             g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
-            this.setToolTipText(escaque.getPiece().getName());
+            this.setToolTipText(escaque.getPiece().toString());
         }
         
         if(this.actions.isEmpty()) {

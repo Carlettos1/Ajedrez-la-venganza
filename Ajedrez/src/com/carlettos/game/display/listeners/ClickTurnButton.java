@@ -22,7 +22,7 @@ public class ClickTurnButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         var board = BoardDisplay.getInstance();
-        board.getClockDisplay().getClock().endTurn();
+        board.getClockDisplay().getClock().tick();
         board.offAll();
         board.repaint();
     }

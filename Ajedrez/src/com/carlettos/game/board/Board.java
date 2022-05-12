@@ -3,35 +3,19 @@ package com.carlettos.game.board;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.carlettos.game.board.cards.Deck;
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.card.invocation.SummonKnight;
-import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
+import com.carlettos.game.gameplay.card.invocation.*;
+import com.carlettos.game.gameplay.card.upgrade.Fire;
+import com.carlettos.game.gameplay.card.upgrade.Ice;
 import com.carlettos.game.gameplay.card.utility.AddMovement;
 import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.gameplay.piece.classic.Bishop;
-import com.carlettos.game.gameplay.piece.classic.King;
-import com.carlettos.game.gameplay.piece.classic.Knight;
-import com.carlettos.game.gameplay.piece.classic.Pawn;
-import com.carlettos.game.gameplay.piece.classic.Queen;
-import com.carlettos.game.gameplay.piece.classic.Rook;
-import com.carlettos.game.gameplay.piece.starting.Archer;
-import com.carlettos.game.gameplay.piece.starting.Ballista;
-import com.carlettos.game.gameplay.piece.starting.Builder;
-import com.carlettos.game.gameplay.piece.starting.Cannon;
-import com.carlettos.game.gameplay.piece.starting.Catapult;
-import com.carlettos.game.gameplay.piece.starting.CrazyPawn;
-import com.carlettos.game.gameplay.piece.starting.Magician;
-import com.carlettos.game.gameplay.piece.starting.Paladin;
-import com.carlettos.game.gameplay.piece.starting.Ram;
-import com.carlettos.game.gameplay.piece.starting.ShieldBearer;
-import com.carlettos.game.gameplay.piece.starting.Ship;
-import com.carlettos.game.gameplay.piece.starting.SuperPawn;
-import com.carlettos.game.gameplay.piece.starting.TeslaTower;
-import com.carlettos.game.gameplay.piece.starting.Warlock;
+import com.carlettos.game.gameplay.piece.classic.*;
+import com.carlettos.game.gameplay.piece.starting.*;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -95,19 +79,29 @@ public class Board extends AbstractBoard {
     public void movement() {
         this.clock.movement();
         if(getClock().getMovements() >= getClock().turnOf().getMaxMovements()){
-            for (Escaque[] escaques : chessBoard) {
-                for (Escaque escaque : escaques) {
-                    escaque.getPiece().setIsMoved(false);
-                }
+            this.tick();
+        }
+    }
+    
+    /**
+     * It has to tick the clock and the pieces.
+     */
+    private void tick() {
+        for (Escaque[] escaques : chessBoard) {
+            for (Escaque escaque : escaques) {
+                escaque.getPiece().setIsMoved(false);
+                escaque.getPiece().tick(this, escaque.getPos());
             }
-            getClock().endTurn();
-            try {
-                var bd = BoardDisplay.getInstance();
-                bd.getManoVisual().redo();
-                bd.repaint();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        }
+        getClock().tick();
+        
+        //todo: repaint on tick
+        try {
+            var bd = BoardDisplay.getInstance();
+            bd.getManoVisual().redo();
+            bd.repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -190,6 +184,9 @@ public class Board extends AbstractBoard {
         
         whiteDeck.shuffle();
         blackDeck.shuffle();
+
+        white.getHand().addCard(new Ice());
+        white.getHand().addCard(new Fire());
         
         board.getEscaque(0, 0).setPiece(new Cannon(Color.WHITE));
         board.getEscaque(15, 0).setPiece(new Cannon(Color.WHITE));        

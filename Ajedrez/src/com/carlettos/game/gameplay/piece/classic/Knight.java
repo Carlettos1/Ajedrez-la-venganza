@@ -8,6 +8,6 @@ import com.carlettos.game.util.enums.PieceType;
 
 public class Knight extends SimplePiece<PatternKnight> {
     public Knight(Color color) {
-        super("knight", "n", Abilities.ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("knight", Abilities.ABILITY_KNIGHT, color, new PatternKnight(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 }

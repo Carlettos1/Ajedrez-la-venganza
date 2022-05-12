@@ -33,7 +33,7 @@ public class ImageHelper {
     }
     
     public static final synchronized BufferedImage getImage(Piece piece) {
-        var name = piece.getResourceLocation().getTextureName();
+        var name = piece.getName().getTextureName();
         var color = piece.getColor();
         var img = getImage(name);
         if (color == Color.BLACK) {

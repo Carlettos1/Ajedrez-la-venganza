@@ -1,10 +1,11 @@
-package com.carlettos.game.board;
+package com.carlettos.game.board.cards;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
@@ -99,6 +100,10 @@ public class Deck {
             throw new IllegalStateException("Trying to take a card from an empty deck");
         }
         return this.cards.remove(cards.size() - 1);
+    }
+    
+    public boolean any(Predicate<Card> predicate) {
+        return this.cards.stream().anyMatch(predicate);
     }
     
     public boolean hasCard(Card card) {

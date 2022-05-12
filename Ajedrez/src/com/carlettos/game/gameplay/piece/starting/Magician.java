@@ -19,7 +19,7 @@ import com.carlettos.game.util.enums.PieceType;
 public class Magician extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
     public Magician(Color color) { 
-        super("magician", "mag", Abilities.ABILITY_MAGICIAN, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE, PieceType.TRANSPORTABLE);
+        super("magician", Abilities.ABILITY_MAGICIAN, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE, PieceType.TRANSPORTABLE);
         movePattern = new PatternMagicianMove() {};
     }
 

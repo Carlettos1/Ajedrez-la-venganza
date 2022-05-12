@@ -8,7 +8,12 @@ import com.carlettos.game.util.ResourceLocation;
  *
  * @author Carlettos
  */
-public record Data(ResourceLocation name, ResourceLocation description, int cooldown, int manaCost) {
+public record AbilityData(String key, ResourceLocation name, ResourceLocation description, int cooldown, int manaCost) {
+    
+    public AbilityData(String key, int cooldown, int manaCost) {
+        this(key, new ResourceLocation("ability.name.".concat(key)), new ResourceLocation("ability.description.".concat(key)), cooldown, manaCost);
+    }
+    
     public String getName() {
         return this.name().getTranslated();
     }

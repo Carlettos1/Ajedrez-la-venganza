@@ -9,8 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.carlettos.game.board.Deck;
-import com.carlettos.game.board.PlayerDeck;
+import com.carlettos.game.board.cards.Deck;
+import com.carlettos.game.board.cards.PlayerDeck;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.gameplay.card.Card;

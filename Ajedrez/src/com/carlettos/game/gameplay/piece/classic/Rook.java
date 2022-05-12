@@ -8,6 +8,6 @@ import com.carlettos.game.util.enums.PieceType;
 
 public class Rook extends SimplePiece<PatternRook> {
     public Rook(Color color) {
-        super("rook", "r", Abilities.ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
+        super("rook", Abilities.ABILITY_ROOK, color, new PatternRook(){}, PieceType.STRUCTURE);
     }
 }

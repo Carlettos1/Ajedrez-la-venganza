@@ -20,7 +20,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     protected final PatternStructureMove movePattern;
     
     public Ram(Color color) {
-        super("ram", "ram", Abilities.ABILITY_RAM, color, PieceType.STRUCTURE);
+        super("ram", Abilities.ABILITY_RAM, color, PieceType.STRUCTURE);
         movePattern = new PatternStructureMove() {};
     }
     

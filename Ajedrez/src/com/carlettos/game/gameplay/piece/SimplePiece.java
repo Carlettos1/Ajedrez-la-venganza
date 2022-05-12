@@ -19,8 +19,8 @@ import com.carlettos.game.util.enums.PieceType;
 public abstract class SimplePiece<P extends Pattern> extends Piece implements ITake<P>, IMove<P>{
     protected final P patron;
 
-    protected SimplePiece(String name, String notation, Ability ability, Color color, P pattern, PieceType... types) {
-        super(name, notation, ability, color, types);
+    protected SimplePiece(String key, Ability ability, Color color, P pattern, PieceType... types) {
+        super(key, ability, color, types);
         this.patron = pattern;
     }
 

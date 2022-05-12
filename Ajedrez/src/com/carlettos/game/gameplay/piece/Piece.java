@@ -8,6 +8,8 @@ import java.util.Objects;
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.gameplay.effect.Effect;
+import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
@@ -21,7 +23,7 @@ import com.carlettos.game.util.enums.PieceType;
  *
  * @author Carlos
  */
-public abstract class Piece {
+public abstract class Piece implements IResourceKey {
 
     /**
      * It's a convenience value to not move the same piece twice in a turn.
@@ -33,32 +35,30 @@ public abstract class Piece {
      * can be used.
      */
     protected int cooldown;
-
-    protected ResourceLocation name;
-    public final ResourceLocation notation;
+    protected final String key;
+    protected final ResourceLocation name;
     protected Ability ability;
     protected Color color;
     protected final List<PieceType> types;
+    protected final List<Effect> effects;
     
     /**
      * General constructor.
      *
-     * @param name name of the piece.
-     * @param notation notation of the piece. In normal chess pieces, it would 
-     * be something like P for Pawn, R for Rook, etc.
+     * @param key key to identify the piece.
      * @param ability ability of the piece.
      * @param types types of the piece.
      * @param color color of the piece.
      */
-    protected Piece(String name, String notation, Ability ability, Color color, PieceType... types) {
+    protected Piece(String key, Ability ability, Color color, PieceType... types) {
         this.moved = false;
         this.cooldown = 0;
-        this.name = new ResourceLocation("piece." + name);
-        //todo: remover notation
-        this.notation = new ResourceLocation("notation." + notation);
+        this.key = key;
         this.ability = ability;
         this.color = color;
+        this.name = new ResourceLocation("piece.".concat(key));
         this.types = Arrays.asList(types);
+        this.effects = new ArrayList<>();
     }
 
     /**
@@ -152,6 +152,13 @@ public abstract class Piece {
     public void setColor(Color color) {
         this.color = color;
     }
+    
+    public void tick(AbstractBoard board, Point start) {
+        effects.forEach(Effect::tick);
+        effects.forEach(effect -> effect.onTick(board, start, this));
+        effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, start, this));
+        effects.removeIf(Effect::isExpired);
+    }
 
     public List<PieceType> getTypes() {
         return types;
@@ -208,16 +215,14 @@ public abstract class Piece {
         return ActionResult.fromBoolean(success);
     }
     
-    public ResourceLocation getResourceLocation() {
-        return name;
+    @Override
+    public String getBaseKey() {
+        return key;
     }
 
-    public String getName() {
-        return name.getTranslated();
-    }
-    
-    public String getNotation() {
-        return notation.getTranslated();
+    //todo: hacer esto con todos?
+    public ResourceLocation getName() {
+        return name;
     }
 
     public Ability getAbility() {
@@ -232,14 +237,27 @@ public abstract class Piece {
         return moved;
     }
     
+    //todo: interface?
     public Info toInfo(){
         return Info.getInfo(this);
     }
 
     @Override
     public String toString() {
-        return getName();
+        return getName().getTranslated();
     }
+    
+    public void addEffect(Effect effect) {
+        if (!effects.contains(effect)) {
+            this.effects.add(effect);
+        }
+        //todo: que hacer si hay otro efecto
+    }
+    
+    public boolean hasEffect(Effect effect) {
+        return effects.contains(effect);
+    }
+    
 
     @Override
     public int hashCode() {

@@ -23,7 +23,7 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
     protected final PatternBallistaAttack attackPattern;
 
     public Ballista(Color color) {
-        super("ballista", "ba", Abilities.ABILITY_NONE, color, PieceType.STRUCTURE);
+        super("ballista", Abilities.ABILITY_NONE, color, PieceType.STRUCTURE);
         movePattern = new PatternStructureMove() {};
         attackPattern = new PatternBallistaAttack() {};
     }

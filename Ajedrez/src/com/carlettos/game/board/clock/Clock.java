@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.carlettos.game.board.Deck;
-import com.carlettos.game.board.PlayerDeck;
+import com.carlettos.game.board.cards.Deck;
+import com.carlettos.game.board.cards.PlayerDeck;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
+import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -26,7 +28,10 @@ public class Clock {
     private final PlayerDeck[] playerDecks;
     private final Deck deck;
     private final List<Event> events;
+    //todo: eventQueue, in other thread
     private final List<ClockListener> listeners;
+    //todo: move to a separate object
+    private final List<Tuple<Player, Card>> cardsOnBoard;
 
     /**
      * Construct a new clock in turn 1 and 0 movements, with the players 
@@ -45,6 +50,23 @@ public class Clock {
         this.deck = new Deck();
         this.events = new ArrayList<>();
         this.listeners = new ArrayList<>();
+        this.cardsOnBoard = new ArrayList<>();
+    }
+    
+    public void addCardToBoard(Player from, Card card) {
+        cardsOnBoard.add(Tuple.of(from, card));
+    }
+    
+    public boolean boardContainsExactCard(Player from, Card card) {
+        return cardsOnBoard.contains(Tuple.of(from, card));
+    }
+    
+    public boolean boardContainsCard(Player from, Card card) {
+        return cardsOnBoard.stream().anyMatch(tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getBaseKey().equals(card.getBaseKey()));
+    }
+    
+    public boolean boardContainsCard(Card card) {
+        return this.boardContainsCard(turnOf(), card);
     }
 
     /**
@@ -97,12 +119,12 @@ public class Clock {
     /**
      * Ends the turn and fire up events.
      */
-    public void endTurn() {
+    public void tick() {
         turn++;
         movements = 0;
-        events.forEach(event -> event.info.reduceTurn());
-        events.stream().filter(event -> event.info.getTurns() <= 0).forEach(Event::act);
-        events.removeIf(event -> event.info.getTurns() <= 0);
+        events.forEach(Event::tick);
+        events.stream().filter(Event::isReady).forEach(Event::act);
+        events.removeIf(Event::isReady);
         
         var event = new ClockEvent(this);
         this.listeners.forEach(l -> l.onEndTurn(event));

@@ -1,4 +1,4 @@
-package com.carlettos.game.board;
+package com.carlettos.game.board.cards;
 
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;

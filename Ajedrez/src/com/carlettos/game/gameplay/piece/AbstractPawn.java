@@ -20,8 +20,8 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
     protected final M movePattern;
     protected final T takePattern;
 
-    protected AbstractPawn(M movePattern, T takePattern, String name, String notation, Ability ability, Color color) {
-        super(name, notation, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+    protected AbstractPawn(M movePattern, T takePattern, String key, Ability ability, Color color) {
+        super(key, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.movePattern = movePattern;
         this.takePattern = takePattern;
     }

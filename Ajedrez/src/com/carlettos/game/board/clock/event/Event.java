@@ -21,7 +21,7 @@ public abstract class Event implements Comparable<Event> {
      *
      * @param info the info of the event.
      */
-    private Event(EventInfo info) {
+    protected Event(EventInfo info) {
         this.info = info;
     }
 
@@ -29,6 +29,15 @@ public abstract class Event implements Comparable<Event> {
      * Its the action that will occurr when turns = 0.
      */
     public abstract void act();
+    
+    public void tick() {
+        this.info.tick();
+    }
+    
+    //todo: change name
+    public boolean isReady() {
+        return this.info.getTurns() <= 0;
+    }
 
     @Override
     public String toString() {

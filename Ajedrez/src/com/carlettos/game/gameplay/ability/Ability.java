@@ -3,8 +3,8 @@ package com.carlettos.game.gameplay.ability;
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Board;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.ActionResult;
 
@@ -16,9 +16,9 @@ import com.carlettos.game.util.enums.ActionResult;
  *
  * @see Piece
  */
-public abstract class Ability {
+public abstract class Ability implements IResourceKey {
 
-    protected final Data data;
+    protected final AbilityData data;
 
     /**
      * General constructor.
@@ -30,7 +30,7 @@ public abstract class Ability {
      * @see Piece
      */
     protected Ability(String key, int cooldown, int manaCost) {
-        data = new Data(new ResourceLocation("ability.name." + key), new ResourceLocation("ability.description." + key), cooldown, manaCost);
+        data = new AbilityData(key, cooldown, manaCost);
     }
 
     /**
@@ -83,6 +83,11 @@ public abstract class Ability {
         if (board instanceof Board t) {
             t.getClock().turnOf().changeMana(-this.data.manaCost());
         }
+    }
+    
+    @Override
+    public String getBaseKey() {
+        return data.key();
     }
 
     public abstract Object[] getValues(AbstractBoard board, Point start);

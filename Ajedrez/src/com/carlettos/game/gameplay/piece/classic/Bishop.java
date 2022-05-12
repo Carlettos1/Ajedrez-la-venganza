@@ -12,6 +12,6 @@ import com.carlettos.game.util.enums.PieceType;
  */
 public class Bishop extends SimplePiece<PatternBishop> {
     public Bishop(Color color) {
-        super("bishop", "b", Abilities.ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("bishop", Abilities.ABILITY_BISHOP, color, new PatternBishop(){}, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
     }
 }

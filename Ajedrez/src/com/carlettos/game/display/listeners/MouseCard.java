@@ -36,6 +36,7 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        //todo: get cardDisplay
         Component source = (Component) e.getSource();
         while (!(source instanceof CardDisplay)) {
             if (source.getParent() == null) {
