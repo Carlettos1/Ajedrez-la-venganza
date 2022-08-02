@@ -1,7 +1,7 @@
 package com.carlettos.game.gameplay.ability;
 
-import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.board.Board;
+import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
@@ -23,7 +23,7 @@ public abstract class Ability implements IResourceKey {
     /**
      * General constructor.
      *
-     * @param key name of the piece of the ability.
+     * @param key      name of the piece of the ability.
      * @param cooldown cooldown of the ability.
      * @param manaCost cost of mana of the ability.
      *
@@ -39,10 +39,10 @@ public abstract class Ability implements IResourceKey {
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      * @param start position of the piece.
-     * @param info information to use the ability
+     * @param info  information to use the ability
      * @return PASS if can be used, FAIL other case.
      */
-    public abstract ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info);
+    public abstract ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info);
 
     /**
      * Excecutes the ability.
@@ -50,53 +50,55 @@ public abstract class Ability implements IResourceKey {
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      * @param start position of the piece.
-     * @param info information to use the ability
+     * @param info  information to use the ability
      */
-    public abstract void use(AbstractBoard board, Piece piece, Point start, Info info);
-    
+    public abstract void use(AbstractSquareBoard board, Piece piece, Point start, Info info);
+
     /**
-     * Utility method, checks the cd and the mana acording to the info of
-     * this ability.
+     * Utility method, checks the cd and the mana acording to the info of this
+     * ability.
      *
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      * @return true if can be used, false other case.
      */
-    public boolean commonCanUse(AbstractBoard board, Piece piece) {
+    public boolean commonCanUse(AbstractSquareBoard board, Piece piece) {
         boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
-        if(board instanceof Board t){
+        if (board instanceof SquareBoard t) {
             return nomana && t.getClock().turnOf().getMana() >= this.data.manaCost();
         }
         return nomana;
     }
-    
+
     /**
-     * Utility method, adds the cd and removes the mana acording to the info of
-     * this ability.
+     * Utility method, adds the cd and removes the mana acording to the info of this
+     * ability.
      *
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      */
-    public void commonUse(AbstractBoard board, Piece piece) {
+    public void commonUse(AbstractSquareBoard board, Piece piece) {
         piece.setIsMoved(true);
         piece.changeCD(this.data.cooldown());
-        if (board instanceof Board t) {
+        if (board instanceof SquareBoard t) {
             t.getClock().turnOf().changeMana(-this.data.manaCost());
         }
     }
-    
+
     @Override
     public String getBaseKey() {
         return data.key();
     }
 
-    public abstract Object[] getValues(AbstractBoard board, Point start);
-    
+    public abstract Object[] getValues(AbstractSquareBoard board, Point start);
+
     public String formatInfo(Object info) {
-    	return switch (info) {
-	    	case Point p -> "%s, %s".formatted(p.x, p.y);
-	    	case Tuple<?, ?> t -> "%s, %s".formatted(t.x, t.y);
-	    	default -> info.toString();
-    	};
+        if (info instanceof Point p) {
+            return "%s, %s".formatted(p.x, p.y);
+        } else if (info instanceof Tuple<?, ?> t) {
+            return "%s, %s".formatted(t.x, t.y);
+        } else {
+            return info.toString();
+        }
     }
 }

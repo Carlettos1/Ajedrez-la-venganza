@@ -15,23 +15,21 @@ public class ImageHelper {
     public static final String PATH_PATTERN = FileHelper.TEXTURES_FOLDER + "%s.png";
     private static final Map<String, BufferedImage> IMAGES = new TreeMap<>();
     private static final Map<String, BufferedImage> IMAGES_WHITE = new TreeMap<>();
-    
+
     private ImageHelper() {}
-    
+
     public static final synchronized void clearTextures() {
         IMAGES.clear();
         IMAGES_WHITE.clear();
     }
-    
+
     public static final synchronized BufferedImage getImage(String textureName) {
-        if (IMAGES.containsKey(textureName)) {
-            return IMAGES.get(textureName);
-        }
+        if (IMAGES.containsKey(textureName)) { return IMAGES.get(textureName); }
         var img = FileHelper.getImageFromFile(PATH_PATTERN.formatted(textureName));
         IMAGES.put(textureName, img);
         return img;
     }
-    
+
     public static final synchronized BufferedImage getImage(Piece piece) {
         var name = piece.getName().getTextureName();
         var color = piece.getColor();
@@ -39,24 +37,21 @@ public class ImageHelper {
         if (color == Color.BLACK) {
             return img;
         } else {
-            if (IMAGES_WHITE.containsKey(name)) {
-                return IMAGES_WHITE.get(name);
-            }
-            img = replaceColors(img, 
-                    new Color[]{Color.BLACK, Color.WHITE}, 
-                    new Color[]{Color.WHITE, Color.BLACK});
+            if (IMAGES_WHITE.containsKey(name)) { return IMAGES_WHITE.get(name); }
+            img = replaceColors(img, new Color[] { Color.BLACK, Color.WHITE },
+                    new Color[] { Color.WHITE, Color.BLACK });
             IMAGES_WHITE.put(name, img);
             return img;
         }
     }
-    
+
     public static final BufferedImage replaceColors(BufferedImage image, Color[] from, Color[] to) {
         if (from.length != to.length) {
             LogHelper.LOG.warning("Colors to replace are of different lenghts");
             return image;
         }
         var copy = getEmptyImage(image);
-        
+
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 boolean modified = false;
@@ -74,11 +69,11 @@ public class ImageHelper {
         }
         return copy;
     }
-    
+
     public static final BufferedImage getEmptyImage(int width, int height) {
         return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
-    
+
     public static final BufferedImage getEmptyImage(BufferedImage image) {
         return getEmptyImage(image.getWidth(), image.getHeight());
     }

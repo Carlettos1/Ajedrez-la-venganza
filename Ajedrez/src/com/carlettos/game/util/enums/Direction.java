@@ -9,6 +9,7 @@ import com.carlettos.game.util.Point;
  */
 public enum Direction {
     N(1), E(1), S(-1), W(-1);
+
     private final int sign;
 
     private Direction(int sign) {
@@ -18,29 +19,29 @@ public enum Direction {
     public int getSign() {
         return sign;
     }
-    
+
     public Axis getAxis() {
-        return switch(this){
+        return switch (this) {
             case N, S -> Axis.NS;
             case E, W -> Axis.EW;
         };
     }
-    
+
     public boolean isAxis(Axis axis) {
         return this.getAxis().equals(axis);
     }
-    
+
     public Info toInfo() {
         return Info.getInfo(this);
     }
-    
+
     public Point toPoint() {
-    	return switch(this.getAxis()) {
-			case NS -> new Point(0, getSign());
-			case EW -> new Point(getSign(), 0);
-    	};
+        return switch (this.getAxis()) {
+            case NS -> new Point(0, getSign());
+            case EW -> new Point(getSign(), 0);
+        };
     }
-    
+
     public enum Axis {
         NS, EW;
     }

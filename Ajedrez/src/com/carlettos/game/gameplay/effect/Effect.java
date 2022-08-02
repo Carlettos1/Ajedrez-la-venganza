@@ -1,13 +1,13 @@
 package com.carlettos.game.gameplay.effect;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 
 public abstract class Effect implements IResourceKey {
-    //todo: dataEffect
+    // todo: dataEffect
     private final String key;
     private final ResourceLocation resource;
     private final int maxTurns;
@@ -19,18 +19,19 @@ public abstract class Effect implements IResourceKey {
         this.maxTurns = maxTurns;
         this.turns = 0;
     }
-    
+
     public String getName() {
         return resource.getTranslated();
     }
 
-    public abstract void onExpire(AbstractBoard board, Point start, Piece piece);
-    public abstract void onTick(AbstractBoard board, Point start, Piece piece);
-    
+    public abstract void onExpire(AbstractSquareBoard board, Point start, Piece piece);
+
+    public abstract void onTick(AbstractSquareBoard board, Point start, Piece piece);
+
     public boolean isExpired() {
         return this.turns >= this.maxTurns;
     }
-    
+
     public void tick() {
         this.turns++;
     }

@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece.starting;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.action.IMove;
@@ -29,22 +29,22 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     }
 
     @Override
-    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
-        return switch(action){
+    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+        return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
             case TAKE -> this.canTake(board, start, info, takePattern);
             case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }
-    
+
     @Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-    
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
     @Override
-	public int hashCode() {
-		return super.hashCode();
-	}
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -1,8 +1,9 @@
 package com.carlettos.game.gameplay.piece.starting;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.starting.PatternLeechTake;
@@ -24,25 +25,25 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
 
     public Builder(Color color) {
         super("builder", Abilities.ABILITY_BUILDER, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
-        this.movePattern = new PatternMagicianMove() {};
-        this.takePattern = new PatternLeechTake() {};
+        this.movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
+        this.takePattern = Patterns.LEECH_TAKE_PATTERN;
     }
 
     @Override
-    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
-        return switch(action){
+    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+        return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
             case TAKE -> this.canTake(board, start, info, takePattern);
             case ABILITY -> this.getAbility().canUse(board, this, start, info);
             default -> ActionResult.FAIL;
         };
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-    
+
     @Override
     public int hashCode() {
         return super.hashCode();

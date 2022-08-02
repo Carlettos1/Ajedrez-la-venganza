@@ -20,7 +20,7 @@ import com.google.gson.JsonPrimitive;
  */
 public class ConfigEntryPanel extends JPanel {
     private static final long serialVersionUID = -8233781700595332261L;
-	private static boolean changed = false;
+    private static boolean changed = false;
     protected transient Map.Entry<String, JsonElement> entry;
     private JLabel property;
     private JTextField value;
@@ -34,17 +34,18 @@ public class ConfigEntryPanel extends JPanel {
         add(Box.createHorizontalGlue());
         add(value);
     }
-    
-    private void updateComponents(){
+
+    private void updateComponents() {
         property = new JLabel(entry.getKey() + ": ");
         value = new JTextField(entry.getValue().toString());
         value.setMaximumSize(new Dimension(100, 20));
     }
-    
-    public void saveConfig(){
-        if(!entry.getValue().toString().equals(value.getText())) {
-            LogHelper.LOG.info(() -> "Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(), value.getText()));
-            //XXX: try chain must no exist
+
+    public void saveConfig() {
+        if (!entry.getValue().toString().equals(value.getText())) {
+            LogHelper.LOG.info(() -> "Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(),
+                    value.getText()));
+            // XXX: try chain must no exist
             try {
                 var val = Integer.parseInt(value.getText());
                 ConfigHelper.setInt(entry.getKey(), val);
@@ -63,12 +64,12 @@ public class ConfigEntryPanel extends JPanel {
             setChanged(true);
         }
     }
-    
+
     public static synchronized void setChanged(boolean changed) {
-    	ConfigEntryPanel.changed = changed;
+        ConfigEntryPanel.changed = changed;
     }
-    
+
     public static synchronized boolean getChanged() {
-    	return changed;
+        return changed;
     }
 }

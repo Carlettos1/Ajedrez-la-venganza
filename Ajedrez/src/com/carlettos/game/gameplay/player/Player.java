@@ -3,8 +3,8 @@ package com.carlettos.game.gameplay.player;
 import java.util.Objects;
 import java.util.Random;
 
-import com.carlettos.game.board.cards.Hand;
-import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.board.clock.AbstractClock;
+import com.carlettos.game.board.deck.Hand;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -24,10 +24,10 @@ public class Player {
      * General constructor.
      *
      * @param movements number of movements per turn.
-     * @param mana mana of the player
-     * @param id id of the player.
-     * @param color color of the pieces of the player.
-     * @param hand hand of the player.
+     * @param mana      mana of the player
+     * @param id        id of the player.
+     * @param color     color of the pieces of the player.
+     * @param hand      hand of the player.
      *
      * @see Hand
      */
@@ -42,9 +42,9 @@ public class Player {
     /**
      * Constructs a Player with 1 movement per turn and 0 mana.
      *
-     * @param id id of the player.
+     * @param id    id of the player.
      * @param color color of the player.
-     * @param hand hand of the player.
+     * @param hand  hand of the player.
      *
      * @see Hand
      */
@@ -53,8 +53,8 @@ public class Player {
     }
 
     /**
-     * Construct a Player with 1 movement per turn, 0 mana, a random id, and a
-     * new hand with 0 cards.
+     * Construct a Player with 1 movement per turn, 0 mana, a random id, and a new
+     * hand with 0 cards.
      *
      * @param color color del jugador.
      *
@@ -105,8 +105,8 @@ public class Player {
             this.movements += movements;
         }
     }
-    
-    public void takeCard(Clock clock) {
+
+    public void takeCard(AbstractClock clock) {
         this.hand.addCard(clock.getDeckOf(this).takeCard());
     }
 
@@ -124,15 +124,9 @@ public class Player {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (getClass() != obj.getClass()) { return false; }
         final Player other = (Player) obj;
         return Objects.equals(this.id, other.id);
     }

@@ -3,7 +3,7 @@ package com.carlettos.game.display.listeners;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
@@ -19,19 +19,18 @@ public class MousePiece implements MouseListener {
 
     private static final MousePiece LISTENER = new MousePiece();
 
-    private MousePiece() {
-    }
+    private MousePiece() {}
 
     public static MousePiece get() {
         return LISTENER;
     }
 
     private EscaqueDisplay selected;
-    
+
     public EscaqueDisplay getSelected() {
         return selected;
     }
-    
+
     public void setSelected(EscaqueDisplay selected) {
         this.selected = selected;
     }
@@ -65,21 +64,21 @@ public class MousePiece implements MouseListener {
             var eObjetive = objetive.getEscaque();
             var tv = BoardDisplay.getInstance();
             var board = tv.getBoard();
-            
-            //todo: fancier way to solve issue (que al tirar la carta el selected jode)
+
+            // todo: fancier way to solve issue (que al tirar la carta el selected jode)
             if (!board.canPlay(selected.getEscaque().getPieceColor())) {
                 selected = null;
                 return;
             }
-            
-            //the order matters, first tries to move, then to attack, then to take.
+
+            // the order matters, first tries to move, then to attack, then to take.
             if (board.tryTo(Action.MOVE, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()
                     || board.tryTo(Action.ATTACK, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()
                     || board.tryTo(Action.TAKE, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()) {
                 selected = null;
                 tv.offAll();
                 tv.getClockDisplay().repaint();
-            } else if (eSelected.getPiece().getColor().equals(eObjetive.getPiece().getColor())) { //it change piece?
+            } else if (eSelected.getPiece().getColor().equals(eObjetive.getPiece().getColor())) { // it change piece?
                 tv.offAll();
                 selected = objetive;
                 markActions(tv, board, eObjetive.getPos());
@@ -101,8 +100,8 @@ public class MousePiece implements MouseListener {
     public void mouseExited(MouseEvent e) {
         // doesn't need it
     }
-    
-    private void markActions(BoardDisplay display, AbstractBoard board, Point point) {
+
+    private void markActions(BoardDisplay display, AbstractSquareBoard board, Point point) {
         selected.getEscaque().getPiece().getAllActions(board, point).forEach(action -> {
             if (action.y.getValue() instanceof Point p) {
                 display.getEscaqueVisual(p).setAction(action.x);

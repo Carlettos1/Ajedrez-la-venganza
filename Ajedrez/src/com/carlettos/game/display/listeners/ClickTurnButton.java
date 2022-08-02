@@ -12,13 +12,12 @@ import com.carlettos.game.display.board.BoardDisplay;
 public class ClickTurnButton implements ActionListener {
     private static final ClickTurnButton LISTENER = new ClickTurnButton();
 
-    private ClickTurnButton() {
-    }
-    
-    public static ClickTurnButton get(){
+    private ClickTurnButton() {}
+
+    public static ClickTurnButton get() {
         return LISTENER;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         var board = BoardDisplay.getInstance();

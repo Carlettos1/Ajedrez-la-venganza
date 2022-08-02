@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability.starting;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -14,16 +14,16 @@ public class AbilityShip extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         return ActionResult.fromBoolean(this.commonCanUse(board, piece));
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        Point[] puntos = new Point[]{start.add(1, 1), start.add(1, 0), start.add(1, -1),
-                                   start.add(-1, 1), start.add(-1, 0), start.add(-1, -1)};
+    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        Point[] puntos = new Point[] { start.add(1, 1), start.add(1, 0), start.add(1, -1), start.add(-1, 1),
+                start.add(-1, 0), start.add(-1, -1) };
         for (Point point : puntos) {
-            if(!board.isOutOfBorder(point)){
+            if (!board.shape.isOutOfBorders(point)) {
                 board.removePiece(point);
             }
         }

@@ -19,7 +19,7 @@ import com.carlettos.game.util.helper.LogHelper;
  */
 public class EscaqueDisplay extends JComponent {
     private static final long serialVersionUID = -8856530496715601233L;
-    //todo: transient?
+    // todo: transient?
     private final transient Escaque escaque;
     private final boolean isEven;
     private final List<Action> actions;
@@ -41,15 +41,13 @@ public class EscaqueDisplay extends JComponent {
         g.setColor((isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor((!isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
-        
-        if(escaque.hasPiece()) {
+
+        if (escaque.hasPiece()) {
             g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
             this.setToolTipText(escaque.getPiece().toString());
         }
-        
-        if(this.actions.isEmpty()) {
-            return;
-        }
+
+        if (this.actions.isEmpty()) { return; }
 
         double w = ConfigHelper.getPercentage(this.actions.size()) * getWidth();
         double h = ConfigHelper.getPercentage(this.actions.size()) * getHeight();
@@ -62,48 +60,39 @@ public class EscaqueDisplay extends JComponent {
                 break;
             case 2:
                 g.setColor(actions.get(0).getColor().getAWT());
-                g.fillOval((int) (x / 2D), (int) (y / 2D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x / 2D), (int) (y / 2D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(1).getColor().getAWT());
-                g.fillOval((int) (x * 1.5D), (int) (y * 1.5D),
-                        (int) (w), (int) (h));
+                g.fillOval((int) (x * 1.5D), (int) (y * 1.5D), (int) (w), (int) (h));
                 break;
             case 3:
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
-                
+
                 g.setColor(actions.get(0).getColor().getAWT());
-                g.fillOval((int) (x), (int) (y / 2D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x), (int) (y / 2D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(1).getColor().getAWT());
-                g.fillOval((int) (x * 1.5D), (int) (y * 1.5D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x * 1.5D), (int) (y * 1.5D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(2).getColor().getAWT());
-                g.fillOval((int) (x / 2D), (int) (y * 1.5D),
-                        (int) (w), (int) (h));
+                g.fillOval((int) (x / 2D), (int) (y * 1.5D), (int) (w), (int) (h));
                 break;
             case 4:
                 x = (getWidth() - w) / 2D;
                 y = (getHeight() - h) / 2D;
-                
+
                 g.setColor(actions.get(0).getColor().getAWT());
-                g.fillOval((int) (x / 3D), (int) (y / 3D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x / 3D), (int) (y / 3D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(1).getColor().getAWT());
-                g.fillOval((int) (x * 5/3D), (int) (y / 3D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x * 5 / 3D), (int) (y / 3D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(2).getColor().getAWT());
-                g.fillOval((int) (x / 3D), (int) (y * 5/3D),
-                        (int) (w), (int) (h));
-                
+                g.fillOval((int) (x / 3D), (int) (y * 5 / 3D), (int) (w), (int) (h));
+
                 g.setColor(actions.get(3).getColor().getAWT());
-                g.fillOval((int) (x * 5/3D), (int) (y * 5/3D),
-                        (int) (w), (int) (h));
+                g.fillOval((int) (x * 5 / 3D), (int) (y * 5 / 3D), (int) (w), (int) (h));
                 break;
             default:
                 LogHelper.LOG.severe(() -> "Cantidad de acciones: " + this.actions.size() + ", no manejada");

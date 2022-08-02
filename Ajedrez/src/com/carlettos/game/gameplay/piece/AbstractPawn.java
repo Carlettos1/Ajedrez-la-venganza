@@ -1,6 +1,8 @@
 package com.carlettos.game.gameplay.piece;
 
-import com.carlettos.game.board.AbstractBoard;
+import java.util.function.Function;
+
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.PatternPawn;
@@ -16,30 +18,31 @@ import com.carlettos.game.util.enums.PieceType;
  *
  * @author Carlettos
  */
-public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn> extends Piece implements IMove<M>, ITake<T> {
+public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn> extends Piece
+        implements IMove<M>, ITake<T> {
     protected final M movePattern;
     protected final T takePattern;
 
-    protected AbstractPawn(M movePattern, T takePattern, String key, Ability ability, Color color) {
+    protected AbstractPawn(Function<Color, M> movePattern, Function<Color, T> takePattern, String key, Ability ability, Color color) {
         super(key, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
-        this.movePattern = movePattern;
-        this.takePattern = takePattern;
+        this.movePattern = movePattern.apply(getColor());
+        this.takePattern = takePattern.apply(getColor());
     }
 
     @Override
-    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
-        return switch(action){
+    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+        return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
             case TAKE -> this.canTake(board, start, info, takePattern);
             default -> ActionResult.FAIL;
         };
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-    
+
     @Override
     public int hashCode() {
         return super.hashCode();

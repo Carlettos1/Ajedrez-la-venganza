@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.pattern.classic;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.IBaseBoard;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
 
@@ -11,26 +11,20 @@ import com.carlettos.game.util.Point;
 public interface PatternRook extends Pattern {
 
     @Override
-    public default boolean match(AbstractBoard board, Point start, Point end) {
+    public default boolean match(IBaseBoard board, Point start, Point end) {
         boolean movX = end.x != start.x;
         boolean movY = end.y != start.y;
-        if (movX && movY) {
-            return false;
-        }
+        if (movX && movY) { return false; }
         int dirX = Integer.signum(end.x - start.x);
         int dirY = Integer.signum(end.y - start.y);
 
-        if (movX) { //se mueve el x
+        if (movX) { // se mueve el x
             for (int plus = 1; plus < Math.abs(end.x - start.x); plus++) {
-                if (board.getEscaque(start.x + plus * dirX, start.y).hasPiece()) {
-                    return false;
-                }
+                if (board.getEscaque(start.add(plus * dirX, 0)).hasPiece()) { return false; }
             }
-        } else if (movY) { //se mueve en y
+        } else if (movY) { // se mueve en y
             for (int plus = 1; plus < Math.abs(end.y - start.y); plus++) {
-                if (board.getEscaque(start.x, start.y + plus * dirY).hasPiece()) {
-                    return false;
-                }
+                if (board.getEscaque(start.add(0, plus * dirY)).hasPiece()) { return false; }
             }
         }
         return true;

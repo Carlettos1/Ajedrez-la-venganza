@@ -19,12 +19,12 @@ import com.carlettos.game.gameplay.ability.starting.AbilityTeslaTower;
 import com.carlettos.game.gameplay.ability.starting.AbilityWarlock;
 
 public final class Abilities {
-    //todo: poder actualizar las habilidades y cargarlas mediante un json
-	private Abilities() {}
+    // TODO: poder actualizar las habilidades y cargarlas mediante un json
+    private Abilities() {}
 
-	public static final Ability ABILITY_NONE = new AbilityNone();
-	
-	public static final Ability ABILITY_BISHOP = new AbilityBishop();
+    public static final Ability ABILITY_NONE = new AbilityNone();
+
+    public static final Ability ABILITY_BISHOP = new AbilityBishop();
     public static final Ability ABILITY_KING = new AbilityKing();
     public static final Ability ABILITY_KNIGHT = new AbilityKnight();
     public static final Ability ABILITY_PAWN = new AbilityPawn();

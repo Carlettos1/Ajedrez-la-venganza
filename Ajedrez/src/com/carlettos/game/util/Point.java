@@ -15,7 +15,7 @@ public final class Point {
     public Point() {
         this(0, 0);
     }
-    
+
     public Point(Point point) {
         this(point.x, point.y);
     }
@@ -32,7 +32,7 @@ public final class Point {
     public int getY() {
         return y;
     }
-    
+
     public Point add(Point point) {
         return this.add(point.x, point.y);
     }
@@ -40,23 +40,23 @@ public final class Point {
     public Point add(int dx, int dy) {
         return new Point(this.x + dx, this.y + dy);
     }
-    
+
     public Point scale(int scalar) {
-    	return new Point(this.x * scalar, this.y * scalar);
+        return new Point(this.x * scalar, this.y * scalar);
     }
-    
+
     public double getDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
-        return Math.sqrt((double)dx*dx + dy*dy);
+        return Math.sqrt((double) dx * dx + dy * dy);
     }
-    
+
     public int getSquaredDistanceTo(Point other) {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
-        return dx*dx + dy*dy;
+        return dx * dx + dy * dy;
     }
-    
+
     public Info toInfo() {
         return Info.getInfo(this);
     }
@@ -71,19 +71,11 @@ public final class Point {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (getClass() != obj.getClass()) { return false; }
         final Point other = (Point) obj;
-        if (this.x != other.x) {
-            return false;
-        }
+        if (this.x != other.x) { return false; }
         return this.y == other.y;
     }
 

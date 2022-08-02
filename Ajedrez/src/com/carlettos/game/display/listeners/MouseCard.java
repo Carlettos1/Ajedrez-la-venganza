@@ -16,17 +16,16 @@ import com.carlettos.game.util.helper.DisplayHelper;
  */
 public class MouseCard implements MouseListener {
     private static final MouseCard LISTENER = new MouseCard();
-    
-    private MouseCard(){
-    }
-    
-    public static MouseCard get(){
+
+    private MouseCard() {}
+
+    public static MouseCard get() {
         return LISTENER;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      // doesn't need it
+        // doesn't need it
     }
 
     @Override
@@ -36,27 +35,23 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        //todo: get cardDisplay
+        // todo: get cardDisplay
         Component source = (Component) e.getSource();
         while (!(source instanceof CardDisplay)) {
-            if (source.getParent() == null) {
-                return;
-            }
+            if (source.getParent() == null) { return; }
             source = source.getParent();
         }
         var card = (CardDisplay) source;
         var board = BoardDisplay.getInstance();
         var frame = board.getRootPane().getParent();
         var ev = DisplayHelper.getLastComponentAt(frame, e.getXOnScreen(), e.getYOnScreen());
-        
+
         if (ev instanceof EscaqueDisplay escaque) {
             var clock = board.getClockDisplay().getClock();
-            var can = card.getCard().canUse(escaque.getEscaque().getPos(),
-                    board.getBoard(),
+            var can = card.getCard().canUse(escaque.getEscaque().getPos(), board.getBoard(),
                     clock.getPlayerOfColor(card.getColor()));
             if (can.isPositive()) {
-                card.getCard().use(escaque.getEscaque().getPos(),
-                        board.getBoard(),
+                card.getCard().use(escaque.getEscaque().getPos(), board.getBoard(),
                         clock.getPlayerOfColor(card.getColor()));
                 board.getManoVisual().redo();
                 board.repaint();

@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability.classic;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -32,17 +32,13 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        if(!this.commonCanUse(board, piece)){
-            return ActionResult.FAIL;
-        }
-        
-        if (!info.isType(Piece.class)) {
-            return ActionResult.FAIL;
-        }
-        
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; }
+
+        if (!info.isType(Piece.class)) { return ActionResult.FAIL; }
+
         if (piece.getColor().equals(Color.WHITE)) {
-            if (start.y + 1 == board.rows) {
+            if (start.y + 1 == board.shape.y) {
                 return ActionResult.PASS;
             } else {
                 return ActionResult.FAIL;
@@ -59,7 +55,7 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         var p = (Piece) info.getValue();
         p.setColor(piece.getColor());
         board.getEscaque(start).setPiece(p);
@@ -67,22 +63,11 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public Piece[] getValues(AbstractBoard board, Point start) {
-        return new Piece[]{new Bishop(Color.GRAY),
-            new Knight(Color.GRAY),
-            new Queen(Color.GRAY),
-            new Rook(Color.GRAY),
-            new Ram(Color.GRAY),
-            new Archer(Color.GRAY),
-            new Ballista(Color.GRAY),
-            new Warlock(Color.GRAY),
-            new Catapult(Color.GRAY),
-            new Cannon(Color.GRAY),
-            new Builder(Color.GRAY),
-            new ShieldBearer(Color.GRAY),
-            new Ship(Color.GRAY),
-            new CrazyPawn(Color.GRAY),
-            new SuperPawn(Color.GRAY),
-            new TeslaTower(Color.GRAY)};
+    public Piece[] getValues(AbstractSquareBoard board, Point start) {
+        return new Piece[] { new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
+                new Rook(Color.GRAY), new Ram(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY),
+                new Warlock(Color.GRAY), new Catapult(Color.GRAY), new Cannon(Color.GRAY), new Builder(Color.GRAY),
+                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new CrazyPawn(Color.GRAY),
+                new SuperPawn(Color.GRAY), new TeslaTower(Color.GRAY) };
     }
 }

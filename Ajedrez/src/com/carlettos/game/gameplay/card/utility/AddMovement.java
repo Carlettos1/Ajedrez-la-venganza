@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.card.utility;
 
-import com.carlettos.game.board.Board;
+import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.card.Card;
@@ -19,13 +19,14 @@ public class AddMovement extends Card {
     }
 
     @Override
-    public ActionResult canUse(Point point, Board board, Player caster) {
+    public ActionResult canUse(Point point, SquareBoard board, Player caster) {
         return this.commonCanUse(point, board, caster);
     }
 
     @Override
-    public void use(Point point, Board board, Player caster) {
-        board.getClock().addEvent(Event.create(EventInfo.of(board, manaCost, this.getName()), () -> caster.changeMovements(1)));
+    public void use(Point point, SquareBoard board, Player caster) {
+        board.getClock()
+                .addEvent(Event.create(EventInfo.of(board, manaCost, this.getName()), () -> caster.changeMovements(1)));
         this.commonUse(point, board, caster);
     }
 }

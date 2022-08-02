@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
  * @author Carlettos
  */
 public record ResourceLocation(String key) {
-    
+
     static {
         updateResurces();
     }
@@ -25,11 +25,11 @@ public record ResourceLocation(String key) {
     public ResourceLocation {
         requireStandard(key);
     }
-    
+
     public String getTextureName() {
         return key.substring(key.lastIndexOf(".") + 1);
     }
-    
+
     public String getTranslated() {
         if (CUSTOM.getAsJsonPrimitive(this.key()) != null) {
             return CUSTOM.getAsJsonPrimitive(this.key()).getAsString();
@@ -40,20 +40,16 @@ public record ResourceLocation(String key) {
             return this.key();
         }
     }
-    
+
     public static void requireStandard(String key) {
         Objects.requireNonNull(key, "Null key");
-        if (key.isEmpty()) {
-            throw new IllegalArgumentException("Key cannot be an empty String");
-        }
-        if (key.length() > 40) {
-            throw new IllegalArgumentException("Key cannot be over 40 characters");
-        }
+        if (key.isEmpty()) { throw new IllegalArgumentException("Key cannot be an empty String"); }
+        if (key.length() > 40) { throw new IllegalArgumentException("Key cannot be over 40 characters"); }
         if (!key.replaceAll(PATTERN_VALID_CHARACTERS.pattern(), "").isEmpty()) {
             throw new IllegalArgumentException("Non [a-z0-9_.] character in key");
         }
     }
-    
+
     public static void updateResurces() {
         ENGLISH = FileHelper.getFromFile(FileHelper.LANG_FOLDER + "eng.json");
         CUSTOM = FileHelper.getFromFile(FileHelper.LANG_FOLDER + ConfigHelper.getLanguage() + ".json");

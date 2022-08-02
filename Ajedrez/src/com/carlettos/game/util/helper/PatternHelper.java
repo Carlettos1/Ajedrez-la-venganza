@@ -7,9 +7,7 @@ public class PatternHelper {
 
     public static boolean anyMatch(Point start, Point end, Point... acceptedValues) {
         for (Point accepted : acceptedValues) {
-            if (start.add(accepted).equals(end)) {
-                return true;
-            }
+            if (start.add(accepted).equals(end)) { return true; }
         }
         return false;
     }

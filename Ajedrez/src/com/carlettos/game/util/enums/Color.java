@@ -8,14 +8,8 @@ import com.carlettos.game.util.helper.MathHelper;
  * @author Carlos
  */
 public enum Color {
-    WHITE("#FFFFFF"),
-    BLACK("#000000"),
-    GRAY("#888888"),
-    CYAN("#00FFFF"),
-    MAGENTA("#FF00FF"),
-    RED("#FF0000"), 
-    ORANGE("#FFA500"),
-    AQUA("#03FDFC");
+    WHITE("#FFFFFF"), BLACK("#000000"), GRAY("#888888"), CYAN("#00FFFF"), MAGENTA("#FF00FF"), RED("#FF0000"),
+    ORANGE("#FFA500"), AQUA("#03FDFC");
 
     private final String hex;
     private final java.awt.Color colorAWT;
@@ -46,9 +40,10 @@ public enum Color {
      * @return the negative of this color.
      */
     public java.awt.Color getNegativeColor() {
-        return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(), 255 - this.getAWT().getBlue());
+        return new java.awt.Color(255 - this.getAWT().getRed(), 255 - this.getAWT().getGreen(),
+                255 - this.getAWT().getBlue());
     }
-    
+
     public static Color fromIndex(int idx) {
         MathHelper.requireInBounds(idx, 0, Color.values().length);
         return Color.values()[idx];

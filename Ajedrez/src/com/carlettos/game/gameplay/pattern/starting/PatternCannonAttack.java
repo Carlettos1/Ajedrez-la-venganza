@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.pattern.starting;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.IBaseBoard;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
 
@@ -11,7 +11,7 @@ import com.carlettos.game.util.Point;
 public interface PatternCannonAttack extends Pattern {
 
     @Override
-    public default boolean match(AbstractBoard board, Point start, Point end) {
+    public default boolean match(IBaseBoard board, Point start, Point end) {
         return Math.abs(start.x - end.x) <= 3 && Math.abs(start.y - end.y) <= 3;
     }
 }

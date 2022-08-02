@@ -2,7 +2,7 @@ package com.carlettos.game.board.clock.event;
 
 import java.util.Objects;
 
-import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.util.function.Action;
 
 /**
@@ -10,7 +10,7 @@ import com.carlettos.game.util.function.Action;
  *
  * @author Carlos
  *
- * @see Clock
+ * @see AbstractClock
  */
 public abstract class Event implements Comparable<Event> {
 
@@ -29,12 +29,12 @@ public abstract class Event implements Comparable<Event> {
      * Its the action that will occurr when turns = 0.
      */
     public abstract void act();
-    
+
     public void tick() {
         this.info.tick();
     }
-    
-    //todo: change name
+
+    // todo: change name
     public boolean isReady() {
         return this.info.getTurns() <= 0;
     }
@@ -48,7 +48,7 @@ public abstract class Event implements Comparable<Event> {
     public int compareTo(Event other) {
         return Integer.compare(this.info.turns, other.info.turns);
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -69,13 +69,13 @@ public abstract class Event implements Comparable<Event> {
     /**
      * It creates a new event using the info provided and the action.
      * 
-     * @param info information of the event for display.
+     * @param info   information of the event for display.
      * @param action action which will be executed.
      * 
      * @return new Event.
      */
-    public static Event create(EventInfo info, Action action){
-        if(info == null || action == null){
+    public static Event create(EventInfo info, Action action) {
+        if (info == null || action == null) {
             throw new IllegalArgumentException("Info nor action can be null in event");
         }
         return new Event(info) {

@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.util.Point;
 
 /**
@@ -8,12 +8,12 @@ import com.carlettos.game.util.Point;
  */
 public abstract class AbilityNoInfo extends Ability {
 
-	protected AbilityNoInfo(String key, int cooldown, int manaCost) {
-		super(key, cooldown, manaCost);
-	}
-	
-	@Override
-	public final String[] getValues(AbstractBoard board, Point start) { //todo: get real values
-		return new String[] {"Usar"};
-	}
+    protected AbilityNoInfo(String key, int cooldown, int manaCost) {
+        super(key, cooldown, manaCost);
+    }
+
+    @Override
+    public final String[] getValues(AbstractSquareBoard board, Point start) { // todo: get real values
+        return new String[] { "Usar" };
+    }
 }

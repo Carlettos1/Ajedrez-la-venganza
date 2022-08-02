@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.Effect;
@@ -31,8 +31,8 @@ public abstract class Piece implements IResourceKey {
     protected boolean moved;
 
     /**
-     * It's the cooldown of the hability of this piece. When its 0, the ability
-     * can be used.
+     * It's the cooldown of the hability of this piece. When its 0, the ability can
+     * be used.
      */
     protected int cooldown;
     protected final String key;
@@ -41,14 +41,14 @@ public abstract class Piece implements IResourceKey {
     protected Color color;
     protected final List<PieceType> types;
     protected final List<Effect> effects;
-    
+
     /**
      * General constructor.
      *
-     * @param key key to identify the piece.
+     * @param key     key to identify the piece.
      * @param ability ability of the piece.
-     * @param types types of the piece.
-     * @param color color of the piece.
+     * @param types   types of the piece.
+     * @param color   color of the piece.
      */
     protected Piece(String key, Ability ability, Color color, PieceType... types) {
         this.moved = false;
@@ -65,57 +65,54 @@ public abstract class Piece implements IResourceKey {
      * Its says when the given action can be executed.
      *
      * @param action action to do.
-     * @param board board in which the action is trying to occur.
-     * @param start point of the piece in the board.
-     * @param info info of the action to do, generally it would be an 
-     * {@literal Info<Point>} for every action except the ability, which can be
-     * any other Info.
+     * @param board  board in which the action is trying to occur.
+     * @param start  point of the piece in the board.
+     * @param info   info of the action to do, generally it would be an
+     *               {@literal Info<Point>} for every action except the ability,
+     *               which can be any other Info.
      *
      * @return PASS if the action can be performed, FAIL otherwise.
      */
-    public abstract ActionResult can(Action action, AbstractBoard board, Point start, Info info);
-    
+    public abstract ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info);
+
     /**
-     * Its excecuted after an action has been performed. Usually its just used
-     * to set the moved value to true of this piece, but can be used to other
-     * things.
+     * Its excecuted after an action has been performed. Usually its just used to
+     * set the moved value to true of this piece, but can be used to other things.
      *
      * @param action action which has been performed.
-     * @param board board in which the action happen.
-     * @param start starting point of the piece before the action happen.
-     * @param info info of the excecuted action.
+     * @param board  board in which the action happen.
+     * @param start  starting point of the piece before the action happen.
+     * @param info   info of the excecuted action.
      * @see Piece#can(Action, AbstractBoard, Point, Info).
      */
-    public void postAction(Action action, AbstractBoard board, Point start, Info info){
+    public void postAction(Action action, AbstractSquareBoard board, Point start, Info info) {
         this.setIsMoved(true);
     }
-    
+
     /**
-     * Returns every action that can be performed by this piece in the given
-     * board in the given starting point, with the added info to the action.
+     * Returns every action that can be performed by this piece in the given board
+     * in the given starting point, with the added info to the action.
      *
      * @param board Board in which the piece is in it.
      * @param start current point of the piece.
-     * @return A list with a tuple containing every action-info that can be 
-     * performed by this piece.
+     * @return A list with a tuple containing every action-info that can be
+     *         performed by this piece.
      */
-    public List<Tuple<Action, Info>> getAllActions(AbstractBoard board, Point start) {
+    public List<Tuple<Action, Info>> getAllActions(AbstractSquareBoard board, Point start) {
         List<Tuple<Action, Info>> actions = new ArrayList<>();
-        for (int x = 0; x < board.columns; x++) {
-            for (int y = 0; y < board.rows; y++) {
-                if (this.can(Action.TAKE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    actions.add(new Tuple<>(Action.TAKE, board.getEscaque(x, y).getPos().toInfo()));
-                } 
-                
-                if (this.can(Action.MOVE, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    actions.add(new Tuple<>(Action.MOVE, board.getEscaque(x, y).getPos().toInfo()));
-                } 
-                
-                if (this.can(Action.ATTACK, board, start, board.getEscaque(x, y).getPos().toInfo()).isPositive()) {
-                    actions.add(new Tuple<>(Action.ATTACK, board.getEscaque(x, y).getPos().toInfo()));
-                }
+        board.foreach(e -> {
+            if (this.can(Action.TAKE, board, start, e.getPos().toInfo()).isPositive()) {
+                actions.add(new Tuple<>(Action.TAKE, e.getPos().toInfo()));
             }
-        }
+
+            if (this.can(Action.MOVE, board, start, e.getPos().toInfo()).isPositive()) {
+                actions.add(new Tuple<>(Action.MOVE, e.getPos().toInfo()));
+            }
+
+            if (this.can(Action.ATTACK, board, start, e.getPos().toInfo()).isPositive()) {
+                actions.add(new Tuple<>(Action.ATTACK, e.getPos().toInfo()));
+            }
+        });
         for (Object value : getAbility().getValues(board, start)) {
             if (this.getAbility().canUse(board, this, start, Info.getInfo(value)).isPositive()) {
                 actions.add(new Tuple<>(Action.ABILITY, Info.getInfo(value)));
@@ -123,8 +120,8 @@ public abstract class Piece implements IResourceKey {
         }
         return actions;
     }
-    
-    public boolean isType(PieceType type){
+
+    public boolean isType(PieceType type) {
         return this.types.contains(type);
     }
 
@@ -152,8 +149,8 @@ public abstract class Piece implements IResourceKey {
     public void setColor(Color color) {
         this.color = color;
     }
-    
-    public void tick(AbstractBoard board, Point start) {
+
+    public void tick(AbstractSquareBoard board, Point start) {
         effects.forEach(Effect::tick);
         effects.forEach(effect -> effect.onTick(board, start, this));
         effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, start, this));
@@ -166,6 +163,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Adds the type provided to this piece.
+     * 
      * @param type type to add.
      * @return PASS.
      */
@@ -173,12 +171,12 @@ public abstract class Piece implements IResourceKey {
         return ActionResult.fromBoolean(this.getTypes().add(type));
     }
 
-    
     /**
      * Removes the type provided from this piece.
+     * 
      * @param type type to remove.
-     * @return FAIL if the piece doesn't contain the type provided, PASS 
-     * if the piece has the type and has been removed.
+     * @return FAIL if the piece doesn't contain the type provided, PASS if the
+     *         piece has the type and has been removed.
      */
     public ActionResult removeType(PieceType type) {
         return ActionResult.fromBoolean(this.getTypes().remove(type));
@@ -186,6 +184,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Adds every type provided to this piece.
+     * 
      * @param types types to add.
      * @return PASS if every type has been added to this piece, FAIL otherwise.
      * @throws NullPointerException if there is any null type provided.
@@ -201,9 +200,10 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Removes every type provided from this piece.
+     * 
      * @param types types to remove.
-     * @return PASS if every type provided has been removed from this piece,
-     * FAIL otherwise.
+     * @return PASS if every type provided has been removed from this piece, FAIL
+     *         otherwise.
      * @throws NullPointerException if there is any null type provided.
      */
     public ActionResult removeTypes(PieceType... types) {
@@ -214,13 +214,13 @@ public abstract class Piece implements IResourceKey {
         }
         return ActionResult.fromBoolean(success);
     }
-    
+
     @Override
     public String getBaseKey() {
         return key;
     }
 
-    //todo: hacer esto con todos?
+    // todo: hacer esto con todos?
     public ResourceLocation getName() {
         return name;
     }
@@ -236,9 +236,9 @@ public abstract class Piece implements IResourceKey {
     public boolean isMoved() {
         return moved;
     }
-    
-    //todo: interface?
-    public Info toInfo(){
+
+    // todo: interface?
+    public Info toInfo() {
         return Info.getInfo(this);
     }
 
@@ -246,18 +246,17 @@ public abstract class Piece implements IResourceKey {
     public String toString() {
         return getName().getTranslated();
     }
-    
+
     public void addEffect(Effect effect) {
         if (!effects.contains(effect)) {
             this.effects.add(effect);
         }
-        //todo: que hacer si hay otro efecto
+        // todo: que hacer si hay otro efecto
     }
-    
+
     public boolean hasEffect(Effect effect) {
         return effects.contains(effect);
     }
-    
 
     @Override
     public int hashCode() {
@@ -266,25 +265,15 @@ public abstract class Piece implements IResourceKey {
         hash = 67 * hash + Objects.hash(this.color);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof Piece)) {
-            return false;
-        }
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (!(obj instanceof Piece)) { return false; }
         final Piece other = (Piece) obj;
-        if (!this.name.equals(other.name)) {
-            return false;
-        }
-        if(this.color == Color.GRAY || other.color == Color.GRAY){
-            return true;
-        }
+        if (!this.name.equals(other.name)) { return false; }
+        if (this.color == Color.GRAY || other.color == Color.GRAY) { return true; }
         return other.color.equals(this.color);
     }
 }

@@ -20,29 +20,25 @@ public class LogHelper {
         @Override
         public String format(LogRecord lr) {
             var sb = new StringBuilder();
-            sb.append(lr.getLevel())
-                    .append("[")
-                    .append(lr.getSourceClassName())
-                    .append("::")
-                    .append(lr.getSourceMethodName())
-                    .append("][")
+            sb.append(lr.getLevel()).append("[").append(lr.getSourceClassName()).append("::")
+                    .append(lr.getSourceMethodName()).append("][")
                     .append(DateTimeFormatter.ISO_LOCAL_TIME.withZone(ZoneId.systemDefault()).format(lr.getInstant()))
                     .append("]: ");
             sb.append(lr.getMessage());
             return sb.append('\n').toString();
         }
     };
-    
+
     private LogHelper() {}
 
     public static final void startLogger() {
-        if (!started){ 
+        if (!started) {
             try {
                 FileHandler fh = new FileHandler("./src/com/carlettos/log.log");
                 LOG.addHandler(fh);
                 fh.setFormatter(LOG_FORMATTER);
                 for (var handler : LOG.getParent().getHandlers()) {
-                    handler.setFormatter(LOG_FORMATTER); //setting formatter to the console
+                    handler.setFormatter(LOG_FORMATTER); // setting formatter to the console
                 }
             } catch (IOException | SecurityException ex) {
                 LOG.log(Level.SEVERE, "Exception starting logger", ex);

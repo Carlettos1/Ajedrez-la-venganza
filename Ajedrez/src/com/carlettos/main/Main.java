@@ -9,6 +9,7 @@ import com.carlettos.game.util.helper.LogHelper;
  */
 public class Main {
 
+    @SuppressWarnings("unused")
     public static void main(String... args) {
         LogHelper.startLogger();
         var menu = new MainMenu();

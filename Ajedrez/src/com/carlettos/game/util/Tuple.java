@@ -15,8 +15,8 @@ public class Tuple<X, Y> {
         this.x = x;
         this.y = y;
     }
-    
-    public static <X, Y> Tuple<X, Y> of(X x, Y y){
+
+    public static <X, Y> Tuple<X, Y> of(X x, Y y) {
         return new Tuple<>(x, y);
     }
 
@@ -30,22 +30,14 @@ public class Tuple<X, Y> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (getClass() != obj.getClass()) { return false; }
         final Tuple<?, ?> other = (Tuple<?, ?>) obj;
-        if (!Objects.equals(this.x, other.x)) {
-            return false;
-        }
+        if (!Objects.equals(this.x, other.x)) { return false; }
         return Objects.equals(this.y, other.y);
     }
-    
+
     @Override
     public String toString() {
         return "Par{" + "x=" + x + ", y=" + y + '}';

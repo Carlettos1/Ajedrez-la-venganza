@@ -12,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.helper.ConfigHelper;
 
@@ -21,10 +21,10 @@ import com.carlettos.game.util.helper.ConfigHelper;
  * @author Carlos
  */
 public class HandDisplay extends JPanel {
-	private static final long serialVersionUID = 6749397947510998299L;
-	private final JPanel playersPanel;
+    private static final long serialVersionUID = 6749397947510998299L;
+    private final JPanel playersPanel;
 
-    public HandDisplay(Clock clock) throws HeadlessException {
+    public HandDisplay(AbstractClock clock) throws HeadlessException {
         super(new BorderLayout(0, 10));
         this.playersPanel = new JPanel(new CardLayout());
         for (Player player : clock.getPlayers()) {
@@ -51,14 +51,13 @@ public class HandDisplay extends JPanel {
 
     private static final class PlayerPanel extends JPanel {
 
-		private static final long serialVersionUID = 4861537177427017355L;
-		
-		//todo: transient?
-		private final transient Player player;
+        private static final long serialVersionUID = 4861537177427017355L;
+
+        // todo: transient?
+        private final transient Player player;
 
         public PlayerPanel(Player player) {
-            super(new GridLayout(ConfigHelper.getCardsPerColumn(),
-                    ConfigHelper.getCardsPerRow(), 10, 10));
+            super(new GridLayout(ConfigHelper.getCardsPerColumn(), ConfigHelper.getCardsPerRow(), 10, 10));
             this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.player = player;
             rehacer();

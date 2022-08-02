@@ -1,7 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
-import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.board.Board;
+import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
@@ -17,16 +17,18 @@ public class AbilitySuperPawn extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        return ActionResult.fromBoolean(!piece.isType(PieceType.IMMUNE) && this.commonCanUse(board, piece) && board instanceof Board);
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        return ActionResult.fromBoolean(
+                !piece.isType(PieceType.IMMUNE) && this.commonCanUse(board, piece) && board instanceof SquareBoard);
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        var board1 = (Board) board;
+    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        var board1 = (SquareBoard) board;
         piece.addType(PieceType.IMMUNE);
-        //TODO: que sea impenetrable
-        board1.getClock().addEvent(Event.create(EventInfo.of(board1, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
+        // TODO: que sea impenetrable
+        board1.getClock().addEvent(
+                Event.create(EventInfo.of(board1, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
         this.commonUse(board, piece);
     }
 }

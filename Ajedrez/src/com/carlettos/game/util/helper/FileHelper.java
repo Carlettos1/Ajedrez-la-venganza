@@ -20,9 +20,8 @@ import com.google.gson.stream.JsonWriter;
  * @author Carlettos
  */
 public class FileHelper {
-    private FileHelper() {
-    }
-    
+    private FileHelper() {}
+
     public static final Gson GSON = new Gson();
     public static final String BASE_FOLDER = "./src/com/carlettos/resources/";
     public static final String LANG_FOLDER = BASE_FOLDER + "lang/";
@@ -38,7 +37,7 @@ public class FileHelper {
             throw new IllegalArgumentException("Path %s doesn't exists or worse".formatted(path));
         }
     }
-    
+
     public static final void setToFile(String path, JsonObject jsonObject) {
         LogHelper.LOG.info(() -> "Saving file: %s".formatted(path));
         try (var writer = new JsonWriter(new FileWriter(path))) {
@@ -47,7 +46,7 @@ public class FileHelper {
             throw new IllegalArgumentException("Path %s doesn't exists or worse".formatted(path));
         }
     }
-    
+
     public static final BufferedImage getImageFromFile(String path) {
         var file = new File(path);
         if (!file.exists()) {
@@ -61,14 +60,14 @@ public class FileHelper {
             throw new IllegalArgumentException("path doesn't exists");
         }
     }
-    
+
     public static final void updateHelpers() {
         ConfigEntryPanel.setChanged(false);
         LogHelper.LOG.info("Updating helpers");
         ConfigHelper.saveConfigs();
-        
+
         ImageHelper.clearTextures();
-        
+
         ResourceLocation.updateResurces();
         ConfigHelper.updateConfigs();
     }

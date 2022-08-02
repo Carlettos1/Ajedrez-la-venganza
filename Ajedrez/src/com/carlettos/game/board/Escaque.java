@@ -6,8 +6,8 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
 
 /**
- * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, 
- * BUT I DON'T LIKE THAT WORD, SO IT WILL REMAIN AS "ESCAQUE".
+ * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, BUT I DON'T LIKE
+ * THAT WORD, SO IT WILL REMAIN AS "ESCAQUE".
  *
  * @author Carlos
  */
@@ -20,11 +20,11 @@ public class Escaque {
     /**
      * General constructor.
      *
-     * @param magic true if emits magic, false if not.
+     * @param magic     true if emits magic, false if not.
      * @param buildable true if admits a {@code Type.ESTRUCTURE} on top.
-     * @param pos pos of the escaque on the board.
-     * @param piece piece of the escaque. CANNOT BE NULL, IT MUST BE AT LEAST A
-     * {@code Empty}
+     * @param pos       pos of the escaque on the board.
+     * @param piece     piece of the escaque. CANNOT BE NULL, IT MUST BE AT LEAST A
+     *                  {@code Empty}
      */
     public Escaque(boolean magic, boolean buildable, Point pos, Piece piece) {
         this.magic = magic;
@@ -55,8 +55,8 @@ public class Escaque {
      * Checks if the piece on top is of the color provided.
      * 
      * @param color color to check.
-     * @return true if the color provided is the same of the piece on top. 
-     * False otherwise.
+     * @return true if the color provided is the same of the piece on top. False
+     *         otherwise.
      */
     public boolean isControlledBy(Color color) {
         return getPiece().getColor().equals(color);
@@ -78,9 +78,9 @@ public class Escaque {
     public void setPiece(Piece pieza) {
         this.piece = pieza;
     }
-    
+
     public void setPieceIfEmpty(Piece pieza) {
-        if(!this.hasPiece()){
+        if (!this.hasPiece()) {
             this.piece = pieza;
         }
     }
@@ -88,7 +88,7 @@ public class Escaque {
     public void removePiece() {
         this.piece = new Empty();
     }
-    
+
     public Point getPos() {
         return pos;
     }

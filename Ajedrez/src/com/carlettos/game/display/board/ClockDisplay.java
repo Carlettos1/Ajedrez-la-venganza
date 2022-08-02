@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.carlettos.game.board.clock.Clock;
+import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.display.listeners.ClickAbilityButton;
 import com.carlettos.game.display.listeners.ClickDeckButton;
@@ -21,10 +21,10 @@ import com.carlettos.game.util.helper.DisplayHelper;
  * 
  * @author Carlos
  */
-public class ClockDisplay extends JPanel{
-	private static final long serialVersionUID = 4989644933314930863L;
-	//todo: transient?
-	private final transient Clock clock;
+public class ClockDisplay extends JPanel {
+    private static final long serialVersionUID = 4989644933314930863L;
+    // todo: transient?
+    private final transient AbstractClock clock;
     private StringBuilder eventsOrder;
     private StringBuilder turn;
     private String manaStr;
@@ -35,7 +35,7 @@ public class ClockDisplay extends JPanel{
     private final JButton abilityButton;
     private final JButton deckButton;
 
-    public ClockDisplay(Clock clock) {
+    public ClockDisplay(AbstractClock clock) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         this.clock = clock;
@@ -45,7 +45,7 @@ public class ClockDisplay extends JPanel{
         this.manaLabel = new JLabel(manaStr);
         this.manaLabel.setFont(DisplayHelper.FONT_6);
         this.manaLabel.setForeground(ConfigHelper.getColorMana().getAWT());
-        //todo: usar resource locations
+        // todo: usar resource locations
         this.turnButton = new JButton("Avanzar turno");
         this.abilityButton = new JButton("Usar Habilidad");
         this.deckButton = new JButton("Ver decks");
@@ -71,7 +71,7 @@ public class ClockDisplay extends JPanel{
         buttons.add(Box.createVerticalGlue());
         buttons.add(deckButton);
         buttons.add(Box.createVerticalGlue());
-        
+
         this.add(labels);
         this.add(Box.createHorizontalGlue());
         this.add(buttons);
@@ -79,21 +79,18 @@ public class ClockDisplay extends JPanel{
 
     public void updateTexts() {
         eventsOrder = new StringBuilder("<html>Evento(s) más próximos: <br/>");
-        List<Event> events = clock.getEventosOrdenados();
+        List<Event> events = clock.getOrderedEvents();
         for (Event event : (events.stream().filter(e -> e.info.getTurns() == events.get(0).info.getTurns())
-        		.toArray(Event[]::new))) {
+                .toArray(Event[]::new))) {
             eventsOrder.append(event).append("<br/>");
         }
         eventsOrder.append("</html>");
 
         turn = new StringBuilder("Es el turno del jugador ");
-        turn.append(clock.turnOf().getColor())
-                .append("(Movs: ")
-                .append(clock.turnOf().getMaxMovements() - clock.getMovements())
-                .append("/")
-                .append(clock.turnOf().getMaxMovements())
-                .append(").");
-        
+        turn.append(clock.turnOf().getColor()).append("(Movs: ")
+                .append(clock.turnOf().getMaxMovements() - clock.getMovements()).append("/")
+                .append(clock.turnOf().getMaxMovements()).append(").");
+
         manaStr = ConfigHelper.getManaSymbol().repeat(clock.turnOf().getMana());
     }
 
@@ -107,7 +104,7 @@ public class ClockDisplay extends JPanel{
         manaLabel.setToolTipText("Mana: " + clock.turnOf().getMana());
     }
 
-    public Clock getClock() {
+    public AbstractClock getClock() {
         return clock;
     }
 }

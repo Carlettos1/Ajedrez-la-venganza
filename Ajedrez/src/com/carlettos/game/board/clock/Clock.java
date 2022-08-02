@@ -5,211 +5,119 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.carlettos.game.board.cards.Deck;
-import com.carlettos.game.board.cards.PlayerDeck;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
+import com.carlettos.game.board.deck.Deck;
+import com.carlettos.game.board.deck.PlayerDeck;
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Tuple;
-import com.carlettos.game.util.enums.Color;
 
-/**
- * It represent the chess clock.
- *
- * @author Carlos
- */
-public class Clock {
-
-    private int turn;
-    private int movements;
-    private final Player[] players;
-    private final PlayerDeck[] playerDecks;
-    private final Deck deck;
-    private final List<Event> events;
-    //todo: eventQueue, in other thread
-    private final List<ClockListener> listeners;
-    //todo: move to a separate object
-    private final List<Tuple<Player, Card>> cardsOnBoard;
+public class Clock extends AbstractClock {
+    protected final Deck centralDeck;
+    protected final List<Event> events;
+    // TODO: eventQueue, in other thread
+    protected final List<ClockListener> listeners;
+    // TODO: move to a separate object
+    protected final List<Tuple<Player, Card>> cardsOnBoard;
 
     /**
-     * Construct a new clock in turn 1 and 0 movements, with the players 
-     * provided.
+     * Construct a new clock in turn 1 and 0 movements, with the players provided.
      *
      * @param players players that use this clock.
      */
     public Clock(Player... players) {
-        this.turn = 1;
-        this.movements = 0;
-        this.players = players;
-        this.playerDecks = new PlayerDeck[players.length];
-        for (int i = 0; i < players.length; i++) {
-            this.playerDecks[i] = new PlayerDeck(this.players[i]);
-        }
-        this.deck = new Deck();
+        super(players);
+        this.centralDeck = new Deck();
         this.events = new ArrayList<>();
         this.listeners = new ArrayList<>();
         this.cardsOnBoard = new ArrayList<>();
     }
-    
+
+    @Override
     public void addCardToBoard(Player from, Card card) {
         cardsOnBoard.add(Tuple.of(from, card));
     }
-    
+
+    @Override
     public boolean boardContainsExactCard(Player from, Card card) {
         return cardsOnBoard.contains(Tuple.of(from, card));
     }
-    
+
+    @Override
     public boolean boardContainsCard(Player from, Card card) {
-        return cardsOnBoard.stream().anyMatch(tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getBaseKey().equals(card.getBaseKey()));
+        return cardsOnBoard.stream().anyMatch(
+                tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getBaseKey().equals(card.getBaseKey()));
     }
-    
+
+    @Override
     public boolean boardContainsCard(Card card) {
         return this.boardContainsCard(turnOf(), card);
     }
 
-    /**
-     * Verifies if the player can play this turn.
-     *
-     * @param player the player.
-     *
-     * @return true if it can, false either case.
-     */
+    @Override
     public boolean canPlay(Player player) {
         return turnOf().equals(player) && player.getMaxMovements() > movements;
     }
 
-    /**
-     * It has to execute everytime that a player makes a movement.
-     */
+    @Override
     public void movement() {
-        movements += 1;
+        super.movement();
         var event = new ClockEvent(this);
         this.listeners.forEach(l -> l.onEndMovement(event));
     }
 
-    /**
-     * Adds all events into the list of this clock.
-     *
-     * @param events events to add.
-     */
+    @Override
     public void addEvents(Event... events) {
         this.events.addAll(Arrays.asList(events));
     }
-    
-    /**
-     * Adds the event into the list of this clock.
-     *
-     * @param event event to add.
-     */
-    public void addEvent(Event event){
+
+    @Override
+    public void addEvent(Event event) {
         this.events.add(event);
     }
 
-    /**
-     * It gets which player is currently playing.
-     *
-     * @return player playing.
-     */
-    public Player turnOf() {
-        return players[(turn - 1) % players.length];
-    }
-
-    /**
-     * Ends the turn and fire up events.
-     */
+    @Override
     public void tick() {
-        turn++;
-        movements = 0;
+        super.tick();
         events.forEach(Event::tick);
         events.stream().filter(Event::isReady).forEach(Event::act);
         events.removeIf(Event::isReady);
-        
+
         var event = new ClockEvent(this);
         this.listeners.forEach(l -> l.onEndTurn(event));
     }
 
-    /**
-     * Adds a listener to this clock.
-     * 
-     * @param l listener to add.
-     */
+    @Override
     public void addListener(ClockListener l) {
         this.listeners.add(l);
     }
 
-    /**
-     * Get an unmodifiable list with all the events in it.
-     * 
-     * @return an unmodifiable list with all the events.
-     */
+    @Override
     public List<Event> getEvents() {
         return Collections.unmodifiableList(events);
     }
 
-    /**
-     * Sort the list using the turns left to fire up the event, from the closest
-     * to the latest.
-     * 
-     * @return an unmodifiable sorted list with all the events.
-     */
-    public List<Event> getEventosOrdenados() {
+    @Override
+    public List<Event> getOrderedEvents() {
         events.sort(Event::compareTo);
         return getEvents();
     }
 
-    /**
-     * Gets a player of the given color.
-     *
-     * @param color color of the player.
-     * 
-     * @return a player with that color, if exists.
-     */
-    public Player getPlayerOfColor(Color color) {
-        for (Player player : players) {
-            if (player.getColor().equals(color)) {
-                return player;
-            }
-        }
-        throw new IllegalArgumentException("No existe jugador de color " + color);
+    @Override
+    public void takeFromCentralDeck(PlayerDeck playerDeck) {
+        playerDeck.addCard(getCentralDeck().takeCard());
     }
 
-    public Player[] getPlayers() {
-        return players;
+    @Override
+    public void takeFromCentralDeck(Player player) {
+        takeFromCentralDeck(getDeckOf(player));
     }
 
-    public int getTurn() {
-        return turn;
-    }
-
-    public int getMovements() {
-        return movements;
-    }
-    
-    public List<PlayerDeck> getPlayerDecks() {
-    	return List.of(playerDecks);
-    }
-    
-    public PlayerDeck getDeckOf(Player player) {
-        for (PlayerDeck playerDeck : playerDecks) {
-            if (playerDeck.getOwner().equals(player)) {
-                return playerDeck;
-            }
-        }
-        throw new IllegalArgumentException("player %s doesn't have a deck".formatted(player));
-    }
-    
-    public void takeFromDeck(PlayerDeck playerDeck) {
-        playerDeck.addCard(getDeck().takeCard());
-    }
-    
-    public void takeFromDeck(Player player) {
-        takeFromDeck(getDeckOf(player));
-    }
-
-    public Deck getDeck() {
-        return deck;
+    @Override
+    public Deck getCentralDeck() {
+        return centralDeck;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
-import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.board.Board;
+import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
@@ -17,19 +17,19 @@ public class AbilityCrazyPawn extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        return ActionResult.fromBoolean(this.commonCanUse(board, piece) && board instanceof Board);
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        return ActionResult.fromBoolean(this.commonCanUse(board, piece) && board instanceof SquareBoard);
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        var b = (Board) board;
+    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        var b = (SquareBoard) board;
         final Player player = b.getClock().turnOf();
         b.removePiece(start);
         b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.getName()), () -> {
             player.takeCard(b.getClock());
             player.takeCard(b.getClock());
         }));
-        
+
     }
 }

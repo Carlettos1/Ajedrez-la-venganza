@@ -1,8 +1,9 @@
 package com.carlettos.game.gameplay.piece.starting;
 
-import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IAttack;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternCannonAttack;
@@ -24,24 +25,24 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
 
     public Cannon(Color color) {
         super("cannon", Abilities.ABILITY_NONE, color, PieceType.STRUCTURE);
-        attackPattern = new PatternCannonAttack() {};
-        movePattern = new PatternStructureMove() {};
+        attackPattern = Patterns.CANNON_ATTACK_PATTERN;
+        movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
     }
 
     @Override
-    public ActionResult can(Action action, AbstractBoard board, Point start, Info info) {
+    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
         return switch (action) {
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             case MOVE -> this.canMove(board, start, info, movePattern);
             default -> ActionResult.FAIL;
         };
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-    
+
     @Override
     public int hashCode() {
         return super.hashCode();

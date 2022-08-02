@@ -19,10 +19,10 @@ import com.carlettos.game.util.helper.DisplayHelper;
  * @author Carlos
  */
 public class CardDisplay extends JPanel {
-	private static final long serialVersionUID = 6871650869282376214L;
-	protected boolean selected;
+    private static final long serialVersionUID = 6871650869282376214L;
+    protected boolean selected;
     protected final Color color;
-    //todo: transient?
+    // todo: transient?
     protected final transient Card card;
     protected JLabel name;
     protected JLabel desc;
@@ -33,34 +33,34 @@ public class CardDisplay extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(color.getAWT());
-        
+
         this.selected = false;
         this.color = color;
         this.card = carta;
-        
+
         this.name = new JLabel(card.getName());
         this.desc = new JLabel("<html>" + card.getDescription() + "</html>");
         this.mana = new JLabel(ConfigHelper.getManaSymbol().repeat(card.getCost()));
-        
+
         this.name.setForeground(color.getNegativeColor());
         this.desc.setForeground(color.getNegativeColor());
         this.mana.setForeground(ConfigHelper.getColorMana().getAWT());
-        
+
         this.name.setFont(DisplayHelper.FONT_12);
         this.desc.setFont(DisplayHelper.FONT_10);
         this.mana.setFont(DisplayHelper.FONT_6);
-        
+
         this.name.setToolTipText(card.getName());
         this.desc.setToolTipText(card.getDescription());
-        //todo: usar resourcelocations
+        // todo: usar resourcelocations
         this.mana.setToolTipText("Cost:" + card.getCost());
-        
+
         add(this.mana);
         add(this.name);
         add(Box.createVerticalGlue());
         add(this.desc);
         add(Box.createVerticalGlue());
-        
+
         this.addMouseListener(MouseCard.get());
         mana.addMouseListener(MouseCard.get());
         name.addMouseListener(MouseCard.get());

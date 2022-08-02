@@ -1,8 +1,8 @@
 package com.carlettos.game.util.function;
 
 /**
- * Similar to a java.util.function but with a 
- * void-returning no-argument function.
+ * Similar to a java.util.function but with a void-returning no-argument
+ * function.
  *
  * @author Carlettos
  */

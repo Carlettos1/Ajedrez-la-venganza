@@ -1,4 +1,4 @@
-package com.carlettos.game.board.cards;
+package com.carlettos.game.board.deck;
 
 import java.util.function.Consumer;
 
@@ -11,14 +11,13 @@ import com.carlettos.game.gameplay.card.Card;
  */
 public class Hand extends Deck {
 
-    public Hand() {
-    }
+    public Hand() {}
 
     public Hand(Card... cards) {
         super(cards);
     }
-    
-    public void forEach(Consumer<? super Card> action){
+
+    public void forEach(Consumer<? super Card> action) {
         this.cards.forEach(action);
     }
 }

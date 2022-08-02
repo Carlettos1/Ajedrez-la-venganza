@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.carlettos.game.board.Board;
+import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.FileHelper;
@@ -21,13 +21,13 @@ import com.carlettos.game.util.helper.FileHelper;
  */
 public class MainMenu extends JFrame {
     private static final long serialVersionUID = -336175332512925147L;
-	private JPanel start;
+    private JPanel start;
     private JPanel options;
     private BoardDisplay play;
 
     public MainMenu() {
         super("Ajedrez");
-        //todo: usar translation ?
+        // todo: usar translation ?
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         startInit();
         add(start);
@@ -35,8 +35,8 @@ public class MainMenu extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
-    private void startInit(){
+
+    private void startInit() {
         start = new JPanel();
         start.setLayout(new BoxLayout(start, BoxLayout.PAGE_AXIS));
         var optBttn = new JButton("Opciones");
@@ -50,7 +50,7 @@ public class MainMenu extends JFrame {
         start.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         start.setPreferredSize(new Dimension(400, 400));
     }
-    
+
     private void addOptions() {
         for (var entry : ConfigHelper.getConfigEntries()) {
             options.add(Box.createVerticalGlue());
@@ -58,8 +58,8 @@ public class MainMenu extends JFrame {
             options.add(entryPanel);
         }
     }
-    
-    private void start(){
+
+    private void start() {
         this.startInit();
         this.removeAll();
         this.revalidate();
@@ -67,7 +67,7 @@ public class MainMenu extends JFrame {
         this.add(start);
         pack();
     }
-    
+
     private void options() {
         options = new JPanel();
         options.setLayout(new BoxLayout(options, BoxLayout.PAGE_AXIS));
@@ -76,11 +76,11 @@ public class MainMenu extends JFrame {
         var save = new JButton("Save");
         save.addActionListener(e -> {
             for (Component component : options.getComponents()) {
-                if(component instanceof ConfigEntryPanel cep){
+                if (component instanceof ConfigEntryPanel cep) {
                     cep.saveConfig();
                 }
             }
-            if(ConfigEntryPanel.getChanged()) {
+            if (ConfigEntryPanel.getChanged()) {
                 FileHelper.updateHelpers();
             }
         });
@@ -103,10 +103,10 @@ public class MainMenu extends JFrame {
         this.add(options);
         this.pack();
     }
-    
-    //todo: volver a mainmenu
+
+    // todo: volver a mainmenu
     private void play() {
-        var board = Board.getDefaultInstance();
+        var board = SquareBoard.getDefaultInstance();
         play = BoardDisplay.createInstance(board);
         this.removeAll();
         this.revalidate();
@@ -114,7 +114,7 @@ public class MainMenu extends JFrame {
         this.add(play);
         this.pack();
     }
-    
+
     public BoardDisplay getDisplay() {
         return play;
     }

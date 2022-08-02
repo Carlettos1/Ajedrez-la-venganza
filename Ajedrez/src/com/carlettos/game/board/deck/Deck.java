@@ -1,4 +1,4 @@
-package com.carlettos.game.board.cards;
+package com.carlettos.game.board.deck;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,15 +19,15 @@ import com.carlettos.game.util.helper.MathHelper;
  */
 public class Deck {
     protected final List<Card> cards;
-    
-    public Deck(){
+
+    public Deck() {
         this.cards = new ArrayList<>(30);
     }
 
     public Deck(Card... cards) {
         this.cards = new ArrayList<>(Arrays.asList(cards));
     }
-    
+
     /**
      * Adds the provided card to the deck.
      *
@@ -38,7 +38,7 @@ public class Deck {
         Objects.requireNonNull(card, "Cannot add null card to deck");
         this.cards.add(card);
     }
-    
+
     /**
      * Adds the provided cards to the deck.
      *
@@ -51,12 +51,12 @@ public class Deck {
         }
         this.cards.addAll(Arrays.asList(cards));
     }
-    
+
     /**
      * Removes the provided card from this deck.
      *
      * @param card card to remove.
-     * @throws NullPointerException if the card is null.
+     * @throws NullPointerException     if the card is null.
      * @throws IllegalArgumentException if the deck doesn't contain the card.
      */
     public void removeCard(Card card) {
@@ -66,19 +66,17 @@ public class Deck {
         }
         this.cards.remove(card);
     }
-    
+
     /**
      * Removes the card at the given index, can be negative.
      *
      * @param idx index to remove, can be negative.
-     * @throws IllegalStateException if the deck is empty.
-     * @throws IndexOutOfBoundsException if the index >= than the size or 
-     * {@literal <} 0.
+     * @throws IllegalStateException     if the deck is empty.
+     * @throws IndexOutOfBoundsException if the index >= than the size or
+     *                                   {@literal <} 0.
      */
     public void removeCard(int idx) {
-        if (this.cards.isEmpty()) {
-            throw new IllegalStateException("Trying to remove a card from an empty deck");
-        }
+        if (this.cards.isEmpty()) { throw new IllegalStateException("Trying to remove a card from an empty deck"); }
         int index;
         if (idx >= 0) {
             index = idx;
@@ -88,7 +86,7 @@ public class Deck {
         MathHelper.requireInBounds(index, 0, this.cards.size());
         this.cards.remove(index);
     }
-    
+
     /**
      * Removes and returns the last card of this deck.
      *
@@ -96,30 +94,28 @@ public class Deck {
      * @throws IllegalStateException if the deck is empty.
      */
     public Card takeCard() {
-        if (this.cards.isEmpty()) {
-            throw new IllegalStateException("Trying to take a card from an empty deck");
-        }
+        if (this.cards.isEmpty()) { throw new IllegalStateException("Trying to take a card from an empty deck"); }
         return this.cards.remove(cards.size() - 1);
     }
-    
+
     public boolean any(Predicate<Card> predicate) {
         return this.cards.stream().anyMatch(predicate);
     }
-    
+
     public boolean hasCard(Card card) {
         return this.cards.contains(card);
     }
-    
+
     public int getCardCount() {
         return this.cards.size();
     }
-    
+
     public void shuffle() {
         Collections.shuffle(cards);
     }
-    
+
     public List<Card> getCards() {
-    	return List.copyOf(this.cards);
+        return List.copyOf(this.cards);
     }
 
     public static void defaultInit(Deck deck) {
