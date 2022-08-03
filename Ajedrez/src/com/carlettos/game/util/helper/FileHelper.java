@@ -23,11 +23,16 @@ public class FileHelper {
     private FileHelper() {}
 
     public static final Gson GSON = new Gson();
-    public static final String BASE_FOLDER = "./src/com/carlettos/resources/";
-    public static final String LANG_FOLDER = BASE_FOLDER + "lang/";
-    public static final String TEXTURES_FOLDER = BASE_FOLDER + "textures/";
-    public static final String CONFIG_FILE = BASE_FOLDER + "config.json";
-    public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "undefined.png";
+    public static final String LOG_FILE = new File("log.log").getPath();
+    public static final String BASE_FOLDER = new File("Ajedrez/src/com/carlettos/resources").getAbsolutePath();
+    public static final String LANG_FOLDER = BASE_FOLDER + "\\lang\\";
+    public static final String TEXTURES_FOLDER = BASE_FOLDER + "\\textures\\";
+    public static final String CONFIG_FILE = BASE_FOLDER + "\\config.json";
+    public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "\\undefined.png";
+    
+    static {
+        
+    }
 
     public static final JsonObject getFromFile(String path) {
         LogHelper.LOG.info(() -> "Reading file: %s".formatted(path));

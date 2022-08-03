@@ -204,11 +204,11 @@ public class SquareBoard extends AbstractSquareBoard {
 
         board.setPiece(new Point(6, 0), new Magician(Color.WHITE));
         board.setPiece(new Point(7, 0), new Queen(Color.WHITE));
-        board.setPiece(new Point(8, 16), new King(Color.WHITE));
-        board.setPiece(new Point(9, 16), new Paladin(Color.WHITE));
+        board.setPiece(new Point(8, 0), new King(Color.WHITE));
+        board.setPiece(new Point(9, 0), new Paladin(Color.WHITE));
 
-        board.setPiece(new Point(6, 0), new Magician(Color.BLACK));
-        board.setPiece(new Point(7, 0), new Queen(Color.BLACK));
+        board.setPiece(new Point(6, 16), new Magician(Color.BLACK));
+        board.setPiece(new Point(7, 16), new Queen(Color.BLACK));
         board.setPiece(new Point(8, 16), new King(Color.BLACK));
         board.setPiece(new Point(9, 16), new Paladin(Color.BLACK));
 

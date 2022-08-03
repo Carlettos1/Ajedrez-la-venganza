@@ -8,7 +8,7 @@ import com.carlettos.game.util.helper.MathHelper;
  * @author Carlos
  */
 public enum Color {
-    WHITE("#FFFFFF"), BLACK("#000000"), GRAY("#888888"), CYAN("#00FFFF"), MAGENTA("#FF00FF"), RED("#FF0000"),
+    WHITE("#FFFFFF"), BLACK("#000000"), GRAY("#B0B0B0"), CYAN("#00FFFF"), MAGENTA("#FF00FF"), RED("#FF0000"),
     ORANGE("#FFA500"), AQUA("#03FDFC");
 
     private final String hex;

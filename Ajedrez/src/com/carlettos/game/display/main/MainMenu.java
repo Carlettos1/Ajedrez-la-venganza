@@ -104,7 +104,7 @@ public class MainMenu extends JFrame {
         this.pack();
     }
 
-    // todo: volver a mainmenu
+    // TODO: volver a mainmenu
     private void play() {
         var board = SquareBoard.getDefaultInstance();
         play = BoardDisplay.createInstance(board);

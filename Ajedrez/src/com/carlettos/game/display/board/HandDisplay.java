@@ -44,7 +44,7 @@ public class HandDisplay extends JPanel {
     public void redo() {
         for (Component component : playersPanel.getComponents()) {
             if (component instanceof PlayerPanel pp) {
-                pp.rehacer();
+                pp.redo();
             }
         }
     }
@@ -53,19 +53,19 @@ public class HandDisplay extends JPanel {
 
         private static final long serialVersionUID = 4861537177427017355L;
 
-        // todo: transient?
+        // TODO: transient?
         private final transient Player player;
 
         public PlayerPanel(Player player) {
             super(new GridLayout(ConfigHelper.getCardsPerColumn(), ConfigHelper.getCardsPerRow(), 10, 10));
             this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.player = player;
-            rehacer();
+            redo();
         }
 
-        public void rehacer() {
+        public void redo() {
             removeAll();
-            player.getHand().forEach(card -> add(new CardDisplay(player.getColor(), card)));
+            player.getHand().forEach(card -> add(new CardDisplay(player.getColor(), card, true)));
             revalidate();
             repaint();
         }

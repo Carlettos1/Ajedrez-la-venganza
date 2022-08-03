@@ -34,6 +34,11 @@ public class Clock extends AbstractClock {
         this.listeners = new ArrayList<>();
         this.cardsOnBoard = new ArrayList<>();
     }
+    
+    @Override
+    public List<Tuple<Player, Card>> getBoardCards() {
+        return this.cardsOnBoard;
+    }
 
     @Override
     public void addCardToBoard(Player from, Card card) {

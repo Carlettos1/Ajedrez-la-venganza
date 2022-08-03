@@ -45,7 +45,7 @@ public class ClockDisplay extends JPanel {
         this.manaLabel = new JLabel(manaStr);
         this.manaLabel.setFont(DisplayHelper.FONT_6);
         this.manaLabel.setForeground(ConfigHelper.getColorMana().getAWT());
-        // todo: usar resource locations
+        // TODO: usar resource locations
         this.turnButton = new JButton("Avanzar turno");
         this.abilityButton = new JButton("Usar Habilidad");
         this.deckButton = new JButton("Ver decks");

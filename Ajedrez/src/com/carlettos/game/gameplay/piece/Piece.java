@@ -251,11 +251,15 @@ public abstract class Piece implements IResourceKey {
         if (!effects.contains(effect)) {
             this.effects.add(effect);
         }
-        // todo: que hacer si hay otro efecto
+        // TODO: que hacer si hay otro efecto igual
     }
 
     public boolean hasEffect(Effect effect) {
         return effects.contains(effect);
+    }
+    
+    public List<Effect> getEffects() {
+        return effects;
     }
 
     @Override

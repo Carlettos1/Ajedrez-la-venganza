@@ -28,7 +28,7 @@ public class CardDisplay extends JPanel {
     protected JLabel desc;
     protected JLabel mana;
 
-    public CardDisplay(Color color, Card carta) {
+    public CardDisplay(Color color, Card carta, boolean hasListener) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -61,10 +61,12 @@ public class CardDisplay extends JPanel {
         add(this.desc);
         add(Box.createVerticalGlue());
 
-        this.addMouseListener(MouseCard.get());
-        mana.addMouseListener(MouseCard.get());
-        name.addMouseListener(MouseCard.get());
-        desc.addMouseListener(MouseCard.get());
+        if (hasListener) {
+            this.addMouseListener(MouseCard.get());
+            mana.addMouseListener(MouseCard.get());
+            name.addMouseListener(MouseCard.get());
+            desc.addMouseListener(MouseCard.get());
+        }
     }
 
     @Override

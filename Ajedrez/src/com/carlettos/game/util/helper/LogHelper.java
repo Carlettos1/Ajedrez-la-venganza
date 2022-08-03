@@ -34,7 +34,7 @@ public class LogHelper {
     public static final void startLogger() {
         if (!started) {
             try {
-                FileHandler fh = new FileHandler("./src/com/carlettos/log.log");
+                FileHandler fh = new FileHandler(FileHelper.LOG_FILE);
                 LOG.addHandler(fh);
                 fh.setFormatter(LOG_FORMATTER);
                 for (var handler : LOG.getParent().getHandlers()) {

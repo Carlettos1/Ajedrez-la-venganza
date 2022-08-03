@@ -1,0 +1,4 @@
+INFO[com.carlettos.game.util.helper.LogHelper::startLogger][22:04:48.4827497]: Logger start
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][22:04:50.8199147]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][22:04:50.8253567]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][22:04:50.8253567]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json

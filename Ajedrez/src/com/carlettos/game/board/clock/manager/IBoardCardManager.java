@@ -1,9 +1,14 @@
 package com.carlettos.game.board.clock.manager;
 
+import java.util.List;
+
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.Tuple;
 
 public interface IBoardCardManager {
+    
+    List<Tuple<Player, Card>> getBoardCards();
 
     /**
      * Adds a card to the board.

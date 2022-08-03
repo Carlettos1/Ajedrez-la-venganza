@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -28,6 +29,14 @@ public class ImageHelper {
         var img = FileHelper.getImageFromFile(PATH_PATTERN.formatted(textureName));
         IMAGES.put(textureName, img);
         return img;
+    }
+    
+    public static final synchronized BufferedImage getImage(IResourceKey obj) {
+        return getImage(obj, "");
+    }
+    
+    public static final synchronized BufferedImage getImage(IResourceKey obj, String subFolder) {
+        return getImage(subFolder.concat(obj.getBaseKey()));
     }
 
     public static final synchronized BufferedImage getImage(Piece piece) {

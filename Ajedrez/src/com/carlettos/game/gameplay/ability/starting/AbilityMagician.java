@@ -34,7 +34,7 @@ public class AbilityMagician extends AbilityNoInfo {
         return ActionResult.FAIL;
     }
 
-    // todo: ampliar el sistema y poder quitar efectos
+    // TODO: ampliar el sistema y poder quitar efectos
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         var b = (SquareBoard) board;

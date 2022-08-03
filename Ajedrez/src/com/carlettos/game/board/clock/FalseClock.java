@@ -9,6 +9,7 @@ import com.carlettos.game.board.deck.Deck;
 import com.carlettos.game.board.deck.PlayerDeck;
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.Tuple;
 
 /**
  * It's a dummy clock, used for boards that doesn't have a complicated clock.
@@ -16,6 +17,7 @@ import com.carlettos.game.gameplay.player.Player;
 public class FalseClock extends AbstractClock {
     private static final List<Event> events = new ArrayList<>();
     private static final Deck deck = new Deck();
+    private static final List<Tuple<Player, Card>> board = new ArrayList<>();
 
     public FalseClock(Player... players) {
         super(players);
@@ -23,6 +25,11 @@ public class FalseClock extends AbstractClock {
 
     public FalseClock(AbstractClock other) {
         super(other.players);
+    }
+    
+    @Override
+    public List<Tuple<Player, Card>> getBoardCards() {
+        return board;
     }
 
     @Override
