@@ -17,7 +17,7 @@ public class King extends SimplePiece<PatternKing> {
         this.usedTP = false;
     }
 
-    public boolean isUsedTP() {
+    public boolean hasUsedTP() {
         return usedTP;
     }
 

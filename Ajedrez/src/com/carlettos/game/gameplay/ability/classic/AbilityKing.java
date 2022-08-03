@@ -12,6 +12,7 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityKing extends Ability {
+    public static final double TP_RANGE = 5.0D;
     public AbilityKing() {
         super("king", 0, 2);
     }
@@ -23,9 +24,9 @@ public class AbilityKing extends Ability {
         var king = (King) piece;
         var point = (Point) info.getValue();
 
-        if (king.isUsedTP()) { return ActionResult.FAIL; }
+        if (king.hasUsedTP()) { return ActionResult.FAIL; }
 
-        return ActionResult.fromBoolean(point.getDistanceTo(start) <= 5);
+        return ActionResult.fromBoolean(point.getDistanceTo(start) <= TP_RANGE);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AbilityKing extends Ability {
         List<Point> values = new ArrayList<>();
         for (int x = 0; x < board.shape.x; x++) {
             for (int y = 0; y < board.shape.y; y++) {
-                if (new Point(x, y).getDistanceTo(start) <= 5 && !board.getEscaque(new Point(x, y)).hasPiece()) {
+                if (new Point(x, y).getDistanceTo(start) <= TP_RANGE && !board.getEscaque(new Point(x, y)).hasPiece()) {
                     values.add(new Point(x, y));
                 }
             }

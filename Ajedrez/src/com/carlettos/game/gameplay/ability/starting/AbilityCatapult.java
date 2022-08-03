@@ -13,6 +13,7 @@ import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.helper.MathHelper;
 
+@SuppressWarnings("unchecked")
 public class AbilityCatapult extends Ability {
     public AbilityCatapult() {
         super("catapult", 5, 0);
@@ -20,12 +21,9 @@ public class AbilityCatapult extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Tuple.class)) { return ActionResult.FAIL; }
-        Tuple<?, ?> tuple = (Tuple<?, ?>) info.getValue();
+        if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)) { return ActionResult.FAIL; }
 
-        if (!(tuple.x instanceof Direction && tuple.y instanceof Integer)) { return ActionResult.FAIL; }
-
-        return defaultCan(board, start, (Tuple<Direction, Integer>) tuple);
+        return reducedCan(board, start, (Tuple<Direction, Integer>) info.getValue());
     }
 
     @Override
@@ -66,7 +64,7 @@ public class AbilityCatapult extends Ability {
         List<Tuple<Direction, Integer>> valores = new ArrayList<>(dirs.length * nums.length);
         for (Direction dir : dirs) {
             for (Integer num : nums) {
-                if (defaultCan(board, start, new Tuple<>(dir, num)).isPositive()) {
+                if (reducedCan(board, start, new Tuple<>(dir, num)).isPositive()) {
                     valores.add(new Tuple<>(dir, num));
                 }
             }
@@ -74,7 +72,7 @@ public class AbilityCatapult extends Ability {
         return valores.toArray(Tuple[]::new);
     }
 
-    private ActionResult defaultCan(AbstractSquareBoard board, Point start, Tuple<Direction, Integer> tuple) {
+    private ActionResult reducedCan(AbstractSquareBoard board, Point start, Tuple<Direction, Integer> tuple) {
         Point posPiece = switch (tuple.y) {
             case 1 -> new Point(start.x - 1, start.y - 1);
             case 2 -> new Point(start.x, start.y - 1);

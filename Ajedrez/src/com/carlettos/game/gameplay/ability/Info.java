@@ -8,6 +8,7 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  * @author Carlettos
@@ -37,7 +38,19 @@ public class Info {
     }
     
     public boolean isType(Class<?> check) {
+        if (!REGISTRY.contains(check)) {
+            LogHelper.LOG.warning(() -> "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY");
+            return false;
+        }
         return this.clazz.isAssignableFrom(check);
+    }
+    
+    public boolean isTupleType(Class<?> generic1, Class<?> generic2) {
+        if (!this.isType(Tuple.class)) {
+            return false;
+        }
+        Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
+        return generic1.isInstance(tuple.x) && generic2.isInstance(tuple.y);
     }
 
     public Object getValue() {
