@@ -64,10 +64,7 @@ public abstract class Ability implements IResourceKey {
      */
     public boolean commonCanUse(AbstractSquareBoard board, Piece piece) {
         boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
-        if (board instanceof SquareBoard t) {
-            return nomana && t.getClock().turnOf().getMana() >= this.data.manaCost();
-        }
-        return nomana;
+        return nomana && board.getClock().turnOf().getMana() >= this.data.manaCost();
     }
 
     /**
@@ -80,9 +77,7 @@ public abstract class Ability implements IResourceKey {
     public void commonUse(AbstractSquareBoard board, Piece piece) {
         piece.setIsMoved(true);
         piece.changeCD(this.data.cooldown());
-        if (board instanceof SquareBoard t) {
-            t.getClock().turnOf().changeMana(-this.data.manaCost());
-        }
+        board.getClock().turnOf().changeMana(-this.data.manaCost());
     }
 
     @Override

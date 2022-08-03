@@ -2,7 +2,7 @@ package com.carlettos.game.board.clock.event;
 
 import java.util.Objects;
 
-import com.carlettos.game.board.SquareBoard;
+import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 
@@ -16,7 +16,7 @@ public class EventInfo {
     protected int turns;
     protected final String name;
     protected Point point;
-    protected final SquareBoard board;
+    protected final AbstractSquareBoard board;
 
     /**
      * It creates all the info for the event to work.
@@ -26,7 +26,7 @@ public class EventInfo {
      * @param point point of refference.
      * @param board board in which will happen.
      */
-    public EventInfo(int turns, String name, Point point, SquareBoard board) {
+    public EventInfo(int turns, String name, Point point, AbstractSquareBoard board) {
         if (turns <= 0) {
             throw new IllegalArgumentException("La cantidad de turnos de un evento no puede ser 0 o negativa");
         }
@@ -70,39 +70,39 @@ public class EventInfo {
         return point;
     }
 
-    public SquareBoard getBoard() {
+    public AbstractSquareBoard getBoard() {
         return board;
     }
 
-    public static EventInfo of(SquareBoard board, int turns, String name, Point point) {
+    public static EventInfo of(AbstractSquareBoard board, int turns, String name, Point point) {
         return new EventInfo(turns, name, point, board);
     }
 
-    public static EventInfo of(SquareBoard board, int turns, String name) {
+    public static EventInfo of(AbstractSquareBoard board, int turns, String name) {
         return of(board, turns, name, new Point(0, 0));
     }
 
-    public static EventInfo of(SquareBoard board, int turns, Point point) {
+    public static EventInfo of(AbstractSquareBoard board, int turns, Point point) {
         return of(board, turns, generic_event.getTranslated(), point);
     }
 
-    public static EventInfo of(SquareBoard board, String name, Point point) {
+    public static EventInfo of(AbstractSquareBoard board, String name, Point point) {
         return of(board, 1, name, point);
     }
 
-    public static EventInfo of(SquareBoard board, int turns) {
+    public static EventInfo of(AbstractSquareBoard board, int turns) {
         return of(board, turns, generic_event.getTranslated(), new Point(0, 0));
     }
 
-    public static EventInfo of(SquareBoard board, String name) {
+    public static EventInfo of(AbstractSquareBoard board, String name) {
         return of(board, 1, name, new Point(0, 0));
     }
 
-    public static EventInfo of(SquareBoard board, Point point) {
+    public static EventInfo of(AbstractSquareBoard board, Point point) {
         return of(board, 1, generic_event.getTranslated(), point);
     }
 
-    public static EventInfo of(SquareBoard board) {
+    public static EventInfo of(AbstractSquareBoard board) {
         return of(board, 1, generic_event.getTranslated(), new Point(0, 0));
     }
 }

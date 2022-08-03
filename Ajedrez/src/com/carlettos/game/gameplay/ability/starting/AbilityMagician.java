@@ -1,7 +1,6 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractSquareBoard;
-import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.card.CardOnBoard;
@@ -26,21 +25,17 @@ public class AbilityMagician extends AbilityNoInfo {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (board instanceof SquareBoard b) {
-            var hasIce = b.getClock().boardContainsCard(ice);
-            var hasFire = b.getClock().boardContainsCard(fire);
-            return ActionResult.fromBoolean(hasIce || hasFire);
-        }
-        return ActionResult.FAIL;
+        var hasIce = board.getClock().boardContainsCard(ice);
+        var hasFire = board.getClock().boardContainsCard(fire);
+        return ActionResult.fromBoolean(hasIce || hasFire);
     }
 
     // TODO: ampliar el sistema y poder quitar efectos
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        var b = (SquareBoard) board;
-        var hasIce = b.getClock().boardContainsCard(ice);
-        var hasFire = b.getClock().boardContainsCard(fire);
-        var pieces = b.getMatchingEscaques(action, start);
+        var hasIce = board.getClock().boardContainsCard(ice);
+        var hasFire = board.getClock().boardContainsCard(fire);
+        var pieces = board.getMatchingEscaques(action, start);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() == piece.getColor());
 

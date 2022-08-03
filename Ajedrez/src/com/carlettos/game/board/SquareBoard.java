@@ -70,7 +70,7 @@ public class SquareBoard extends AbstractSquareBoard {
         var piece = startEsq.getPiece();
         if (!canPlay(piece)) { return ActionResult.FAIL; }
         if ((action == Action.ATTACK || action == Action.MOVE || action == Action.TAKE)
-                && !(info.getValue() instanceof Point)) {
+                && !(info.getValue() instanceof Point)) { //TODO: use just the point to make an ability which uses the point info
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
         ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);

@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.pattern.starting;
 import java.util.Random;
 
 import com.carlettos.game.board.IBaseBoard;
-import com.carlettos.game.board.SquareBoard;
+import com.carlettos.game.board.IClockUse;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
 
@@ -34,13 +34,11 @@ public interface PatternCrazyPawn extends Pattern {
 
     @Override
     public default boolean match(IBaseBoard board, Point start, Point end) {
-        int turn;
-        if (board instanceof SquareBoard t) {
-            turn = t.getClock().getTurn();
-        } else {
-            throw new IllegalArgumentException("Tablero no es instanceof Tablero");
+        if (!(board instanceof IClockUse)) { //TODO: option to just stablish the direction and bypass this throw
+            throw new IllegalArgumentException("Needs to be a clocked board to use this pattern");
         }
-
+        
+        int turn = ((IClockUse) board).getClock().getTurn();
         return switch (this.getRandomNumber(turn)) {
             case 0 -> end.equals(start.add(0, 1)) || end.equals(start.add(0, 2));
             case 1 -> end.equals(start.add(1, 1)) || end.equals(start.add(2, 2));

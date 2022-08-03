@@ -19,16 +19,15 @@ public class AbilitySuperPawn extends AbilityNoInfo {
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         return ActionResult.fromBoolean(
-                !piece.isType(PieceType.IMMUNE) && this.commonCanUse(board, piece) && board instanceof SquareBoard);
+                !piece.isType(PieceType.IMMUNE) && this.commonCanUse(board, piece));
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        var board1 = (SquareBoard) board;
         piece.addType(PieceType.IMMUNE);
         // TODO: que sea impenetrable
-        board1.getClock().addEvent(
-                Event.create(EventInfo.of(board1, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
+        board.getClock().addEvent(
+                Event.create(EventInfo.of(board, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
         this.commonUse(board, piece);
     }
 }

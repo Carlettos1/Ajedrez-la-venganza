@@ -35,7 +35,7 @@ public class Info {
         this.clazz = clazz;
         this.value = value;
     }
-
+    
     public boolean isType(Class<?> check) {
         return this.clazz.isAssignableFrom(check);
     }

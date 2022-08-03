@@ -18,17 +18,16 @@ public class AbilityCrazyPawn extends AbilityNoInfo {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        return ActionResult.fromBoolean(this.commonCanUse(board, piece) && board instanceof SquareBoard);
+        return ActionResult.fromBoolean(this.commonCanUse(board, piece));
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        var b = (SquareBoard) board;
-        final Player player = b.getClock().turnOf();
-        b.removePiece(start);
-        b.getClock().addEvent(Event.create(EventInfo.of(b, 1, this.data.getName()), () -> {
-            player.takeCard(b.getClock());
-            player.takeCard(b.getClock());
+        final Player player = board.getClock().turnOf();
+        board.removePiece(start);
+        board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.data.getName()), () -> {
+            player.takeCard(board.getClock());
+            player.takeCard(board.getClock());
         }));
 
     }
