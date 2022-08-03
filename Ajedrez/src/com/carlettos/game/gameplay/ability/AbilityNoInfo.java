@@ -13,7 +13,7 @@ public abstract class AbilityNoInfo extends Ability {
     }
 
     @Override
-    public final String[] getValues(AbstractSquareBoard board, Point start) { // todo: get real values
+    public final String[] getValues(AbstractSquareBoard board, Point start) { // TODO: get real values
         return new String[] { "Usar" };
     }
 }

@@ -1,7 +1,6 @@
 package com.carlettos.game.gameplay.ability;
 
 import com.carlettos.game.board.AbstractSquareBoard;
-import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;

@@ -1,7 +1,6 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractSquareBoard;
-import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;

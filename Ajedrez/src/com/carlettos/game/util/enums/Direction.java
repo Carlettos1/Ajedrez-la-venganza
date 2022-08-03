@@ -37,8 +37,8 @@ public enum Direction {
 
     public Point toPoint() {
         return switch (this.getAxis()) {
-            case NS -> new Point(0, getSign());
-            case EW -> new Point(getSign(), 0);
+            case NS -> new Point(0, this.getSign());
+            case EW -> new Point(this.getSign(), 0);
         };
     }
 

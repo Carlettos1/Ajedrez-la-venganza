@@ -13,14 +13,14 @@ import com.carlettos.game.util.enums.Direction;
  * @author Carlettos
  */
 public class Info {
-    private static final Set<Class<?>> classes = new HashSet<>();
+    private static final Set<Class<?>> REGISTRY = new HashSet<>();
     static {
-        classes.add(Direction.class);
-        classes.add(Integer.class);
-        classes.add(Piece.class);
-        classes.add(Point.class);
-        classes.add(String.class);
-        classes.add(Tuple.class);
+        REGISTRY.add(Direction.class);
+        REGISTRY.add(Integer.class);
+        REGISTRY.add(Piece.class);
+        REGISTRY.add(Point.class);
+        REGISTRY.add(String.class);
+        REGISTRY.add(Tuple.class);
     }
 
     protected final Class<?> clazz;
@@ -54,7 +54,7 @@ public class Info {
     }
 
     public static Info getInfo(Object value) {
-        for (Class<?> class1 : classes) {
+        for (Class<?> class1 : REGISTRY) {
             if (class1.isInstance(value)) { return new Info(class1, value); }
         }
         throw new IllegalArgumentException("Value not expected, it doesn't have a class registered");
