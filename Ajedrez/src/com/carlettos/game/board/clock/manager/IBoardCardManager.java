@@ -7,7 +7,7 @@ import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Tuple;
 
 public interface IBoardCardManager {
-    
+
     List<Tuple<Player, Card>> getBoardCards();
 
     /**

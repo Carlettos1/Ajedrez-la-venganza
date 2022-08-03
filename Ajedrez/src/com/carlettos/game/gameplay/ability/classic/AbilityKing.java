@@ -18,9 +18,7 @@ public class AbilityKing extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!(piece instanceof King)) { return ActionResult.FAIL; }
-
-        if (!info.isType(Point.class)) { return ActionResult.FAIL; }
+        if (!(piece instanceof King) || !info.isType(Point.class)) { return ActionResult.FAIL; }
 
         var king = (King) piece;
         var point = (Point) info.getValue();

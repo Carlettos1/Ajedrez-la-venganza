@@ -22,7 +22,7 @@ public interface IEventManager {
 
     /**
      * Get an unmodifiable list with all the events in it.
-     * 
+     *
      * @return an unmodifiable list with all the events.
      */
     public abstract List<Event> getEvents();
@@ -30,7 +30,7 @@ public interface IEventManager {
     /**
      * Sort the list using the turns left to fire up the event, from the closest to
      * the latest.
-     * 
+     *
      * @return an unmodifiable sorted list with all the events.
      */
     public abstract List<Event> getOrderedEvents();

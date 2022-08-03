@@ -27,9 +27,7 @@ public class Square extends Shape {
 
     @Override
     public boolean isOutOfBorders(Point point) {
-        if (point.x < 0) { return true; }
-        if (point.y < 0) { return true; }
-        if (point.x >= x) { return true; }
+        if ((point.x < 0) || (point.y < 0) || (point.x >= x)) { return true; }
         return point.y >= y;
     }
 }

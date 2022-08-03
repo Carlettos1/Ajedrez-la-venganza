@@ -29,7 +29,7 @@ public interface IBaseBoard {
 
     /**
      * Sets the piece in the escaque at the given point.
-     * 
+     *
      * @param point point in the board
      * @param piece piece to put
      */
@@ -47,7 +47,7 @@ public interface IBaseBoard {
 
     /**
      * Gets the piece in the escaque at the given point.
-     * 
+     *
      * @param point point in the board
      */
     Piece getPiece(Point point);

@@ -57,7 +57,7 @@ public interface PatternCrazyPawn extends Pattern {
     /**
      * Gives a random number between 0 and 8. In a given turn it must give the same
      * number everytime.
-     * 
+     *
      * @return a number between 0 and 8.
      */
     int getRandomNumber(int turn);

@@ -19,9 +19,7 @@ public class AbilityBishop extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!super.commonCanUse(board, piece)) { return ActionResult.FAIL; }
-
-        if (!info.isType(Direction.class)) { return ActionResult.FAIL; }
+        if (!super.commonCanUse(board, piece) || !info.isType(Direction.class)) { return ActionResult.FAIL; }
 
         boolean can;
         var dir = (Direction) info.getValue();

@@ -30,11 +30,11 @@ public class ImageHelper {
         IMAGES.put(textureName, img);
         return img;
     }
-    
+
     public static final synchronized BufferedImage getImage(IResourceKey obj) {
         return getImage(obj, "");
     }
-    
+
     public static final synchronized BufferedImage getImage(IResourceKey obj, String subFolder) {
         return getImage(subFolder.concat(obj.getBaseKey()));
     }

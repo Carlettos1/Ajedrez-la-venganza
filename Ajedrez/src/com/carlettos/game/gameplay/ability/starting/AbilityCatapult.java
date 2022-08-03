@@ -20,9 +20,7 @@ public class AbilityCatapult extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; }
-
-        if (!info.isType(Tuple.class)) { return ActionResult.FAIL; }
+        if (!this.commonCanUse(board, piece) || !info.isType(Tuple.class)) { return ActionResult.FAIL; }
         Tuple<?, ?> tuple = (Tuple<?, ?>) info.getValue();
 
         if (!(tuple.x instanceof Direction && tuple.y instanceof Integer)) { return ActionResult.FAIL; }
@@ -66,10 +64,10 @@ public class AbilityCatapult extends Ability {
         Direction[] dirs = Direction.values();
         Integer[] nums = { 1, 2, 3, 4, 6, 7, 8, 9 };
         List<Tuple<Direction, Integer>> valores = new ArrayList<>(dirs.length * nums.length);
-        for (int i = 0; i < dirs.length; i++) {
-            for (int j = 0; j < nums.length; j++) {
-                if (defaultCan(board, start, new Tuple<>(dirs[i], nums[j])).isPositive()) {
-                    valores.add(new Tuple<>(dirs[i], nums[j]));
+        for (Direction dir : dirs) {
+            for (Integer num : nums) {
+                if (defaultCan(board, start, new Tuple<>(dir, num)).isPositive()) {
+                    valores.add(new Tuple<>(dir, num));
                 }
             }
         }

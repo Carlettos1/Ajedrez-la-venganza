@@ -45,15 +45,16 @@ public class EscaqueDisplay extends JComponent {
         if (escaque.hasPiece()) {
             StringBuilder tooltipText = new StringBuilder(escaque.getPiece().toString());
             g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
-            
-            //TODO: externalizar a configuración los .1
+
+            // TODO: externalizar a configuración los .1
             int q = 0;
             for (var effect : escaque.getPiece().getEffects()) {
-                g.drawImage(ImageHelper.getImage(effect, "effect\\"), (int)(.3*getWidth()*q), 0, (int)(.3*getWidth()), (int)(.3*getHeight()), this);
+                g.drawImage(ImageHelper.getImage(effect, "effect\\"), (int) (.3 * getWidth() * q), 0,
+                        (int) (.3 * getWidth()), (int) (.3 * getHeight()), this);
                 tooltipText.append('(').append(effect.getName()).append(')');
                 q++;
             }
-            
+
             this.setToolTipText(tooltipText.toString());
         }
 

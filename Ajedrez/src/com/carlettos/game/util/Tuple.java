@@ -31,8 +31,7 @@ public class Tuple<X, Y> {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (getClass() != obj.getClass()) { return false; }
+        if ((obj == null) || (getClass() != obj.getClass())) { return false; }
         final Tuple<?, ?> other = (Tuple<?, ?>) obj;
         if (!Objects.equals(this.x, other.x)) { return false; }
         return Objects.equals(this.y, other.y);

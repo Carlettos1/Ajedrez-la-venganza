@@ -163,7 +163,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Adds the type provided to this piece.
-     * 
+     *
      * @param type type to add.
      * @return PASS.
      */
@@ -173,7 +173,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Removes the type provided from this piece.
-     * 
+     *
      * @param type type to remove.
      * @return FAIL if the piece doesn't contain the type provided, PASS if the
      *         piece has the type and has been removed.
@@ -184,7 +184,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Adds every type provided to this piece.
-     * 
+     *
      * @param types types to add.
      * @return PASS if every type has been added to this piece, FAIL otherwise.
      * @throws NullPointerException if there is any null type provided.
@@ -200,7 +200,7 @@ public abstract class Piece implements IResourceKey {
 
     /**
      * Removes every type provided from this piece.
-     * 
+     *
      * @param types types to remove.
      * @return PASS if every type provided has been removed from this piece, FAIL
      *         otherwise.
@@ -257,7 +257,7 @@ public abstract class Piece implements IResourceKey {
     public boolean hasEffect(Effect effect) {
         return effects.contains(effect);
     }
-    
+
     public List<Effect> getEffects() {
         return effects;
     }
@@ -273,8 +273,7 @@ public abstract class Piece implements IResourceKey {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (!(obj instanceof Piece)) { return false; }
+        if ((obj == null) || !(obj instanceof Piece)) { return false; }
         final Piece other = (Piece) obj;
         if (!this.name.equals(other.name)) { return false; }
         if (this.color == Color.GRAY || other.color == Color.GRAY) { return true; }

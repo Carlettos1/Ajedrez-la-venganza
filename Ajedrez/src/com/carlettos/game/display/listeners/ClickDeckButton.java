@@ -37,34 +37,34 @@ public class ClickDeckButton implements ActionListener {
         var panel = new JPanel(new BorderLayout());
         var board = BoardDisplay.getInstance();
         var clock = board.getClockDisplay().getClock();
-        
+
         var centralDeck = clock.getCentralDeck();
         var playerDecks = clock.getPlayerDecks();
         var boardCards = clock.getBoardCards();
-        
+
         var cardPanel = new JPanel(new CardLayout());
-        
+
         cardPanel.add(new DeckCentralPanel(centralDeck), "CentralDeck");
         cardPanel.add(new PlayerDeckPanel(playerDecks), "PlayerDecks");
         cardPanel.add(new BoardCardsPanel(boardCards), "BoardCards");
-        
-        //TODO: use ResourceLocation
-        JComboBox<String> cb = new JComboBox<>(new String[]{"CentralDeck", "PlayerDecks", "BoardCards"});
+
+        // TODO: use ResourceLocation
+        JComboBox<String> cb = new JComboBox<>(new String[] { "CentralDeck", "PlayerDecks", "BoardCards" });
         cb.setEditable(false);
         cb.addItemListener(itemEvent -> {
             CardLayout cl = (CardLayout) cardPanel.getLayout();
             cl.show(cardPanel, itemEvent.getItem().toString());
         });
-        
+
         panel.add(cb, BorderLayout.WEST);
         panel.add(cardPanel, BorderLayout.CENTER);
         JOptionPane.showConfirmDialog(board, panel);
     }
-    
+
     public static class BoardCardsPanel extends JPanel {
         private static final long serialVersionUID = 5747169458901321586L;
         private transient List<Tuple<Player, Card>> cards;
-        
+
         public BoardCardsPanel(List<Tuple<Player, Card>> cards) {
             this.cards = cards;
             update();
@@ -78,7 +78,7 @@ public class ClickDeckButton implements ActionListener {
             }
             revalidate();
         }
-        
+
         @Override
         public void repaint() {
             update();
@@ -128,16 +128,16 @@ public class ClickDeckButton implements ActionListener {
         private void update() {
             if (deck == null) { return; }
             removeAll();
-            
+
             var cardPanel = new JPanel(new CardLayout());
             for (var card : deck.getCards()) {
                 cardPanel.add(new CardDisplay(Color.GRAY, card, false), card.toString());
             }
-            
-            var cb = new JComboBox<Card>(deck.getCards().toArray(Card[]::new));
+
+            var cb = new JComboBox<>(deck.getCards().toArray(Card[]::new));
             cb.setEditable(false);
             cb.addItemListener(item -> ((CardLayout) cardPanel.getLayout()).show(cardPanel, item.getItem().toString()));
-            
+
             this.add(cb, BorderLayout.EAST);
             this.add(cardPanel, BorderLayout.CENTER);
             revalidate();

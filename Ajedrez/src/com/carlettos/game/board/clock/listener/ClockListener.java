@@ -18,7 +18,7 @@ public interface ClockListener extends EventListener {
 
     /**
      * It excecutes at the end of every movement.
-     * 
+     *
      * @param e clock event.
      */
     void onEndMovement(ClockEvent e);

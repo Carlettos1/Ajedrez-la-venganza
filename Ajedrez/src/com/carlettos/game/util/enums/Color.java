@@ -16,7 +16,7 @@ public enum Color {
 
     /**
      * General constructor.
-     * 
+     *
      * @param hex rgb code in the form {@code #rrggbb}.
      * @see java.awt.Color#decode.
      */

@@ -33,9 +33,7 @@ public class AbilityPawn extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; }
-
-        if (!info.isType(Piece.class)) { return ActionResult.FAIL; }
+        if (!this.commonCanUse(board, piece) || !info.isType(Piece.class)) { return ActionResult.FAIL; }
 
         if (piece.getColor().equals(Color.WHITE)) {
             if (start.y + 1 == board.shape.y) {

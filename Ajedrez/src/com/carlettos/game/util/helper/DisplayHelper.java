@@ -8,7 +8,7 @@ import com.carlettos.game.util.Point;
 
 /**
  * It provides methods of help to other classes.
- * 
+ *
  * @author Carlos
  */
 public class DisplayHelper {

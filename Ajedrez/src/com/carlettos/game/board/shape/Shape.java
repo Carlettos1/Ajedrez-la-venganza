@@ -29,8 +29,7 @@ public abstract class Shape {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (!(obj instanceof Shape)) { return false; }
+        if ((obj == null) || !(obj instanceof Shape)) { return false; }
         Shape other = (Shape) obj;
         return other.toSquareShape().getDimensions().equals(this.toSquareShape().getDimensions());
     }

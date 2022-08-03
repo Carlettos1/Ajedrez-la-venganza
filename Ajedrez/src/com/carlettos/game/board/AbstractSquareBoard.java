@@ -50,7 +50,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * Construct a new Board with the 2D array being non-null, every Escaque is
      * created with the standard construct, so it'll be buildable, non-magic with
      * the Empty piece and with the given point, starting at (0, 0).
-     * 
+     *
      * @param columns how many columns it has.
      * @param rows    how many rows it has,
      */
@@ -62,7 +62,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * Construct a new Board with the 2D array being non-null, every Escaque is
      * created with the standard construct, so it'll be buildable, non-magic with
      * the Empty piece and with the given point, starting at (0, 0).
-     * 
+     *
      * @param shape the shape of the board.
      */
     protected AbstractSquareBoard(Square shape) {
@@ -82,6 +82,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * @return the Escaque at the point, if it is in the board.
      * @throws IllegalArgumentException if any coordinate is out of the board.
      */
+    @Override
     public Escaque getEscaque(Point point) {
         if (this.shape.isOutOfBorders(point)) {
             throw new IllegalArgumentException(

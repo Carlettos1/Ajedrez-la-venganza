@@ -12,6 +12,7 @@ import com.carlettos.game.util.Point;
 public interface PatternArcherMove extends Pattern {
     @Override
     public default boolean match(IBaseBoard board, Point start, Point end) {
-        return Patterns.MAGICIAN_MOVE_PATTERN.match(board, start, end) || Patterns.KING_PATTERN.match(board, start, end);
+        return Patterns.MAGICIAN_MOVE_PATTERN.match(board, start, end)
+                || Patterns.KING_PATTERN.match(board, start, end);
     }
 }

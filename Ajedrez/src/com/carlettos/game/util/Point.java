@@ -4,7 +4,7 @@ import com.carlettos.game.gameplay.ability.Info;
 
 /**
  * Immutable version of {@code java.awt.Point}.
- * 
+ *
  * @author Carlos
  * @see java.awt.Point;
  */
@@ -72,8 +72,7 @@ public final class Point {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (getClass() != obj.getClass()) { return false; }
+        if ((obj == null) || (getClass() != obj.getClass())) { return false; }
         final Point other = (Point) obj;
         if (this.x != other.x) { return false; }
         return this.y == other.y;

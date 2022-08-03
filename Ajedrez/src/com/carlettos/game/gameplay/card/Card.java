@@ -135,8 +135,7 @@ public abstract class Card implements IResourceKey {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (getClass() != obj.getClass()) { return false; }
+        if ((obj == null) || (getClass() != obj.getClass())) { return false; }
         final Card other = (Card) obj;
         if (this.manaCost != other.manaCost) { return false; }
         return Objects.equals(this.name, other.name);

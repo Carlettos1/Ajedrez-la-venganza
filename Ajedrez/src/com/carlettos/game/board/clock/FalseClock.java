@@ -26,7 +26,7 @@ public class FalseClock extends AbstractClock {
     public FalseClock(AbstractClock other) {
         super(other.players);
     }
-    
+
     @Override
     public List<Tuple<Player, Card>> getBoardCards() {
         return board;

@@ -125,8 +125,7 @@ public class Player {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
-        if (obj == null) { return false; }
-        if (getClass() != obj.getClass()) { return false; }
+        if ((obj == null) || (getClass() != obj.getClass())) { return false; }
         final Player other = (Player) obj;
         return Objects.equals(this.id, other.id);
     }

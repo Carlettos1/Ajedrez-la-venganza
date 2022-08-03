@@ -8,14 +8,14 @@ public interface ICentralDeckManager {
 
     /**
      * Moves a card from the central deck to a player deck.
-     * 
+     *
      * @param playerDeck deck to give a card.
      */
     public abstract void takeFromCentralDeck(PlayerDeck playerDeck);
 
     /**
      * Moves a card from the central deck to a player deck.
-     * 
+     *
      * @param player player to give a card.
      */
     public abstract void takeFromCentralDeck(Player player);

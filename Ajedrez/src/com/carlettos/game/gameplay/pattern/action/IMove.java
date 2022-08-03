@@ -14,7 +14,7 @@ public interface IMove<P extends Pattern> {
 
     /**
      * Checks the pattern and the standard condition.
-     * 
+     *
      * @param board   board in which the move is happening.
      * @param start   position of the piece.
      * @param info    info containing a Point to where the move is being excecuted.

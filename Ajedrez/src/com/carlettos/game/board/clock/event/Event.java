@@ -53,9 +53,7 @@ public abstract class Event implements Comparable<Event> {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if ((obj == null) || (getClass() != obj.getClass()))
             return false;
         Event other = (Event) obj;
         return Objects.equals(info, other.info);
@@ -68,10 +66,10 @@ public abstract class Event implements Comparable<Event> {
 
     /**
      * It creates a new event using the info provided and the action.
-     * 
+     *
      * @param info   information of the event for display.
      * @param action action which will be executed.
-     * 
+     *
      * @return new Event.
      */
     public static Event create(EventInfo info, Action action) {

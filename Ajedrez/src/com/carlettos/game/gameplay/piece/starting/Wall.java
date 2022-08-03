@@ -12,7 +12,7 @@ import com.carlettos.game.util.enums.PieceType;
 
 /**
  * TODO: que se utilize
- * 
+ *
  * @author Carlettos
  */
 public class Wall extends Piece {

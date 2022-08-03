@@ -18,7 +18,7 @@ import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.DisplayHelper;
 
 /**
- * 
+ *
  * @author Carlos
  */
 public class ClockDisplay extends JPanel {

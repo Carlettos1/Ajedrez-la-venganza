@@ -6,7 +6,7 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.util.Point;
 
 /**
- * 
+ *
  * @author Carlettos
  */
 public interface PatternQueen extends Pattern {

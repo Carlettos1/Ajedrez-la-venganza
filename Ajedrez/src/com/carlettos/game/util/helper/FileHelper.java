@@ -29,9 +29,9 @@ public class FileHelper {
     public static final String TEXTURES_FOLDER = BASE_FOLDER + "\\textures\\";
     public static final String CONFIG_FILE = BASE_FOLDER + "\\config.json";
     public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "\\undefined.png";
-    
+
     static {
-        
+
     }
 
     public static final JsonObject getFromFile(String path) {

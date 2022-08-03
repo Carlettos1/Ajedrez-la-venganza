@@ -1,7 +1,7 @@
 package com.carlettos.game.util.enums;
 
 /**
- * 
+ *
  * @author Carlos
  */
 public enum ActionResult {

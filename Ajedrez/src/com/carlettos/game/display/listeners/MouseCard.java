@@ -11,7 +11,7 @@ import com.carlettos.game.util.helper.DisplayHelper;
 
 /**
  * Listener implementation class.
- * 
+ *
  * @author Carlos
  */
 public class MouseCard implements MouseListener {

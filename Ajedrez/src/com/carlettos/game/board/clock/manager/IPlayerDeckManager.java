@@ -11,7 +11,7 @@ public interface IPlayerDeckManager {
      * Gets a player of the given color.
      *
      * @param color color of the player.
-     * 
+     *
      * @return a player with that color, if exists.
      */
     public abstract Player getPlayerOfColor(Color color);
@@ -28,7 +28,7 @@ public interface IPlayerDeckManager {
 
     /**
      * Returns the deck of the player provided.
-     * 
+     *
      * @param player player.
      */
     public abstract PlayerDeck getDeckOf(Player player);

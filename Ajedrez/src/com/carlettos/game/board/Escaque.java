@@ -35,7 +35,7 @@ public class Escaque {
 
     /**
      * Constructs a escaque without magic, buildable and with an empty piece.
-     * 
+     *
      * @param pos pos of the escaque on the board.
      */
     public Escaque(Point pos) {
@@ -44,7 +44,7 @@ public class Escaque {
 
     /**
      * Returns color of the piece on top.
-     * 
+     *
      * @return color of the piece on top (GRAY if empty, which is their color).
      */
     public Color getPieceColor() {
@@ -53,7 +53,7 @@ public class Escaque {
 
     /**
      * Checks if the piece on top is of the color provided.
-     * 
+     *
      * @param color color to check.
      * @return true if the color provided is the same of the piece on top. False
      *         otherwise.
