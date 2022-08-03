@@ -12,7 +12,7 @@ public class King extends SimplePiece<PatternKing> {
     protected boolean usedTP;
 
     public King(Color color) {
-        super("king", Abilities.ABILITY_KING, color, Patterns.KING_PATTERN, PieceType.BIOLOGIC, PieceType.IMMUNE,
+        super("king", Abilities.KING_ABILITY, color, Patterns.KING_PATTERN, PieceType.BIOLOGIC, PieceType.IMMUNE,
                 PieceType.HEROIC);
         this.usedTP = false;
     }

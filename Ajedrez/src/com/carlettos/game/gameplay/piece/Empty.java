@@ -14,7 +14,7 @@ import com.carlettos.game.util.enums.Color;
  */
 public class Empty extends Piece {
     public Empty() {
-        super("empty", Abilities.ABILITY_NONE, Color.GRAY);
+        super("empty", Abilities.NO_ABILITY, Color.GRAY);
     }
 
     @Override

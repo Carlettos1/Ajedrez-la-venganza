@@ -13,6 +13,6 @@ import com.carlettos.game.util.enums.Color;
  */
 public class Pawn extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
     public Pawn(Color color) {
-        super(Patterns.PAWN_MOVE_PATTERN, Patterns.PAWN_TAKE_PATTERN, "pawn", Abilities.ABILITY_PAWN, color);
+        super(Patterns.PAWN_MOVE_PATTERN, Patterns.PAWN_TAKE_PATTERN, "pawn", Abilities.PAWN_ABILITY, color);
     }
 }

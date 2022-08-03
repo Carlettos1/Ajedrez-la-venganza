@@ -24,7 +24,7 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     protected final PatternStructureMove movePattern;
 
     public Cannon(Color color) {
-        super("cannon", Abilities.ABILITY_NONE, color, PieceType.STRUCTURE);
+        super("cannon", Abilities.NO_ABILITY, color, PieceType.STRUCTURE);
         attackPattern = Patterns.CANNON_ATTACK_PATTERN;
         movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
     }

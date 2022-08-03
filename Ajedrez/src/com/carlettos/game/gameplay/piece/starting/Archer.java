@@ -24,7 +24,7 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
     protected final PatternArcherAttack attackPattern;
 
     public Archer(Color color) {
-        super("archer", Abilities.ABILITY_NONE, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("archer", Abilities.NO_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         movePattern = Patterns.ARCHER_MOVE_PATTERN;
         attackPattern = Patterns.ARCHER_ATTACK_PATTERN;
     }
@@ -36,15 +36,5 @@ public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<P
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             default -> ActionResult.FAIL;
         };
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 }

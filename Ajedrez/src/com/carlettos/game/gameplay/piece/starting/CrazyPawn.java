@@ -12,7 +12,7 @@ import com.carlettos.game.util.enums.PieceType;
  */
 public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
     public CrazyPawn(Color color) {
-        super("crazy_pawn", Abilities.ABILITY_CRAZY_PAWN, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC,
+        super("crazy_pawn", Abilities.CRAZY_PAWN_ABILITY, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC,
                 PieceType.TRANSPORTABLE);
     }
 }

@@ -13,7 +13,7 @@ import com.carlettos.game.util.enums.Color;
  */
 public class ShieldBearer extends AbstractPawn<PatternPawnMove, PatternPawnTake> {
     public ShieldBearer(Color color) {
-        super(Patterns.PAWN_MOVE_PATTERN, Patterns.PAWN_TAKE_PATTERN, "shield_bearer", Abilities.ABILITY_SHIELD_BEARER,
+        super(Patterns.PAWN_MOVE_PATTERN, Patterns.PAWN_TAKE_PATTERN, "shield_bearer", Abilities.SHIELD_BEARER_ABILITY,
                 color);
     }
 }

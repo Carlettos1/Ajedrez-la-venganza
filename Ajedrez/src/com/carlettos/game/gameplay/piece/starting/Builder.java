@@ -24,7 +24,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
     protected final PatternLeechTake takePattern;
 
     public Builder(Color color) {
-        super("builder", Abilities.ABILITY_BUILDER, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("builder", Abilities.BUILDER_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
         this.movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
         this.takePattern = Patterns.LEECH_TAKE_PATTERN;
     }

@@ -21,7 +21,7 @@ public class Catapult extends Piece implements IMove<PatternStructureMove> {
     protected final PatternStructureMove movePattern;
 
     public Catapult(Color color) {
-        super("catapult", Abilities.ABILITY_CATAPULT, color, PieceType.STRUCTURE);
+        super("catapult", Abilities.CATAPULT_ABILITY, color, PieceType.STRUCTURE);
         movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
     }
 
