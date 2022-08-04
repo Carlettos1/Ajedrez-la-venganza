@@ -85,7 +85,7 @@ public class AbilityPaladin extends Ability {
                     if (result) {
                         list.add(Tuple.of(type, e.getPos()));
                     }
-                });;
+                });
             }
             return list.toArray(Tuple[]::new);
         }

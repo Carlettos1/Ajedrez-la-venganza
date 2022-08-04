@@ -39,7 +39,7 @@ public interface IBaseBoard {
     /**
      * Removes the piece at the given point. It replaces the current piece with a
      * new Empty piece.
-     * 
+     *
      * Doesn't add the piece to the death pile.
      *
      * @param point position of the piece.
@@ -51,7 +51,7 @@ public interface IBaseBoard {
     /**
      * Removes the piece at the given point. It replaces the current piece with a
      * new Empty piece.
-     * 
+     *
      * Adds the piece to the death pile.
      *
      * @param point position of the piece.

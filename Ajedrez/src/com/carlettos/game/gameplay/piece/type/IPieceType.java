@@ -43,7 +43,7 @@ public interface IPieceType {
     /**
      * Its executed every time that a piece with this type tries to makes an action.
      * The other (and its pos) will be null on movement or in some abilities.
-     * 
+     *
      * @param data record with the information.
      */
     ActionResult can(PieceTypeData data);
@@ -51,7 +51,7 @@ public interface IPieceType {
     /**
      * Its executed every time that a piece with this type makes an action. The
      * other (and its pos) will be null on movement or in some abilities.
-     * 
+     *
      * @param data record with the information.
      */
     void on(PieceTypeData data);
@@ -59,7 +59,7 @@ public interface IPieceType {
     /**
      * Its executed every time that some other piece tries to make an action to a
      * piece with this type. The other (and its pos) will be null in some abilities.
-     * 
+     *
      * @param data record with the information.
      */
     ActionResult canBe(PieceTypeData data);
@@ -67,7 +67,7 @@ public interface IPieceType {
     /**
      * Its executed every time that some other piece makes an action to a piece with
      * this type. The other (and its pos) will be null in some abilities.
-     * 
+     *
      * @param data record with the information.
      */
     void onBe(PieceTypeData data);

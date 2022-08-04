@@ -23,10 +23,8 @@ public class AbilityCatapult extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)) {
-            return ActionResult.FAIL;
-        }
-        if (board.getEscaque(((Tuple<Direction, Integer>) info.getValue()).x.toPoint().add(start)).hasPiece())
+        if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)
+                || board.getEscaque(((Tuple<Direction, Integer>) info.getValue()).x.toPoint().add(start)).hasPiece())
             return ActionResult.FAIL;
         return reducedCan(board, start, (Tuple<Direction, Integer>) info.getValue());
     }
