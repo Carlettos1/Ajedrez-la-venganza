@@ -26,6 +26,11 @@ public interface IPieceType {
     public static final IPieceType TRANSPORTABLE = new Transportable();
 
     /**
+     * If a piece is impenetrable, cannot be transpased by abilities.
+     */
+    public static final IPieceType IMPENETRABLE = new Impenetrable();
+
+    /**
      * An inmune piece cannot recieve abilities (even from allies).
      */
     public static final IPieceType IMMUNE = new Inmune();

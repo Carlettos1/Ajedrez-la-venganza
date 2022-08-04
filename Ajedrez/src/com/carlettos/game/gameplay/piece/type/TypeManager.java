@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece.type;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ public class TypeManager {
     protected final List<IPieceType> types;
 
     public TypeManager(IPieceType... types) {
-        this.types = Arrays.asList(types);
+        this.types = new ArrayList<>(List.of(types));
     }
 
     public boolean isType(IPieceType type) {

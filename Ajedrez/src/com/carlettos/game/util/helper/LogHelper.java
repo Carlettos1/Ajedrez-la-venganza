@@ -33,6 +33,7 @@ public class LogHelper {
 
     public static final void startLogger() {
         if (!started) {
+            LOG.setLevel(Level.FINE);
             try {
                 FileHandler fh = new FileHandler(FileHelper.LOG_FILE);
                 LOG.addHandler(fh);
@@ -47,5 +48,9 @@ public class LogHelper {
         } else {
             LOG.warning("Trying to start an already started logger");
         }
+    }
+    
+    public static void fine(String str, Object... objects) {
+        LOG.fine(str.formatted(objects));
     }
 }

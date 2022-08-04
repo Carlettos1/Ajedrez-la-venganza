@@ -4,6 +4,7 @@ import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, BUT I DON'T LIKE
@@ -75,8 +76,11 @@ public class Escaque {
         return piece;
     }
 
-    public void setPiece(Piece pieza) {
-        this.piece = pieza;
+    public void setPiece(Piece piece) {
+        if (this.hasPiece()) {
+            LogHelper.fine("Changing %s for %s", this.piece, piece);
+        }
+        this.piece = piece;
     }
 
     public void setPieceIfEmpty(Piece pieza) {
@@ -86,7 +90,7 @@ public class Escaque {
     }
 
     public void removePiece() {
-        this.piece = new Empty();
+        this.setPiece(new Empty());
     }
 
     public Point getPos() {
@@ -101,12 +105,12 @@ public class Escaque {
         return buildable;
     }
 
-    public void setIsMagic(boolean isFuenteDeMagia) {
-        this.magic = isFuenteDeMagia;
+    public void setIsMagic(boolean isMagic) {
+        this.magic = isMagic;
     }
 
-    public void setIsBuildable(boolean isConstruible) {
-        this.buildable = isConstruible;
+    public void setIsBuildable(boolean isBuildable) {
+        this.buildable = isBuildable;
     }
 
     @Override

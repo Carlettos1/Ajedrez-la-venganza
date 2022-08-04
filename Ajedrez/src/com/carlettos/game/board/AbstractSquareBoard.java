@@ -1,5 +1,7 @@
 package com.carlettos.game.board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -30,8 +32,10 @@ import com.carlettos.game.gameplay.piece.starting.SuperPawn;
 import com.carlettos.game.gameplay.piece.starting.TeslaTower;
 import com.carlettos.game.gameplay.piece.starting.Wall;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
+import com.carlettos.game.gameplay.piece.type.PieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.enums.Direction;
 
 /**
  * Generic board. It doesn't have a clock and doesn't manage turns. It's just a
@@ -119,12 +123,12 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
 
     @Override
     public void setPiece(Point point, Piece piece) {
-        this.setPiece(point, piece);
+        this.getEscaque(point).setPiece(piece);
     }
 
     @Override
     public Piece getPiece(Point point) {
-        return this.getPiece(point);
+        return this.getEscaque(point).getPiece();
     }
 
     @Override
@@ -227,6 +231,77 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
                 other.setPiece(escaque.getPos(), p2);
             }
         }
+    }
+    
+    /**
+     * Traces a line betweem from and the end of the board in the given direction,
+     * returning every escaque that is in the way.
+     * 
+     * @param from from which point is the ray casted
+     * @param inclusive whenever the returned list contains or not he starting point
+     * @param dir direction of the ray cast
+     */
+    public List<Escaque> rayCast(Point from, boolean inclusive, Direction dir) {
+        if (this.shape.isOutOfBorders(from)) {
+            return List.of();
+        }
+        List<Escaque> list = new ArrayList<>();
+        Point current = from;
+        if (inclusive) {
+            list.add(getEscaque(current));
+        }
+        while (!this.shape.isOutOfBorders(current = current.add(dir.toPoint()))) {
+            list.add(getEscaque(current));
+        }
+        return list;
+    }
+    
+    /**
+     * Traces a line between from and the end of the board in the given direction,
+     * capped at the given cap, doesn't includes the starting point and can be bloqued by PieceType.IMPENETRABLE.
+     * If its bloqued, the last piece will be of the PieceType.IMPENETRABLE type
+     * 
+     * @param from starting pos of the go
+     * @param dir direction of the go
+     * @paran cap number of max escaques
+     * @paran canBeBlocked whenever this go can be blocked or not.
+     * 
+     * @return the escaques encountered
+     */
+    public List<Escaque> rayCast(Point from, Direction dir, int cap, boolean canBeBlocked) {
+        List<Escaque> ray = rayCast(from, false, dir);
+        if (canBeBlocked && ray.stream().anyMatch(this::isImpenetrableAt)) {
+            List<Escaque> tmp = new ArrayList<>(ray.size());
+            for (Escaque escaque : ray) {
+                tmp.add(escaque);
+                if (this.isImpenetrableAt(escaque)) {
+                    break;
+                }
+            }
+            ray = tmp;
+        }
+        
+        if (cap == -1 || cap >= ray.size()) {
+            return ray;
+        } else {
+            return ray.subList(0, cap + 1);
+        }
+    }
+    
+    public List<Escaque> rayCast(Point from, Direction dir, int cap) {
+        return this.rayCast(from, dir, cap, true);
+    }
+    
+    public List<Escaque> rayCast(Point from, Direction dir) {
+        return this.rayCast(from, dir, -1, true);
+    }
+    
+    public boolean isImpenetrable(Point position) {
+        return getPiece(position).getTypeManager().isType(PieceType.IMPENETRABLE);
+    }
+    
+    protected boolean isImpenetrableAt(Escaque escaque) {
+        return isImpenetrable(escaque.getPos());
     }
 
     @Override

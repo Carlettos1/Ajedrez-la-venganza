@@ -19,10 +19,10 @@ public abstract class Shape {
     public abstract Square toSquareShape();
 
     /**
-     * It checks that the given point is in the board.
+     * It checks that the given point is out or in the border.
      *
      * @param point point to check.
-     * @return true if is inside the board, false other case.
+     * @return true if is inside the shape, false other case.
      */
     public abstract boolean isOutOfBorders(Point point);
 

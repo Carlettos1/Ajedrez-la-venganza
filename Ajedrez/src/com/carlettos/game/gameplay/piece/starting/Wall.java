@@ -17,7 +17,7 @@ import com.carlettos.game.util.enums.Color;
  */
 public class Wall extends Piece {
     public Wall(Color color) {
-        super("wall", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE);
+        super("wall", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE, IPieceType.IMPENETRABLE);
     }
 
     @Override

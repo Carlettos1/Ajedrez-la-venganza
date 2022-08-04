@@ -25,7 +25,7 @@ public class AbilityKing extends Ability {
         var king = (King) piece;
         var point = (Point) info.getValue();
 
-        if (king.hasUsedTP()) { return ActionResult.FAIL; }
+        if (king.hasUsedTP() || board.getEscaque(point).hasPiece()) { return ActionResult.FAIL; }
 
         return ActionResult.fromBoolean(point.getDistanceTo(start) <= TP_RANGE);
     }
@@ -43,13 +43,11 @@ public class AbilityKing extends Ability {
     @Override
     public Point[] getValues(AbstractSquareBoard board, Point start) {
         List<Point> values = new ArrayList<>();
-        for (int x = 0; x < board.shape.x; x++) {
-            for (int y = 0; y < board.shape.y; y++) {
-                if (new Point(x, y).getDistanceTo(start) <= TP_RANGE && !board.getEscaque(new Point(x, y)).hasPiece()) {
-                    values.add(new Point(x, y));
-                }
+        board.foreach(e -> {
+            if (e.getPos().getDistanceTo(start) <= TP_RANGE && !e.hasPiece()) {
+                values.add(e.getPos());
             }
-        }
+        });
         return values.toArray(Point[]::new);
     }
 }
