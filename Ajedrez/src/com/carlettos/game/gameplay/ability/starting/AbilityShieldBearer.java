@@ -2,7 +2,6 @@ package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
-import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
@@ -15,12 +14,12 @@ public class AbilityShieldBearer extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
         return ActionResult.fromBoolean(this.commonCanUse(board, piece));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {
         LogHelper.LOG.info(() -> "USAR HABILIDAD DEFENSOR");
     }
 }

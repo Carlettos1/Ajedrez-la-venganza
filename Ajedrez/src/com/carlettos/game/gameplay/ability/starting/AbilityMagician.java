@@ -2,7 +2,6 @@ package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
-import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.card.onBoard.CardsOnBoard;
 import com.carlettos.game.gameplay.effect.FireEffect;
 import com.carlettos.game.gameplay.effect.IceEffect;
@@ -21,13 +20,13 @@ public class AbilityMagician extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
         return ActionResult.fromBoolean(CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
     }
 
     // TODO: ampliar el sistema y poder quitar efectos
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {
         var hasIce = CardHelper.boardHasCard(board, CardsOnBoard.ICE);
         var hasFire = CardHelper.boardHasCard(board, CardsOnBoard.FIRE);
         var pieces = board.getMatchingEscaques(ACTION_PATTER, start);

@@ -2,7 +2,6 @@ package com.carlettos.game.gameplay.ability.classic;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
-import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.Pawn;
 import com.carlettos.game.util.Point;
@@ -14,7 +13,7 @@ public class AbilityKnight extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
         if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; }
 
         Point p1 = new Point(start.x + 1, start.y);
@@ -25,7 +24,7 @@ public class AbilityKnight extends AbilityNoInfo {
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {
         Point p1 = new Point(start.x + 1, start.y);
         Point p2 = new Point(start.x - 1, start.y);
         board.setPiece(p1, new Pawn(piece.getColor()));

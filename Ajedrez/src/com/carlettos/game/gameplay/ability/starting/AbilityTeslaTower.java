@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
-import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.DeactivateEffect;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -22,12 +21,12 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
         return ActionResult.fromBoolean(this.commonCanUse(board, piece));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {
         board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
                 () -> board.getMatchingEscaques(ABILITY_PATTERN, start).stream()
                         .filter(escaque -> escaque.getPiece().getTypeManager().isType(IPieceType.STRUCTURE))

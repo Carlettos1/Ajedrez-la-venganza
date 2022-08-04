@@ -17,12 +17,11 @@ public class AbilityNone extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
         return ActionResult.FAIL;
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        // it doesn't do anything
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {
     }
 }
