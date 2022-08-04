@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.info.InfoDisplay;
-import com.carlettos.game.gameplay.ability.Info;
 
 /**
  *
@@ -35,7 +34,7 @@ public class ClickAbilityButton implements ActionListener {
 
         // todo: quitar canUse de la carta, y usar can de piece.
         var valor = values[i];
-        var info = Info.getInfo(valor);
+        var info = valor.toInfo();
         var ar = escaque.getPiece().getAbility().canUse(board.getBoard(), escaque.getPiece(), escaque.getPos(), info);
 
         if (ar.isPositive()) {

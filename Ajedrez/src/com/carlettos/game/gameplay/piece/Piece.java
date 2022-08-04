@@ -116,9 +116,9 @@ public abstract class Piece implements IResourceKey, IInfo {
                 actions.add(new Tuple<>(Action.ATTACK, e.getPos().toInfo()));
             }
         });
-        for (Object value : getAbility().getValues(board, start)) {
-            if (this.getAbility().canUse(board, this, start, Info.getInfo(value)).isPositive()) {
-                actions.add(new Tuple<>(Action.ABILITY, Info.getInfo(value)));
+        for (IInfo value : getAbility().getValues(board, start)) {
+            if (this.getAbility().canUse(board, this, start, value.toInfo()).isPositive()) {
+                actions.add(new Tuple<>(Action.ABILITY, value.toInfo()));
             }
         }
         return actions;

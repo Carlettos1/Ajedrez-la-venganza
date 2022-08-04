@@ -17,7 +17,7 @@ import com.carlettos.game.util.helper.LogHelper;
  * @author Carlettos
  */
 public final class Info {
-    private static final Set<Class<?>> REGISTRY = new HashSet<>();
+    private static final Set<Class<? extends IInfo>> REGISTRY = new HashSet<>();
     static {
         register(Direction.class);
         register(SubDirection.class);
@@ -26,10 +26,10 @@ public final class Info {
         register(Tuple.class);
     }
 
-    private final Class<?> clazz;
+    private final Class<? extends IInfo> clazz;
     private final Object value;
 
-    private Info(Class<?> clazz, Object value) {
+    private Info(Class<? extends IInfo> clazz, Object value) {
         Objects.requireNonNull(clazz);
         Objects.requireNonNull(value);
         if (!clazz.isInstance(value)) {
@@ -40,7 +40,7 @@ public final class Info {
         this.value = value;
     }
 
-    public boolean isType(Class<?> check) {
+    public boolean isType(Class<? extends IInfo> check) {
         if (checkTypeExistence(check, Level.SEVERE,
                 () -> "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY %s".formatted(check))) {
             return false;
@@ -111,21 +111,17 @@ public final class Info {
         return false;
     }
 
-    public static void register(Class<?> clazz) {
+    public static void register(Class<? extends IInfo> clazz) {
         Objects.requireNonNull(clazz);
         if (REGISTRY.contains(clazz)) {
             LogHelper.LOG.warning(() -> "TRYING TO REGISTER AN ALREADY REGISTERED INFO %s".formatted(clazz));
             return;
         }
-        if (clazz.isAssignableFrom(IInfo.class)) {
-            REGISTRY.add(clazz);
-        } else {
-            LogHelper.LOG.warning(() -> "THE CLASS %s DOES NOT IMPLEMENTS IINFO".formatted(clazz));
-        }
+        REGISTRY.add(clazz);
     }
 
     public static Info getInfo(Object value) {
-        for (Class<?> class1 : REGISTRY) {
+        for (var class1 : REGISTRY) {
             if (class1.isInstance(value)) { return new Info(class1, value); }
         }
         throw new IllegalArgumentException(

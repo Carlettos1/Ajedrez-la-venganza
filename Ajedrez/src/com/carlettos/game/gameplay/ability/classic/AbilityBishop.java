@@ -33,7 +33,7 @@ public class AbilityBishop extends Ability {
     }
 
     @Override
-    public Object[] getValues(AbstractSquareBoard board, Point start) {
+    public Direction[] getValues(AbstractSquareBoard board, Point start) {
         List<Direction> values = new ArrayList<>(4);
         for (Direction direction : Direction.values()) {
             if (this.reducedCanUse(board, start, direction)) {

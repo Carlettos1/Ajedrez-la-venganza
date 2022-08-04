@@ -6,6 +6,7 @@ import com.carlettos.game.board.IBaseBoard;
 import com.carlettos.game.board.IClockUse;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.enums.Direction.SubDirection;
 
 /**
  *
@@ -20,13 +21,13 @@ public interface PatternCrazyPawn extends Pattern {
     public static final PatternCrazyPawn STANDARD_PATTERN = new PatternCrazyPawn() {
         private static final Random rng = new Random();
         private int turn = -1;
-        private int randomNumber;
+        private SubDirection randomNumber;
 
         @Override
-        public int getRandomNumber(int turn) {
+        public SubDirection getRandomSubDirection(int turn) {
             if (this.turn != turn) {
                 this.turn = turn;
-                this.randomNumber = rng.nextInt(8);
+                this.randomNumber = SubDirection.values()[rng.nextInt(8)];
             }
             return randomNumber;
         }
@@ -37,19 +38,8 @@ public interface PatternCrazyPawn extends Pattern {
         if (!(board instanceof IClockUse)) { // TODO: option to just stablish the direction and bypass this throw
             throw new IllegalArgumentException("Needs to be a clocked board to use this pattern");
         }
-
-        int turn = ((IClockUse) board).getClock().getTurn();
-        return switch (this.getRandomNumber(turn)) {
-            case 0 -> end.equals(start.add(0, 1)) || end.equals(start.add(0, 2));
-            case 1 -> end.equals(start.add(1, 1)) || end.equals(start.add(2, 2));
-            case 2 -> end.equals(start.add(1, 0)) || end.equals(start.add(2, 0));
-            case 3 -> end.equals(start.add(1, -1)) || end.equals(start.add(2, -2));
-            case 4 -> end.equals(start.add(0, -1)) || end.equals(start.add(0, -2));
-            case 5 -> end.equals(start.add(-1, -1)) || end.equals(start.add(-2, -2));
-            case 6 -> end.equals(start.add(-1, 0)) || end.equals(start.add(-2, 0));
-            case 7 -> end.equals(start.add(-1, 1)) || end.equals(start.add(-2, 2));
-            default -> throw new IllegalArgumentException("Numero random no esperado");
-        };
+        var subDir = this.getRandomSubDirection(((IClockUse) board).getClock().getTurn()).toPoint();
+        return end.equals(subDir) || end.equals(subDir.scale(2));
     }
 
     /**
@@ -58,5 +48,5 @@ public interface PatternCrazyPawn extends Pattern {
      *
      * @return a number between 0 and 8.
      */
-    int getRandomNumber(int turn);
+    SubDirection getRandomSubDirection(int turn);
 }

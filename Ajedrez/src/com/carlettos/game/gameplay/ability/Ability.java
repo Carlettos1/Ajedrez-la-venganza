@@ -84,7 +84,7 @@ public abstract class Ability implements IResourceKey {
         return data.key();
     }
 
-    public abstract Object[] getValues(AbstractSquareBoard board, Point start);
+    public abstract IInfo[] getValues(AbstractSquareBoard board, Point start);
 
     public String formatInfo(Object info) {
         if (info instanceof Point p) {
