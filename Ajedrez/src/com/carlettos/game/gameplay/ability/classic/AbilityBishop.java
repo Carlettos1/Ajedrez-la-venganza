@@ -42,7 +42,7 @@ public class AbilityBishop extends Ability {
         }
         return values.toArray(Direction[]::new);
     }
-    
+
     protected boolean reducedCanUse(AbstractSquareBoard board, Point start, Direction dir) {
         var to = start.add(dir.toPoint());
         return !board.shape.isOutOfBorders(to) && !board.getEscaque(to).hasPiece();

@@ -33,36 +33,36 @@ public final class Info {
         Objects.requireNonNull(clazz);
         Objects.requireNonNull(value);
         if (!clazz.isInstance(value)) {
-            throw new IllegalArgumentException("Value %s must be an instance of the provided class %s".formatted(value, clazz));
+            throw new IllegalArgumentException(
+                    "Value %s must be an instance of the provided class %s".formatted(value, clazz));
         }
         this.clazz = clazz;
         this.value = value;
     }
-    
+
     public boolean isType(Class<?> check) {
-        if (checkTypeExistence(check, Level.SEVERE, () -> "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY %s".formatted(check))) {
+        if (checkTypeExistence(check, Level.SEVERE,
+                () -> "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY %s".formatted(check))) {
             return false;
         }
         return this.clazz.isAssignableFrom(check);
     }
-    
+
     public boolean isTupleType(Class<?> generic1, Class<?> generic2) {
-        if (!this.isType(Tuple.class)) {
-            return false;
-        }
+        if (!this.isType(Tuple.class)) { return false; }
         Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
-        
+
         String msg = "%s doesn't exist in the registry. But it's inside a tuple, so it should be fine. However, be aware";
         checkTypeExistence(generic1, Level.INFO, () -> msg.formatted(generic1));
         checkTypeExistence(generic2, Level.INFO, () -> msg.formatted(generic2));
         return generic1.isInstance(tuple.x) && generic2.isInstance(tuple.y);
     }
-    
+
     public boolean isPointOrSubPoint() {
         if (this.isType(Point.class)) {
             return true;
         } else if (this.isType(Tuple.class)) {
-            //TODO: FIXME: XXX: usar recursión at infinito?
+            // TODO: FIXME: XXX: usar recursión at infinito?
             Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
             if (tuple.x instanceof Point || tuple.y instanceof Point) {
                 return true;
@@ -73,7 +73,7 @@ public final class Info {
             return false;
         }
     }
-    
+
     public Point getPointOrSubPoint() {
         if (this.isType(Point.class)) {
             return (Point) this.getValue();
@@ -99,7 +99,7 @@ public final class Info {
     public String toString() {
         return "Info:" + this.value.toString();
     }
-    
+
     /**
      * Returns true if the class is not contained in the registry.
      */
@@ -110,7 +110,7 @@ public final class Info {
         }
         return false;
     }
-    
+
     public static void register(Class<?> clazz) {
         Objects.requireNonNull(clazz);
         if (REGISTRY.contains(clazz)) {
@@ -124,6 +124,7 @@ public final class Info {
         for (Class<?> class1 : REGISTRY) {
             if (class1.isInstance(value)) { return new Info(class1, value); }
         }
-        throw new IllegalArgumentException("Value not expected, it doesn't have a class registered. %s".formatted(value));
+        throw new IllegalArgumentException(
+                "Value not expected, it doesn't have a class registered. %s".formatted(value));
     }
 }

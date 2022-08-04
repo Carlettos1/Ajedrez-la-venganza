@@ -5,7 +5,8 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import java.lang.annotation.Target;
 
 /**
- * The parameter annotated with this annotation can and will be null at some point.
+ * The parameter annotated with this annotation can and will be null at some
+ * point.
  */
 @Target(PARAMETER)
 public @interface Nullable {}

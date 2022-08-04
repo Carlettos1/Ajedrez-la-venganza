@@ -42,7 +42,8 @@ public interface ITake<P extends Pattern> {
      *         at the start pos, and if the start piece hasn't moved.
      */
     public default boolean checkComerCondition(AbstractSquareBoard board, Point start, Point end) {
-        if (!board.getEscaque(end).hasPiece() || board.getEscaque(end).getPiece().getColor().equals(board.getEscaque(start).getPiece().getColor())) {
+        if (!board.getEscaque(end).hasPiece()
+                || board.getEscaque(end).getPiece().getColor().equals(board.getEscaque(start).getPiece().getColor())) {
             return false;
         }
         return !board.getEscaque(start).getPiece().isMoved();

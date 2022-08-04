@@ -6,9 +6,7 @@ import com.carlettos.game.util.enums.ActionResult;
 public class Inmune extends PieceType {
     @Override
     public ActionResult canBe(PieceTypeData data) {
-        if (data.action().equals(Action.ABILITY)) {
-            return ActionResult.FAIL;
-        }
+        if (data.action().equals(Action.ABILITY)) { return ActionResult.FAIL; }
         return ActionResult.PASS;
     }
 }

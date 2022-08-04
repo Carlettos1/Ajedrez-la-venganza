@@ -82,7 +82,7 @@ public abstract class Piece implements IResourceKey {
      *
      * @param action action which has been performed.
      * @param board  board in which the action happen.
-     * @param pos  starting point of the piece before the action happen.
+     * @param pos    starting point of the piece before the action happen.
      * @param info   info of the excecuted action.
      * @see Piece#can(Action, AbstractBoard, Point, Info).
      */
@@ -154,11 +154,11 @@ public abstract class Piece implements IResourceKey {
     public void tick(AbstractSquareBoard board, Point pos) {
         this.effectManager.tick(board, pos);
     }
-    
+
     public EffectManager getEffectManager() {
         return effectManager;
     }
-    
+
     public TypeManager getTypeManager() {
         return typeManager;
     }

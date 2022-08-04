@@ -25,7 +25,7 @@ public class AbilityRook extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; } //FIXME: board instanceof
+        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; } // FIXME: board instanceof
         return ActionResult.fromBoolean(board instanceof SquareBoard && info.isType(Direction.class));
     }
 

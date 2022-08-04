@@ -16,7 +16,7 @@ public enum Action {
     public Color getColor() {
         return color;
     }
-    
+
     public boolean needsInfoPoint() {
         return this != ABILITY;
     }

@@ -60,7 +60,7 @@ public interface IBaseBoard {
         this.getDeathPile().add(this.getPiece(point));
         this.getEscaque(point).removePiece();
     }
-    
+
     IDeathPile getDeathPile();
 
     /**

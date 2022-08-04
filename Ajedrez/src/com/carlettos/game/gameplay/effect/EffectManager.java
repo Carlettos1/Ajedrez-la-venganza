@@ -12,7 +12,7 @@ import com.carlettos.game.util.enums.ActionResult;
 public class EffectManager {
     protected final List<Effect> effects;
     protected final Piece piece;
-    
+
     public EffectManager(Piece piece) {
         this.effects = new ArrayList<>();
         this.piece = piece;
@@ -42,7 +42,7 @@ public class EffectManager {
     public List<Effect> getEffects() {
         return effects;
     }
-    
+
     public ActionResult canBe(Action action, AbstractSquareBoard board, Point start) {
         ActionResult combined = ActionResult.PASS;
         for (Effect effect : effects) {
@@ -50,7 +50,7 @@ public class EffectManager {
         }
         return combined;
     }
-    
+
     public void onBe(Action action, AbstractSquareBoard board, Point start) {
         for (Effect effect : effects) {
             effect.onBe(action, board, start, piece);

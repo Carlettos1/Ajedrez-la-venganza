@@ -8,7 +8,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class TypeManager {
     protected final List<IPieceType> types;
-    
+
     public TypeManager(IPieceType... types) {
         this.types = Arrays.asList(types);
     }
@@ -74,7 +74,7 @@ public class TypeManager {
         }
         return ActionResult.fromBoolean(success);
     }
-    
+
     public ActionResult can(PieceTypeData data) {
         ActionResult combined = ActionResult.PASS;
         for (IPieceType type : types) {
@@ -82,13 +82,13 @@ public class TypeManager {
         }
         return combined;
     }
-    
+
     public void on(PieceTypeData data) {
         for (IPieceType type : types) {
             type.on(data);
         }
     }
-    
+
     public ActionResult canBe(PieceTypeData data) {
         ActionResult combined = ActionResult.PASS;
         for (IPieceType type : types) {
@@ -96,7 +96,7 @@ public class TypeManager {
         }
         return combined;
     }
-    
+
     public void onBe(PieceTypeData data) {
         for (IPieceType type : types) {
             type.onBe(data);

@@ -18,14 +18,17 @@ public class AbilityQueen extends Ability {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Point.class) || !Patterns.KNIGHT_PATTERN.match(board, start, (Point) info.getValue())) { return ActionResult.FAIL; }
+        if (!this.commonCanUse(board, piece) || !info.isType(Point.class)
+                || !Patterns.KNIGHT_PATTERN.match(board, start, (Point) info.getValue())) {
+            return ActionResult.FAIL;
+        }
         return ActionResult.PASS;
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         board.getEscaque((Point) info.getValue()).setPiece(piece);
-        //TODO: check if it kill some piece
+        // TODO: check if it kill some piece
         board.removePieceNoDeath(start);
         this.commonUse(board, piece);
     }

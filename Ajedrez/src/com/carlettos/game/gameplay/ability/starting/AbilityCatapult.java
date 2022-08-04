@@ -16,15 +16,18 @@ import com.carlettos.game.util.helper.MathHelper;
 @SuppressWarnings("unchecked")
 public class AbilityCatapult extends Ability {
     public static final int RANGE = 6;
-    
+
     public AbilityCatapult() {
         super("catapult", 5, 0);
     }
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)) { return ActionResult.FAIL; }
-        if (board.getEscaque(((Tuple<Direction, Integer>) info.getValue()).x.toPoint().add(start)).hasPiece()) return ActionResult.FAIL;
+        if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)) {
+            return ActionResult.FAIL;
+        }
+        if (board.getEscaque(((Tuple<Direction, Integer>) info.getValue()).x.toPoint().add(start)).hasPiece())
+            return ActionResult.FAIL;
         return reducedCan(board, start, (Tuple<Direction, Integer>) info.getValue());
     }
 
@@ -45,10 +48,11 @@ public class AbilityCatapult extends Ability {
             case 9 -> new Point(start.x + 1, start.y + 1);
             default -> throw new IllegalArgumentException("Lanzamiento de catapulta inválido");
         };
-        
-        Point newPos = MathHelper.clamp(new Point(), board.shape.getDimensions().add(-1, -1), start.add(dir.toPoint().scale(RANGE)));
+
+        Point newPos = MathHelper.clamp(new Point(), board.shape.getDimensions().add(-1, -1),
+                start.add(dir.toPoint().scale(RANGE)));
         board.setPiece(newPos, board.getEscaque(posPiece).getPiece());
-        //TODO: check if it kill some piece
+        // TODO: check if it kill some piece
         board.removePieceNoDeath(posPiece);
         this.commonUse(board, piece);
     }

@@ -10,7 +10,7 @@ public class CardHelper {
     public static final boolean boardHasCard(IClockUse board, Card card) {
         return clockHasCard(board.getClock(), card);
     }
-    
+
     public static final boolean clockHasCard(AbstractClock clock, Card card) {
         return clock.containsCardOnBoard(card);
     }
@@ -18,10 +18,11 @@ public class CardHelper {
     public static final boolean boardHasCards(IClockUse board, Card... cards) {
         return clockHasCards(board.getClock(), cards);
     }
-    
+
     public static final boolean clockHasCards(AbstractClock clock, Card... cards) {
         for (Card card : cards) {
-            if (!clockHasCard(clock, card)) return false;
+            if (!clockHasCard(clock, card))
+                return false;
         }
         return true;
     }

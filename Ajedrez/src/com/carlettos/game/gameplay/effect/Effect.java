@@ -28,11 +28,11 @@ public abstract class Effect implements IResourceKey {
     public abstract void onExpire(AbstractSquareBoard board, Point pos, Piece piece);
 
     public abstract void onTick(AbstractSquareBoard board, Point pos, Piece piece);
-    
+
     public boolean canBe(Action action, AbstractSquareBoard board, Point pos, Piece piece) {
         return true;
     }
-    
+
     public void onBe(Action action, AbstractSquareBoard board, Point pos, Piece piece) {}
 
     public boolean isExpired() {

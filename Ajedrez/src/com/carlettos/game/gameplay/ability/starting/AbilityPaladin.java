@@ -21,28 +21,33 @@ public class AbilityPaladin extends Ability {
     public static final Pattern DEMONIC_ATTACK_PATTERN = Patterns.CANNON_ATTACK_PATTERN;
     public static final Pattern INVULNERABLE_PATTERN = Patterns.ARCHER_MOVE_PATTERN;
     public static final Pattern REVIVE_PATTERN = Patterns.KING_PATTERN;
-    public static final Pattern[] PATTERNS = {DEMONIC_ATTACK_PATTERN, INVULNERABLE_PATTERN, REVIVE_PATTERN};
-    
+    public static final Pattern[] PATTERNS = { DEMONIC_ATTACK_PATTERN, INVULNERABLE_PATTERN, REVIVE_PATTERN };
+
     static {
         Info.register(PaladinHabilityType.class);
     }
-    
+
     public AbilityPaladin() {
         super("paladin", 8, 2);
     }
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!info.isTupleType(PaladinHabilityType.class, Point.class) || !this.commonCanUse(board, piece)) { return ActionResult.FAIL; }
+        if (!info.isTupleType(PaladinHabilityType.class, Point.class) || !this.commonCanUse(board, piece)) {
+            return ActionResult.FAIL;
+        }
         Tuple<PaladinHabilityType, Point> tuple = (Tuple<PaladinHabilityType, Point>) info.getValue();
         boolean result = false;
-        
-        if (board.getMatchingEscaques(PATTERNS[tuple.x.ordinal()], start).stream().map(e -> e.getPos()).anyMatch(tuple.y::equals)) {
+
+        if (board.getMatchingEscaques(PATTERNS[tuple.x.ordinal()], start).stream().map(e -> e.getPos())
+                .anyMatch(tuple.y::equals)) {
             boolean hasPiece = board.getEscaque(tuple.y).hasPiece();
             boolean isEqualColor = board.getEscaque(tuple.y).isControlledBy(piece.getColor());
             result = switch (tuple.x) {
-                case ATTACK -> CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
-                case INVULNERABILITY -> CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
+                case ATTACK ->
+                    CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
+                case INVULNERABILITY ->
+                    CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
                 case REVIVE -> CardHelper.boardHasCard(board, CardsOnBoard.REVIVE) && !hasPiece;
             };
         }
@@ -52,7 +57,7 @@ public class AbilityPaladin extends Ability {
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         Tuple<PaladinHabilityType, Point> tuple = (Tuple<PaladinHabilityType, Point>) info.getValue();
-        
+
         switch (tuple.x) {
             case ATTACK -> board.killPiece(tuple.y);
             case INVULNERABILITY -> board.getPiece(tuple.y).getEffectManager().addEffect(new Invulnerability(5));
@@ -65,14 +70,16 @@ public class AbilityPaladin extends Ability {
         if (board.getPiece(start) != null) {
             List<Tuple<PaladinHabilityType, Point>> list = new ArrayList<>(30);
             Piece piece = board.getPiece(start);
-            
+
             for (PaladinHabilityType type : PaladinHabilityType.values()) {
                 board.getMatchingEscaques(PATTERNS[type.ordinal()], start).forEach(e -> {
                     boolean hasPiece = e.hasPiece();
                     boolean isEqualColor = e.isControlledBy(piece.getColor());
                     boolean result = switch (type) {
-                        case ATTACK -> CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
-                        case INVULNERABILITY -> CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
+                        case ATTACK ->
+                            CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
+                        case INVULNERABILITY ->
+                            CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
                         case REVIVE -> CardHelper.boardHasCard(board, CardsOnBoard.REVIVE) && !hasPiece;
                     };
                     if (result) {
@@ -84,7 +91,7 @@ public class AbilityPaladin extends Ability {
         }
         return new Tuple[] {};
     }
-    
+
     public static enum PaladinHabilityType {
         ATTACK, INVULNERABILITY, REVIVE;
     }

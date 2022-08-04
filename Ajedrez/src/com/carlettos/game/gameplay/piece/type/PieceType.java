@@ -4,8 +4,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public abstract class PieceType implements IPieceType {
 
-    protected PieceType() {
-    }
+    protected PieceType() {}
 
     @Override
     public ActionResult can(PieceTypeData data) {
@@ -13,8 +12,7 @@ public abstract class PieceType implements IPieceType {
     }
 
     @Override
-    public void on(PieceTypeData data) {
-    }
+    public void on(PieceTypeData data) {}
 
     @Override
     public ActionResult canBe(PieceTypeData data) {
@@ -22,6 +20,5 @@ public abstract class PieceType implements IPieceType {
     }
 
     @Override
-    public void onBe(PieceTypeData data) {
-    }
+    public void onBe(PieceTypeData data) {}
 }

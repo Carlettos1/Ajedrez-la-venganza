@@ -47,7 +47,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * Shape of the Board.
      */
     public final Square shape;
-    
+
     /**
      * Death pile of the Board.
      */
@@ -82,7 +82,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
             }
         }
     }
-    
+
     /**
      * It gets the basic death pile of this board.
      */

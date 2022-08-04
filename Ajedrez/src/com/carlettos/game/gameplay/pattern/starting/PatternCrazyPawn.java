@@ -34,10 +34,10 @@ public interface PatternCrazyPawn extends Pattern {
 
     @Override
     public default boolean match(IBaseBoard board, Point start, Point end) {
-        if (!(board instanceof IClockUse)) { //TODO: option to just stablish the direction and bypass this throw
+        if (!(board instanceof IClockUse)) { // TODO: option to just stablish the direction and bypass this throw
             throw new IllegalArgumentException("Needs to be a clocked board to use this pattern");
         }
-        
+
         int turn = ((IClockUse) board).getClock().getTurn();
         return switch (this.getRandomNumber(turn)) {
             case 0 -> end.equals(start.add(0, 1)) || end.equals(start.add(0, 2));

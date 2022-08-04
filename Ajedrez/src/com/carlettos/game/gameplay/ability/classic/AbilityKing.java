@@ -13,6 +13,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityKing extends Ability {
     public static final double TP_RANGE = 5.0D;
+
     public AbilityKing() {
         super("king", 0, 2);
     }

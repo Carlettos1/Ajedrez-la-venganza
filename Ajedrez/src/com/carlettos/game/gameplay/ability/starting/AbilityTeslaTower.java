@@ -28,12 +28,11 @@ public class AbilityTeslaTower extends AbilityNoInfo {
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        board.getClock()
-                .addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
-                        () -> board.getMatchingEscaques(ABILITY_PATTERN, start).stream()
-                                .filter(escaque -> escaque.getPiece().getTypeManager().isType(IPieceType.STRUCTURE))
-                                .filter(escaque -> !escaque.getPieceColor().equals(piece.getColor()))
-                                .forEach(escaque -> escaque.getPiece().getEffectManager().addEffect(new DeactivateEffect(EFFECT_DURATION)))));
+        board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
+                () -> board.getMatchingEscaques(ABILITY_PATTERN, start).stream()
+                        .filter(escaque -> escaque.getPiece().getTypeManager().isType(IPieceType.STRUCTURE))
+                        .filter(escaque -> !escaque.getPieceColor().equals(piece.getColor())).forEach(escaque -> escaque
+                                .getPiece().getEffectManager().addEffect(new DeactivateEffect(EFFECT_DURATION)))));
         this.commonUse(board, piece);
     }
 }

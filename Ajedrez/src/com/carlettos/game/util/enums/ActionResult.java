@@ -16,19 +16,19 @@ public enum ActionResult {
     public boolean isPositive() {
         return positive;
     }
-    
+
     public ActionResult or(ActionResult other) {
         return fromBoolean(this.positive || other.positive);
     }
-    
+
     public ActionResult and(ActionResult other) {
         return fromBoolean(this.positive && other.positive);
     }
-    
+
     public ActionResult or(boolean bool) {
         return fromBoolean(this.positive || bool);
     }
-    
+
     public ActionResult and(boolean bool) {
         return fromBoolean(this.positive && bool);
     }

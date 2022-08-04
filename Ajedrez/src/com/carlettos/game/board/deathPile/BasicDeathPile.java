@@ -22,9 +22,7 @@ public class BasicDeathPile implements IDeathPile {
 
     @Override
     public Piece getLast() {
-        if (this.pile.isEmpty()) {
-            return new Empty();
-        }
+        if (this.pile.isEmpty()) { return new Empty(); }
         return this.pile.remove(pile.size() - 1);
     }
 

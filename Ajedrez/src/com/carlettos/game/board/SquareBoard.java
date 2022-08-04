@@ -65,7 +65,7 @@ public class SquareBoard extends AbstractSquareBoard {
      * @param pos    start point.
      * @param info   information about the action.
      * @return FAIL if it didn't do the action, PASS if the action has been done.
-     */ //TODO: use just the point to make an ability which uses the point info
+     */ // TODO: use just the point to make an ability which uses the point info
     public ActionResult tryTo(Action action, Point pos, Info info) {
         var startEsq = getEscaque(pos);
         var piece = startEsq.getPiece();
@@ -73,7 +73,7 @@ public class SquareBoard extends AbstractSquareBoard {
         if (action.needsInfoPoint() && !info.isType(Point.class)) {
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
-        //TODO: maybe move to piece the usage of TypeHelper
+        // TODO: maybe move to piece the usage of TypeHelper
         ActionResult can = getEscaque(pos).getPiece().can(action, this, pos, info)
                 .and(TypeHelper.checkIfTypesCan(action, this, pos, info))
                 .and(getPiece(pos).getEffectManager().canBe(action, this, pos));
