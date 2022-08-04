@@ -1,5 +1,7 @@
 package com.carlettos.game.util.helper;
 
+import com.carlettos.game.util.Point;
+
 /**
  *
  * @author Carlettos
@@ -15,6 +17,10 @@ public final class MathHelper {
         } else {
             return num;
         }
+    }
+
+    public static final Point clamp(Point min, Point max, Point num) {
+        return new Point(clamp(min.x, max.x, num.x), clamp(min.y, max.y, num.y));
     }
 
     /**

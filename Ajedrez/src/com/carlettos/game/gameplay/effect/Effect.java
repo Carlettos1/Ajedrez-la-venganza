@@ -5,6 +5,7 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
+import com.carlettos.game.util.enums.Action;
 
 public abstract class Effect implements IResourceKey {
     // todo: dataEffect
@@ -27,6 +28,12 @@ public abstract class Effect implements IResourceKey {
     public abstract void onExpire(AbstractSquareBoard board, Point start, Piece piece);
 
     public abstract void onTick(AbstractSquareBoard board, Point start, Piece piece);
+    
+    public boolean canBe(Action action, AbstractSquareBoard board, Point start, Piece piece) {
+        return true;
+    }
+    
+    public void onBe(Action action, AbstractSquareBoard board, Point start, Piece piece) {}
 
     public boolean isExpired() {
         return this.turns >= this.maxTurns;

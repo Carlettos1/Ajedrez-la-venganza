@@ -13,7 +13,7 @@ import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 
 public class AbilityBuilder extends Ability {
-    protected final Function<Color, Wall> creator = Wall::new;
+    protected final Function<Color, Wall> constructor = Wall::new;
 
     public AbilityBuilder() {
         super("builder", 10, 0);
@@ -53,13 +53,13 @@ public class AbilityBuilder extends Ability {
             }
         }
         if (!board.shape.isOutOfBorders(p1)) {
-            board.getEscaque(p1).setPieceIfEmpty(creator.apply(piece.getColor()));
+            board.getEscaque(p1).setPieceIfEmpty(constructor.apply(piece.getColor()));
         }
         if (!board.shape.isOutOfBorders(p2)) {
-            board.getEscaque(p2).setPieceIfEmpty(creator.apply(piece.getColor()));
+            board.getEscaque(p2).setPieceIfEmpty(constructor.apply(piece.getColor()));
         }
         if (!board.shape.isOutOfBorders(p3)) {
-            board.getEscaque(p3).setPieceIfEmpty(creator.apply(piece.getColor()));
+            board.getEscaque(p3).setPieceIfEmpty(constructor.apply(piece.getColor()));
         }
         this.commonUse(board, piece);
     }

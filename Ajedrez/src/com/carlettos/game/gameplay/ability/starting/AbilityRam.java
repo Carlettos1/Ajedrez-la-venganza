@@ -32,7 +32,7 @@ public class AbilityRam extends Ability {
         }
 
         to = to.add(dir.toPoint().scale(-1)); // it's actually marking the next point, now it doesn't
-        board.removePiece(start);
+        board.removePieceNoDeath(start);
         if (isCharged) {
             var distance = charge / 5 + 1;
             var maxTo = to.add(dir.toPoint().scale(distance));
@@ -40,7 +40,7 @@ public class AbilityRam extends Ability {
                 maxTo = maxTo.add(dir.toPoint().scale(-1)); // adjusted to not go OofB
             }
             while (!to.equals(maxTo)) { // removing from to to maxTo, without maxTo
-                board.removePiece(to);
+                board.removePieceNoDeath(to);
                 to = to.add(dir.toPoint());
             }
         }

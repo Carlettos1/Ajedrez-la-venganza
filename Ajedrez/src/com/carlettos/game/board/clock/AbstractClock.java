@@ -2,7 +2,7 @@ package com.carlettos.game.board.clock;
 
 import java.util.List;
 
-import com.carlettos.game.board.clock.manager.IBoardCardManager;
+import com.carlettos.game.board.clock.manager.ICardOnBoardManager;
 import com.carlettos.game.board.clock.manager.ICentralDeckManager;
 import com.carlettos.game.board.clock.manager.IClockListenerManager;
 import com.carlettos.game.board.clock.manager.IEventManager;
@@ -17,7 +17,7 @@ import com.carlettos.game.util.enums.Color;
  * @author Carlos
  */
 public abstract class AbstractClock
-        implements IPlayerDeckManager, ICentralDeckManager, IEventManager, IBoardCardManager, IClockListenerManager {
+        implements IPlayerDeckManager, ICentralDeckManager, IEventManager, ICardOnBoardManager, IClockListenerManager {
     protected int turn;
     protected int movements;
     protected final Player[] players;

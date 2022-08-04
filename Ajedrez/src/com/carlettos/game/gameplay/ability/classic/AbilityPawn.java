@@ -1,5 +1,8 @@
 package com.carlettos.game.gameplay.ability.classic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
@@ -26,6 +29,14 @@ import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.LogHelper;
 
 public class AbilityPawn extends Ability {
+    public static final List<Piece> POSSIBLE_PROMOTIONS = new ArrayList<>();
+    static {
+        POSSIBLE_PROMOTIONS.addAll(List.of(new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
+                new Rook(Color.GRAY), new Ram(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY),
+                new Warlock(Color.GRAY), new Catapult(Color.GRAY), new Cannon(Color.GRAY), new Builder(Color.GRAY),
+                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new CrazyPawn(Color.GRAY),
+                new SuperPawn(Color.GRAY), new TeslaTower(Color.GRAY)));
+    }
 
     public AbilityPawn() {
         super("pawn", 0, 0);
@@ -48,7 +59,7 @@ public class AbilityPawn extends Ability {
                 return ActionResult.FAIL;
             }
         }
-        LogHelper.LOG.severe(() -> "INTENTANDO CORONAR CON OTRO COLOR");
+        LogHelper.LOG.warning(() -> "INTENTANDO CORONAR CON OTRO COLOR");
         return ActionResult.FAIL;
     }
 
@@ -56,16 +67,12 @@ public class AbilityPawn extends Ability {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         var p = (Piece) info.getValue();
         p.setColor(piece.getColor());
-        board.getEscaque(start).setPiece(p);
+        board.setPiece(start, p);
         p.setIsMoved(true);
     }
 
     @Override
     public Piece[] getValues(AbstractSquareBoard board, Point start) {
-        return new Piece[] { new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
-                new Rook(Color.GRAY), new Ram(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY),
-                new Warlock(Color.GRAY), new Catapult(Color.GRAY), new Cannon(Color.GRAY), new Builder(Color.GRAY),
-                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new CrazyPawn(Color.GRAY),
-                new SuperPawn(Color.GRAY), new TeslaTower(Color.GRAY) };
+        return POSSIBLE_PROMOTIONS.toArray(Piece[]::new);
     }
 }

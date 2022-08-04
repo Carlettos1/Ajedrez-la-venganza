@@ -3,9 +3,7 @@ package com.carlettos.game.gameplay.ability.starting;
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.card.CardOnBoard;
-import com.carlettos.game.gameplay.card.upgrade.Fire;
-import com.carlettos.game.gameplay.card.upgrade.Ice;
+import com.carlettos.game.gameplay.card.onBoard.CardsOnBoard;
 import com.carlettos.game.gameplay.effect.FireEffect;
 import com.carlettos.game.gameplay.effect.IceEffect;
 import com.carlettos.game.gameplay.pattern.Pattern;
@@ -13,11 +11,10 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
+import com.carlettos.game.util.helper.CardHelper;
 
 public class AbilityMagician extends AbilityNoInfo {
-    private static final Pattern action = Patterns.CANNON_ATTACK_PATTERN;
-    private static final CardOnBoard ice = new Ice();
-    private static final CardOnBoard fire = new Fire();
+    public static final Pattern ACTION_PATTER = Patterns.CANNON_ATTACK_PATTERN;
 
     public AbilityMagician() {
         super("magician", 6, 2);
@@ -25,17 +22,15 @@ public class AbilityMagician extends AbilityNoInfo {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        var hasIce = board.getClock().boardContainsCard(ice);
-        var hasFire = board.getClock().boardContainsCard(fire);
-        return ActionResult.fromBoolean(hasIce || hasFire);
+        return ActionResult.fromBoolean(CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
     }
 
     // TODO: ampliar el sistema y poder quitar efectos
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        var hasIce = board.getClock().boardContainsCard(ice);
-        var hasFire = board.getClock().boardContainsCard(fire);
-        var pieces = board.getMatchingEscaques(action, start);
+        var hasIce = CardHelper.boardHasCard(board, CardsOnBoard.ICE);
+        var hasFire = CardHelper.boardHasCard(board, CardsOnBoard.FIRE);
+        var pieces = board.getMatchingEscaques(ACTION_PATTER, start);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() == piece.getColor());
 

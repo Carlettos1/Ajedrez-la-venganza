@@ -40,7 +40,7 @@ public class ClickDeckButton implements ActionListener {
 
         var centralDeck = clock.getCentralDeck();
         var playerDecks = clock.getPlayerDecks();
-        var boardCards = clock.getBoardCards();
+        var boardCards = clock.getCardsOnBoard();
 
         var cardPanel = new JPanel(new CardLayout());
 

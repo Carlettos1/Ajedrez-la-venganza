@@ -14,7 +14,8 @@ import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.PieceType;
 
 public class AbilityTeslaTower extends AbilityNoInfo {
-    protected final Pattern abilityPattern = Patterns.CANNON_ATTACK_PATTERN;
+    protected static final Pattern ABILITY_PATTERN = Patterns.CANNON_ATTACK_PATTERN;
+    protected static final int EFFECT_DURATION = 6;
 
     public AbilityTeslaTower() {
         super("tesla_tower", 20, 1);
@@ -29,10 +30,10 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         board.getClock()
                 .addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
-                        () -> board.getMatchingEscaques(abilityPattern, start).stream()
+                        () -> board.getMatchingEscaques(ABILITY_PATTERN, start).stream()
                                 .filter(escaque -> escaque.getPiece().isType(PieceType.STRUCTURE))
                                 .filter(escaque -> !escaque.getPieceColor().equals(piece.getColor()))
-                                .forEach(escaque -> escaque.getPiece().addEffect(new DeactivateEffect(6)))));
+                                .forEach(escaque -> escaque.getPiece().addEffect(new DeactivateEffect(EFFECT_DURATION)))));
         this.commonUse(board, piece);
     }
 }

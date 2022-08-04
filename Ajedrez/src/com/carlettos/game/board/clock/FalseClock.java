@@ -28,7 +28,7 @@ public class FalseClock extends AbstractClock {
     }
 
     @Override
-    public List<Tuple<Player, Card>> getBoardCards() {
+    public List<Tuple<Player, Card>> getCardsOnBoard() {
         return board;
     }
 
@@ -63,17 +63,17 @@ public class FalseClock extends AbstractClock {
     public void addCardToBoard(Player from, Card card) {}
 
     @Override
-    public boolean boardContainsExactCard(Player from, Card card) {
+    public boolean containsExactCardOnBoard(Player from, Card card) {
         return false;
     }
 
     @Override
-    public boolean boardContainsCard(Player from, Card card) {
+    public boolean containsCardOnBoard(Player from, Card card) {
         return false;
     }
 
     @Override
-    public boolean boardContainsCard(Card card) {
+    public boolean containsCardOnBoard(Card card) {
         return false;
     }
 

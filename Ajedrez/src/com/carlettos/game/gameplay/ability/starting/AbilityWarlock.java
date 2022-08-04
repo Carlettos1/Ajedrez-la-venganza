@@ -9,7 +9,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityWarlock extends Ability {
 
-    // todo: que funcione
+    // TODO: que funcione
     public AbilityWarlock() {
         super("warlock", 1, 1);
     }
@@ -21,7 +21,7 @@ public class AbilityWarlock extends Ability {
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        // todo: body ablity
+        // TODO: body ablity
     }
 
     @Override

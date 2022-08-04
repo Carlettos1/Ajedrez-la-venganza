@@ -24,7 +24,7 @@ public class AbilityShip extends AbilityNoInfo {
                 start.add(-1, 0), start.add(-1, -1) };
         for (Point point : puntos) {
             if (!board.shape.isOutOfBorders(point)) {
-                board.removePiece(point);
+                board.removePieceNoDeath(point);
             }
         }
         this.commonUse(board, piece);

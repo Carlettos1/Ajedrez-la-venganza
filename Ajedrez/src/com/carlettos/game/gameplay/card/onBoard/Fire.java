@@ -1,6 +1,4 @@
-package com.carlettos.game.gameplay.card.upgrade;
-
-import com.carlettos.game.gameplay.card.CardOnBoard;
+package com.carlettos.game.gameplay.card.onBoard;
 
 public class Fire extends CardOnBoard {
 

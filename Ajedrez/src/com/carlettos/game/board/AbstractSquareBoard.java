@@ -3,6 +3,8 @@ package com.carlettos.game.board;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.carlettos.game.board.deathPile.BasicDeathPile;
+import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.board.shape.Square;
 import com.carlettos.game.gameplay.piece.Empty;
@@ -45,6 +47,11 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * Shape of the Board.
      */
     public final Square shape;
+    
+    /**
+     * Death pile of the Board.
+     */
+    protected final BasicDeathPile deathPile;
 
     /**
      * Construct a new Board with the 2D array being non-null, every Escaque is
@@ -67,12 +74,21 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      */
     protected AbstractSquareBoard(Square shape) {
         this.shape = shape;
+        this.deathPile = new BasicDeathPile();
         this.chessBoard = new Escaque[shape.y][shape.x];
         for (int y = 0; y < shape.y; y++) {
             for (int x = 0; x < shape.x; x++) {
                 chessBoard[y][x] = new Escaque(new Point(x, y));
             }
         }
+    }
+    
+    /**
+     * It gets the basic death pile of this board.
+     */
+    @Override
+    public IDeathPile getDeathPile() {
+        return deathPile;
     }
 
     /**

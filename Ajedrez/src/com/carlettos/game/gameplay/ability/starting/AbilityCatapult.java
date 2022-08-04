@@ -15,6 +15,8 @@ import com.carlettos.game.util.helper.MathHelper;
 
 @SuppressWarnings("unchecked")
 public class AbilityCatapult extends Ability {
+    public static final int RANGE = 6;
+    
     public AbilityCatapult() {
         super("catapult", 5, 0);
     }
@@ -22,15 +24,15 @@ public class AbilityCatapult extends Ability {
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, Integer.class)) { return ActionResult.FAIL; }
-
+        if (board.getEscaque(((Tuple<Direction, Integer>) info.getValue()).x.toPoint().add(start)).hasPiece()) return ActionResult.FAIL;
         return reducedCan(board, start, (Tuple<Direction, Integer>) info.getValue());
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        Tuple<?, ?> tuple = (Tuple<?, ?>) info.getValue();
-        var dir = (Direction) tuple.x;
-        var i = (Integer) tuple.y;
+        Tuple<Direction, Integer> tuple = (Tuple<Direction, Integer>) info.getValue();
+        var dir = tuple.x;
+        var i = tuple.y;
 
         Point posPiece = switch (i) {
             case 1 -> new Point(start.x - 1, start.y - 1);
@@ -43,17 +45,10 @@ public class AbilityCatapult extends Ability {
             case 9 -> new Point(start.x + 1, start.y + 1);
             default -> throw new IllegalArgumentException("Lanzamiento de catapulta inválido");
         };
-        if (dir.isAxis(Direction.Axis.EW)) {
-            int x = dir.getSign() * 6 + start.x;
-            x = MathHelper.clamp(0, board.shape.x - 1, x);
-            board.setPiece(new Point(x, start.y), board.getEscaque(posPiece).getPiece());
-            board.removePiece(posPiece);
-        } else {
-            int y = dir.getSign() * 6 + start.y;
-            y = MathHelper.clamp(0, board.shape.y - 1, y);
-            board.setPiece(new Point(start.x, y), board.getEscaque(posPiece).getPiece());
-            board.removePiece(posPiece);
-        }
+        
+        Point newPos = MathHelper.clamp(new Point(), board.shape.getDimensions().add(-1, -1), start.add(dir.toPoint().scale(RANGE)));
+        board.setPiece(newPos, board.getEscaque(posPiece).getPiece());
+        board.removePieceNoDeath(posPiece);
         this.commonUse(board, piece);
     }
 

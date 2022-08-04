@@ -36,7 +36,7 @@ public class Clock extends AbstractClock {
     }
 
     @Override
-    public List<Tuple<Player, Card>> getBoardCards() {
+    public List<Tuple<Player, Card>> getCardsOnBoard() {
         return this.cardsOnBoard;
     }
 
@@ -46,19 +46,19 @@ public class Clock extends AbstractClock {
     }
 
     @Override
-    public boolean boardContainsExactCard(Player from, Card card) {
+    public boolean containsExactCardOnBoard(Player from, Card card) {
         return cardsOnBoard.contains(Tuple.of(from, card));
     }
 
     @Override
-    public boolean boardContainsCard(Player from, Card card) {
+    public boolean containsCardOnBoard(Player from, Card card) {
         return cardsOnBoard.stream().anyMatch(
                 tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getBaseKey().equals(card.getBaseKey()));
     }
 
     @Override
-    public boolean boardContainsCard(Card card) {
-        return this.boardContainsCard(turnOf(), card);
+    public boolean containsCardOnBoard(Card card) {
+        return this.containsCardOnBoard(turnOf(), card);
     }
 
     @Override

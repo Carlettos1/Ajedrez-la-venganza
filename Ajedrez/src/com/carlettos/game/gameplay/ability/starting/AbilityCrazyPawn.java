@@ -23,10 +23,9 @@ public class AbilityCrazyPawn extends AbilityNoInfo {
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         final Player player = board.getClock().turnOf();
-        board.removePiece(start);
+        board.removePieceNoDeath(start);
         board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.data.getName()), () -> {
-            player.takeCard(board.getClock());
-            player.takeCard(board.getClock());
+            player.takeCards(board.getClock(), 2);
         }));
 
     }

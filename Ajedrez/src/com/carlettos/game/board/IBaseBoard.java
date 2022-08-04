@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -38,12 +39,29 @@ public interface IBaseBoard {
     /**
      * Removes the piece at the given point. It replaces the current piece with a
      * new Empty piece.
+     * 
+     * Doesn't add the piece to the death pile.
+     *
+     * @param point position of the piece.
+     */
+    default void removePieceNoDeath(Point point) {
+        this.getEscaque(point).removePiece();
+    }
+
+    /**
+     * Removes the piece at the given point. It replaces the current piece with a
+     * new Empty piece.
+     * 
+     * Adds the piece to the death pile.
      *
      * @param point position of the piece.
      */
     default void removePiece(Point point) {
+        this.getDeathPile().add(this.getPiece(point));
         this.getEscaque(point).removePiece();
     }
+    
+    IDeathPile getDeathPile();
 
     /**
      * Gets the piece in the escaque at the given point.

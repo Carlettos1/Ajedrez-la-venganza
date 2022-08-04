@@ -110,6 +110,12 @@ public class Player {
         this.hand.addCard(clock.getDeckOf(this).takeCard());
     }
 
+    public void takeCards(AbstractClock clock, int count) {
+        for (int i = 0; i < count; i++) {
+            this.takeCard(clock);
+        }
+    }
+
     @Override
     public String toString() {
         return id;

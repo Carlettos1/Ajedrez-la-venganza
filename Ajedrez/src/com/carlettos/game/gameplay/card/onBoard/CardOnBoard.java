@@ -1,6 +1,7 @@
-package com.carlettos.game.gameplay.card;
+package com.carlettos.game.gameplay.card.onBoard;
 
 import com.carlettos.game.board.SquareBoard;
+import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
