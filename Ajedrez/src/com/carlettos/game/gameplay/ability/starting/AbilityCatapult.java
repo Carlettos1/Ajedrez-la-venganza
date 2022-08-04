@@ -48,6 +48,7 @@ public class AbilityCatapult extends Ability {
         
         Point newPos = MathHelper.clamp(new Point(), board.shape.getDimensions().add(-1, -1), start.add(dir.toPoint().scale(RANGE)));
         board.setPiece(newPos, board.getEscaque(posPiece).getPiece());
+        //TODO: check if it kill some piece
         board.removePieceNoDeath(posPiece);
         this.commonUse(board, piece);
     }

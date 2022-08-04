@@ -28,7 +28,7 @@ public class AbilityBishop extends Ability {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         var dir = (Direction) info.getValue();
         board.setPiece(start.add(dir.toPoint()), piece);
-        board.getEscaque(start).removePiece();
+        board.removePieceNoDeath(start);
         this.commonUse(board, piece);
     }
 

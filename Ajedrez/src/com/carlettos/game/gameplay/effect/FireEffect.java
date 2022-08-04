@@ -12,7 +12,7 @@ public class FireEffect extends Effect {
 
     @Override
     public void onExpire(AbstractSquareBoard board, Point start, Piece piece) {
-        board.getEscaque(start).removePiece();
+        board.killPiece(start);
     }
 
     @Override

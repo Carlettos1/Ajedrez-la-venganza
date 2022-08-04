@@ -30,6 +30,7 @@ public class AbilityRam extends Ability {
             to = to.add(dir.toPoint()); // next point
             charge++;
         }
+        //TODO: check if it kill some piece
 
         to = to.add(dir.toPoint().scale(-1)); // it's actually marking the next point, now it doesn't
         board.removePieceNoDeath(start);

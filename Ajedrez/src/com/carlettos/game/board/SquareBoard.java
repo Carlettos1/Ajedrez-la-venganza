@@ -79,10 +79,14 @@ public class SquareBoard extends AbstractSquareBoard {
                 .and(getPiece(pos).getEffectManager().canBe(action, this, pos));
         if (can.isPositive()) {
             switch (action) {
-                case ATTACK -> getEscaque((Point) info.getValue()).removePiece();
-                case MOVE, TAKE -> {
+                case ATTACK -> killPiece((Point) info.getValue());
+                case MOVE -> {
                     getEscaque((Point) info.getValue()).setPiece(piece);
-                    startEsq.removePiece();
+                    removePieceNoDeath(pos);
+                }
+                case TAKE -> {
+                    getEscaque((Point) info.getValue()).setPiece(piece);
+                    killPiece(pos);
                 }
                 case ABILITY -> startEsq.getPiece().getAbility().use(this, piece, pos, info);
                 default -> throw new IllegalArgumentException("Action not expected");

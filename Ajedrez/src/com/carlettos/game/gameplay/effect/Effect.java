@@ -25,15 +25,15 @@ public abstract class Effect implements IResourceKey {
         return resource.getTranslated();
     }
 
-    public abstract void onExpire(AbstractSquareBoard board, Point start, Piece piece);
+    public abstract void onExpire(AbstractSquareBoard board, Point pos, Piece piece);
 
-    public abstract void onTick(AbstractSquareBoard board, Point start, Piece piece);
+    public abstract void onTick(AbstractSquareBoard board, Point pos, Piece piece);
     
-    public boolean canBe(Action action, AbstractSquareBoard board, Point start, Piece piece) {
+    public boolean canBe(Action action, AbstractSquareBoard board, Point pos, Piece piece) {
         return true;
     }
     
-    public void onBe(Action action, AbstractSquareBoard board, Point start, Piece piece) {}
+    public void onBe(Action action, AbstractSquareBoard board, Point pos, Piece piece) {}
 
     public boolean isExpired() {
         return this.turns >= this.maxTurns;

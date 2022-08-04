@@ -36,7 +36,7 @@ public class AbilityKing extends Ability {
 
         king.setUsedTP(true);
         board.getEscaque(point).setPiece(piece);
-        board.getEscaque(start).removePiece();
+        board.removePieceNoDeath(start);
     }
 
     @Override
