@@ -36,7 +36,7 @@ public class AbilityKing extends Ability {
         var point = (Point) info.getValue();
 
         king.setUsedTP(true);
-        board.getEscaque(point).setPiece(piece);
+        board.setPiece(point, piece);
         board.removePieceNoDeath(start);
     }
 

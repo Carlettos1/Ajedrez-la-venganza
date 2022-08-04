@@ -10,6 +10,7 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
+import com.carlettos.game.util.enums.Direction.SubDirection;
 import com.carlettos.game.util.helper.LogHelper;
 
 /**
@@ -19,10 +20,9 @@ public final class Info {
     private static final Set<Class<?>> REGISTRY = new HashSet<>();
     static {
         register(Direction.class);
-        register(Integer.class);
+        register(SubDirection.class);
         register(Piece.class);
         register(Point.class);
-        register(String.class);
         register(Tuple.class);
     }
 
@@ -117,7 +117,11 @@ public final class Info {
             LogHelper.LOG.warning(() -> "TRYING TO REGISTER AN ALREADY REGISTERED INFO %s".formatted(clazz));
             return;
         }
-        REGISTRY.add(clazz);
+        if (clazz.isAssignableFrom(IInfo.class)) {
+            REGISTRY.add(clazz);
+        } else {
+            LogHelper.LOG.warning(() -> "THE CLASS %s DOES NOT IMPLEMENTS IINFO".formatted(clazz));
+        }
     }
 
     public static Info getInfo(Object value) {

@@ -46,7 +46,7 @@ public class MiniBoard extends AbstractSquareBoard {
                 } else {
                     esc = board.getEscaque(new Point(x0, y0));
                 }
-                mini.getEscaque(new Point(x, y)).setPiece(esc.getPiece());
+                mini.setPiece(new Point(x, y), esc.getPiece());
                 mini.getEscaque(new Point(x, y)).setIsBuildable(esc.isBuildable());
                 mini.getEscaque(new Point(x, y)).setIsMagic(esc.isMagic());
             }

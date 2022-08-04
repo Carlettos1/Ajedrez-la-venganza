@@ -45,7 +45,7 @@ public class AbilityRam extends Ability {
                 to = to.add(dir.toPoint());
             }
         }
-        board.getEscaque(to).setPiece(piece);
+        board.setPiece(to, piece);
         this.commonUse(board, piece);
     }
 

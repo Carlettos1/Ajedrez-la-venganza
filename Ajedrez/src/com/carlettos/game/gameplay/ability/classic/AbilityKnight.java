@@ -28,8 +28,8 @@ public class AbilityKnight extends AbilityNoInfo {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         Point p1 = new Point(start.x + 1, start.y);
         Point p2 = new Point(start.x - 1, start.y);
-        board.getEscaque(p1).setPiece(new Pawn(piece.getColor()));
-        board.getEscaque(p2).setPiece(new Pawn(piece.getColor()));
+        board.setPiece(p1, new Pawn(piece.getColor()));
+        board.setPiece(p2, new Pawn(piece.getColor()));
         this.commonUse(board, piece);
     }
 }

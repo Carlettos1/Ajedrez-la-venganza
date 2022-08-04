@@ -119,12 +119,12 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
 
     @Override
     public void setPiece(Point point, Piece piece) {
-        this.getEscaque(point).setPiece(piece);
+        this.setPiece(point, piece);
     }
 
     @Override
     public Piece getPiece(Point point) {
-        return this.getEscaque(point).getPiece();
+        return this.getPiece(point);
     }
 
     @Override
@@ -224,7 +224,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
                 }
                 p2.setIsMoved(p.isMoved());
                 p2.changeCD(p.getCD());
-                other.getEscaque(escaque.getPos()).setPiece(p2);
+                other.setPiece(escaque.getPos(), p2);
             }
         }
     }
@@ -234,7 +234,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
         StringBuilder str = new StringBuilder(5 * this.getSize());
         for (int y = shape.y - 1; y >= 0; y--) {
             for (int x = 0; x < shape.x; x++) {
-                str.append('[').append(getEscaque(new Point(x, y)).getPiece().getBaseKey().charAt(0)).append(']');
+                str.append('[').append(getPiece(new Point(x, y)).getBaseKey().charAt(0)).append(']');
             }
             str.append('\n');
         }

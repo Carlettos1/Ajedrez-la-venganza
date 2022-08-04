@@ -43,9 +43,9 @@ public interface ITake<P extends Pattern> {
      */
     public default boolean checkComerCondition(AbstractSquareBoard board, Point start, Point end) {
         if (!board.getEscaque(end).hasPiece()
-                || board.getEscaque(end).getPiece().getColor().equals(board.getEscaque(start).getPiece().getColor())) {
+                || board.getPiece(end).getColor().equals(board.getPiece(start).getColor())) {
             return false;
         }
-        return !board.getEscaque(start).getPiece().isMoved();
+        return !board.getPiece(start).isMoved();
     }
 }

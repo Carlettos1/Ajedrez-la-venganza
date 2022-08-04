@@ -74,21 +74,21 @@ public class SquareBoard extends AbstractSquareBoard {
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
         // TODO: maybe move to piece the usage of TypeHelper
-        ActionResult can = getEscaque(pos).getPiece().can(action, this, pos, info)
+        ActionResult can = getPiece(pos).can(action, this, pos, info)
                 .and(TypeHelper.checkIfTypesCan(action, this, pos, info))
                 .and(getPiece(pos).getEffectManager().canBe(action, this, pos));
         if (can.isPositive()) {
             switch (action) {
                 case ATTACK -> killPiece((Point) info.getValue());
                 case MOVE -> {
-                    getEscaque((Point) info.getValue()).setPiece(piece);
+                    setPiece((Point) info.getValue(), piece);
                     removePieceNoDeath(pos);
                 }
                 case TAKE -> {
-                    getEscaque((Point) info.getValue()).setPiece(piece);
+                    setPiece((Point) info.getValue(), piece);
                     killPiece(pos);
                 }
-                case ABILITY -> startEsq.getPiece().getAbility().use(this, piece, pos, info);
+                case ABILITY -> getPiece(pos).getAbility().use(this, piece, pos, info);
                 default -> throw new IllegalArgumentException("Action not expected");
             }
             piece.postAction(action, this, pos, info);

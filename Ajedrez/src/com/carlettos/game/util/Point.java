@@ -1,5 +1,6 @@
 package com.carlettos.game.util;
 
+import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 
 /**
@@ -8,7 +9,7 @@ import com.carlettos.game.gameplay.ability.Info;
  * @author Carlos
  * @see java.awt.Point;
  */
-public final class Point {
+public final class Point implements IInfo {
     public final int x;
     public final int y;
 
@@ -57,6 +58,7 @@ public final class Point {
         return dx * dx + dy * dy;
     }
 
+    @Override
     public Info toInfo() {
         return Info.getInfo(this);
     }

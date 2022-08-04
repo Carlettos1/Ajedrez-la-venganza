@@ -95,7 +95,7 @@ public class AbilityRook extends Ability {
 
     protected List<Escaque> getNearbyRookEscaques(AbstractSquareBoard board, Piece piece, Point start) {
         return Arrays.<Escaque>asList(board.getNearbyEscaques(board.getEscaque(start)).stream().filter(
-                escaque -> escaque.getPiece() instanceof Rook && piece.getColor().equals(escaque.getPiece().getColor()))
+                escaque -> escaque.getPiece() instanceof Rook && escaque.isControlledBy(piece.getColor()))
                 .toArray(Escaque[]::new));
     }
 

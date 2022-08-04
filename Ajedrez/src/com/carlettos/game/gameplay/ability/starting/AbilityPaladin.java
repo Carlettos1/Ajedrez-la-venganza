@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
+import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.card.onBoard.CardsOnBoard;
 import com.carlettos.game.gameplay.effect.Invulnerability;
@@ -92,7 +93,12 @@ public class AbilityPaladin extends Ability {
         return new Tuple[] {};
     }
 
-    public static enum PaladinHabilityType {
+    public static enum PaladinHabilityType implements IInfo {
         ATTACK, INVULNERABILITY, REVIVE;
+        
+        @Override
+        public Info toInfo() {
+            return Info.getInfo(this);
+        }
     }
 }

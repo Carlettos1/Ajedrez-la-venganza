@@ -27,7 +27,7 @@ public class AbilityQueen extends Ability {
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        board.getEscaque((Point) info.getValue()).setPiece(piece);
+        board.setPiece((Point) info.getValue(), piece);
         // TODO: check if it kill some piece
         board.removePieceNoDeath(start);
         this.commonUse(board, piece);

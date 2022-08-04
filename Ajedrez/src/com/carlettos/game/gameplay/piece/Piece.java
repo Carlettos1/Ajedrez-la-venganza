@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
+import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.EffectManager;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
@@ -24,7 +25,7 @@ import com.carlettos.game.util.helper.TypeHelper;
  *
  * @author Carlos
  */
-public abstract class Piece implements IResourceKey {
+public abstract class Piece implements IResourceKey, IInfo {
 
     /**
      * It's a convenience value to not move the same piece twice in a turn.
@@ -185,7 +186,7 @@ public abstract class Piece implements IResourceKey {
         return moved;
     }
 
-    // TODO: interface?
+    @Override
     public Info toInfo() {
         return Info.getInfo(this);
     }

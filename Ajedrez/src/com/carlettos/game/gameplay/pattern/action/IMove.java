@@ -42,6 +42,6 @@ public interface IMove<P extends Pattern> {
      *         hasn't moved.
      */
     public default boolean checkMoveCondition(AbstractSquareBoard board, Point start, Point end) {
-        return !(board.getEscaque(end).hasPiece() || board.getEscaque(start).getPiece().isMoved());
+        return !(board.getEscaque(end).hasPiece() || board.getPiece(start).isMoved());
     }
 }
