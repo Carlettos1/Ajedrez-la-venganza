@@ -35,10 +35,10 @@ public class AbilityMagician extends AbilityNoInfo {
         pieces.removeIf(e -> e.getPieceColor() == piece.getColor());
 
         if (hasIce) {
-            pieces.forEach(e -> e.getPiece().addEffect(new IceEffect()));
+            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new IceEffect()));
         }
         if (hasFire) {
-            pieces.forEach(e -> e.getPiece().addEffect(new FireEffect()));
+            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new FireEffect()));
         }
 
         commonUse(board, piece);

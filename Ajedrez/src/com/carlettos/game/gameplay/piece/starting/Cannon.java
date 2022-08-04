@@ -9,11 +9,11 @@ import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternCannonAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     protected final PatternStructureMove movePattern;
 
     public Cannon(Color color) {
-        super("cannon", Abilities.NO_ABILITY, color, PieceType.STRUCTURE);
+        super("cannon", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE);
         attackPattern = Patterns.CANNON_ATTACK_PATTERN;
         movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
     }

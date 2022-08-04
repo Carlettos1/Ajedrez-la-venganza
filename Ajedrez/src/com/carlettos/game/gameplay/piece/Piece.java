@@ -1,14 +1,15 @@
 package com.carlettos.game.gameplay.piece;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.effect.Effect;
+import com.carlettos.game.gameplay.effect.EffectManager;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
+import com.carlettos.game.gameplay.piece.type.TypeManager;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
@@ -16,7 +17,7 @@ import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
+import com.carlettos.game.util.helper.TypeHelper;
 
 /**
  * It's a piece.
@@ -39,8 +40,8 @@ public abstract class Piece implements IResourceKey {
     protected final ResourceLocation name;
     protected Ability ability;
     protected Color color;
-    protected final List<PieceType> types;
-    protected final List<Effect> effects;
+    protected final EffectManager effectManager;
+    protected final TypeManager typeManager;
 
     /**
      * General constructor.
@@ -50,15 +51,15 @@ public abstract class Piece implements IResourceKey {
      * @param types   types of the piece.
      * @param color   color of the piece.
      */
-    protected Piece(String key, Ability ability, Color color, PieceType... types) {
+    protected Piece(String key, Ability ability, Color color, IPieceType... types) {
         this.moved = false;
         this.cooldown = 0;
         this.key = key;
         this.ability = ability;
         this.color = color;
         this.name = new ResourceLocation("piece.".concat(key));
-        this.types = Arrays.asList(types);
-        this.effects = new ArrayList<>();
+        this.typeManager = new TypeManager(types);
+        this.effectManager = new EffectManager(this);
     }
 
     /**
@@ -81,11 +82,12 @@ public abstract class Piece implements IResourceKey {
      *
      * @param action action which has been performed.
      * @param board  board in which the action happen.
-     * @param start  starting point of the piece before the action happen.
+     * @param pos  starting point of the piece before the action happen.
      * @param info   info of the excecuted action.
      * @see Piece#can(Action, AbstractBoard, Point, Info).
      */
-    public void postAction(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public void postAction(Action action, AbstractSquareBoard board, Point pos, Info info) {
+        TypeHelper.ActivateTypesOnAction(action, board, pos, info);
         this.setIsMoved(true);
     }
 
@@ -121,10 +123,6 @@ public abstract class Piece implements IResourceKey {
         return actions;
     }
 
-    public boolean isType(PieceType type) {
-        return this.types.contains(type);
-    }
-
     /**
      * Adds to the cooldown the given value. It can be negative.
      *
@@ -150,69 +148,19 @@ public abstract class Piece implements IResourceKey {
         this.color = color;
     }
 
-    public void tick(AbstractSquareBoard board, Point start) {
-        effects.forEach(Effect::tick);
-        effects.forEach(effect -> effect.onTick(board, start, this));
-        effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, start, this));
-        effects.removeIf(Effect::isExpired);
-    }
-
-    public List<PieceType> getTypes() {
-        return types;
-    }
-
     /**
-     * Adds the type provided to this piece.
-     *
-     * @param type type to add.
-     * @return PASS.
+     * Executed at the end of every turn.
      */
-    public ActionResult addType(PieceType type) {
-        return ActionResult.fromBoolean(this.getTypes().add(type));
+    public void tick(AbstractSquareBoard board, Point pos) {
+        this.effectManager.tick(board, pos);
     }
-
-    /**
-     * Removes the type provided from this piece.
-     *
-     * @param type type to remove.
-     * @return FAIL if the piece doesn't contain the type provided, PASS if the
-     *         piece has the type and has been removed.
-     */
-    public ActionResult removeType(PieceType type) {
-        return ActionResult.fromBoolean(this.getTypes().remove(type));
+    
+    public EffectManager getEffectManager() {
+        return effectManager;
     }
-
-    /**
-     * Adds every type provided to this piece.
-     *
-     * @param types types to add.
-     * @return PASS if every type has been added to this piece, FAIL otherwise.
-     * @throws NullPointerException if there is any null type provided.
-     */
-    public ActionResult addTypes(PieceType... types) {
-        boolean success = true;
-        for (PieceType tipo : types) {
-            Objects.requireNonNull(tipo);
-            success = Boolean.logicalAnd(success, this.getTypes().add(tipo));
-        }
-        return ActionResult.fromBoolean(success);
-    }
-
-    /**
-     * Removes every type provided from this piece.
-     *
-     * @param types types to remove.
-     * @return PASS if every type provided has been removed from this piece, FAIL
-     *         otherwise.
-     * @throws NullPointerException if there is any null type provided.
-     */
-    public ActionResult removeTypes(PieceType... types) {
-        boolean success = true;
-        for (PieceType tipo : types) {
-            Objects.requireNonNull(tipo);
-            success = Boolean.logicalAnd(success, this.getTypes().remove(tipo));
-        }
-        return ActionResult.fromBoolean(success);
+    
+    public TypeManager getTypeManager() {
+        return typeManager;
     }
 
     @Override
@@ -220,7 +168,7 @@ public abstract class Piece implements IResourceKey {
         return key;
     }
 
-    // todo: hacer esto con todos?
+    // TODO: hacer esto con todos?
     public ResourceLocation getName() {
         return name;
     }
@@ -237,7 +185,7 @@ public abstract class Piece implements IResourceKey {
         return moved;
     }
 
-    // todo: interface?
+    // TODO: interface?
     public Info toInfo() {
         return Info.getInfo(this);
     }
@@ -245,21 +193,6 @@ public abstract class Piece implements IResourceKey {
     @Override
     public String toString() {
         return getName().getTranslated();
-    }
-
-    public void addEffect(Effect effect) {
-        if (!effects.contains(effect)) {
-            this.effects.add(effect);
-        }
-        // TODO: que hacer si hay otro efecto igual
-    }
-
-    public boolean hasEffect(Effect effect) {
-        return effects.contains(effect);
-    }
-
-    public List<Effect> getEffects() {
-        return effects;
     }
 
     @Override

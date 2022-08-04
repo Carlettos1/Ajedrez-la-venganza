@@ -48,7 +48,7 @@ public class EscaqueDisplay extends JComponent {
 
             // TODO: externalizar a configuración los .1
             int q = 0;
-            for (var effect : escaque.getPiece().getEffects()) {
+            for (var effect : escaque.getPiece().getEffectManager().getEffects()) {
                 g.drawImage(ImageHelper.getImage(effect, "effect\\"), (int) (.3 * getWidth() * q), 0,
                         (int) (.3 * getWidth()), (int) (.3 * getHeight()), this);
                 tooltipText.append('(').append(effect.getName()).append(')');

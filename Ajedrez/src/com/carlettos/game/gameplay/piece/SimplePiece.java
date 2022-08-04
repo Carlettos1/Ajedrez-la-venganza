@@ -6,11 +6,11 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.action.ITake;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -19,7 +19,7 @@ import com.carlettos.game.util.enums.PieceType;
 public abstract class SimplePiece<P extends Pattern> extends Piece implements ITake<P>, IMove<P> {
     protected final P patron;
 
-    protected SimplePiece(String key, Ability ability, Color color, P pattern, PieceType... types) {
+    protected SimplePiece(String key, Ability ability, Color color, P pattern, IPieceType... types) {
         super(key, ability, color, types);
         this.patron = pattern;
     }

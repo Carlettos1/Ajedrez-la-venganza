@@ -9,11 +9,11 @@ import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.classic.PatternKing;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Ship extends Piece implements IMove<PatternMagicianMove>, ITake<Pat
     protected final PatternKing takePattern;
 
     public Ship(Color color) {
-        super("ship", Abilities.SHIP_ABILITY, color, PieceType.STRUCTURE);
+        super("ship", Abilities.SHIP_ABILITY, color, IPieceType.STRUCTURE);
         this.movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
         this.takePattern = Patterns.KING_PATTERN;
     }

@@ -8,11 +8,11 @@ import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -23,7 +23,7 @@ public class TeslaTower extends Piece implements IMove<PatternMagicianMove>, ITa
     protected final PatternStructureMove takePattern;
 
     public TeslaTower(Color color) {
-        super("tesla_tower", Abilities.TESLA_TOWER_ABILITY, color, PieceType.STRUCTURE);
+        super("tesla_tower", Abilities.TESLA_TOWER_ABILITY, color, IPieceType.STRUCTURE);
         this.movePattern = new PatternMagicianMove() {};
         this.takePattern = new PatternStructureMove() {};
     }

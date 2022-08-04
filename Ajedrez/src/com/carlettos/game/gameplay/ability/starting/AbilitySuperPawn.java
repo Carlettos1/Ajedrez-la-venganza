@@ -6,9 +6,9 @@ import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.ActionResult;
-import com.carlettos.game.util.enums.PieceType;
 
 public class AbilitySuperPawn extends AbilityNoInfo {
     public AbilitySuperPawn() {
@@ -18,15 +18,15 @@ public class AbilitySuperPawn extends AbilityNoInfo {
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         return ActionResult.fromBoolean(
-                !piece.isType(PieceType.IMMUNE) && this.commonCanUse(board, piece));
+                !piece.getTypeManager().isType(IPieceType.IMMUNE) && this.commonCanUse(board, piece));
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        piece.addType(PieceType.IMMUNE);
+        piece.getTypeManager().addType(IPieceType.IMMUNE);
         // TODO: que sea impenetrable
         board.getClock().addEvent(
-                Event.create(EventInfo.of(board, 5, this.data.getName()), () -> piece.removeType(PieceType.IMMUNE)));
+                Event.create(EventInfo.of(board, 5, this.data.getName()), () -> piece.getTypeManager().removeType(IPieceType.IMMUNE)));
         this.commonUse(board, piece);
     }
 }

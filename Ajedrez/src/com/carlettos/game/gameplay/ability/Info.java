@@ -57,6 +57,35 @@ public final class Info {
         checkTypeExistence(generic2, Level.INFO, () -> msg.formatted(generic2));
         return generic1.isInstance(tuple.x) && generic2.isInstance(tuple.y);
     }
+    
+    public boolean isPointOrSubPoint() {
+        if (this.isType(Point.class)) {
+            return true;
+        } else if (this.isType(Tuple.class)) {
+            //TODO: FIXME: XXX: usar recursión at infinito?
+            Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
+            if (tuple.x instanceof Point || tuple.y instanceof Point) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
+    public Point getPointOrSubPoint() {
+        if (this.isType(Point.class)) {
+            return (Point) this.getValue();
+        } else {
+            Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
+            if (tuple.x instanceof Point) {
+                return (Point) tuple.x;
+            } else {
+                return (Point) tuple.y;
+            }
+        }
+    }
 
     public Object getValue() {
         return value;

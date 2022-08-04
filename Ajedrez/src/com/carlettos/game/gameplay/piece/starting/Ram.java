@@ -7,11 +7,11 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     protected final PatternStructureMove movePattern;
 
     public Ram(Color color) {
-        super("ram", Abilities.RAM_ABILITY, color, PieceType.STRUCTURE);
+        super("ram", Abilities.RAM_ABILITY, color, IPieceType.STRUCTURE);
         movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
     }
 

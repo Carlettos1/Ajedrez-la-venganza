@@ -7,11 +7,11 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -21,8 +21,8 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
 
     public Magician(Color color) {
-        super("magician", Abilities.MAGICIAN_ABILITY, color, PieceType.BIOLOGIC, PieceType.HEROIC, PieceType.IMMUNE,
-                PieceType.TRANSPORTABLE);
+        super("magician", Abilities.MAGICIAN_ABILITY, color, IPieceType.BIOLOGIC, IPieceType.HEROIC, IPieceType.IMMUNE,
+                IPieceType.TRANSPORTABLE);
         movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
     }
 

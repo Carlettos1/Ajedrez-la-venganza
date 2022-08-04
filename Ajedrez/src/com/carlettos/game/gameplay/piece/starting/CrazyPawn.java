@@ -3,8 +3,8 @@ package com.carlettos.game.gameplay.piece.starting;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.pattern.starting.PatternCrazyPawn;
 import com.carlettos.game.gameplay.piece.SimplePiece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.carlettos.game.util.enums.PieceType;
  */
 public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
     public CrazyPawn(Color color) {
-        super("crazy_pawn", Abilities.CRAZY_PAWN_ABILITY, color, PatternCrazyPawn.STANDARD_PATTERN, PieceType.BIOLOGIC,
-                PieceType.TRANSPORTABLE);
+        super("crazy_pawn", Abilities.CRAZY_PAWN_ABILITY, color, PatternCrazyPawn.STANDARD_PATTERN, IPieceType.BIOLOGIC,
+                IPieceType.TRANSPORTABLE);
     }
 }

@@ -4,16 +4,16 @@ import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.classic.PatternKing;
 import com.carlettos.game.gameplay.piece.SimplePiece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 public class King extends SimplePiece<PatternKing> {
     // TODO: que no se muera después de comer o moverse
     protected boolean usedTP;
 
     public King(Color color) {
-        super("king", Abilities.KING_ABILITY, color, Patterns.KING_PATTERN, PieceType.BIOLOGIC, PieceType.IMMUNE,
-                PieceType.HEROIC);
+        super("king", Abilities.KING_ABILITY, color, Patterns.KING_PATTERN, IPieceType.BIOLOGIC, IPieceType.IMMUNE,
+                IPieceType.HEROIC);
         this.usedTP = false;
     }
 

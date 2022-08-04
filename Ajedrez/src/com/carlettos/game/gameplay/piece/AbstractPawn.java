@@ -8,11 +8,11 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.PatternPawn;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.action.ITake;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -25,7 +25,7 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
 
     protected AbstractPawn(Function<Color, M> movePattern, Function<Color, T> takePattern, String key, Ability ability,
             Color color) {
-        super(key, ability, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super(key, ability, color, IPieceType.BIOLOGIC, IPieceType.TRANSPORTABLE);
         this.movePattern = movePattern.apply(getColor());
         this.takePattern = takePattern.apply(getColor());
     }

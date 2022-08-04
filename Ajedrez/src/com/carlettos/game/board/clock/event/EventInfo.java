@@ -12,7 +12,7 @@ import com.carlettos.game.util.ResourceLocation;
  * @author Carlettos
  */
 public class EventInfo {
-    private static final ResourceLocation generic_event = new ResourceLocation("generic_event.name");
+    public static final ResourceLocation GENERIC_EVENT = new ResourceLocation("generic_event.name");
     protected int turns;
     protected final String name;
     protected Point point;
@@ -83,7 +83,7 @@ public class EventInfo {
     }
 
     public static EventInfo of(AbstractSquareBoard board, int turns, Point point) {
-        return of(board, turns, generic_event.getTranslated(), point);
+        return of(board, turns, GENERIC_EVENT.getTranslated(), point);
     }
 
     public static EventInfo of(AbstractSquareBoard board, String name, Point point) {
@@ -91,7 +91,7 @@ public class EventInfo {
     }
 
     public static EventInfo of(AbstractSquareBoard board, int turns) {
-        return of(board, turns, generic_event.getTranslated(), new Point(0, 0));
+        return of(board, turns, GENERIC_EVENT.getTranslated(), new Point(0, 0));
     }
 
     public static EventInfo of(AbstractSquareBoard board, String name) {
@@ -99,10 +99,10 @@ public class EventInfo {
     }
 
     public static EventInfo of(AbstractSquareBoard board, Point point) {
-        return of(board, 1, generic_event.getTranslated(), point);
+        return of(board, 1, GENERIC_EVENT.getTranslated(), point);
     }
 
     public static EventInfo of(AbstractSquareBoard board) {
-        return of(board, 1, generic_event.getTranslated(), new Point(0, 0));
+        return of(board, 1, GENERIC_EVENT.getTranslated(), new Point(0, 0));
     }
 }

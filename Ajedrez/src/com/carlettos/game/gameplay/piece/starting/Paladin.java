@@ -8,11 +8,11 @@ import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.classic.PatternQueen;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -22,7 +22,7 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     protected final PatternQueen pattern;
 
     public Paladin(Color color) { // TODO: Habilidad
-        super("paladin", Abilities.PALADIN_ABILITY, color, PieceType.HEROIC, PieceType.IMMUNE);
+        super("paladin", Abilities.PALADIN_ABILITY, color, IPieceType.HEROIC, IPieceType.IMMUNE);
         pattern = Patterns.QUEEN_PATTERN;
     }
 

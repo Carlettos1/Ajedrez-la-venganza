@@ -42,6 +42,7 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.DeckHelper;
+import com.carlettos.game.util.helper.TypeHelper;
 
 /**
  * It's the board.
@@ -61,19 +62,21 @@ public class SquareBoard extends AbstractSquareBoard {
      * use Point::toInfo.
      *
      * @param action action to do.
-     * @param start  start point.
+     * @param pos    start point.
      * @param info   information about the action.
      * @return FAIL if it didn't do the action, PASS if the action has been done.
-     */
-    public ActionResult tryTo(Action action, Point start, Info info) {
-        var startEsq = getEscaque(start);
+     */ //TODO: use just the point to make an ability which uses the point info
+    public ActionResult tryTo(Action action, Point pos, Info info) {
+        var startEsq = getEscaque(pos);
         var piece = startEsq.getPiece();
         if (!canPlay(piece)) { return ActionResult.FAIL; }
-        if ((action == Action.ATTACK || action == Action.MOVE || action == Action.TAKE)
-                && !(info.getValue() instanceof Point)) { //TODO: use just the point to make an ability which uses the point info
+        if (action.needsInfoPoint() && !info.isType(Point.class)) {
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
-        ActionResult can = getEscaque(start).getPiece().can(action, this, start, info);
+        //TODO: maybe move to piece the usage of TypeHelper
+        ActionResult can = getEscaque(pos).getPiece().can(action, this, pos, info)
+                .and(TypeHelper.checkIfTypesCan(action, this, pos, info))
+                .and(getPiece(pos).getEffectManager().canBe(action, this, pos));
         if (can.isPositive()) {
             switch (action) {
                 case ATTACK -> getEscaque((Point) info.getValue()).removePiece();
@@ -81,10 +84,11 @@ public class SquareBoard extends AbstractSquareBoard {
                     getEscaque((Point) info.getValue()).setPiece(piece);
                     startEsq.removePiece();
                 }
-                case ABILITY -> startEsq.getPiece().getAbility().use(this, piece, start, info);
+                case ABILITY -> startEsq.getPiece().getAbility().use(this, piece, pos, info);
                 default -> throw new IllegalArgumentException("Action not expected");
             }
-            piece.postAction(action, this, start, info);
+            piece.postAction(action, this, pos, info);
+            getPiece(pos).getEffectManager().onBe(action, getDefaultInstance(), pos);
             movement();
         }
         return can;

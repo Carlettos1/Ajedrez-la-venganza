@@ -9,11 +9,11 @@ import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.pattern.starting.PatternLeechTake;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
     protected final PatternLeechTake takePattern;
 
     public Builder(Color color) {
-        super("builder", Abilities.BUILDER_ABILITY, color, PieceType.BIOLOGIC, PieceType.TRANSPORTABLE);
+        super("builder", Abilities.BUILDER_ABILITY, color, IPieceType.BIOLOGIC, IPieceType.TRANSPORTABLE);
         this.movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
         this.takePattern = Patterns.LEECH_TAKE_PATTERN;
     }

@@ -9,11 +9,11 @@ import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternBallistaAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Ballista extends Piece implements IMove<PatternStructureMove>, IAtt
     protected final PatternBallistaAttack attackPattern;
 
     public Ballista(Color color) {
-        super("ballista", Abilities.NO_ABILITY, color, PieceType.STRUCTURE);
+        super("ballista", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE);
         movePattern = Patterns.STRUCTURE_MOVE_PATTERN;
         attackPattern = Patterns.BALLISTA_ATTACK_PATTERN;
     }

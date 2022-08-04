@@ -7,11 +7,11 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
 import com.carlettos.game.gameplay.piece.Piece;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.PieceType;
 
 /**
  *
@@ -21,8 +21,8 @@ public class Warlock extends Piece implements IMove<PatternMagicianMove> {
     protected final PatternMagicianMove movePattern;
 
     public Warlock(Color color) {
-        super("warlock", Abilities.WARLOCK_ABILITY, color, PieceType.TRANSPORTABLE, PieceType.DEMONIC,
-                PieceType.IMMUNE);
+        super("warlock", Abilities.WARLOCK_ABILITY, color, IPieceType.TRANSPORTABLE, IPieceType.DEMONIC,
+                IPieceType.IMMUNE);
         this.movePattern = Patterns.MAGICIAN_MOVE_PATTERN;
     }
 

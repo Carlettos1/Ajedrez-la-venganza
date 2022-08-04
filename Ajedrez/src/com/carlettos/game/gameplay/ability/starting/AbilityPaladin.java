@@ -55,7 +55,7 @@ public class AbilityPaladin extends Ability {
         
         switch (tuple.x) {
             case ATTACK -> board.removePiece(tuple.y);
-            case INVULNERABILITY -> board.getPiece(tuple.y).addEffect(new Invulnerability(5));
+            case INVULNERABILITY -> board.getPiece(tuple.y).getEffectManager().addEffect(new Invulnerability(5));
             case REVIVE -> board.setPiece(tuple.y, board.getDeathPile().getLast());
         }
     }
