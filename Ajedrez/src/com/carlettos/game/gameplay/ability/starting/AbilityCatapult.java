@@ -33,7 +33,7 @@ public class AbilityCatapult extends Ability {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         Tuple<Direction, SubDirection> tuple = (Tuple<Direction, SubDirection>) info.getValue();
         Point posPiece = start.add(tuple.y.toPoint());
-        Point newPos = this.getEndPoint(board, start, tuple);
+        Point newPos = this.getEndPoint(board, start, tuple.x);
         board.setPiece(newPos, board.getPiece(posPiece));
         board.removePieceNoDeath(posPiece);
         this.commonUse(board, piece);
@@ -56,22 +56,10 @@ public class AbilityCatapult extends Ability {
 
     private ActionResult reducedCan(AbstractSquareBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
         Point posPiece = start.add(tuple.y.toPoint());
-        if (board.getShape().isOutOfBorders(getEndPoint(board, start, tuple))) {
+        if (board.getShape().isOutOfBorders(this.getEndPoint(board, start, tuple.x))) {
             return ActionResult.FAIL;
         }
         if (board.shape.isOutOfBorders(posPiece) || !board.getEscaque(posPiece).hasPiece() || !board.getPiece(posPiece).getTypeManager().isType(PieceType.TRANSPORTABLE)) { return ActionResult.FAIL; }
         return ActionResult.PASS;
-    }
-    
-    /**
-     * Returns a oob point in case that there's no end point.
-     */
-    private Point getEndPoint(AbstractSquareBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
-        var ray = board.rayCast(start, tuple.x, RANGE);
-        ray = ray.stream().filter(e -> !e.hasPiece()).toList();
-        if (ray.isEmpty()) {
-            return new Point(-1, -1);
-        }
-        return ray.get(ray.size() - 1).getPos();
     }
 }

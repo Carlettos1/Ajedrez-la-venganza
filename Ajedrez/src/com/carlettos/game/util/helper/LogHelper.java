@@ -50,7 +50,31 @@ public class LogHelper {
         }
     }
     
+    public static void severe(String str, Object... objects) {
+        LOG.severe(str.formatted(objects));
+    }
+    
+    public static void warning(String str, Object... objects) {
+        LOG.warning(str.formatted(objects));
+    }
+    
+    public static void info(String str, Object... objects) {
+        LOG.info(str.formatted(objects));
+    }
+    
+    public static void config(String str, Object... objects) {
+        LOG.config(str.formatted(objects));
+    }
+    
     public static void fine(String str, Object... objects) {
         LOG.fine(str.formatted(objects));
+    }
+    
+    public static void finer(String str, Object... objects) {
+        LOG.finer(str.formatted(objects));
+    }
+    
+    public static void finest(String str, Object... objects) {
+        LOG.finest(str.formatted(objects));
     }
 }

@@ -284,7 +284,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
         if (cap == -1 || cap >= ray.size()) {
             return ray;
         } else {
-            return ray.subList(0, cap + 1);
+            return ray.subList(0, cap);
         }
     }
     

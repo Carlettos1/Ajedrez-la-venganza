@@ -42,8 +42,11 @@ public class EscaqueDisplay extends JComponent {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor((!isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
 
+        StringBuilder tooltipText = new StringBuilder();
+        var pos = this.getEscaque().getPos();
+        tooltipText.append('(').append(pos.x).append(" ,").append(pos.y).append(')');
         if (escaque.hasPiece()) {
-            StringBuilder tooltipText = new StringBuilder(escaque.getPiece().toString());
+            tooltipText.append(' ').append(escaque.getPiece().toString());
             g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
 
             // TODO: externalizar a configuración los .1
@@ -54,9 +57,9 @@ public class EscaqueDisplay extends JComponent {
                 tooltipText.append('(').append(effect.getName()).append(')');
                 q++;
             }
-
-            this.setToolTipText(tooltipText.toString());
+            
         }
+        this.setToolTipText(tooltipText.toString());
 
         if (this.actions.isEmpty()) { return; }
 

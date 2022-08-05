@@ -57,7 +57,9 @@ public interface IBaseBoard {
      * @param point position of the piece.
      */
     default void killPiece(Point point) {
-        this.getDeathPile().add(this.getPiece(point));
+        if (getEscaque(point).hasPiece()) {
+            this.getDeathPile().add(this.getPiece(point));
+        }
         this.getEscaque(point).removePiece();
     }
 

@@ -6,6 +6,7 @@ import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.ActionResult;
+import com.carlettos.game.util.enums.Direction;
 
 /**
  * It's the ability of the piece. It has all the information about itself. Also
@@ -85,6 +86,22 @@ public abstract class Ability implements IResourceKey {
     }
 
     public abstract IInfo[] getValues(AbstractSquareBoard board, Point start);
+
+    /**
+     * Returns a oob point in case that there's no end point.
+     */
+    public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir, int range) {
+        var ray = board.rayCast(start, dir, range);
+        ray = ray.stream().filter(e -> !e.hasPiece()).toList();
+        if (ray.isEmpty()) {
+            return new Point(-1, -1);
+        }
+        return ray.get(ray.size() - 1).getPos();
+    }
+    
+    public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir) {
+        return this.getEndPoint(board, start, dir, -1);
+    }
 
     public String formatInfo(Object info) {
         if (info instanceof Point p) {

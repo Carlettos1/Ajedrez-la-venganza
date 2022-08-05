@@ -1,16 +1,18 @@
-INFO[com.carlettos.game.util.helper.LogHelper::startLogger][19:32:47.1306577]: Logger start
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][19:32:48.4533844]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][19:32:48.4574006]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][19:32:48.4574006]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:00.6940781]: Changing Constructor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:01.5429176]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:02.7140256]: Changing Caballo for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:03.6663482]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:04.6181233]: Changing Catapulta for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:05.4019268]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:06.4442628]: Changing Catapulta for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:07.3262749]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:08.7019753]: Changing Peón for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:09.4202404]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:12.8667694]: Changing Ballesta for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][19:33:18.380139]: Changing Defensor for Vacia
+INFO[com.carlettos.game.util.helper.LogHelper::startLogger][20:34:06.4923431]: Logger start
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][20:34:07.5757738]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][20:34:07.5797632]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][20:34:07.5807607]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:12.3476654]: Changing Defensor for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:14.7273657]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:16.2242781]: Changing Constructor for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:19.275522]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:20.2784976]: Changing Ariete for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:21.2205528]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:22.6060952]: Changing Ariete for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:23.5516188]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:24.3094167]: Changing Ariete for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:26.416418]: Changing Brujo for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:28.3043409]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:33.1594543]: Changing Peón for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:33.1594543]: Changing Ariete for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][20:34:48.3794903]: Changing Ariete for Vacia
