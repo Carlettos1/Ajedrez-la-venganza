@@ -12,7 +12,7 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.helper.CardHelper;
 
 public class AbilityMagician extends AbilityNoInfo {
-    public static final Pattern ACTION_PATTER = Patterns.CANNON_ATTACK_PATTERN;
+    public static final Pattern ACTION_PATTERN = Patterns.ARCHER_MOVE_PATTERN;
 
     public AbilityMagician() {
         super("magician", 6, 2);
@@ -23,20 +23,19 @@ public class AbilityMagician extends AbilityNoInfo {
         return (CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
     }
 
-    // TODO: ampliar el sistema y poder quitar efectos
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start) {
         var hasIce = CardHelper.boardHasCard(board, CardsOnBoard.ICE);
         var hasFire = CardHelper.boardHasCard(board, CardsOnBoard.FIRE);
-        var pieces = board.getMatchingEscaques(ACTION_PATTER, start);
+        var pieces = board.getMatchingEscaques(ACTION_PATTERN, start);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() == piece.getColor());
 
         if (hasIce) {
-            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new IceEffect()));
+            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new IceEffect(5)));
         }
         if (hasFire) {
-            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new FireEffect()));
+            pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new FireEffect(11)));
         }
 
         commonUse(board, piece);

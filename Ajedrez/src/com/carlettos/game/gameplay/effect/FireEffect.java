@@ -6,8 +6,8 @@ import com.carlettos.game.util.Point;
 
 public class FireEffect extends Effect {
 
-    public FireEffect() {
-        super("fire", 5);
+    public FireEffect(int maxTurns) {
+        super("fire", maxTurns);
     }
 
     @Override

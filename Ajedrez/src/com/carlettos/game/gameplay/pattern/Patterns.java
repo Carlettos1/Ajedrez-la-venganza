@@ -9,13 +9,13 @@ import com.carlettos.game.gameplay.pattern.classic.PatternPawnMove;
 import com.carlettos.game.gameplay.pattern.classic.PatternPawnTake;
 import com.carlettos.game.gameplay.pattern.classic.PatternQueen;
 import com.carlettos.game.gameplay.pattern.classic.PatternRook;
-import com.carlettos.game.gameplay.pattern.starting.PatternArcherAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternArcherMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternBallistaAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternCannonAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternCrazyPawn;
 import com.carlettos.game.gameplay.pattern.starting.PatternLeechTake;
 import com.carlettos.game.gameplay.pattern.starting.PatternMagicianMove;
+import com.carlettos.game.gameplay.pattern.starting.PatternRange;
 import com.carlettos.game.gameplay.pattern.starting.PatternStructureMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternSuperPawnMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternSuperPawnTake;
@@ -44,7 +44,7 @@ public class Patterns {
     public static final PatternQueen QUEEN_PATTERN = new PatternQueen() {};
     public static final PatternRook ROOK_PATTERN = new PatternRook() {};
 
-    public static final PatternArcherAttack ARCHER_ATTACK_PATTERN = new PatternArcherAttack() {};
+    public static final PatternRange ARCHER_ATTACK_PATTERN = new PatternRange(4);
     public static final PatternArcherMove ARCHER_MOVE_PATTERN = new PatternArcherMove() {};
     public static final PatternBallistaAttack BALLISTA_ATTACK_PATTERN = new PatternBallistaAttack() {};
     public static final PatternCannonAttack CANNON_ATTACK_PATTERN = new PatternCannonAttack() {};

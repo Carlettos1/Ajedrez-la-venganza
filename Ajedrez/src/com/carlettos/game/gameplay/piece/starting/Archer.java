@@ -6,8 +6,8 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.pattern.action.IAttack;
 import com.carlettos.game.gameplay.pattern.action.IMove;
-import com.carlettos.game.gameplay.pattern.starting.PatternArcherAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternArcherMove;
+import com.carlettos.game.gameplay.pattern.starting.PatternRange;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
@@ -18,9 +18,9 @@ import com.carlettos.game.util.enums.Color;
  *
  * @author Carlettos
  */
-public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<PatternArcherAttack> {
+public class Archer extends Piece implements IMove<PatternArcherMove>, IAttack<PatternRange> {
     protected final PatternArcherMove movePattern;
-    protected final PatternArcherAttack attackPattern;
+    protected final PatternRange attackPattern;
 
     public Archer(Color color) {
         super("archer", Abilities.NO_ABILITY, color, IPieceType.BIOLOGIC, IPieceType.TRANSPORTABLE);

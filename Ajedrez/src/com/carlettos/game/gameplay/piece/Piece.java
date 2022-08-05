@@ -151,9 +151,12 @@ public abstract class Piece implements IResourceKey, IInfo {
     /**
      * Executed at the end of every turn.
      */
-    public void tick(AbstractSquareBoard board, Point pos) {
+    public final void tick(AbstractSquareBoard board, Point pos) {
         this.effectManager.tick(board, pos);
+        this.innerTick(board, pos);
     }
+    
+    protected void innerTick(AbstractSquareBoard board, Point pos) { }
 
     public EffectManager getEffectManager() {
         return effectManager;

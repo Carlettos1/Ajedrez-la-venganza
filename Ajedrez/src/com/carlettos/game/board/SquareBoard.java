@@ -178,6 +178,8 @@ public class SquareBoard extends AbstractSquareBoard {
 
         white.getHand().addCard(new Ice());
         white.getHand().addCard(new Fire());
+        black.getHand().addCard(new Ice());
+        black.getHand().addCard(new Fire());
 
         board.setPiece(new Point(0, 0), new Cannon(Color.WHITE));
         board.setPiece(new Point(15, 0), new Cannon(Color.WHITE));

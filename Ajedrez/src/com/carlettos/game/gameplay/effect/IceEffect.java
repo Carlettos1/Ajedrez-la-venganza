@@ -6,8 +6,8 @@ import com.carlettos.game.util.Point;
 
 public class IceEffect extends Effect {
 
-    public IceEffect() {
-        super("ice", 5);
+    public IceEffect(int maxTurns) {
+        super("ice", maxTurns);
     }
 
     @Override

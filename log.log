@@ -1,11 +1,34 @@
-INFO[com.carlettos.game.util.helper.LogHelper::startLogger][21:06:44.8643923]: Logger start
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:06:46.8784019]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:06:46.8853833]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:06:46.8863807]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:06:50.0500481]: Changing Defensor for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:06:51.6321096]: Changing Peón for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:06:52.9720074]: Changing Arquero for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:06:57.5547764]: Changing Arquero for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:06:58.7274746]: Changing Arquero for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:07:00.0565696]: Changing Arquero for Vacia
-FINE[com.carlettos.game.util.helper.LogHelper::fine][21:07:03.7060349]: Changing Arquero for Vacia
+INFO[com.carlettos.game.util.helper.LogHelper::startLogger][21:34:14.2901467]: Logger start
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:34:16.7771162]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:34:16.7811056]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
+INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][21:34:16.7811056]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:43.140582]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:44.5339889]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:47.112627]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:48.11637]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:49.0163061]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:49.9261997]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:51.0591213]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:51.9576914]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:52.7541274]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:53.7923806]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:54.6763236]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:55.5654523]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:56.9287669]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:34:57.917128]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:00.7821997]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:01.7937434]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:09.5145789]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:12.2028931]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:13.0662734]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:13.847253]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:15.9445501]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:17.1881717]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:18.3241941]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:19.1975789]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:20.2005462]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:21.5002577]: Changing Hechicero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:21.5012838]: Changing Arquero for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:21.5012838]: Changing Torre Tesla for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:21.5012838]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogHelper::fine][21:35:21.5022545]: Changing Catapulta for Vacia

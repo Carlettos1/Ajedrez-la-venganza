@@ -33,6 +33,12 @@ public class EffectManager {
         }
         // TODO: que hacer si hay otro efecto igual
     }
+    
+    public void removeEffect(Effect effect) {
+        if (effects.contains(effect)) {
+            this.effects.remove(effect);
+        }
+    }
 
     public boolean hasEffect(Effect effect) {
         return effects.contains(effect);
