@@ -17,8 +17,8 @@ public class AbilityShieldBearer extends AbilityNoInfo {
 
     @Override
     public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return (this.commonCanUse(board, piece) && board.getMatchingEscaques(PATTERN, start)
-                .stream().anyMatch(e -> e.hasPiece() && e.getPieceColor().equals(piece.getColor())));
+        return (this.commonCanUse(board, piece) && board.getMatchingEscaques(PATTERN, start).stream()
+                .anyMatch(e -> e.hasPiece() && e.getPieceColor().equals(piece.getColor())));
     }
 
     @Override
