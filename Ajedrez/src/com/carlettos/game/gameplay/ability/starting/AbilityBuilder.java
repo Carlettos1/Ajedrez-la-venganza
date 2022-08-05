@@ -8,7 +8,6 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.starting.Wall;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 
@@ -20,8 +19,8 @@ public class AbilityBuilder extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        return ActionResult.fromBoolean(this.commonCanUse(board, piece) && info.isType(Direction.class));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        return (this.commonCanUse(board, piece) && info.isType(Direction.class));
     }
 
     @Override

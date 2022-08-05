@@ -8,7 +8,6 @@ import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -24,9 +23,9 @@ public class SummonPiece<P extends Piece> extends Card {
     }
 
     @Override
-    public ActionResult canUse(Point point, SquareBoard board, Player caster) {
+    public boolean canUse(Point point, SquareBoard board, Player caster) {
         if (board.getEscaque(point).hasPiece()) {
-            return ActionResult.FAIL;
+            return false;
             // todo: use summoneable range method from board.
         }
         return this.commonCanUse(point, board, caster);

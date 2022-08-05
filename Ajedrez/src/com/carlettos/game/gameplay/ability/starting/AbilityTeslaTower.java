@@ -10,7 +10,6 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityTeslaTower extends AbilityNoInfo {
     protected static final Pattern ABILITY_PATTERN = Patterns.CANNON_ATTACK_PATTERN;
@@ -21,8 +20,8 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return ActionResult.fromBoolean(this.commonCanUse(board, piece));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
+        return (this.commonCanUse(board, piece));
     }
 
     @Override

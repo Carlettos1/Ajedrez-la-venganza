@@ -7,7 +7,6 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.demonic.Portal;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityWarlock extends AbilityNoInfo {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
@@ -17,8 +16,8 @@ public class AbilityWarlock extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return ActionResult.fromBoolean(board.getMatchingEscaques(PATTERN, start).stream()
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
+        return (board.getMatchingEscaques(PATTERN, start).stream()
                 .anyMatch(e -> !e.hasPiece() && e.isMagic() && e.isBuildable()));
     }
 

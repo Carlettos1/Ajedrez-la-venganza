@@ -5,7 +5,6 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
 
 /**
@@ -42,7 +41,7 @@ public abstract class Ability implements IResourceKey {
      * @param info  information to use the ability
      * @return PASS if can be used, FAIL other case.
      */
-    public abstract ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info);
+    public abstract boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info);
 
     /**
      * Excecutes the ability.

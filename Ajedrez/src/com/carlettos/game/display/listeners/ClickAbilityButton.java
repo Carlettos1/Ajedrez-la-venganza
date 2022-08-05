@@ -37,7 +37,7 @@ public class ClickAbilityButton implements ActionListener {
         var info = valor.toInfo();
         var ar = escaque.getPiece().getAbility().canUse(board.getBoard(), escaque.getPiece(), escaque.getPos(), info);
 
-        if (ar.isPositive()) {
+        if (ar) {
             escaque.getPiece().getAbility().use(board.getBoard(), escaque.getPiece(), escaque.getPos(), info);
             board.getBoard().movement();
             MousePiece.get().setSelected(null);

@@ -13,7 +13,6 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.Rook;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.enums.Direction.Axis;
 
@@ -24,9 +23,9 @@ public class AbilityRook extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece)) { return ActionResult.FAIL; } // FIXME: board instanceof
-        return ActionResult.fromBoolean(board instanceof SquareBoard && info.isType(Direction.class));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        if (!this.commonCanUse(board, piece)) { return false; } // FIXME: board instanceof
+        return (board instanceof SquareBoard && info.isType(Direction.class));
     }
 
     @Override
@@ -70,8 +69,8 @@ public class AbilityRook extends Ability {
     }
 
     protected boolean tryToGo(SquareBoard board, Escaque escaqueTorre, Point puntoFinal) {
-        return board.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive()
-                || board.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo()).isPositive();
+        return board.tryTo(Action.TAKE, escaqueTorre.getPos(), puntoFinal.toInfo())
+                || board.tryTo(Action.MOVE, escaqueTorre.getPos(), puntoFinal.toInfo());
     }
 
     protected void addAllRookEscaques(List<Escaque> rooks, AbstractSquareBoard board, Piece piece) {

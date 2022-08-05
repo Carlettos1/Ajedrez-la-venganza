@@ -7,7 +7,6 @@ import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityQueen extends Ability {
     public static final Pattern PATTERN = Patterns.KNIGHT_PATTERN;
@@ -17,12 +16,12 @@ public class AbilityQueen extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isType(Point.class)
                 || !PATTERN.match(board, start, (Point) info.getValue())) {
-            return ActionResult.FAIL;
+            return false;
         }
-        return ActionResult.PASS;
+        return true;
     }
 
     @Override

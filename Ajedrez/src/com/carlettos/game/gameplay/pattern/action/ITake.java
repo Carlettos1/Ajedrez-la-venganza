@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 /**
  *
@@ -23,10 +22,10 @@ public interface ITake<P extends Pattern> {
      * @throws IllegalArgumentException if the info is not an implementation of
      *                                  {@literal Info<Point>}
      */
-    public default ActionResult canTake(AbstractSquareBoard board, Point start, Info info, P pattern) {
+    public default boolean canTake(AbstractSquareBoard board, Point start, Info info, P pattern) {
         if (info.getValue() instanceof Point p) {
-            if (!this.checkComerCondition(board, start, p)) { return ActionResult.FAIL; }
-            return ActionResult.fromBoolean(pattern.match(board, start, p));
+            if (!this.checkComerCondition(board, start, p)) { return false; }
+            return (pattern.match(board, start, p));
         } else {
             throw new IllegalArgumentException("Info is not Info<Point>");
         }

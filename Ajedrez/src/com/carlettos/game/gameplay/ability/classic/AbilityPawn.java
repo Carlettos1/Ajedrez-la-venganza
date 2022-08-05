@@ -24,7 +24,6 @@ import com.carlettos.game.gameplay.piece.starting.SuperPawn;
 import com.carlettos.game.gameplay.piece.starting.TeslaTower;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.LogHelper;
 
@@ -43,24 +42,24 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Piece.class)) { return ActionResult.FAIL; }
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        if (!this.commonCanUse(board, piece) || !info.isType(Piece.class)) { return false; }
 
         if (piece.getColor().equals(Color.WHITE)) {
             if (start.y + 1 == board.shape.y) {
-                return ActionResult.PASS;
+                return true;
             } else {
-                return ActionResult.FAIL;
+                return false;
             }
         } else if (piece.getColor().equals(Color.BLACK)) {
             if (start.y == 0) {
-                return ActionResult.PASS;
+                return true;
             } else {
-                return ActionResult.FAIL;
+                return false;
             }
         }
         LogHelper.LOG.warning(() -> "INTENTANDO CORONAR CON OTRO COLOR");
-        return ActionResult.FAIL;
+        return false;
     }
 
     @Override

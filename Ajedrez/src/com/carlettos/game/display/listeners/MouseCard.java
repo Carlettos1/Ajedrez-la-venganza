@@ -50,7 +50,7 @@ public class MouseCard implements MouseListener {
             var clock = board.getClockDisplay().getClock();
             var can = card.getCard().canUse(escaque.getEscaque().getPos(), board.getBoard(),
                     clock.getPlayerOfColor(card.getColor()));
-            if (can.isPositive()) {
+            if (can) {
                 card.getCard().use(escaque.getEscaque().getPos(), board.getBoard(),
                         clock.getPlayerOfColor(card.getColor()));
                 board.getManoVisual().redo();

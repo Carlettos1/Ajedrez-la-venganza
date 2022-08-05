@@ -9,7 +9,6 @@ import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -28,12 +27,12 @@ public abstract class SimplePiece<P extends Pattern> extends Piece implements IT
      * @@inheritDoc
      */
     @Override
-    public final ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public final boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
         return switch (action) {
             case TAKE -> this.canTake(board, start, info, patron);
             case MOVE -> this.canMove(board, start, info, patron);
             case ABILITY -> this.getAbility().canUse(board, this, start, info);
-            default -> ActionResult.FAIL;
+            default -> false;
         };
     }
 

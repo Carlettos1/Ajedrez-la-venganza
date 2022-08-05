@@ -3,7 +3,6 @@ package com.carlettos.game.gameplay.ability;
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 /**
  * It's the ability wich doesn't uses any value of input
@@ -19,7 +18,7 @@ public abstract class AbilityNoInfo extends Ability {
     }
 
     @Override
-    public final ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public final boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         return this.canUse(board, piece, start);
     }
 
@@ -28,7 +27,7 @@ public abstract class AbilityNoInfo extends Ability {
         this.use(board, piece, start);
     }
 
-    public abstract ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start);
+    public abstract boolean canUse(AbstractSquareBoard board, Piece piece, Point start);
 
     public abstract void use(AbstractSquareBoard board, Piece piece, Point start);
 

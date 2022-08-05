@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.carlettos.game.util.enums.ActionResult;
-
 public class TypeManager {
     protected final List<IPieceType> types;
 
@@ -27,8 +25,8 @@ public class TypeManager {
      * @param type type to add.
      * @return PASS.
      */
-    public ActionResult addType(IPieceType type) {
-        return ActionResult.fromBoolean(this.getTypes().add(type));
+    public boolean addType(IPieceType type) {
+        return (this.getTypes().add(type));
     }
 
     /**
@@ -38,8 +36,8 @@ public class TypeManager {
      * @return FAIL if the piece doesn't contain the type provided, PASS if the
      *         piece has the type and has been removed.
      */
-    public ActionResult removeType(IPieceType type) {
-        return ActionResult.fromBoolean(this.getTypes().remove(type));
+    public boolean removeType(IPieceType type) {
+        return (this.getTypes().remove(type));
     }
 
     /**
@@ -49,13 +47,13 @@ public class TypeManager {
      * @return PASS if every type has been added to this piece, FAIL otherwise.
      * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult addTypes(IPieceType... types) {
+    public boolean addTypes(IPieceType... types) {
         boolean success = true;
         for (IPieceType tipo : types) {
             Objects.requireNonNull(tipo);
             success = Boolean.logicalAnd(success, this.getTypes().add(tipo));
         }
-        return ActionResult.fromBoolean(success);
+        return (success);
     }
 
     /**
@@ -66,19 +64,19 @@ public class TypeManager {
      *         otherwise.
      * @throws NullPointerException if there is any null type provided.
      */
-    public ActionResult removeTypes(IPieceType... types) {
+    public boolean removeTypes(IPieceType... types) {
         boolean success = true;
         for (IPieceType tipo : types) {
             Objects.requireNonNull(tipo);
             success = Boolean.logicalAnd(success, this.getTypes().remove(tipo));
         }
-        return ActionResult.fromBoolean(success);
+        return (success);
     }
 
-    public ActionResult can(PieceTypeData data) {
-        ActionResult combined = ActionResult.PASS;
+    public boolean can(PieceTypeData data) {
+        boolean combined = true;
         for (IPieceType type : types) {
-            combined = combined.and(type.can(data));
+            combined &= (type.can(data));
         }
         return combined;
     }
@@ -89,10 +87,10 @@ public class TypeManager {
         }
     }
 
-    public ActionResult canBe(PieceTypeData data) {
-        ActionResult combined = ActionResult.PASS;
+    public boolean canBe(PieceTypeData data) {
+        boolean combined = true;
         for (IPieceType type : types) {
-            combined = combined.and(type.canBe(data));
+            combined &= (type.canBe(data));
         }
         return combined;
     }

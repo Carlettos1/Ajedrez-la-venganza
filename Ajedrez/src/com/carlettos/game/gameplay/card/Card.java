@@ -7,7 +7,6 @@ import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
-import com.carlettos.game.util.enums.ActionResult;
 
 /**
  * It's the representation of a card.
@@ -46,7 +45,7 @@ public abstract class Card implements IResourceKey {
      *
      * @return ActionResult.PASS if can be used, FAIL other case.
      */
-    public abstract ActionResult canUse(Point point, SquareBoard board, Player caster);
+    public abstract boolean canUse(Point point, SquareBoard board, Player caster);
 
     /**
      * Uses the card.
@@ -67,12 +66,12 @@ public abstract class Card implements IResourceKey {
      *
      * @return ActionResult.PASS if can be used, FAIL other case.
      */
-    public ActionResult commonCanUse(Point point, SquareBoard board, Player caster) {
-        if (caster.getMana() < this.manaCost) { return ActionResult.FAIL; }
+    public boolean commonCanUse(Point point, SquareBoard board, Player caster) {
+        if (caster.getMana() < this.manaCost) { return false; }
         if (board.getClock().turnOf().getHand().hasCard(this) && board.getClock().turnOf().equals(caster)) {
-            return ActionResult.PASS;
+            return true;
         }
-        return ActionResult.FAIL;
+        return false;
     }
 
     /**

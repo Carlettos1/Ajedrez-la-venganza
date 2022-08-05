@@ -9,7 +9,6 @@ import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.helper.CardHelper;
 
 public class AbilityMagician extends AbilityNoInfo {
@@ -20,8 +19,8 @@ public class AbilityMagician extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return ActionResult.fromBoolean(CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
+        return (CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
     }
 
     // TODO: ampliar el sistema y poder quitar efectos

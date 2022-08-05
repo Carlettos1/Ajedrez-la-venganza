@@ -4,7 +4,6 @@ import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 public abstract class CardOnBoard extends Card {
 
@@ -13,7 +12,7 @@ public abstract class CardOnBoard extends Card {
     }
 
     @Override
-    public ActionResult canUse(Point point, SquareBoard board, Player caster) {
+    public boolean canUse(Point point, SquareBoard board, Player caster) {
         return commonCanUse(point, board, caster);
     }
 

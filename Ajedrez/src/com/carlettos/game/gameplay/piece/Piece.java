@@ -16,7 +16,6 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.TypeHelper;
 
@@ -75,7 +74,7 @@ public abstract class Piece implements IResourceKey, IInfo {
      *
      * @return PASS if the action can be performed, FAIL otherwise.
      */
-    public abstract ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info);
+    public abstract boolean can(Action action, AbstractSquareBoard board, Point start, Info info);
 
     /**
      * Its excecuted after an action has been performed. Usually its just used to
@@ -104,20 +103,20 @@ public abstract class Piece implements IResourceKey, IInfo {
     public List<Tuple<Action, Info>> getAllActions(AbstractSquareBoard board, Point start) {
         List<Tuple<Action, Info>> actions = new ArrayList<>();
         board.foreach(e -> {
-            if (this.can(Action.TAKE, board, start, e.getPos().toInfo()).isPositive()) {
+            if (this.can(Action.TAKE, board, start, e.getPos().toInfo())) {
                 actions.add(new Tuple<>(Action.TAKE, e.getPos().toInfo()));
             }
 
-            if (this.can(Action.MOVE, board, start, e.getPos().toInfo()).isPositive()) {
+            if (this.can(Action.MOVE, board, start, e.getPos().toInfo())) {
                 actions.add(new Tuple<>(Action.MOVE, e.getPos().toInfo()));
             }
 
-            if (this.can(Action.ATTACK, board, start, e.getPos().toInfo()).isPositive()) {
+            if (this.can(Action.ATTACK, board, start, e.getPos().toInfo())) {
                 actions.add(new Tuple<>(Action.ATTACK, e.getPos().toInfo()));
             }
         });
         for (IInfo value : getAbility().getValues(board, start)) {
-            if (this.getAbility().canUse(board, this, start, value.toInfo()).isPositive()) {
+            if (this.getAbility().canUse(board, this, start, value.toInfo())) {
                 actions.add(new Tuple<>(Action.ABILITY, value.toInfo()));
             }
         }

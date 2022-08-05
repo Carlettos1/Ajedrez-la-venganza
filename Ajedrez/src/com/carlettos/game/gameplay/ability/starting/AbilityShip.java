@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityShip extends AbilityNoInfo {
 
@@ -13,8 +12,8 @@ public class AbilityShip extends AbilityNoInfo {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return ActionResult.fromBoolean(this.commonCanUse(board, piece));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
+        return (this.commonCanUse(board, piece));
     }
 
     @Override

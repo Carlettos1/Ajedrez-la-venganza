@@ -72,9 +72,9 @@ public class MousePiece implements MouseListener {
             }
 
             // the order matters, first tries to move, then to attack, then to take.
-            if (board.tryTo(Action.MOVE, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()
-                    || board.tryTo(Action.ATTACK, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()
-                    || board.tryTo(Action.TAKE, eSelected.getPos(), eObjetive.getPos().toInfo()).isPositive()) {
+            if (board.tryTo(Action.MOVE, eSelected.getPos(), eObjetive.getPos().toInfo())
+                    || board.tryTo(Action.ATTACK, eSelected.getPos(), eObjetive.getPos().toInfo())
+                    || board.tryTo(Action.TAKE, eSelected.getPos(), eObjetive.getPos().toInfo())) {
                 selected = null;
                 tv.offAll();
                 tv.getClockDisplay().repaint();

@@ -5,10 +5,9 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.type.PieceTypeData;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class TypeHelper {
-    public static final ActionResult checkIfTypesCan(Action action, AbstractSquareBoard board, Point pos, Info info) {
+    public static final boolean checkIfTypesCan(Action action, AbstractSquareBoard board, Point pos, Info info) {
         if (info.isPointOrSubPoint() && board.getEscaque(info.getPointOrSubPoint()).hasPiece()) {
             return checkIfTypesCanWithPoint(action, board, pos, info.getPointOrSubPoint());
         } else {
@@ -16,11 +15,11 @@ public class TypeHelper {
         }
     }
 
-    public static final ActionResult checkIfTypesCanWithPoint(Action action, AbstractSquareBoard board, Point pos,
+    public static final boolean checkIfTypesCanWithPoint(Action action, AbstractSquareBoard board, Point pos,
             Point otherPos) {
         var posData = new PieceTypeData(action, board, board.getPiece(pos), board.getPiece(otherPos), pos, otherPos);
         return board.getPiece(pos).getTypeManager().can(posData)
-                .and(board.getPiece(otherPos).getTypeManager().canBe(posData.getOtherData()));
+                && (board.getPiece(otherPos).getTypeManager().canBe(posData.getOtherData()));
     }
 
     public static final void ActivateTypesOnAction(Action action, AbstractSquareBoard board, Point pos, Info info) {

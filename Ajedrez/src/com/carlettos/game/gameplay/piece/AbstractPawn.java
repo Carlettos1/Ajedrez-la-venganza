@@ -11,7 +11,6 @@ import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -31,11 +30,11 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
     }
 
     @Override
-    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
         return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
             case TAKE -> this.canTake(board, start, info, takePattern);
-            default -> ActionResult.FAIL;
+            default -> false;
         };
     }
 

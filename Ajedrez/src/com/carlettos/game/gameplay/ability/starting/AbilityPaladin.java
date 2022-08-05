@@ -14,7 +14,6 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.helper.CardHelper;
 
 @SuppressWarnings("unchecked")
@@ -33,9 +32,9 @@ public class AbilityPaladin extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         if (!info.isTupleType(PaladinHabilityType.class, Point.class) || !this.commonCanUse(board, piece)) {
-            return ActionResult.FAIL;
+            return false;
         }
         Tuple<PaladinHabilityType, Point> tuple = (Tuple<PaladinHabilityType, Point>) info.getValue();
         boolean result = false;
@@ -52,7 +51,7 @@ public class AbilityPaladin extends Ability {
                 case REVIVE -> CardHelper.boardHasCard(board, CardsOnBoard.REVIVE) && !hasPiece;
             };
         }
-        return ActionResult.fromBoolean(result);
+        return (result);
     }
 
     @Override

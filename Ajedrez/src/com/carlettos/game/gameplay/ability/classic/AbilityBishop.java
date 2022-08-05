@@ -8,7 +8,6 @@ import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
 
 public class AbilityBishop extends Ability {
@@ -18,10 +17,10 @@ public class AbilityBishop extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!super.commonCanUse(board, piece) || !info.isType(Direction.class)) { return ActionResult.FAIL; }
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        if (!super.commonCanUse(board, piece) || !info.isType(Direction.class)) { return false; }
         var dir = (Direction) info.getValue();
-        return ActionResult.fromBoolean(this.reducedCanUse(board, start, dir));
+        return (this.reducedCanUse(board, start, dir));
     }
 
     @Override

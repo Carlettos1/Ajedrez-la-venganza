@@ -1,7 +1,5 @@
 package com.carlettos.game.gameplay.piece.type;
 
-import com.carlettos.game.util.enums.ActionResult;
-
 /**
  * Piece type, can be added or removed from a piece during game. They serve as a
  * way to add shared functionability to pieces, and works as a tag.
@@ -51,7 +49,7 @@ public interface IPieceType {
      *
      * @param data record with the information.
      */
-    ActionResult can(PieceTypeData data);
+    boolean can(PieceTypeData data);
 
     /**
      * Its executed every time that a piece with this type makes an action. The
@@ -67,7 +65,7 @@ public interface IPieceType {
      *
      * @param data record with the information.
      */
-    ActionResult canBe(PieceTypeData data);
+    boolean canBe(PieceTypeData data);
 
     /**
      * Its executed every time that some other piece makes an action to a piece with

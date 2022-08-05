@@ -11,7 +11,6 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -27,11 +26,11 @@ public class Paladin extends Piece implements IMove<PatternQueen>, ITake<Pattern
     }
 
     @Override
-    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
         return switch (action) {
             case MOVE -> this.canMove(board, start, info, pattern);
             case TAKE -> this.canTake(board, start, info, pattern);
-            default -> ActionResult.FAIL;
+            default -> false;
         };
     }
 

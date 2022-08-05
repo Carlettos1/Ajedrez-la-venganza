@@ -6,7 +6,6 @@ import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.card.Card;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 
 /**
  *
@@ -19,7 +18,7 @@ public class AddMovement extends Card {
     }
 
     @Override
-    public ActionResult canUse(Point point, SquareBoard board, Player caster) {
+    public boolean canUse(Point point, SquareBoard board, Player caster) {
         return this.commonCanUse(point, board, caster);
     }
 

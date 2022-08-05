@@ -39,7 +39,6 @@ import com.carlettos.game.gameplay.piece.starting.Warlock;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.DeckHelper;
 import com.carlettos.game.util.helper.TypeHelper;
@@ -66,18 +65,18 @@ public class SquareBoard extends AbstractSquareBoard {
      * @param info   information about the action.
      * @return FAIL if it didn't do the action, PASS if the action has been done.
      */ // TODO: use just the point to make an ability which uses the point info
-    public ActionResult tryTo(Action action, Point pos, Info info) {
+    public boolean tryTo(Action action, Point pos, Info info) {
         var startEsq = getEscaque(pos);
         var piece = startEsq.getPiece();
-        if (!canPlay(piece)) { return ActionResult.FAIL; }
+        if (!canPlay(piece)) { return false; }
         if (action.needsInfoPoint() && !info.isType(Point.class)) {
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
         // TODO: maybe move to piece the usage of TypeHelper
-        ActionResult can = getPiece(pos).can(action, this, pos, info)
-                .and(TypeHelper.checkIfTypesCan(action, this, pos, info))
-                .and(getPiece(pos).getEffectManager().canBe(action, this, pos));
-        if (can.isPositive()) {
+        boolean can = getPiece(pos).can(action, this, pos, info)
+                && (TypeHelper.checkIfTypesCan(action, this, pos, info))
+                && (getPiece(pos).getEffectManager().canBe(action, this, pos));
+        if (can) {
             switch (action) {
                 case ATTACK -> killPiece((Point) info.getValue());
                 case MOVE -> {

@@ -7,7 +7,6 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 
 public class EffectManager {
     protected final List<Effect> effects;
@@ -43,10 +42,10 @@ public class EffectManager {
         return effects;
     }
 
-    public ActionResult canBe(Action action, AbstractSquareBoard board, Point start) {
-        ActionResult combined = ActionResult.PASS;
+    public boolean canBe(Action action, AbstractSquareBoard board, Point start) {
+        boolean combined = true;
         for (Effect effect : effects) {
-            combined = combined.and(effect.canBe(action, board, start, piece));
+            combined &= (effect.canBe(action, board, start, piece));
         }
         return combined;
     }

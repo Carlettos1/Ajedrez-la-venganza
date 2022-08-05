@@ -12,7 +12,6 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Color;
 
 /**
@@ -30,11 +29,11 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     }
 
     @Override
-    public ActionResult can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
         return switch (action) {
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             case MOVE -> this.canMove(board, start, info, movePattern);
-            default -> ActionResult.FAIL;
+            default -> false;
         };
     }
 

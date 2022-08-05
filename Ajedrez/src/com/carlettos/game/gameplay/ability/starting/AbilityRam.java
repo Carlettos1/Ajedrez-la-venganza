@@ -10,7 +10,6 @@ import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.ActionResult;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.helper.LogHelper;
 
@@ -22,9 +21,9 @@ public class AbilityRam extends Ability {
     }
 
     @Override
-    public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Direction.class)) { return ActionResult.FAIL; }
-        return ActionResult.fromBoolean(!board.getShape().isOutOfBorders(((Direction) info.getValue()).toPoint()));
+    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+        if (!this.commonCanUse(board, piece) || !info.isType(Direction.class)) { return false; }
+        return (!board.getShape().isOutOfBorders(((Direction) info.getValue()).toPoint()));
     }
 
     @Override
