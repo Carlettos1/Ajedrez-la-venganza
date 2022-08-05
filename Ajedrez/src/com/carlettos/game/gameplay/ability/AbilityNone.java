@@ -22,6 +22,5 @@ public class AbilityNone extends AbilityNoInfo {
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start) {
-    }
+    public void use(AbstractSquareBoard board, Piece piece, Point start) {}
 }

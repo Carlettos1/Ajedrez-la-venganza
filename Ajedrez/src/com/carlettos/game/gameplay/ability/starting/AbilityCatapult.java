@@ -7,7 +7,7 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.gameplay.piece.type.PieceType;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.ActionResult;
@@ -56,10 +56,11 @@ public class AbilityCatapult extends Ability {
 
     private ActionResult reducedCan(AbstractSquareBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
         Point posPiece = start.add(tuple.y.toPoint());
-        if (board.getShape().isOutOfBorders(this.getEndPoint(board, start, tuple.x))) {
+        if (board.getShape().isOutOfBorders(this.getEndPoint(board, start, tuple.x))
+                || board.shape.isOutOfBorders(posPiece) || !board.getEscaque(posPiece).hasPiece()
+                || !board.getPiece(posPiece).getTypeManager().isType(IPieceType.TRANSPORTABLE)) {
             return ActionResult.FAIL;
         }
-        if (board.shape.isOutOfBorders(posPiece) || !board.getEscaque(posPiece).hasPiece() || !board.getPiece(posPiece).getTypeManager().isType(PieceType.TRANSPORTABLE)) { return ActionResult.FAIL; }
         return ActionResult.PASS;
     }
 }

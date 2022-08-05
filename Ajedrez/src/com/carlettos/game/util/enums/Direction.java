@@ -47,19 +47,13 @@ public enum Direction implements IInfo {
     public enum Axis {
         NS, EW;
     }
-    
+
     public enum SubDirection implements IInfo {
-        N(Direction.N),
-        NE(Direction.N, Direction.E),
-        E(Direction.E),
-        SE(Direction.S, Direction.E),
-        S(Direction.S),
-        SW(Direction.S, Direction.W),
-        W(Direction.W),
-        NW(Direction.N, Direction.W);
-        
+        N(Direction.N), NE(Direction.N, Direction.E), E(Direction.E), SE(Direction.S, Direction.E), S(Direction.S),
+        SW(Direction.S, Direction.W), W(Direction.W), NW(Direction.N, Direction.W);
+
         private final Point point;
-        
+
         private SubDirection(Direction... directions) {
             Point zero = new Point();
             for (Direction direction : directions) {
@@ -67,7 +61,7 @@ public enum Direction implements IInfo {
             }
             this.point = zero;
         }
-        
+
         public Point toPoint() {
             return this.point;
         }

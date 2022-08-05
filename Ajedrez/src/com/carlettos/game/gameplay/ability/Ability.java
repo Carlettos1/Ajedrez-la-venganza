@@ -93,12 +93,10 @@ public abstract class Ability implements IResourceKey {
     public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir, int range) {
         var ray = board.rayCast(start, dir, range);
         ray = ray.stream().filter(e -> !e.hasPiece()).toList();
-        if (ray.isEmpty()) {
-            return new Point(-1, -1);
-        }
+        if (ray.isEmpty()) { return new Point(-1, -1); }
         return ray.get(ray.size() - 1).getPos();
     }
-    
+
     public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir) {
         return this.getEndPoint(board, start, dir, -1);
     }

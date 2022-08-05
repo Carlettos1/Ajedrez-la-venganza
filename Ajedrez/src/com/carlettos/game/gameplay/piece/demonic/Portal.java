@@ -12,7 +12,7 @@ import com.carlettos.game.util.enums.Color;
 
 /**
  * TODO: que se utilize
- * 
+ *
  * @author Carlettos
  */
 public class Portal extends Piece {

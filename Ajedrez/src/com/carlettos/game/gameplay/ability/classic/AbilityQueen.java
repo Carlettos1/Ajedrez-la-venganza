@@ -11,7 +11,7 @@ import com.carlettos.game.util.enums.ActionResult;
 
 public class AbilityQueen extends Ability {
     public static final Pattern PATTERN = Patterns.KNIGHT_PATTERN;
-    
+
     public AbilityQueen() {
         super("queen", 5, 0);
     }

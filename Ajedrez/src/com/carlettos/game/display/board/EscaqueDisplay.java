@@ -57,7 +57,7 @@ public class EscaqueDisplay extends JComponent {
                 tooltipText.append('(').append(effect.getName()).append(')');
                 q++;
             }
-            
+
         }
         this.setToolTipText(tooltipText.toString());
 

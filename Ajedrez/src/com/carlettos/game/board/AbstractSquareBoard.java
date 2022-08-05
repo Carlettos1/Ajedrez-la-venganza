@@ -32,7 +32,7 @@ import com.carlettos.game.gameplay.piece.starting.SuperPawn;
 import com.carlettos.game.gameplay.piece.starting.TeslaTower;
 import com.carlettos.game.gameplay.piece.starting.Wall;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
-import com.carlettos.game.gameplay.piece.type.PieceType;
+import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
@@ -232,19 +232,17 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
             }
         }
     }
-    
+
     /**
      * Traces a line betweem from and the end of the board in the given direction,
      * returning every escaque that is in the way.
-     * 
-     * @param from from which point is the ray casted
+     *
+     * @param from      from which point is the ray casted
      * @param inclusive whenever the returned list contains or not he starting point
-     * @param dir direction of the ray cast
+     * @param dir       direction of the ray cast
      */
     public List<Escaque> rayCast(Point from, boolean inclusive, Direction dir) {
-        if (this.shape.isOutOfBorders(from)) {
-            return List.of();
-        }
+        if (this.shape.isOutOfBorders(from)) { return List.of(); }
         List<Escaque> list = new ArrayList<>();
         Point current = from;
         if (inclusive) {
@@ -255,17 +253,18 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
         }
         return list;
     }
-    
+
     /**
      * Traces a line between from and the end of the board in the given direction,
-     * capped at the given cap, doesn't includes the starting point and can be bloqued by PieceType.IMPENETRABLE.
-     * If its bloqued, the last piece will be of the PieceType.IMPENETRABLE type
-     * 
+     * capped at the given cap, doesn't includes the starting point and can be
+     * bloqued by PieceType.IMPENETRABLE. If its bloqued, the last piece will be of
+     * the PieceType.IMPENETRABLE type
+     *
      * @param from starting pos of the go
-     * @param dir direction of the go
+     * @param dir  direction of the go
      * @paran cap number of max escaques
      * @paran canBeBlocked whenever this go can be blocked or not.
-     * 
+     *
      * @return the escaques encountered
      */
     public List<Escaque> rayCast(Point from, Direction dir, int cap, boolean canBeBlocked) {
@@ -280,26 +279,26 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
             }
             ray = tmp;
         }
-        
+
         if (cap == -1 || cap >= ray.size()) {
             return ray;
         } else {
             return ray.subList(0, cap);
         }
     }
-    
+
     public List<Escaque> rayCast(Point from, Direction dir, int cap) {
         return this.rayCast(from, dir, cap, true);
     }
-    
+
     public List<Escaque> rayCast(Point from, Direction dir) {
         return this.rayCast(from, dir, -1, true);
     }
-    
+
     public boolean isImpenetrable(Point position) {
-        return getPiece(position).getTypeManager().isType(PieceType.IMPENETRABLE);
+        return getPiece(position).getTypeManager().isType(IPieceType.IMPENETRABLE);
     }
-    
+
     protected boolean isImpenetrableAt(Escaque escaque) {
         return isImpenetrable(escaque.getPos());
     }

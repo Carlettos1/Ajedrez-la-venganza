@@ -95,7 +95,7 @@ public class AbilityPaladin extends Ability {
 
     public static enum PaladinHabilityType implements IInfo {
         ATTACK, INVULNERABILITY, REVIVE;
-        
+
         @Override
         public Info toInfo() {
             return Info.getInfo(this);

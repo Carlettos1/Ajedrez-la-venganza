@@ -16,15 +16,14 @@ import com.carlettos.game.util.helper.LogHelper;
 
 public class AbilityRam extends Ability {
     public static final int COST_PER_CHARGE = 5;
+
     public AbilityRam() {
         super("ram", 4, 0);
     }
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Direction.class)) {
-            return ActionResult.FAIL;
-        }
+        if (!this.commonCanUse(board, piece) || !info.isType(Direction.class)) { return ActionResult.FAIL; }
         return ActionResult.fromBoolean(!board.getShape().isOutOfBorders(((Direction) info.getValue()).toPoint()));
     }
 
@@ -53,7 +52,7 @@ public class AbilityRam extends Ability {
                 board.killPiece(escaque.getPos());
             }
         }
-        
+
         board.setPiece(lastPostCharge, piece);
         board.removePieceNoDeath(start);
         this.commonUse(board, piece);
@@ -61,6 +60,7 @@ public class AbilityRam extends Ability {
 
     @Override
     public Direction[] getValues(AbstractSquareBoard board, Point start) {
-        return Arrays.asList(Direction.values()).stream().filter(d -> !board.getShape().isOutOfBorders(d.toPoint())).toArray(Direction[]::new);
+        return Arrays.asList(Direction.values()).stream().filter(d -> !board.getShape().isOutOfBorders(d.toPoint()))
+                .toArray(Direction[]::new);
     }
 }

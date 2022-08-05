@@ -18,11 +18,13 @@ public class AbilityWarlock extends AbilityNoInfo {
 
     @Override
     public ActionResult canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return ActionResult.fromBoolean(board.getMatchingEscaques(PATTERN, start).stream().anyMatch(e -> !e.hasPiece() && e.isMagic() && e.isBuildable()));
+        return ActionResult.fromBoolean(board.getMatchingEscaques(PATTERN, start).stream()
+                .anyMatch(e -> !e.hasPiece() && e.isMagic() && e.isBuildable()));
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start) {
-        board.getMatchingEscaques(PATTERN, start).stream().forEach(e -> e.setPieceIfEmpty(new Portal(piece.getColor())));
+        board.getMatchingEscaques(PATTERN, start).stream()
+                .forEach(e -> e.setPieceIfEmpty(new Portal(piece.getColor())));
     }
 }
