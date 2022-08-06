@@ -36,17 +36,17 @@ public abstract class Effect implements ITranslatable, IImageable, Comparable<Ef
     public void tick() {
         this.turns++;
     }
-    
+
     @Override
     public BufferedImage getImage() {
         return data.image().getImage();
     }
-    
+
     @Override
     public String getTranslated() {
         return data.translation().getTranslated();
     }
-    
+
     @Override
     public int compareTo(Effect o) {
         return Integer.compare(this.turns, o.turns);
@@ -61,9 +61,7 @@ public abstract class Effect implements ITranslatable, IImageable, Comparable<Ef
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if ((obj == null) || (getClass() != obj.getClass()))
             return false;
         Effect other = (Effect) obj;
         return Objects.equals(data.name(), other.data.name());

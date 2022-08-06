@@ -16,11 +16,11 @@ public record TranslateResource(String translationKey) implements ITranslatable 
     static {
         updateResurces();
     }
-    
+
     public TranslateResource(String type, String name) {
         this(type + '.' + name);
     }
-    
+
     public TranslateResource {
         requireStandard(translationKey);
     }
@@ -36,7 +36,8 @@ public record TranslateResource(String translationKey) implements ITranslatable 
         } else if (ENGLISH.getAsJsonPrimitive(this.getTranslationKey()) != null) {
             return ENGLISH.getAsJsonPrimitive(this.getTranslationKey()).getAsString();
         } else {
-            LogManager.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead", this.getTranslationKey());
+            LogManager.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead",
+                    this.getTranslationKey());
             return this.getTranslationKey();
         }
     }

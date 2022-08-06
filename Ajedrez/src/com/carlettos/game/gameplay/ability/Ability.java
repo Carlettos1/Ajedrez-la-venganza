@@ -25,7 +25,7 @@ public abstract class Ability {
     /**
      * General constructor.
      *
-     * @param name      name of the piece of the ability.
+     * @param name     name of the piece of the ability.
      * @param cooldown cooldown of the ability.
      * @param manaCost cost of mana of the ability.
      *
@@ -93,7 +93,7 @@ public abstract class Ability {
         if (ray.isEmpty()) { return new Point(-1, -1); }
         return ray.get(ray.size() - 1).getPos();
     }
-    
+
     /**
      * Returns an oob point in case that there's no end point
      */
@@ -106,9 +106,7 @@ public abstract class Ability {
             }
             valids.add(r);
         }
-        if (valids.isEmpty()) {
-            return new Point(-1, -1);
-        }
+        if (valids.isEmpty()) { return new Point(-1, -1); }
         return valids.get(valids.size() - 1).getPos();
     }
 

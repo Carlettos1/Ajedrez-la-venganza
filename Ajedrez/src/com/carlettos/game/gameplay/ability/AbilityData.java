@@ -10,9 +10,8 @@ import com.carlettos.game.util.resource.TranslateResource;
 public record AbilityData(TranslateResource name, TranslateResource description, int cooldown, int manaCost) {
 
     public AbilityData(String name, int cooldown, int manaCost) {
-        this(new TranslateResource("ability.name", name),
-                new TranslateResource("ability.description", name),
-                cooldown, manaCost);
+        this(new TranslateResource("ability.name", name), new TranslateResource("ability.description", name), cooldown,
+                manaCost);
     }
 
     public String getName() {

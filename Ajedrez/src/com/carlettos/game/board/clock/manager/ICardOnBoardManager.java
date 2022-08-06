@@ -34,7 +34,7 @@ public interface ICardOnBoardManager {
     default void addCardsToBoard(Player from, Card... cards) {
         this.addCardsToBoard(from, Arrays.asList(cards));
     }
-    
+
     /**
      * Adds all cards to the board.
      */

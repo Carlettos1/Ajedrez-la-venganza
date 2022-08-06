@@ -6,7 +6,8 @@ public class Demonic extends PieceType {
     @Override
     public void onBe(PieceTypeData data) {
         if (data.action().equals(Action.TAKE)) {
-            data.board().getClock().getPlayerOfColor(data.board().getEscaque(data.selfPos()).getPieceColor()).changeMana(1);
+            data.board().getClock().getPlayerOfColor(data.board().getEscaque(data.selfPos()).getPieceColor())
+                    .changeMana(1);
         }
     }
 }

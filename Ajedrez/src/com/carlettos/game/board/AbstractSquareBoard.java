@@ -139,7 +139,9 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
             }
             piece.postAction(action, this, pos, info);
             getPiece(pos).getEffectManager().onBe(action, this, pos);
-            if (!bypass) {movement();}
+            if (!bypass) {
+                movement();
+            }
         }
         return can;
     }

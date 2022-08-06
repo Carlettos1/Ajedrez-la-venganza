@@ -37,7 +37,7 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
             default -> false;
         };
     }
-    
+
     @Override
     protected void innerTick(AbstractSquareBoard board, Point pos) {
         var hasIce = board.getClock().boardContains(CardsOnBoard.ICE);

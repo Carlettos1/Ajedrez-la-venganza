@@ -49,7 +49,7 @@ public final class LogManager {
             LOG.warning("Trying to start an already started logger");
         }
     }
-    
+
     public static void log(Level level, String str, Object... objects) {
         LOG.log(level, str.formatted(objects));
     }

@@ -40,7 +40,8 @@ public final class Info {
     }
 
     public boolean isType(Class<? extends IInfo> check) {
-        if (checkTypeExistence(check, Level.SEVERE, "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY %s".formatted(check))) {
+        if (checkTypeExistence(check, Level.SEVERE,
+                "TRYING TO GET A TYPE THAT IT ISN'T IN THE REGISTRY %s".formatted(check))) {
             return false;
         }
         return this.clazz.isAssignableFrom(check);
@@ -61,8 +62,7 @@ public final class Info {
             return true;
         } else if (this.isType(Tuple.class)) {
             Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
-            return getInfo(tuple.x).isPointOrSubPoint() 
-                    || getInfo(tuple.y).isPointOrSubPoint();
+            return getInfo(tuple.x).isPointOrSubPoint() || getInfo(tuple.y).isPointOrSubPoint();
         } else {
             return false;
         }
@@ -82,7 +82,8 @@ public final class Info {
             } else if (tuple.y instanceof Tuple) {
                 return getInfo(tuple.y).getPointOrSubPoint();
             } else {
-                throw new IllegalArgumentException("IDK WHAT WHEN WRONG, BUT HERE'S THE OBJECT THAT CAUSED THIS: %s".formatted(this));
+                throw new IllegalArgumentException(
+                        "IDK WHAT WHEN WRONG, BUT HERE'S THE OBJECT THAT CAUSED THIS: %s".formatted(this));
             }
         }
     }

@@ -87,12 +87,13 @@ public class AbilityRook extends Ability {
 
     protected List<Escaque> getNearbyRookEscaques(AbstractSquareBoard board, Piece piece, Point start) {
         return board.getNearbyEscaques(start).stream()
-                .filter(escaque -> escaque.getPiece() instanceof Rook && escaque.isControlledBy(piece.getColor())).toList();
+                .filter(escaque -> escaque.getPiece() instanceof Rook && escaque.isControlledBy(piece.getColor()))
+                .toList();
     }
 
     /**
-     * Order the escaques in a way that the first rook being throwed
-     * its the closest to the end of the board in the given direction.
+     * Order the escaques in a way that the first rook being throwed its the closest
+     * to the end of the board in the given direction.
      */
     protected void orderEscaques(List<Escaque> rooks, Direction direction) {
         switch (direction) {

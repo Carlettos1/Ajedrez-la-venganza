@@ -71,10 +71,10 @@ public class FileHelper {
         ConfigEntryPanel.setChanged(false);
         LogManager.info("Updating config");
         ConfigHelper.saveConfigs();
-        
+
         ImageResource.updateResurces();
         TranslateResource.updateResurces();
-        
+
         ConfigHelper.updateConfigs();
     }
 }

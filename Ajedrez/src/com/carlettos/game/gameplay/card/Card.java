@@ -78,7 +78,7 @@ public abstract class Card {
         caster.changeMana(-data.manaCost());
         board.movement();
     }
-    
+
     public CardData getData() {
         return data;
     }

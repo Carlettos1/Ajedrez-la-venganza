@@ -50,7 +50,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
     /**
      * General constructor.
      *
-     * @param name     key to identify the piece.
+     * @param name    key to identify the piece.
      * @param ability ability of the piece.
      * @param color   color of the piece.
      * @param types   types of the piece.
@@ -160,8 +160,8 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
         this.effectManager.tick(board, pos);
         this.innerTick(board, pos);
     }
-    
-    protected void innerTick(AbstractSquareBoard board, Point pos) { }
+
+    protected void innerTick(AbstractSquareBoard board, Point pos) {}
 
     public EffectManager getEffectManager() {
         return effectManager;
@@ -192,12 +192,12 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
     public String toString() {
         return this.getTranslated();
     }
-    
+
     @Override
     public BufferedImage getImage() {
         return imageResource.getImage(this.color);
     }
-    
+
     @Override
     public String getTranslated() {
         return translateResource.getTranslated();

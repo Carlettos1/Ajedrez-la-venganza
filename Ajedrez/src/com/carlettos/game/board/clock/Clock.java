@@ -46,8 +46,8 @@ public class Clock extends AbstractClock {
 
     @Override
     public boolean boardContains(Player from, Card card) {
-        return cardsOnBoard.stream().anyMatch(
-                tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getData().name().equals(card.getData().name()));
+        return cardsOnBoard.stream().anyMatch(tuple -> tuple.x.getColor().equals(from.getColor())
+                && tuple.y.getData().name().equals(card.getData().name()));
     }
 
     @Override
