@@ -60,13 +60,9 @@ public final class Info {
         if (this.isType(Point.class)) {
             return true;
         } else if (this.isType(Tuple.class)) {
-            // TODO: FIXME: XXX: usar recursión at infinito?
             Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
-            if (tuple.x instanceof Point || tuple.y instanceof Point) {
-                return true;
-            } else {
-                return false;
-            }
+            return getInfo(tuple.x).isPointOrSubPoint() 
+                    || getInfo(tuple.y).isPointOrSubPoint();
         } else {
             return false;
         }
@@ -79,8 +75,14 @@ public final class Info {
             Tuple<?, ?> tuple = (Tuple<?, ?>) this.getValue();
             if (tuple.x instanceof Point) {
                 return (Point) tuple.x;
-            } else {
+            } else if (tuple.y instanceof Point) {
                 return (Point) tuple.y;
+            } else if (tuple.x instanceof Tuple) {
+                return getInfo(tuple.x).getPointOrSubPoint();
+            } else if (tuple.y instanceof Tuple) {
+                return getInfo(tuple.y).getPointOrSubPoint();
+            } else {
+                throw new IllegalArgumentException("IDK WHAT WHEN WRONG, BUT HERE'S THE OBJECT THAT CAUSED THIS: %s".formatted(this));
             }
         }
     }

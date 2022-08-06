@@ -105,7 +105,7 @@ public class SquareBoard extends AbstractSquareBoard {
         });
         getClock().tick();
 
-        // TODO: repaint on tick
+        // FIXME: repaint on tick
         try {
             var bd = BoardDisplay.getInstance();
             bd.getHandDisplay().redo();
