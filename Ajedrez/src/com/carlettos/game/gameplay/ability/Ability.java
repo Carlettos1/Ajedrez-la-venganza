@@ -1,6 +1,10 @@
 package com.carlettos.game.gameplay.ability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.Escaque;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
@@ -81,17 +85,31 @@ public abstract class Ability {
     public abstract IInfo[] getValues(AbstractSquareBoard board, Point start);
 
     /**
-     * Returns a oob point in case that there's no end point.
+     * Returns an oob point in case that there's no end point.
      */
-    public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir, int range) {
+    public Point getEndPointJump(AbstractSquareBoard board, Point start, Direction dir, int range) {
         var ray = board.rayCast(start, dir, range);
         ray = ray.stream().filter(e -> !e.hasPiece()).toList();
         if (ray.isEmpty()) { return new Point(-1, -1); }
         return ray.get(ray.size() - 1).getPos();
     }
-
-    public Point getEndPoint(AbstractSquareBoard board, Point start, Direction dir) {
-        return this.getEndPoint(board, start, dir, -1);
+    
+    /**
+     * Returns an oob point in case that there's no end point
+     */
+    public Point getEndPointNoJump(AbstractSquareBoard board, Point start, Direction dir, int range) {
+        List<Escaque> ray = board.rayCast(start, dir, range, false);
+        List<Escaque> valids = new ArrayList<>(ray.size());
+        for (Escaque r : ray) {
+            if (r.hasPiece()) {
+                break;
+            }
+            valids.add(r);
+        }
+        if (valids.isEmpty()) {
+            return new Point(-1, -1);
+        }
+        return valids.get(valids.size() - 1).getPos();
     }
 
     public String formatInfo(Object info) {

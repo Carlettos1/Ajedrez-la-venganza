@@ -32,7 +32,7 @@ public class AbilityCatapult extends Ability {
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         Tuple<Direction, SubDirection> tuple = (Tuple<Direction, SubDirection>) info.getValue();
         Point posPiece = start.add(tuple.y.toPoint());
-        Point newPos = this.getEndPoint(board, start, tuple.x, RANGE);
+        Point newPos = this.getEndPointJump(board, start, tuple.x, RANGE);
         board.setPiece(newPos, board.getPiece(posPiece));
         board.removePieceNoDeath(posPiece);
         this.commonUse(board, piece);
@@ -55,7 +55,7 @@ public class AbilityCatapult extends Ability {
 
     private boolean reducedCan(AbstractSquareBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
         Point posPiece = start.add(tuple.y.toPoint());
-        if (board.getShape().isOutOfBorders(this.getEndPoint(board, start, tuple.x))
+        if (board.getShape().isOutOfBorders(this.getEndPointJump(board, start, tuple.x, RANGE))
                 || board.shape.isOutOfBorders(posPiece) || !board.getEscaque(posPiece).hasPiece()
                 || !board.getPiece(posPiece).getTypeManager().isType(IPieceType.TRANSPORTABLE)) {
             return false;

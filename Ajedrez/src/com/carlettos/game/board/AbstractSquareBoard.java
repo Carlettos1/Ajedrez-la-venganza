@@ -9,6 +9,7 @@ import com.carlettos.game.board.deathPile.BasicDeathPile;
 import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.board.shape.Square;
+import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.Bishop;
@@ -34,8 +35,10 @@ import com.carlettos.game.gameplay.piece.starting.Wall;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
+import com.carlettos.game.util.helper.TypeHelper;
 
 /**
  * Generic board. It doesn't have a clock and doesn't manage turns. It's just a
@@ -85,6 +88,46 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
                 chessBoard[y][x] = new Escaque(new Point(x, y));
             }
         }
+    }
+
+    /**
+     * Tries to do an {@code Action}. In case of an action that needs other point,
+     * use Point::toInfo.
+     *
+     * @param action action to do.
+     * @param pos    start point.
+     * @param info   information about the action.
+     * @return FAIL if it didn't do the action, PASS if the action has been done.
+     */
+    public boolean tryTo(Action action, Point pos, Info info) {
+        var piece = getPiece(pos);
+        if (!canPlay(piece)) { return false; }
+        if (action.needsInfoPoint() && !info.isType(Point.class)) {
+            throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
+        }
+        // TODO: maybe move to piece the usage of TypeHelper
+        boolean can = getPiece(pos).can(action, this, pos, info)
+                && (TypeHelper.checkIfTypesCan(action, this, pos, info))
+                && (getPiece(pos).getEffectManager().canBe(action, this, pos));
+        if (can) {
+            switch (action) {
+                case ATTACK -> killPiece((Point) info.getValue());
+                case MOVE -> {
+                    setPiece((Point) info.getValue(), piece);
+                    removePieceNoDeath(pos);
+                }
+                case TAKE -> {
+                    setPiece((Point) info.getValue(), piece);
+                    killPiece(pos);
+                }
+                case ABILITY -> getPiece(pos).getAbility().use(this, piece, pos, info);
+                default -> throw new IllegalArgumentException("Action not expected");
+            }
+            piece.postAction(action, this, pos, info);
+            getPiece(pos).getEffectManager().onBe(action, this, pos);
+            movement();
+        }
+        return can;
     }
 
     /**

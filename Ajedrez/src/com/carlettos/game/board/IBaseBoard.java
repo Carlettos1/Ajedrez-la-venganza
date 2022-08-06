@@ -81,15 +81,15 @@ public interface IBaseBoard {
      * It gets every nearby Escaque, the ones that are above, below, right and left
      * of the given Escaque, if they exist on this board.
      *
-     * @param escaque center Escaque.
+     * @param start center point.
      * @return a List of max 4 elements, that contains all the escaques nearby the
      *         given one.
      */
-    default List<Escaque> getNearbyEscaques(Escaque escaque) {
+    default List<Escaque> getNearbyEscaques(Point start) {
         List<Escaque> escaques = new ArrayList<>(4);
         for (Direction dir : Direction.values()) {
             Point tmp;
-            if (!this.getShape().isOutOfBorders(tmp = escaque.getPos().add(dir.toPoint()))) {
+            if (!this.getShape().isOutOfBorders(tmp = start.add(dir.toPoint()))) {
                 escaques.add(this.getEscaque(tmp));
             }
         }

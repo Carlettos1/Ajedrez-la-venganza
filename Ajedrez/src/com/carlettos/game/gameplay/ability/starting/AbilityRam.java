@@ -1,6 +1,5 @@
 package com.carlettos.game.gameplay.ability.starting;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Direction;
-import com.carlettos.game.util.helper.LogManager;
 
 public class AbilityRam extends Ability {
     public static final int COST_PER_CHARGE = 5;
@@ -29,20 +27,8 @@ public class AbilityRam extends Ability {
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
         Direction dir = (Direction) info.getValue();
-        List<Escaque> ray = board.rayCast(start, dir);
-        List<Escaque> valids = new ArrayList<>(ray.size());
-        for (Escaque r : ray) {
-            if (r.hasPiece()) {
-                break;
-            }
-            valids.add(r);
-        }
-        if (valids.isEmpty()) {
-            LogManager.warning("Valids is empty, and it shouldn't");
-            return;
-        }
-        int totalCharges = valids.size() / COST_PER_CHARGE + 1;
-        Point lastPreCharge = valids.get(valids.size() - 1).getPos();
+        Point lastPreCharge = this.getEndPointNoJump(board, start, dir, -1);
+        int totalCharges = (int) Math.ceil(start.getDistanceTo(lastPreCharge)) / COST_PER_CHARGE + 1;
         List<Escaque> toKill = board.rayCast(lastPreCharge, dir, totalCharges);
         Point lastPostCharge = lastPreCharge;
         if (!toKill.isEmpty()) {
