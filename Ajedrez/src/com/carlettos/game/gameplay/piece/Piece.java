@@ -1,5 +1,6 @@
 package com.carlettos.game.gameplay.piece;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,20 +12,22 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.EffectManager;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.gameplay.piece.type.TypeManager;
-import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.TypeHelper;
+import com.carlettos.game.util.resource.IImageable;
+import com.carlettos.game.util.resource.ITranslatable;
+import com.carlettos.game.util.resource.ImageResource;
+import com.carlettos.game.util.resource.TranslateResource;
 
 /**
  * It's a piece.
  *
  * @author Carlos
  */
-public abstract class Piece implements IResourceKey, IInfo {
+public abstract class Piece implements IImageable, ITranslatable, IInfo {
 
     /**
      * It's a convenience value to not move the same piece twice in a turn.
@@ -32,32 +35,34 @@ public abstract class Piece implements IResourceKey, IInfo {
     protected boolean moved;
 
     /**
-     * It's the cooldown of the hability of this piece. When its 0, the ability can
+     * It's the cooldown of the ability of this piece. When its 0, the ability can
      * be used.
      */
     protected int cooldown;
-    protected final String key;
-    protected final ResourceLocation name;
+    protected final String name;
     protected Ability ability;
     protected Color color;
+    protected final ImageResource imageResource;
+    protected final TranslateResource translateResource;
     protected final EffectManager effectManager;
     protected final TypeManager typeManager;
 
     /**
      * General constructor.
      *
-     * @param key     key to identify the piece.
+     * @param name     key to identify the piece.
      * @param ability ability of the piece.
-     * @param types   types of the piece.
      * @param color   color of the piece.
+     * @param types   types of the piece.
      */
-    protected Piece(String key, Ability ability, Color color, IPieceType... types) {
+    protected Piece(String name, Ability ability, Color color, IPieceType... types) {
         this.moved = false;
         this.cooldown = 0;
-        this.key = key;
+        this.name = name;
         this.ability = ability;
         this.color = color;
-        this.name = new ResourceLocation("piece.".concat(key));
+        this.imageResource = new ImageResource("piece", name);
+        this.translateResource = new TranslateResource("piece", name);
         this.typeManager = new TypeManager(types);
         this.effectManager = new EffectManager(this);
     }
@@ -166,16 +171,6 @@ public abstract class Piece implements IResourceKey, IInfo {
         return typeManager;
     }
 
-    @Override
-    public String getBaseKey() {
-        return key;
-    }
-
-    // TODO: hacer esto con todos?
-    public ResourceLocation getName() {
-        return name;
-    }
-
     public Ability getAbility() {
         return ability;
     }
@@ -195,7 +190,17 @@ public abstract class Piece implements IResourceKey, IInfo {
 
     @Override
     public String toString() {
-        return getName().getTranslated();
+        return this.getTranslated();
+    }
+    
+    @Override
+    public BufferedImage getImage() {
+        return imageResource.getImage(this.color);
+    }
+    
+    @Override
+    public String getTranslated() {
+        return translateResource.getTranslated();
     }
 
     @Override

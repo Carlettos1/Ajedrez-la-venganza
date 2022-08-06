@@ -38,9 +38,9 @@ public class CardDisplay extends JPanel {
         this.color = color;
         this.card = carta;
 
-        this.name = new JLabel(card.getName());
-        this.desc = new JLabel("<html>" + card.getDescription() + "</html>");
-        this.mana = new JLabel(ConfigHelper.getManaSymbol().repeat(card.getCost()));
+        this.name = new JLabel(card.getData().getName());
+        this.desc = new JLabel("<html>" + card.getData().getDescription() + "</html>");
+        this.mana = new JLabel(ConfigHelper.getManaSymbol().repeat(card.getData().manaCost()));
 
         this.name.setForeground(color.getNegativeColor());
         this.desc.setForeground(color.getNegativeColor());
@@ -50,10 +50,10 @@ public class CardDisplay extends JPanel {
         this.desc.setFont(DisplayHelper.FONT_10);
         this.mana.setFont(DisplayHelper.FONT_6);
 
-        this.name.setToolTipText(card.getName());
-        this.desc.setToolTipText(card.getDescription());
+        this.name.setToolTipText(card.getData().getName());
+        this.desc.setToolTipText(card.getData().getDescription());
         // todo: usar resourcelocations
-        this.mana.setToolTipText("Cost:" + card.getCost());
+        this.mana.setToolTipText("Cost:" + card.getData().manaCost());
 
         add(this.mana);
         add(this.name);

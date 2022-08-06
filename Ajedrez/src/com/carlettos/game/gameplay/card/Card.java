@@ -4,9 +4,7 @@ import java.util.Objects;
 
 import com.carlettos.game.board.SquareBoard;
 import com.carlettos.game.gameplay.player.Player;
-import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.ResourceLocation;
 
 /**
  * It's the representation of a card.
@@ -15,12 +13,8 @@ import com.carlettos.game.util.ResourceLocation;
  *
  * @see Player
  */
-public abstract class Card implements IResourceKey {
-    // todo: record cardData
-    protected final String key;
-    protected final ResourceLocation name;
-    protected final ResourceLocation description;
-    protected int manaCost;
+public abstract class Card {
+    protected final CardData data;
 
     /**
      * General constructor.
@@ -30,10 +24,7 @@ public abstract class Card implements IResourceKey {
      * @param manaCost    the cost in mana.
      */
     protected Card(String key, int manaCost) {
-        this.key = key;
-        this.name = new ResourceLocation("card.name.".concat(key));
-        this.description = new ResourceLocation("card.description.".concat(key));
-        this.manaCost = manaCost;
+        this.data = new CardData(key, manaCost);
     }
 
     /**
@@ -67,7 +58,7 @@ public abstract class Card implements IResourceKey {
      * @return ActionResult.PASS if can be used, FAIL other case.
      */
     public boolean commonCanUse(Point point, SquareBoard board, Player caster) {
-        if (caster.getMana() < this.manaCost) { return false; }
+        if (caster.getMana() < this.data.manaCost()) { return false; }
         if (board.getClock().turnOf().getHand().hasCard(this) && board.getClock().turnOf().equals(caster)) {
             return true;
         }
@@ -84,51 +75,22 @@ public abstract class Card implements IResourceKey {
      */
     public void commonUse(Point point, SquareBoard board, Player caster) {
         caster.getHand().removeCard(this);
-        caster.changeMana(-getCost());
+        caster.changeMana(-data.manaCost());
         board.movement();
     }
-
-    /**
-     * Adds the amount of mana to the cost of this card. Can be negative.
-     *
-     * @param mana mana to add.
-     */
-    public void changeManaCost(int mana) {
-        if (this.manaCost + mana < 0) {
-            this.manaCost = 0;
-        } else {
-            this.manaCost += mana;
-        }
-    }
-
-    @Override
-    public String getBaseKey() {
-        return key;
-    }
-
-    public String getName() {
-        return name.getTranslated();
-    }
-
-    public String getDescription() {
-        return description.getTranslated();
-    }
-
-    public int getCost() {
-        return manaCost;
+    
+    public CardData getData() {
+        return data;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + this.manaCost;
-        return hash;
+        return data.hashCode();
     }
 
     @Override
     public String toString() {
-        return "Card{" + "name=" + name + '}';
+        return "Card{" + "name=" + data.name() + '}';
     }
 
     @Override
@@ -136,7 +98,7 @@ public abstract class Card implements IResourceKey {
         if (this == obj) { return true; }
         if ((obj == null) || (getClass() != obj.getClass())) { return false; }
         final Card other = (Card) obj;
-        if (this.manaCost != other.manaCost) { return false; }
-        return Objects.equals(this.name, other.name);
+        if (this.data.manaCost() != other.data.manaCost()) { return false; }
+        return Objects.equals(this.data.name(), other.data.name());
     }
 }

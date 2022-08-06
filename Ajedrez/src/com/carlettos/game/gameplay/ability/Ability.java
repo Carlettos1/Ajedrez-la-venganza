@@ -2,7 +2,6 @@ package com.carlettos.game.gameplay.ability;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
@@ -15,21 +14,21 @@ import com.carlettos.game.util.enums.Direction;
  *
  * @see Piece
  */
-public abstract class Ability implements IResourceKey {
+public abstract class Ability {
 
     protected final AbilityData data;
 
     /**
      * General constructor.
      *
-     * @param key      name of the piece of the ability.
+     * @param name      name of the piece of the ability.
      * @param cooldown cooldown of the ability.
      * @param manaCost cost of mana of the ability.
      *
      * @see Piece
      */
-    protected Ability(String key, int cooldown, int manaCost) {
-        data = new AbilityData(key, cooldown, manaCost);
+    protected Ability(String name, int cooldown, int manaCost) {
+        data = new AbilityData(name, cooldown, manaCost);
     }
 
     /**
@@ -77,11 +76,6 @@ public abstract class Ability implements IResourceKey {
         piece.setIsMoved(true);
         piece.changeCD(this.data.cooldown());
         board.getClock().turnOf().changeMana(-this.data.manaCost());
-    }
-
-    @Override
-    public String getBaseKey() {
-        return data.key();
     }
 
     public abstract IInfo[] getValues(AbstractSquareBoard board, Point start);

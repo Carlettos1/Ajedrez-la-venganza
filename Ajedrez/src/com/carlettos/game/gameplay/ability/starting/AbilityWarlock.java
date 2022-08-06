@@ -24,6 +24,7 @@ public class AbilityWarlock extends AbilityNoInfo {
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start) {
         board.getMatchingEscaques(PATTERN, start).stream()
+                .filter(e -> !e.hasPiece() && e.isMagic() && e.isBuildable())
                 .forEach(e -> e.setPieceIfEmpty(new Portal(piece.getColor())));
     }
 }

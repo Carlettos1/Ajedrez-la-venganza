@@ -9,7 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.carlettos.game.display.main.ConfigEntryPanel;
-import com.carlettos.game.util.ResourceLocation;
+import com.carlettos.game.util.resource.ImageResource;
+import com.carlettos.game.util.resource.TranslateResource;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
@@ -28,7 +29,7 @@ public class FileHelper {
     public static final String LANG_FOLDER = BASE_FOLDER + "\\lang\\";
     public static final String TEXTURES_FOLDER = BASE_FOLDER + "\\textures\\";
     public static final String CONFIG_FILE = BASE_FOLDER + "\\config.json";
-    public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "\\undefined.png";
+    public static final String UNDEFINED_TEXTURE = TEXTURES_FOLDER + "undefined.png";
 
     static {
 
@@ -68,12 +69,12 @@ public class FileHelper {
 
     public static final void updateHelpers() {
         ConfigEntryPanel.setChanged(false);
-        LogHelper.LOG.info("Updating helpers");
+        LogHelper.info("Updating config");
         ConfigHelper.saveConfigs();
-
-        ImageHelper.clearTextures();
-
-        ResourceLocation.updateResurces();
+        
+        ImageResource.updateResurces();
+        TranslateResource.updateResurces();
+        
         ConfigHelper.updateConfigs();
     }
 }

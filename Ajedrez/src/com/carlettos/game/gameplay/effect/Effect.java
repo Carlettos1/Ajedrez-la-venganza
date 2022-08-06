@@ -1,30 +1,22 @@
 package com.carlettos.game.gameplay.effect;
 
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.util.IResourceKey;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.ResourceLocation;
 import com.carlettos.game.util.enums.Action;
+import com.carlettos.game.util.resource.IImageable;
+import com.carlettos.game.util.resource.ITranslatable;
 
-public abstract class Effect implements IResourceKey, Comparable<Effect> {
-    // TODO: dataEffect
-    private final String key;
-    private final ResourceLocation resource;
-    private final int maxTurns;
+public abstract class Effect implements ITranslatable, IImageable, Comparable<Effect> {
+    private final EffectData data;
     private int turns;
 
     protected Effect(String key, int maxTurns) {
-        this.key = key;
-        this.resource = new ResourceLocation("effect.".concat(key));
-        this.maxTurns = maxTurns;
+        this.data = new EffectData(key, maxTurns);
         this.turns = 0;
-    }
-
-    public String getName() {
-        return resource.getTranslated();
     }
 
     public abstract void onExpire(AbstractSquareBoard board, Point pos, Piece piece);
@@ -38,11 +30,21 @@ public abstract class Effect implements IResourceKey, Comparable<Effect> {
     public void onBe(Action action, AbstractSquareBoard board, Point pos, Piece piece) {}
 
     public boolean isExpired() {
-        return this.turns >= this.maxTurns;
+        return this.turns >= this.data.maxTurns();
     }
 
     public void tick() {
         this.turns++;
+    }
+    
+    @Override
+    public BufferedImage getImage() {
+        return data.image().getImage();
+    }
+    
+    @Override
+    public String getTranslated() {
+        return data.translation().getTranslated();
     }
     
     @Override
@@ -51,13 +53,8 @@ public abstract class Effect implements IResourceKey, Comparable<Effect> {
     }
 
     @Override
-    public String getBaseKey() {
-        return key;
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(key, maxTurns, resource, turns);
+        return data.hashCode();
     }
 
     @Override
@@ -69,6 +66,6 @@ public abstract class Effect implements IResourceKey, Comparable<Effect> {
         if (getClass() != obj.getClass())
             return false;
         Effect other = (Effect) obj;
-        return Objects.equals(key, other.key);
+        return Objects.equals(data.name(), other.data.name());
     }
 }

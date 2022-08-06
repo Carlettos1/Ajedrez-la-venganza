@@ -16,7 +16,7 @@ import com.carlettos.game.util.enums.Color;
  */
 public class Portal extends Piece {
     public Portal(Color color) {
-        super("wall", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE);
+        super("portal", Abilities.NO_ABILITY, color, IPieceType.STRUCTURE);
     }
 
     @Override

@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.util.enums.Action;
+import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.ImageHelper;
 import com.carlettos.game.util.helper.LogHelper;
 
 /**
@@ -38,23 +38,27 @@ public class EscaqueDisplay extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor((isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
+        Color color = isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1();
+        if (escaque.isMagic()) {
+            color = Color.MAGENTA;
+        }
+        g.setColor(color.getAWT());
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor((!isEven ? ConfigHelper.getColor2() : ConfigHelper.getColor1()).getAWT());
+        g.setColor(color.getNegativeColor());
 
         StringBuilder tooltipText = new StringBuilder();
         var pos = this.getEscaque().getPos();
         tooltipText.append('(').append(pos.x).append(" ,").append(pos.y).append(')');
         if (escaque.hasPiece()) {
-            tooltipText.append(' ').append(escaque.getPiece().toString());
-            g.drawImage(ImageHelper.getImage(escaque.getPiece()), 0, 0, getWidth(), getHeight(), this);
+            tooltipText.append(' ').append(escaque.getPiece().getTranslated());
+            g.drawImage(escaque.getPiece().getImage(), 0, 0, getWidth(), getHeight(), this);
 
             // TODO: externalizar a configuración los .1
             int q = 0;
             for (var effect : escaque.getPiece().getEffectManager().getEffects()) {
-                g.drawImage(ImageHelper.getImage(effect, "effect\\"), (int) (.3 * getWidth() * q), 0,
+                g.drawImage(effect.getImage(), (int) (.3 * getWidth() * q), 0,
                         (int) (.3 * getWidth()), (int) (.3 * getHeight()), this);
-                tooltipText.append('(').append(effect.getName()).append(')');
+                tooltipText.append('(').append(effect.getTranslated()).append(')');
                 q++;
             }
 

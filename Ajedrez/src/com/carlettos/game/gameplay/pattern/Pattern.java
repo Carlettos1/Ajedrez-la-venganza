@@ -14,8 +14,6 @@ import com.carlettos.game.util.Point;
  */
 public interface Pattern {
 
-    // TODO: que no use constructores a cada rato;
-
     /**
      * Checks if the end point matches the pattern centered on the start point.
      *

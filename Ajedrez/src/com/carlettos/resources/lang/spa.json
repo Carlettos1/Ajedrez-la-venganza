@@ -6,6 +6,7 @@
     "piece.queen": "Reina",
     "piece.rook": "Torre",
     "piece.bishop": "Alfil",
+    
     "piece.archer": "Arquero",
     "piece.ballista": "Ballesta",
     "piece.builder": "Constructor",
@@ -21,6 +22,8 @@
     "piece.tesla_tower": "Torre Tesla",
     "piece.wall": "Muro",
     "piece.warlock": "Brujo",
+    
+    "piece.portal": "Portal",
     
     "ability.name.none": "Habilidad nula",
     "ability.description.none": "No hace nada",

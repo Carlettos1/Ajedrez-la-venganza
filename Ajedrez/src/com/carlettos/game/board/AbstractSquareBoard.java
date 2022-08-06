@@ -308,7 +308,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
         StringBuilder str = new StringBuilder(5 * this.getSize());
         for (int y = shape.y - 1; y >= 0; y--) {
             for (int x = 0; x < shape.x; x++) {
-                str.append('[').append(getPiece(new Point(x, y)).getBaseKey().charAt(0)).append(']');
+                str.append('[').append(getPiece(new Point(x, y)).toString().charAt(0)).append(']');
             }
             str.append('\n');
         }

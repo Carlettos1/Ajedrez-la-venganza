@@ -108,7 +108,7 @@ public class SquareBoard extends AbstractSquareBoard {
         // TODO: repaint on tick
         try {
             var bd = BoardDisplay.getInstance();
-            bd.getManoVisual().redo();
+            bd.getHandDisplay().redo();
             bd.repaint();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,6 +180,11 @@ public class SquareBoard extends AbstractSquareBoard {
         white.getHand().addCard(new Fire());
         black.getHand().addCard(new Ice());
         black.getHand().addCard(new Fire());
+
+        board.getEscaque(new Point(0, 7)).setIsMagic(true);
+        board.getEscaque(new Point(0, 9)).setIsMagic(true);
+        board.getEscaque(new Point(15, 7)).setIsMagic(true);
+        board.getEscaque(new Point(15, 9)).setIsMagic(true);
 
         board.setPiece(new Point(0, 0), new Cannon(Color.WHITE));
         board.setPiece(new Point(15, 0), new Cannon(Color.WHITE));

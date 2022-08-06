@@ -25,7 +25,7 @@ public class AddMovement extends Card {
     @Override
     public void use(Point point, SquareBoard board, Player caster) {
         board.getClock()
-                .addEvent(Event.create(EventInfo.of(board, manaCost, this.getName()), () -> caster.changeMovements(1)));
+                .addEvent(Event.create(EventInfo.of(board, this.data.getName()), () -> caster.changeMovements(1)));
         this.commonUse(point, board, caster);
     }
 }

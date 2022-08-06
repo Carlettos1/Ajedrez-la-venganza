@@ -18,7 +18,6 @@ import com.carlettos.game.util.helper.ConfigHelper;
 public class BoardDisplay extends JPanel {
     private static final long serialVersionUID = 7741137468814114783L;
     private static BoardDisplay instance;
-
     private final EscaqueDisplay[][] grid;
     private final transient SquareBoard board;
     private final ClockDisplay clock;
@@ -70,7 +69,7 @@ public class BoardDisplay extends JPanel {
         return clock;
     }
 
-    public HandDisplay getManoVisual() {
+    public HandDisplay getHandDisplay() {
         return cards;
     }
 

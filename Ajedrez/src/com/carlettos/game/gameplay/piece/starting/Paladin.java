@@ -20,7 +20,7 @@ import com.carlettos.game.util.enums.Color;
 public class Paladin extends Piece implements IMove<PatternQueen>, ITake<PatternQueen> {
     protected final PatternQueen pattern;
 
-    public Paladin(Color color) { // TODO: Habilidad
+    public Paladin(Color color) {
         super("paladin", Abilities.PALADIN_ABILITY, color, IPieceType.HEROIC, IPieceType.IMMUNE);
         pattern = Patterns.QUEEN_PATTERN;
     }

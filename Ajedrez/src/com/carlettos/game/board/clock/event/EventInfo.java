@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.ResourceLocation;
+import com.carlettos.game.util.resource.TranslateResource;
 
 /**
  * The info of an event.
@@ -12,7 +12,7 @@ import com.carlettos.game.util.ResourceLocation;
  * @author Carlettos
  */
 public class EventInfo {
-    public static final ResourceLocation GENERIC_EVENT = new ResourceLocation("generic_event.name");
+    public static final TranslateResource GENERIC_EVENT = new TranslateResource("generic_event.name");
     protected int turns;
     protected final String name;
     protected Point point;

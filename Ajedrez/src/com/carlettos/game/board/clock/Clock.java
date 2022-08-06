@@ -19,7 +19,6 @@ public class Clock extends AbstractClock {
     protected final List<Event> events;
     // TODO: eventQueue, in other thread
     protected final List<ClockListener> listeners;
-    // TODO: move to a separate object
     protected final List<Tuple<Player, Card>> cardsOnBoard;
 
     /**
@@ -53,7 +52,7 @@ public class Clock extends AbstractClock {
     @Override
     public boolean containsCardOnBoard(Player from, Card card) {
         return cardsOnBoard.stream().anyMatch(
-                tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getBaseKey().equals(card.getBaseKey()));
+                tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getData().name().equals(card.getData().name()));
     }
 
     @Override
