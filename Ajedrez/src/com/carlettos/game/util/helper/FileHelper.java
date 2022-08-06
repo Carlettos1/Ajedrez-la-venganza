@@ -36,7 +36,7 @@ public class FileHelper {
     }
 
     public static final JsonObject getFromFile(String path) {
-        LogHelper.LOG.info(() -> "Reading file: %s".formatted(path));
+        LogManager.info("Reading file: %s", path);
         try (var reader = new JsonReader(new FileReader(path))) {
             return GSON.getAdapter(JsonObject.class).read(reader);
         } catch (IOException ex) {
@@ -45,7 +45,7 @@ public class FileHelper {
     }
 
     public static final void setToFile(String path, JsonObject jsonObject) {
-        LogHelper.LOG.info(() -> "Saving file: %s".formatted(path));
+        LogManager.info("Saving file: %s", path);
         try (var writer = new JsonWriter(new FileWriter(path))) {
             GSON.getAdapter(JsonObject.class).write(writer, jsonObject);
         } catch (IOException ex) {
@@ -57,19 +57,19 @@ public class FileHelper {
         var file = new File(path);
         if (!file.exists()) {
             file = new File(UNDEFINED_TEXTURE);
-            LogHelper.LOG.warning(() -> "Texture at %s doesn't exists, using undefined one".formatted(path));
+            LogManager.warning("Texture at %s doesn't exists, using undefined one", path);
         }
         try {
             return ImageIO.read(file);
         } catch (IOException ex) {
-            LogHelper.LOG.severe("Undefined texture doesn't exists");
+            LogManager.severe("Undefined texture doesn't exists");
             throw new IllegalArgumentException("path doesn't exists");
         }
     }
 
     public static final void updateHelpers() {
         ConfigEntryPanel.setChanged(false);
-        LogHelper.info("Updating config");
+        LogManager.info("Updating config");
         ConfigHelper.saveConfigs();
         
         ImageResource.updateResurces();

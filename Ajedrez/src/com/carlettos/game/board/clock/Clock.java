@@ -45,19 +45,14 @@ public class Clock extends AbstractClock {
     }
 
     @Override
-    public boolean containsExactCardOnBoard(Player from, Card card) {
-        return cardsOnBoard.contains(Tuple.of(from, card));
-    }
-
-    @Override
-    public boolean containsCardOnBoard(Player from, Card card) {
+    public boolean boardContains(Player from, Card card) {
         return cardsOnBoard.stream().anyMatch(
                 tuple -> tuple.x.getColor().equals(from.getColor()) && tuple.y.getData().name().equals(card.getData().name()));
     }
 
     @Override
-    public boolean containsCardOnBoard(Card card) {
-        return this.containsCardOnBoard(turnOf(), card);
+    public boolean boardContains(Card card) {
+        return this.boardContains(turnOf(), card);
     }
 
     @Override

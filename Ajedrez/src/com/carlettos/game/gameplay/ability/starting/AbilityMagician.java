@@ -9,7 +9,6 @@ import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.helper.CardHelper;
 
 public class AbilityMagician extends AbilityNoInfo {
     public static final Pattern ACTION_PATTERN = Patterns.ARCHER_MOVE_PATTERN;
@@ -20,13 +19,13 @@ public class AbilityMagician extends AbilityNoInfo {
 
     @Override
     public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return (CardHelper.boardHasCards(board, CardsOnBoard.ICE, CardsOnBoard.FIRE));
+        return board.getClock().boardContainsAny(CardsOnBoard.ICE, CardsOnBoard.FIRE);
     }
 
     @Override
     public void use(AbstractSquareBoard board, Piece piece, Point start) {
-        var hasIce = CardHelper.boardHasCard(board, CardsOnBoard.ICE);
-        var hasFire = CardHelper.boardHasCard(board, CardsOnBoard.FIRE);
+        var hasIce = board.getClock().boardContains(CardsOnBoard.ICE);
+        var hasFire = board.getClock().boardContains(CardsOnBoard.FIRE);
         var pieces = board.getMatchingEscaques(ACTION_PATTERN, start);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() == piece.getColor());

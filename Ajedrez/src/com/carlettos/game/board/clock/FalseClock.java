@@ -63,17 +63,12 @@ public class FalseClock extends AbstractClock {
     public void addCardToBoard(Player from, Card card) {}
 
     @Override
-    public boolean containsExactCardOnBoard(Player from, Card card) {
+    public boolean boardContains(Player from, Card card) {
         return false;
     }
 
     @Override
-    public boolean containsCardOnBoard(Player from, Card card) {
-        return false;
-    }
-
-    @Override
-    public boolean containsCardOnBoard(Card card) {
+    public boolean boardContains(Card card) {
         return false;
     }
 

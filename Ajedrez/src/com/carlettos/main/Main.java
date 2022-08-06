@@ -1,7 +1,7 @@
 package com.carlettos.main;
 
 import com.carlettos.game.display.main.MainMenu;
-import com.carlettos.game.util.helper.LogHelper;
+import com.carlettos.game.util.helper.LogManager;
 
 /**
  *
@@ -11,7 +11,7 @@ public class Main {
 
     @SuppressWarnings("unused")
     public static void main(String... args) {
-        LogHelper.startLogger();
+        LogManager.startLogger();
         var menu = new MainMenu();
     }
 }

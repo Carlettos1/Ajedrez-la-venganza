@@ -5,7 +5,7 @@ import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.annotation.Nullable;
 import com.carlettos.game.util.enums.Action;
-import com.carlettos.game.util.helper.LogHelper;
+import com.carlettos.game.util.helper.LogManager;
 
 //TODO: reduce incoming information, pieces not needed
 public record PieceTypeData(Action action, AbstractSquareBoard board, Piece self, @Nullable Piece other, Point selfPos,
@@ -22,7 +22,7 @@ public record PieceTypeData(Action action, AbstractSquareBoard board, Piece self
         if (this.hasOther()) {
             return new PieceTypeData(action, board, other, self, otherPos, selfPos);
         } else {
-            LogHelper.LOG.severe(() -> "Trying to get other view with no other piece in %s".formatted(this.getClass()));
+            LogManager.severe("Trying to get other view with no other piece in %s", this.getClass());
             return this;
         }
     }

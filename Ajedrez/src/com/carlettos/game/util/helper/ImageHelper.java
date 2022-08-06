@@ -11,7 +11,7 @@ import com.carlettos.game.util.enums.Color;
 public class ImageHelper {
     public static final BufferedImage replaceColors(BufferedImage image, Color[] from, Color[] to) {
         if (from.length != to.length) {
-            LogHelper.LOG.warning("Colors to replace are of different lenghts");
+            LogManager.warning("Colors to replace are of different lenghts");
             return image;
         }
         var copy = getEmptyImage(image);

@@ -13,10 +13,10 @@ import java.util.logging.Logger;
  *
  * @author Carlettos
  */
-public class LogHelper {
+public final class LogManager {
     private static boolean started = false;
-    public static final Logger LOG = Logger.getLogger("ola");
-    public static final Formatter LOG_FORMATTER = new Formatter() {
+    private static final Logger LOG = Logger.getLogger("ola");
+    private static final Formatter LOG_FORMATTER = new Formatter() {
         @Override
         public String format(LogRecord lr) {
             var sb = new StringBuilder();
@@ -29,7 +29,7 @@ public class LogHelper {
         }
     };
 
-    private LogHelper() {}
+    private LogManager() {}
 
     public static final void startLogger() {
         if (!started) {
@@ -48,6 +48,10 @@ public class LogHelper {
         } else {
             LOG.warning("Trying to start an already started logger");
         }
+    }
+    
+    public static void log(Level level, String str, Object... objects) {
+        LOG.log(level, str.formatted(objects));
     }
 
     public static void severe(String str, Object... objects) {

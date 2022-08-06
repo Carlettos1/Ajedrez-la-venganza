@@ -15,7 +15,6 @@ import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.helper.CardHelper;
 
 /**
  *
@@ -41,8 +40,8 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
     
     @Override
     protected void innerTick(AbstractSquareBoard board, Point pos) {
-        var hasIce = CardHelper.boardHasCard(board, CardsOnBoard.ICE);
-        var hasFire = CardHelper.boardHasCard(board, CardsOnBoard.FIRE);
+        var hasIce = board.getClock().boardContains(CardsOnBoard.ICE);
+        var hasFire = board.getClock().boardContains(CardsOnBoard.FIRE);
         var pieces = board.getMatchingEscaques(TICK_PATTERN, pos);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() != this.getColor());

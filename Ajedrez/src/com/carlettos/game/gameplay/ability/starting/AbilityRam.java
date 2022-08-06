@@ -11,7 +11,7 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Direction;
-import com.carlettos.game.util.helper.LogHelper;
+import com.carlettos.game.util.helper.LogManager;
 
 public class AbilityRam extends Ability {
     public static final int COST_PER_CHARGE = 5;
@@ -38,7 +38,7 @@ public class AbilityRam extends Ability {
             valids.add(r);
         }
         if (valids.isEmpty()) {
-            LogHelper.warning("Valids is empty, and it shouldn't");
+            LogManager.warning("Valids is empty, and it shouldn't");
             return;
         }
         int totalCharges = valids.size() / COST_PER_CHARGE + 1;

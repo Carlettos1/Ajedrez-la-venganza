@@ -14,7 +14,6 @@ import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
-import com.carlettos.game.util.helper.CardHelper;
 
 @SuppressWarnings("unchecked")
 public class AbilityPaladin extends Ability {
@@ -45,10 +44,10 @@ public class AbilityPaladin extends Ability {
             boolean isEqualColor = board.getEscaque(tuple.y).isControlledBy(piece.getColor());
             result = switch (tuple.x) {
                 case ATTACK ->
-                    CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
+                    board.getClock().boardContains(CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
                 case INVULNERABILITY ->
-                    CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
-                case REVIVE -> CardHelper.boardHasCard(board, CardsOnBoard.REVIVE) && !hasPiece;
+                    board.getClock().boardContains(CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
+                case REVIVE -> board.getClock().boardContains(CardsOnBoard.REVIVE) && !hasPiece;
             };
         }
         return (result);
@@ -77,10 +76,10 @@ public class AbilityPaladin extends Ability {
                     boolean isEqualColor = e.isControlledBy(piece.getColor());
                     boolean result = switch (type) {
                         case ATTACK ->
-                            CardHelper.boardHasCard(board, CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
+                            board.getClock().boardContains(CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
                         case INVULNERABILITY ->
-                            CardHelper.boardHasCard(board, CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
-                        case REVIVE -> CardHelper.boardHasCard(board, CardsOnBoard.REVIVE) && !hasPiece;
+                            board.getClock().boardContains(CardsOnBoard.INVULNERABILITY) && hasPiece && isEqualColor;
+                        case REVIVE -> board.getClock().boardContains(CardsOnBoard.REVIVE) && !hasPiece;
                     };
                     if (result) {
                         list.add(Tuple.of(type, e.getPos()));

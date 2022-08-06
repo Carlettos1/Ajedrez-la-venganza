@@ -4,7 +4,7 @@ import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.helper.LogHelper;
+import com.carlettos.game.util.helper.LogManager;
 
 /**
  * IT IS THE ENGLISH EQUIVALENT OF THE "SQUARE" OF THE BOARD, BUT I DON'T LIKE
@@ -78,7 +78,7 @@ public class Escaque {
 
     public void setPiece(Piece piece) {
         if (this.hasPiece()) {
-            LogHelper.fine("Changing %s for %s", this.piece, piece);
+            LogManager.fine("Changing %s for %s", this.piece, piece);
         }
         this.piece = piece;
     }

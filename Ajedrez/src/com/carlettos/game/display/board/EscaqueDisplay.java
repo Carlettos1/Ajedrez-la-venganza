@@ -11,7 +11,7 @@ import com.carlettos.game.board.Escaque;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.ConfigHelper;
-import com.carlettos.game.util.helper.LogHelper;
+import com.carlettos.game.util.helper.LogManager;
 
 /**
  *
@@ -113,7 +113,7 @@ public class EscaqueDisplay extends JComponent {
                 g.fillOval((int) (x * 5 / 3D), (int) (y * 5 / 3D), (int) (w), (int) (h));
                 break;
             default:
-                LogHelper.LOG.severe(() -> "Cantidad de acciones: " + this.actions.size() + ", no manejada");
+                LogManager.severe("Cantidad de acciones: %s, no manejada", this.actions.size());
         }
     }
 
