@@ -10,6 +10,7 @@ import com.carlettos.game.board.clock.listener.ClockListener;
 import com.carlettos.game.board.deck.Deck;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.gameplay.card.invocation.SummonKnight;
+import com.carlettos.game.gameplay.card.invocation.SummonRook;
 import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
 import com.carlettos.game.gameplay.card.onBoard.Fire;
 import com.carlettos.game.gameplay.card.onBoard.Ice;
@@ -117,6 +118,10 @@ public class SquareBoard extends AbstractSquareBoard {
 
         black.getHand().addCard(new AddMovement());
         white.getHand().addCard(new AddMovement());
+        white.getHand().addCard(new SummonRook());
+        white.getHand().addCard(new SummonRook());
+        white.getHand().addCard(new SummonRook());
+        white.getHand().addCard(new SummonRook());
         white.changeMana(5);
         black.changeMana(5);
 

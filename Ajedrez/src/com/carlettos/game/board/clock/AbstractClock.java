@@ -10,6 +10,7 @@ import com.carlettos.game.board.clock.manager.IPlayerDeckManager;
 import com.carlettos.game.board.deck.PlayerDeck;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.LogManager;
 
 /**
  * It represent the chess clock.
@@ -44,6 +45,7 @@ public abstract class AbstractClock
      * Ends the turn and fire up events.
      */
     public void tick() {
+        LogManager.info("Ending turn: %s", getTurn());
         turn++;
         movements = 0;
     }

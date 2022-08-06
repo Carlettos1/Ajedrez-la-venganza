@@ -24,7 +24,7 @@ public interface ITake<P extends Pattern> {
      */
     public default boolean canTake(AbstractSquareBoard board, Point start, Info info, P pattern) {
         if (info.getValue() instanceof Point p) {
-            if (!this.checkComerCondition(board, start, p)) { return false; }
+            if (!this.checkTakeCondition(board, start, p)) { return false; }
             return (pattern.match(board, start, p));
         } else {
             throw new IllegalArgumentException("Info is not Info<Point>");
@@ -40,7 +40,7 @@ public interface ITake<P extends Pattern> {
      * @return true if the end pos has a piece, if is a different color of the piece
      *         at the start pos, and if the start piece hasn't moved.
      */
-    public default boolean checkComerCondition(AbstractSquareBoard board, Point start, Point end) {
+    public default boolean checkTakeCondition(AbstractSquareBoard board, Point start, Point end) {
         if (!board.getEscaque(end).hasPiece()
                 || board.getPiece(end).getColor().equals(board.getPiece(start).getColor())) {
             return false;

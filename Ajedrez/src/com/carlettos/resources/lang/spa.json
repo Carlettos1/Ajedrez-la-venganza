@@ -71,6 +71,8 @@
     "card.description.summon_knight": "Invoca un caballo al finalizar el turno",
     "card.name.summon_warlock": "Invocar brujo",
     "card.description.summon_warlock": "Invoca un brujo al finalizar el turno",
+    "card.name.summon_rook": "Invocar Torre",
+    "card.description.summon_rook": "Invoca una torre al finalizar el turno",
     
     "card.name.magician_ice": "Mago de hielo",
     "card.description.magician_ice": "Añade la habilidad de congelar al mago",

@@ -3,6 +3,7 @@ package com.carlettos.game.board;
 import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.enums.Color;
+import com.carlettos.game.util.helper.LogManager;
 
 public interface IClockUse {
     AbstractClock getClock();

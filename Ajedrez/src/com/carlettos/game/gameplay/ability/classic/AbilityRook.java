@@ -36,8 +36,10 @@ public class AbilityRook extends Ability {
         this.throwRooks(rooks, board, dir);
 
         for (Escaque escaque : rooks) {
-            this.commonUse(board, escaque.getPiece());
+            escaque.getPiece().postAction(Action.ABILITY, board, start, info);
+            escaque.getPiece().changeCD(this.data.cooldown());
         }
+        board.getClock().turnOf().changeMana(-this.data.manaCost());
     }
 
     protected void throwRooks(List<Escaque> rooks, AbstractSquareBoard board, Direction dir) {
@@ -51,11 +53,12 @@ public class AbilityRook extends Ability {
         Point end = this.getEndPointNoJump(board, start, dir, -1);
         if (start.equals(end)) { return; }
         Point nextEnd = end.add(dir.toPoint());
+        board.getPiece(start).setIsMoved(false);
         boolean done;
-        if (!board.shape.isOutOfBorders(nextEnd)) {
-            done = board.tryTo(Action.TAKE, start, nextEnd.toInfo());
+        if (!board.shape.isOutOfBorders(nextEnd) && board.tryTo(Action.TAKE, start, nextEnd.toInfo(), true)) {
+            done = true;
         } else {
-            done = board.tryTo(Action.MOVE, start, end.toInfo());
+            done = board.tryTo(Action.MOVE, start, end.toInfo(), true);
         }
         if (!done) {
             LogManager.severe("tower didn't make the ability, start: %s, end: %s, dir: %s", start, end, dir);
@@ -93,10 +96,10 @@ public class AbilityRook extends Ability {
      */
     protected void orderEscaques(List<Escaque> rooks, Direction direction) {
         switch (direction) {
-            case N -> rooks.sort((e1, e2) -> Math.max(e1.getPos().y, e2.getPos().y));
-            case S -> rooks.sort((e1, e2) -> Math.min(e1.getPos().y, e2.getPos().y));
-            case E -> rooks.sort((e1, e2) -> Math.max(e1.getPos().x, e2.getPos().x));
-            case W -> rooks.sort((e1, e2) -> Math.min(e1.getPos().x, e2.getPos().x));
+            case N -> rooks.sort((e1, e2) -> -Integer.compare(e1.getPos().y, e2.getPos().y));
+            case S -> rooks.sort((e1, e2) -> Integer.compare(e1.getPos().y, e2.getPos().y));
+            case E -> rooks.sort((e1, e2) -> -Integer.compare(e1.getPos().x, e2.getPos().x));
+            case W -> rooks.sort((e1, e2) -> Integer.compare(e1.getPos().x, e2.getPos().x));
         }
     }
 

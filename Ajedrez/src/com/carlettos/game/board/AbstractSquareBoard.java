@@ -100,8 +100,22 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
      * @return FAIL if it didn't do the action, PASS if the action has been done.
      */
     public boolean tryTo(Action action, Point pos, Info info) {
+        return tryTo(action, pos, info, false);
+    }
+
+    /**
+     * Tries to do an {@code Action}. In case of an action that needs other point,
+     * use Point::toInfo.
+     *
+     * @param action action to do.
+     * @param pos    start point.
+     * @param info   information about the action.
+     * @param bypass if bypasses the notification to the clock.
+     * @return FAIL if it didn't do the action, PASS if the action has been done.
+     */
+    public boolean tryTo(Action action, Point pos, Info info, boolean bypass) {
         var piece = getPiece(pos);
-        if (!canPlay(piece)) { return false; }
+        if (!canPlay(piece) && !bypass) { return false; }
         if (action.needsInfoPoint() && !info.isType(Point.class)) {
             throw new IllegalArgumentException("Info no es Info<Point> para " + action + ", es: " + info.getClass());
         }
@@ -125,7 +139,7 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
             }
             piece.postAction(action, this, pos, info);
             getPiece(pos).getEffectManager().onBe(action, this, pos);
-            movement();
+            if (!bypass) {movement();}
         }
         return can;
     }

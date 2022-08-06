@@ -1,5 +1,20 @@
-INFO[com.carlettos.game.util.helper.LogHelper::startLogger][01:11:39.8341757]: Logger start
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][01:11:40.7640848]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][01:11:40.7680738]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
-INFO[com.carlettos.game.util.helper.FileHelper::getFromFile][01:11:40.7690711]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
-FINE[com.carlettos.game.util.helper.LogHelper::fine][01:11:47.9672757]: Changing Peón for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::startLogger][03:48:06.4782485]: Logger start
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:08.4359589]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:08.4399482]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:08.4399482]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:10.2420981]: Ending turn: 1
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:11.3136009]: Ending turn: 2
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:13.3332384]: Ending turn: 3
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:14.6402913]: Ending turn: 4
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:16.5292063]: Ending turn: 5
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:17.479002]: Changing Peón for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:17.4799994]: Ending turn: 6
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:18.6491585]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4278452]: Changing Super Peón for Torre
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4278452]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4288425]: Changing Peón for Torre
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4288425]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4288425]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4288425]: Changing Peón Loco for Torre
+FINE[com.carlettos.game.util.helper.LogManager::fine][03:48:21.4288425]: Changing Torre for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::info][03:48:21.4298398]: Ending turn: 7
