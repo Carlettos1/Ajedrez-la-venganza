@@ -169,6 +169,18 @@ public abstract class AbstractSquareBoard implements IClockUse, IBaseBoard {
         }
         return chessBoard[point.y][point.x];
     }
+    
+    @Override
+    public boolean hasPiece(Piece p) {
+        //TODO: see pattern
+        return getMatchingEscaques((board, start, end) -> true, null).stream().anyMatch(e -> e.getPiece().equals(p));
+    }
+    
+    @Override
+    public boolean hasPiece(Class<? extends Piece> clazz, Color color) {
+        //TODO: see pattern and transform into a stream
+        return getMatchingEscaques((board, start, end) -> true, null).stream().anyMatch(e -> clazz.isInstance(e.getPiece()) && (color == null ? true : e.getPieceColor().equals(color)));
+    }
 
     @Override
     public int getSize() {

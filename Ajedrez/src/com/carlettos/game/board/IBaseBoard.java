@@ -9,6 +9,8 @@ import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.annotation.Nullable;
+import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 
 public interface IBaseBoard {
@@ -27,6 +29,10 @@ public interface IBaseBoard {
      * @throws IllegalArgumentException if any coordinate is out of the board.
      */
     Escaque getEscaque(Point point);
+
+    boolean hasPiece(Piece p);
+    
+    boolean hasPiece(Class<? extends Piece> clazz, @Nullable Color color);
 
     /**
      * Sets the piece in the escaque at the given point.
@@ -98,6 +104,7 @@ public interface IBaseBoard {
 
     /**
      * Executes the action for each one of the escaques in this board.
+     * TODO: see List, collection and iterable for implementation of other methods.
      */
     void foreach(Consumer<Escaque> action);
 

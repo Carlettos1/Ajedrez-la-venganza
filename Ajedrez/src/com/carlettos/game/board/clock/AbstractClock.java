@@ -1,6 +1,9 @@
 package com.carlettos.game.board.clock;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Predicate;
 
 import com.carlettos.game.board.clock.manager.ICardOnBoardManager;
 import com.carlettos.game.board.clock.manager.ICentralDeckManager;
@@ -23,11 +26,13 @@ public abstract class AbstractClock
     protected int movements;
     protected final Player[] players;
     protected final PlayerDeck[] playerDecks;
+    protected final Random RNG;
 
     public AbstractClock(Player... players) {
         this.turn = 1;
         this.movements = 0;
         this.players = players;
+        this.RNG = new Random();
         this.playerDecks = new PlayerDeck[players.length];
         for (int i = 0; i < players.length; i++) {
             this.playerDecks[i] = new PlayerDeck(this.players[i]);
@@ -53,6 +58,29 @@ public abstract class AbstractClock
     @Override
     public Player[] getPlayers() {
         return players;
+    }
+
+    public Player[] getPlayers(Predicate<Player> predicate) {
+        ArrayList<Player> possible = new ArrayList<>();
+        for (Player p : players) {
+            if (predicate.test(p)) {
+                possible.add(p);
+            }
+        }
+        if (possible.isEmpty()) {
+            LogManager.info("No player founded with the given predicate");
+            return null;
+        }
+        return possible.toArray(Player[]::new);
+    }
+    
+    public Player getRandomPlayer() {
+        return getPlayers()[RNG.nextInt(players.length)];
+    }
+    
+    public Player getRandomPlayer(Predicate<Player> predicate) {
+        Player[] possibles = getPlayers(predicate);
+        return possibles[RNG.nextInt(possibles.length)];
     }
 
     @Override
