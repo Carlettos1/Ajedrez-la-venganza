@@ -4,7 +4,7 @@ import com.carlettos.game.board.AbstractSquareBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
-public class AbilityNone extends AbilityNoInfo {
+public final class AbilityNone extends AbilityNoInfo {
 
     public AbilityNone() {
         super("none", 0, 0);
