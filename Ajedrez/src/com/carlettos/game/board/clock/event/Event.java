@@ -34,8 +34,7 @@ public abstract class Event implements Comparable<Event> {
         this.info.tick();
     }
 
-    // todo: change name
-    public boolean isReady() {
+    public boolean canExecute() {
         return this.info.getTurns() <= 0;
     }
 

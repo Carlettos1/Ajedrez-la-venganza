@@ -15,7 +15,6 @@ import com.carlettos.game.util.Point;
 public class MiniBoardDisplay extends JPanel {
     private static final long serialVersionUID = -6114779705263991014L;
     private final EscaqueDisplay[][] grid;
-    // todo: transient?
     private final transient MiniBoard board;
 
     public MiniBoardDisplay(MiniBoard tablero) {

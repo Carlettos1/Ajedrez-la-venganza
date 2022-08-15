@@ -1,10 +1,16 @@
-INFO[com.carlettos.game.util.helper.LogManager::startLogger][13:40:25.7256405]: Logger start
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:27.4012134]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:27.4052132]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:27.4062132]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:31.112573]: Ending turn: 1
-FINE[com.carlettos.game.util.helper.LogManager::fine][13:40:33.1716722]: Changing Arquero for Vacia
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:33.1736745]: Ending turn: 2
-FINE[com.carlettos.game.util.helper.LogManager::fine][13:40:38.7840718]: Changing Peón for Vacia
-FINE[com.carlettos.game.util.helper.LogManager::fine][13:40:38.7840718]: Changing Reina for Vacia
-INFO[com.carlettos.game.util.helper.LogManager::info][13:40:38.7860735]: Ending turn: 3
+INFO[com.carlettos.game.util.helper.LogManager::startLogger][14:52:44.479775]: Logger start
+INFO[com.carlettos.game.util.helper.LogManager::info][14:52:45.489505]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\eng.json
+INFO[com.carlettos.game.util.helper.LogManager::info][14:52:45.493507]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\config.json
+INFO[com.carlettos.game.util.helper.LogManager::info][14:52:45.493507]: Reading file: D:\Proyectos\Ajedrez\Ajedrez\src\com\carlettos\resources\lang\spa.json
+INFO[com.carlettos.game.util.helper.LogManager::info][14:52:47.7631229]: Ending turn: 1
+INFO[com.carlettos.game.util.helper.LogManager::info][14:52:52.8701337]: Ending turn: 2
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:52:57.5205061]: Changing Peón for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::info][14:53:01.4562559]: Ending turn: 3
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:06.0107187]: Changing Arquero for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:09.2857167]: Changing Super Peón for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::info][14:53:09.286716]: Ending turn: 4
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:10.8644469]: Changing Super Peón for Torre
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:10.8654469]: Changing Torre for Vacia
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:15.0634752]: Changing Arquero for Vacia
+INFO[com.carlettos.game.util.helper.LogManager::info][14:53:15.0644748]: Ending turn: 5
+FINE[com.carlettos.game.util.helper.LogManager::fine][14:53:16.5961465]: Changing Torre for Vacia

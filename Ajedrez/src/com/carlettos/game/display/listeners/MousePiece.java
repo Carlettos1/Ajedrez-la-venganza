@@ -65,12 +65,6 @@ public class MousePiece implements MouseListener {
             var tv = BoardDisplay.getInstance();
             var board = tv.getBoard();
 
-            // todo: fancier way to solve issue (que al tirar la carta el selected jode)
-            if (!board.canPlay(selected.getEscaque().getPieceColor())) {
-                selected = null;
-                return;
-            }
-
             // the order matters, first tries to move, then to attack, then to take.
             if (board.tryTo(Action.MOVE, eSelected.getPos(), eObjetive.getPos().toInfo())
                     || board.tryTo(Action.ATTACK, eSelected.getPos(), eObjetive.getPos().toInfo())

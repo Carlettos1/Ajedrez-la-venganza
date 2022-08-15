@@ -35,7 +35,7 @@ public class MouseCard implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // todo: get cardDisplay
+        // TODO: get cardDisplay
         Component source = (Component) e.getSource();
         while (!(source instanceof CardDisplay)) {
             if (source.getParent() == null) { return; }
@@ -55,6 +55,8 @@ public class MouseCard implements MouseListener {
                         clock.getPlayerOfColor(card.getColor()));
                 board.getHandDisplay().redo();
                 board.repaint();
+                MousePiece.get().setSelected(null);
+                board.offAll();
             }
         }
     }

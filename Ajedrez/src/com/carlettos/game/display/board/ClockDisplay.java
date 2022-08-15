@@ -23,7 +23,6 @@ import com.carlettos.game.util.helper.DisplayHelper;
  */
 public class ClockDisplay extends JPanel {
     private static final long serialVersionUID = 4989644933314930863L;
-    // todo: transient?
     private final transient AbstractClock clock;
     private StringBuilder eventsOrder;
     private StringBuilder turn;

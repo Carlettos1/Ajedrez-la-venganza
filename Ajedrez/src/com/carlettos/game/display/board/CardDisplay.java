@@ -22,7 +22,6 @@ public class CardDisplay extends JPanel {
     private static final long serialVersionUID = 6871650869282376214L;
     protected boolean selected;
     protected final Color color;
-    // todo: transient?
     protected final transient Card card;
     protected JLabel name;
     protected JLabel desc;
@@ -52,7 +51,6 @@ public class CardDisplay extends JPanel {
 
         this.name.setToolTipText(card.getData().getName());
         this.desc.setToolTipText(card.getData().getDescription());
-        // todo: usar resourcelocations
         this.mana.setToolTipText("Cost:" + card.getData().manaCost());
 
         add(this.mana);

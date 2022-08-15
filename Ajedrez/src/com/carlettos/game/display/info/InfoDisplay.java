@@ -17,9 +17,7 @@ public class InfoDisplay extends JOptionPane {
     private static final long serialVersionUID = 2242482205630386186L;
 
     public static int showOptions(SquareBoard board, Point start, Object... options) {
-        return JOptionPane.showOptionDialog(null, new MiniBoardDisplay(MiniBoard.fromBoard(board, start)), "Habilidad", // todo:
-                                                                                                                        // use
-                                                                                                                        // key-translation
+        return JOptionPane.showOptionDialog(null, new MiniBoardDisplay(MiniBoard.fromBoard(board, start)), "Habilidad",
                 OK_CANCEL_OPTION, QUESTION_MESSAGE, null, options, null);
     }
 

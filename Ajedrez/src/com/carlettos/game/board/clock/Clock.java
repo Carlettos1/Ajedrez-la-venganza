@@ -81,8 +81,8 @@ public class Clock extends AbstractClock {
     public void tick() {
         super.tick();
         events.forEach(Event::tick);
-        events.stream().filter(Event::isReady).forEach(Event::act);
-        events.removeIf(Event::isReady);
+        events.stream().filter(Event::canExecute).forEach(Event::act);
+        events.removeIf(Event::canExecute);
 
         var event = new ClockEvent(this);
         this.listeners.forEach(l -> l.onEndTurn(event));

@@ -28,7 +28,7 @@ public class Escaque {
      * @param pos       pos of the escaque on the board.
      * @param piece     piece of the escaque. CANNOT BE NULL, IT MUST BE AT LEAST A
      *                  {@code Empty}
-     */ // TODO: use buildeable
+     */
     public Escaque(boolean magic, boolean buildable, Point pos, Piece piece) {
         this.magic = magic;
         this.buildable = buildable;
