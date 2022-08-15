@@ -1,13 +1,12 @@
 package com.carlettos.game.board;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.board.clock.Clock;
 import com.carlettos.game.board.clock.listener.ClockEvent;
 import com.carlettos.game.board.clock.listener.ClockListener;
+import com.carlettos.game.board.deathPile.BasicDeathPile;
 import com.carlettos.game.board.deck.Deck;
+import com.carlettos.game.board.shape.Rectangle;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.gameplay.card.invocation.SummonKnight;
 import com.carlettos.game.gameplay.card.invocation.SummonRook;
@@ -15,7 +14,6 @@ import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
 import com.carlettos.game.gameplay.card.onBoard.Fire;
 import com.carlettos.game.gameplay.card.onBoard.Ice;
 import com.carlettos.game.gameplay.card.utility.AddMovement;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.Bishop;
 import com.carlettos.game.gameplay.piece.classic.King;
 import com.carlettos.game.gameplay.piece.classic.Knight;
@@ -46,22 +44,15 @@ import com.carlettos.game.util.helper.DeckHelper;
  *
  * @author Carlos
  */
-public class SquareBoard extends AbstractSquareBoard {
-    protected final AbstractClock clock;
+public class SquareBoard extends AbstractBoard {
 
     public SquareBoard(int columns, int rows, AbstractClock clock) {
-        super(columns, rows);
-        this.clock = clock;
+        super(new Rectangle(columns - 1, rows - 1), new BasicDeathPile(), clock);
     }
 
     @Override
     public void tick() {
-        this.foreach(e -> {
-            e.getPiece().setIsMoved(false);
-            e.getPiece().tick(this, e.getPos());
-        });
-        getClock().tick();
-
+        super.tick();
         // FIXME: repaint on tick
         try {
             var bd = BoardDisplay.getInstance();
@@ -70,29 +61,6 @@ public class SquareBoard extends AbstractSquareBoard {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public AbstractClock getClock() {
-        return clock;
-    }
-
-    /**
-     * It gets all the pieces of the given color.
-     *
-     * @param color color of the pieces to get.
-     * @return a List with all the pieces of the given color.
-     */
-    public List<Piece> getPiecesOf(Color color) {
-        List<Piece> piezas = new ArrayList<>();
-        for (Escaque[] escaques : chessBoard) {
-            for (Escaque escaque : escaques) {
-                if (escaque.isControlledBy(color)) {
-                    piezas.add(escaque.getPiece());
-                }
-            }
-        }
-        return piezas;
     }
 
     public static SquareBoard getDefaultInstance() {
@@ -142,125 +110,125 @@ public class SquareBoard extends AbstractSquareBoard {
         black.getHand().addCard(new Ice());
         black.getHand().addCard(new Fire());
 
-        board.getEscaque(new Point(0, 7)).setIsMagic(true);
-        board.getEscaque(new Point(0, 9)).setIsMagic(true);
-        board.getEscaque(new Point(15, 7)).setIsMagic(true);
-        board.getEscaque(new Point(15, 9)).setIsMagic(true);
+        board.get(new Point(0, 7)).setIsMagic(true);
+        board.get(new Point(0, 9)).setIsMagic(true);
+        board.get(new Point(15, 7)).setIsMagic(true);
+        board.get(new Point(15, 9)).setIsMagic(true);
 
-        board.setPiece(new Point(0, 0), new Cannon(Color.WHITE));
-        board.setPiece(new Point(15, 0), new Cannon(Color.WHITE));
-        board.setPiece(new Point(0, 16), new Cannon(Color.BLACK));
-        board.setPiece(new Point(15, 16), new Cannon(Color.BLACK));
+        board.set(new Point(0, 0), new Cannon(Color.WHITE));
+        board.set(new Point(15, 0), new Cannon(Color.WHITE));
+        board.set(new Point(0, 16), new Cannon(Color.BLACK));
+        board.set(new Point(15, 16), new Cannon(Color.BLACK));
 
-        board.setPiece(new Point(1, 0), new Rook(Color.WHITE));
-        board.setPiece(new Point(14, 0), new Rook(Color.WHITE));
-        board.setPiece(new Point(1, 16), new Rook(Color.BLACK));
-        board.setPiece(new Point(14, 16), new Rook(Color.BLACK));
+        board.set(new Point(1, 0), new Rook(Color.WHITE));
+        board.set(new Point(14, 0), new Rook(Color.WHITE));
+        board.set(new Point(1, 16), new Rook(Color.BLACK));
+        board.set(new Point(14, 16), new Rook(Color.BLACK));
 
-        board.setPiece(new Point(2, 0), new Catapult(Color.WHITE));
-        board.setPiece(new Point(13, 0), new Catapult(Color.WHITE));
-        board.setPiece(new Point(2, 16), new Catapult(Color.BLACK));
-        board.setPiece(new Point(13, 16), new Catapult(Color.BLACK));
+        board.set(new Point(2, 0), new Catapult(Color.WHITE));
+        board.set(new Point(13, 0), new Catapult(Color.WHITE));
+        board.set(new Point(2, 16), new Catapult(Color.BLACK));
+        board.set(new Point(13, 16), new Catapult(Color.BLACK));
 
-        board.setPiece(new Point(3, 0), new Knight(Color.WHITE));
-        board.setPiece(new Point(12, 0), new Knight(Color.WHITE));
-        board.setPiece(new Point(3, 16), new Knight(Color.BLACK));
-        board.setPiece(new Point(12, 16), new Knight(Color.BLACK));
+        board.set(new Point(3, 0), new Knight(Color.WHITE));
+        board.set(new Point(12, 0), new Knight(Color.WHITE));
+        board.set(new Point(3, 16), new Knight(Color.BLACK));
+        board.set(new Point(12, 16), new Knight(Color.BLACK));
 
-        board.setPiece(new Point(4, 0), new Warlock(Color.WHITE));
-        board.setPiece(new Point(11, 0), new Warlock(Color.WHITE));
-        board.setPiece(new Point(4, 16), new Warlock(Color.BLACK));
-        board.setPiece(new Point(11, 16), new Warlock(Color.BLACK));
+        board.set(new Point(4, 0), new Warlock(Color.WHITE));
+        board.set(new Point(11, 0), new Warlock(Color.WHITE));
+        board.set(new Point(4, 16), new Warlock(Color.BLACK));
+        board.set(new Point(11, 16), new Warlock(Color.BLACK));
 
-        board.setPiece(new Point(5, 0), new Bishop(Color.WHITE));
-        board.setPiece(new Point(10, 0), new Bishop(Color.WHITE));
-        board.setPiece(new Point(5, 16), new Bishop(Color.BLACK));
-        board.setPiece(new Point(10, 16), new Bishop(Color.BLACK));
+        board.set(new Point(5, 0), new Bishop(Color.WHITE));
+        board.set(new Point(10, 0), new Bishop(Color.WHITE));
+        board.set(new Point(5, 16), new Bishop(Color.BLACK));
+        board.set(new Point(10, 16), new Bishop(Color.BLACK));
 
-        board.setPiece(new Point(6, 0), new Magician(Color.WHITE));
-        board.setPiece(new Point(7, 0), new Queen(Color.WHITE));
-        board.setPiece(new Point(8, 0), new King(Color.WHITE));
-        board.setPiece(new Point(9, 0), new Paladin(Color.WHITE));
+        board.set(new Point(6, 0), new Magician(Color.WHITE));
+        board.set(new Point(7, 0), new Queen(Color.WHITE));
+        board.set(new Point(8, 0), new King(Color.WHITE));
+        board.set(new Point(9, 0), new Paladin(Color.WHITE));
 
-        board.setPiece(new Point(6, 16), new Magician(Color.BLACK));
-        board.setPiece(new Point(7, 16), new Queen(Color.BLACK));
-        board.setPiece(new Point(8, 16), new King(Color.BLACK));
-        board.setPiece(new Point(9, 16), new Paladin(Color.BLACK));
+        board.set(new Point(6, 16), new Magician(Color.BLACK));
+        board.set(new Point(7, 16), new Queen(Color.BLACK));
+        board.set(new Point(8, 16), new King(Color.BLACK));
+        board.set(new Point(9, 16), new Paladin(Color.BLACK));
 
-        board.setPiece(new Point(0, 1), new Ship(Color.WHITE));
-        board.setPiece(new Point(15, 1), new Ship(Color.WHITE));
-        board.setPiece(new Point(0, 15), new Ship(Color.BLACK));
-        board.setPiece(new Point(15, 15), new Ship(Color.BLACK));
+        board.set(new Point(0, 1), new Ship(Color.WHITE));
+        board.set(new Point(15, 1), new Ship(Color.WHITE));
+        board.set(new Point(0, 15), new Ship(Color.BLACK));
+        board.set(new Point(15, 15), new Ship(Color.BLACK));
 
-        board.setPiece(new Point(1, 1), new TeslaTower(Color.WHITE));
-        board.setPiece(new Point(14, 1), new TeslaTower(Color.WHITE));
-        board.setPiece(new Point(1, 15), new TeslaTower(Color.BLACK));
-        board.setPiece(new Point(14, 15), new TeslaTower(Color.BLACK));
+        board.set(new Point(1, 1), new TeslaTower(Color.WHITE));
+        board.set(new Point(14, 1), new TeslaTower(Color.WHITE));
+        board.set(new Point(1, 15), new TeslaTower(Color.BLACK));
+        board.set(new Point(14, 15), new TeslaTower(Color.BLACK));
 
-        board.setPiece(new Point(2, 1), new Ram(Color.WHITE));
-        board.setPiece(new Point(13, 1), new Ram(Color.WHITE));
-        board.setPiece(new Point(2, 15), new Ram(Color.BLACK));
-        board.setPiece(new Point(13, 15), new Ram(Color.BLACK));
+        board.set(new Point(2, 1), new Ram(Color.WHITE));
+        board.set(new Point(13, 1), new Ram(Color.WHITE));
+        board.set(new Point(2, 15), new Ram(Color.BLACK));
+        board.set(new Point(13, 15), new Ram(Color.BLACK));
 
-        board.setPiece(new Point(3, 1), new Builder(Color.WHITE));
-        board.setPiece(new Point(12, 1), new Builder(Color.WHITE));
-        board.setPiece(new Point(3, 15), new Builder(Color.BLACK));
-        board.setPiece(new Point(12, 15), new Builder(Color.BLACK));
+        board.set(new Point(3, 1), new Builder(Color.WHITE));
+        board.set(new Point(12, 1), new Builder(Color.WHITE));
+        board.set(new Point(3, 15), new Builder(Color.BLACK));
+        board.set(new Point(12, 15), new Builder(Color.BLACK));
 
-        board.setPiece(new Point(4, 1), new Pawn(Color.WHITE));
-        board.setPiece(new Point(11, 1), new Pawn(Color.WHITE));
-        board.setPiece(new Point(4, 15), new Pawn(Color.BLACK));
-        board.setPiece(new Point(11, 15), new Pawn(Color.BLACK));
+        board.set(new Point(4, 1), new Pawn(Color.WHITE));
+        board.set(new Point(11, 1), new Pawn(Color.WHITE));
+        board.set(new Point(4, 15), new Pawn(Color.BLACK));
+        board.set(new Point(11, 15), new Pawn(Color.BLACK));
 
-        board.setPiece(new Point(5, 1), new Pawn(Color.WHITE));
-        board.setPiece(new Point(10, 1), new Pawn(Color.WHITE));
-        board.setPiece(new Point(5, 15), new Pawn(Color.BLACK));
-        board.setPiece(new Point(10, 15), new Pawn(Color.BLACK));
+        board.set(new Point(5, 1), new Pawn(Color.WHITE));
+        board.set(new Point(10, 1), new Pawn(Color.WHITE));
+        board.set(new Point(5, 15), new Pawn(Color.BLACK));
+        board.set(new Point(10, 15), new Pawn(Color.BLACK));
 
-        board.setPiece(new Point(6, 1), new CrazyPawn(Color.WHITE));
-        board.setPiece(new Point(9, 1), new CrazyPawn(Color.WHITE));
-        board.setPiece(new Point(6, 15), new CrazyPawn(Color.BLACK));
-        board.setPiece(new Point(9, 15), new CrazyPawn(Color.BLACK));
+        board.set(new Point(6, 1), new CrazyPawn(Color.WHITE));
+        board.set(new Point(9, 1), new CrazyPawn(Color.WHITE));
+        board.set(new Point(6, 15), new CrazyPawn(Color.BLACK));
+        board.set(new Point(9, 15), new CrazyPawn(Color.BLACK));
 
-        board.setPiece(new Point(7, 1), new SuperPawn(Color.WHITE));
-        board.setPiece(new Point(8, 1), new SuperPawn(Color.WHITE));
-        board.setPiece(new Point(7, 15), new SuperPawn(Color.BLACK));
-        board.setPiece(new Point(8, 15), new SuperPawn(Color.BLACK));
+        board.set(new Point(7, 1), new SuperPawn(Color.WHITE));
+        board.set(new Point(8, 1), new SuperPawn(Color.WHITE));
+        board.set(new Point(7, 15), new SuperPawn(Color.BLACK));
+        board.set(new Point(8, 15), new SuperPawn(Color.BLACK));
 
-        board.setPiece(new Point(0, 2), new Ballista(Color.WHITE));
-        board.setPiece(new Point(15, 2), new Ballista(Color.WHITE));
-        board.setPiece(new Point(0, 14), new Ballista(Color.BLACK));
-        board.setPiece(new Point(15, 14), new Ballista(Color.BLACK));
+        board.set(new Point(0, 2), new Ballista(Color.WHITE));
+        board.set(new Point(15, 2), new Ballista(Color.WHITE));
+        board.set(new Point(0, 14), new Ballista(Color.BLACK));
+        board.set(new Point(15, 14), new Ballista(Color.BLACK));
 
-        board.setPiece(new Point(1, 2), new Archer(Color.WHITE));
-        board.setPiece(new Point(14, 2), new Archer(Color.WHITE));
-        board.setPiece(new Point(1, 14), new Archer(Color.BLACK));
-        board.setPiece(new Point(14, 14), new Archer(Color.BLACK));
+        board.set(new Point(1, 2), new Archer(Color.WHITE));
+        board.set(new Point(14, 2), new Archer(Color.WHITE));
+        board.set(new Point(1, 14), new Archer(Color.BLACK));
+        board.set(new Point(14, 14), new Archer(Color.BLACK));
 
-        board.setPiece(new Point(2, 2), new Archer(Color.WHITE));
-        board.setPiece(new Point(13, 2), new Archer(Color.WHITE));
-        board.setPiece(new Point(2, 14), new Archer(Color.BLACK));
-        board.setPiece(new Point(13, 14), new Archer(Color.BLACK));
+        board.set(new Point(2, 2), new Archer(Color.WHITE));
+        board.set(new Point(13, 2), new Archer(Color.WHITE));
+        board.set(new Point(2, 14), new Archer(Color.BLACK));
+        board.set(new Point(13, 14), new Archer(Color.BLACK));
 
-        board.setPiece(new Point(3, 2), new ShieldBearer(Color.WHITE));
-        board.setPiece(new Point(12, 2), new ShieldBearer(Color.WHITE));
-        board.setPiece(new Point(3, 14), new ShieldBearer(Color.BLACK));
-        board.setPiece(new Point(12, 14), new ShieldBearer(Color.BLACK));
+        board.set(new Point(3, 2), new ShieldBearer(Color.WHITE));
+        board.set(new Point(12, 2), new ShieldBearer(Color.WHITE));
+        board.set(new Point(3, 14), new ShieldBearer(Color.BLACK));
+        board.set(new Point(12, 14), new ShieldBearer(Color.BLACK));
 
-        board.setPiece(new Point(0, 3), new Pawn(Color.WHITE));
-        board.setPiece(new Point(15, 3), new Pawn(Color.WHITE));
-        board.setPiece(new Point(0, 13), new Pawn(Color.BLACK));
-        board.setPiece(new Point(15, 13), new Pawn(Color.BLACK));
+        board.set(new Point(0, 3), new Pawn(Color.WHITE));
+        board.set(new Point(15, 3), new Pawn(Color.WHITE));
+        board.set(new Point(0, 13), new Pawn(Color.BLACK));
+        board.set(new Point(15, 13), new Pawn(Color.BLACK));
 
-        board.setPiece(new Point(1, 3), new CrazyPawn(Color.WHITE));
-        board.setPiece(new Point(14, 3), new CrazyPawn(Color.WHITE));
-        board.setPiece(new Point(1, 13), new CrazyPawn(Color.BLACK));
-        board.setPiece(new Point(14, 13), new CrazyPawn(Color.BLACK));
+        board.set(new Point(1, 3), new CrazyPawn(Color.WHITE));
+        board.set(new Point(14, 3), new CrazyPawn(Color.WHITE));
+        board.set(new Point(1, 13), new CrazyPawn(Color.BLACK));
+        board.set(new Point(14, 13), new CrazyPawn(Color.BLACK));
 
-        board.setPiece(new Point(2, 3), new Pawn(Color.WHITE));
-        board.setPiece(new Point(13, 3), new Pawn(Color.WHITE));
-        board.setPiece(new Point(2, 13), new Pawn(Color.BLACK));
-        board.setPiece(new Point(13, 13), new Pawn(Color.BLACK));
+        board.set(new Point(2, 3), new Pawn(Color.WHITE));
+        board.set(new Point(13, 3), new Pawn(Color.WHITE));
+        board.set(new Point(2, 13), new Pawn(Color.BLACK));
+        board.set(new Point(13, 13), new Pawn(Color.BLACK));
         return board;
     }
 }

@@ -1,5 +1,7 @@
 package com.carlettos.game.board;
 
+import java.util.Objects;
+
 import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
@@ -26,7 +28,7 @@ public class Escaque {
      * @param pos       pos of the escaque on the board.
      * @param piece     piece of the escaque. CANNOT BE NULL, IT MUST BE AT LEAST A
      *                  {@code Empty}
-     */
+     */ // TODO: use buildeable
     public Escaque(boolean magic, boolean buildable, Point pos, Piece piece) {
         this.magic = magic;
         this.buildable = buildable;
@@ -69,7 +71,7 @@ public class Escaque {
      * @return true if there is a piece on top, false if not.
      */
     public boolean hasPiece() {
-        return !piece.equals(new Empty());
+        return !piece.isEmpty();
     }
 
     public Piece getPiece() {
@@ -89,8 +91,10 @@ public class Escaque {
         }
     }
 
-    public void removePiece() {
+    public Piece removePiece() {
+        Piece previous = this.getPiece();
         this.setPiece(new Empty());
+        return previous;
     }
 
     public Point getPos() {
@@ -113,8 +117,35 @@ public class Escaque {
         this.buildable = isBuildable;
     }
 
+    public void copyProperties(Escaque other) {
+        this.setPiece(other.getPiece());
+        this.buildable = other.buildable;
+        this.magic = other.magic;
+    }
+
+    public void removeProperties() {
+        this.removePiece();
+        this.buildable = true;
+        this.magic = false;
+    }
+
     @Override
     public String toString() {
         return getPos().toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(piece, pos);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        Escaque other = (Escaque) obj;
+        return Objects.equals(piece, other.piece) && Objects.equals(pos, other.pos);
     }
 }

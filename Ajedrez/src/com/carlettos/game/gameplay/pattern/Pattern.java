@@ -1,5 +1,8 @@
 package com.carlettos.game.gameplay.pattern;
 
+import java.util.function.Predicate;
+
+import com.carlettos.game.board.Escaque;
 import com.carlettos.game.board.IBaseBoard;
 import com.carlettos.game.util.Point;
 
@@ -12,6 +15,7 @@ import com.carlettos.game.util.Point;
  *
  * @author Carlettos
  */
+@FunctionalInterface
 public interface Pattern {
 
     /**
@@ -20,7 +24,23 @@ public interface Pattern {
      * @param board board to check the pattern.
      * @param start center of the pattern.
      * @param end   point to match.
+     *
      * @return true if the start-end matches the pattern, false other case.
      */
     public boolean match(IBaseBoard board, Point start, Point end);
+
+    /**
+     * Turns this pattern into a Predicate. The end Point of the match will be the
+     * point escaque.getPos() provided by the predicate.test(escaque).
+     *
+     * @param board to match this pattern.
+     * @param start start point of the match.
+     *
+     * @return a predicate with the match method of this Pattern.
+     *
+     * @author Carlettos
+     */
+    default Predicate<Escaque> toPredicate(IBaseBoard board, Point start) {
+        return escaque -> this.match(board, start, escaque.getPos());
+    }
 }

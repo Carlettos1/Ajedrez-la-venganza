@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
@@ -17,7 +17,12 @@ public class Empty extends Piece {
     }
 
     @Override
-    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractBoard board, Point start, Info info) {
         return false;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return true;
     }
 }

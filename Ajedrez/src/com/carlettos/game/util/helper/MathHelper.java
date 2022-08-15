@@ -23,6 +23,14 @@ public final class MathHelper {
         return new Point(clamp(min.x, max.x, num.x), clamp(min.y, max.y, num.y));
     }
 
+    public static final Point max(Point a, Point b) {
+        return new Point(Math.max(a.x, b.x), Math.max(a.y, b.y));
+    }
+
+    public static final Point min(Point a, Point b) {
+        return new Point(Math.min(a.x, b.x), Math.min(a.y, b.y));
+    }
+
     /**
      * Checks if the number is between min and max (both inclusive).
      *

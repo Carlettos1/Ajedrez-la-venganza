@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.ability.starting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
@@ -31,17 +31,16 @@ public class AbilityPaladin extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!info.isTupleType(PaladinHabilityType.class, Point.class) || !this.commonCanUse(board, piece)) {
             return false;
         }
         Tuple<PaladinHabilityType, Point> tuple = (Tuple<PaladinHabilityType, Point>) info.getValue();
         boolean result = false;
 
-        if (board.getMatchingEscaques(PATTERNS[tuple.x.ordinal()], start).stream().map(e -> e.getPos())
-                .anyMatch(tuple.y::equals)) {
-            boolean hasPiece = board.getEscaque(tuple.y).hasPiece();
-            boolean isEqualColor = board.getEscaque(tuple.y).isControlledBy(piece.getColor());
+        if (board.getAll(PATTERNS[tuple.x.ordinal()], start).stream().map(e -> e.getPos()).anyMatch(tuple.y::equals)) {
+            boolean hasPiece = board.get(tuple.y).hasPiece();
+            boolean isEqualColor = board.get(tuple.y).isControlledBy(piece.getColor());
             result = switch (tuple.x) {
                 case ATTACK ->
                     board.getClock().boardContains(CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isEqualColor;
@@ -54,24 +53,24 @@ public class AbilityPaladin extends Ability {
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         Tuple<PaladinHabilityType, Point> tuple = (Tuple<PaladinHabilityType, Point>) info.getValue();
 
         switch (tuple.x) {
-            case ATTACK -> board.killPiece(tuple.y);
+            case ATTACK -> board.remove(tuple.y, true);
             case INVULNERABILITY -> board.getPiece(tuple.y).getEffectManager().addEffect(new Invulnerability(5));
-            case REVIVE -> board.setPiece(tuple.y, board.getDeathPile().getLast());
+            case REVIVE -> board.set(tuple.y, board.getDeathPile().getLast());
         }
     }
 
     @Override
-    public Tuple<PaladinHabilityType, Point>[] getValues(AbstractSquareBoard board, Point start) {
+    public Tuple<PaladinHabilityType, Point>[] getValues(AbstractBoard board, Point start) {
         if (board.getPiece(start) != null) {
             List<Tuple<PaladinHabilityType, Point>> list = new ArrayList<>(30);
             Piece piece = board.getPiece(start);
 
             for (PaladinHabilityType type : PaladinHabilityType.values()) {
-                board.getMatchingEscaques(PATTERNS[type.ordinal()], start).forEach(e -> {
+                board.getAll(PATTERNS[type.ordinal()], start).forEach(e -> {
                     boolean hasPiece = e.hasPiece();
                     boolean isEqualColor = e.isControlledBy(piece.getColor());
                     boolean result = switch (type) {
@@ -93,10 +92,5 @@ public class AbilityPaladin extends Ability {
 
     public static enum PaladinHabilityType implements IInfo {
         ATTACK, INVULNERABILITY, REVIVE;
-
-        @Override
-        public Info toInfo() {
-            return Info.getInfo(this);
-        }
     }
 }

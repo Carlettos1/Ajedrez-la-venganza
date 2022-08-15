@@ -1,7 +1,6 @@
 package com.carlettos.game.util;
 
 import com.carlettos.game.gameplay.ability.IInfo;
-import com.carlettos.game.gameplay.ability.Info;
 
 /**
  * Immutable version of {@code java.awt.Point}.
@@ -56,11 +55,6 @@ public final class Point implements IInfo {
         int dx = other.x - this.x;
         int dy = other.y - this.y;
         return dx * dx + dy * dy;
-    }
-
-    @Override
-    public Info toInfo() {
-        return Info.getInfo(this);
     }
 
     @Override

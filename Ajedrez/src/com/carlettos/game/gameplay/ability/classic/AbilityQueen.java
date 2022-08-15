@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability.classic;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Pattern;
@@ -16,7 +16,7 @@ public class AbilityQueen extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isType(Point.class)
                 || !PATTERN.match(board, start, (Point) info.getValue())) {
             return false;
@@ -25,18 +25,18 @@ public class AbilityQueen extends Ability {
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         Point point = (Point) info.getValue();
-        if (board.getEscaque(point).hasPiece()) {
-            board.killPiece(point);
+        if (board.get(point).hasPiece()) {
+            board.remove(point, true);
         }
-        board.setPiece(point, piece);
-        board.removePieceNoDeath(start);
+        board.set(point, piece);
+        board.remove(start, false);
         this.commonUse(board, piece);
     }
 
     @Override
-    public Point[] getValues(AbstractSquareBoard board, Point start) {
-        return board.getMatchingEscaques(PATTERN, start).stream().map(e -> e.getPos()).toArray(Point[]::new);
+    public Point[] getValues(AbstractBoard board, Point start) {
+        return board.getAll(PATTERN, start).stream().map(e -> e.getPos()).toArray(Point[]::new);
     }
 }

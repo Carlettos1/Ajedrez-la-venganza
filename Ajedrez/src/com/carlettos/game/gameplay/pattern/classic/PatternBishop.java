@@ -21,7 +21,7 @@ public interface PatternBishop extends Pattern {
         int signY = deltaY > 0 ? 1 : -1;
 
         for (int escaque = 1; escaque < Math.abs(deltaX); escaque++) {
-            if (board.getEscaque(start.add(escaque * signX, escaque * signY)).hasPiece()) { return false; }
+            if (board.get(start.add(escaque * signX, escaque * signY)).hasPiece()) { return false; }
         }
         return true;
     }

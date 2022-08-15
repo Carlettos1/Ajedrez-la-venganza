@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -42,11 +42,11 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isType(Piece.class)) { return false; }
 
         if (piece.getColor().equals(Color.WHITE)) {
-            if (start.y + 1 == board.shape.y) {
+            if (!board.contains(start.add(0, 1))) {
                 return true;
             } else {
                 return false;
@@ -63,15 +63,15 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var p = (Piece) info.getValue();
         p.setColor(piece.getColor());
-        board.setPiece(start, p);
+        board.set(start, p);
         p.setIsMoved(true);
     }
 
     @Override
-    public Piece[] getValues(AbstractSquareBoard board, Point start) {
+    public Piece[] getValues(AbstractBoard board, Point start) {
         return POSSIBLE_PROMOTIONS.toArray(Piece[]::new);
     }
 }

@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Pattern;
@@ -27,7 +27,7 @@ public abstract class SimplePiece<P extends Pattern> extends Piece implements IT
      * @@inheritDoc
      */
     @Override
-    public final boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public final boolean can(Action action, AbstractBoard board, Point start, Info info) {
         return switch (action) {
             case TAKE -> this.canTake(board, start, info, patron);
             case MOVE -> this.canMove(board, start, info, patron);

@@ -29,7 +29,7 @@ public interface IClockUse {
      * @return true if the color of the piece can play, false other case.
      */
     default boolean canPlay(Piece piece) {
-        return canPlay(piece.getColor());
+        return this.canPlay(piece.getColor());
     }
 
     /**
@@ -39,6 +39,6 @@ public interface IClockUse {
      * @return true if can play, false other case.
      */
     default boolean canPlay(Color color) {
-        return getClock().turnOf().getColor().equals(color) && getClock().canPlay(getClock().turnOf());
+        return this.getClock().turnOf().getColor().equals(color) && this.getClock().canPlay(getClock().turnOf());
     }
 }

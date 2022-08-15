@@ -18,9 +18,9 @@ public interface PatternSuperPawnMove extends PatternPawn {
                 || start.add(-1, sign * 1).equals(end)) {
             return true;
         }
-        if (start.add(1, sign * 2).equals(end)) { return !board.getEscaque(start.add(1, sign * 1)).hasPiece(); }
-        if (start.add(0, sign * 2).equals(end)) { return !board.getEscaque(start.add(0, sign * 1)).hasPiece(); }
-        if (start.add(-1, sign * 2).equals(end)) { return !board.getEscaque(start.add(-1, sign * 1)).hasPiece(); }
+        if (start.add(1, sign * 2).equals(end)) { return !board.get(start.add(1, sign * 1)).hasPiece(); }
+        if (start.add(0, sign * 2).equals(end)) { return !board.get(start.add(0, sign * 1)).hasPiece(); }
+        if (start.add(-1, sign * 2).equals(end)) { return !board.get(start.add(-1, sign * 1)).hasPiece(); }
         return false;
     }
 }

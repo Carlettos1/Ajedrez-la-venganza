@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece.starting;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.card.onBoard.CardsOnBoard;
@@ -31,7 +31,7 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
     }
 
     @Override
-    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractBoard board, Point start, Info info) {
         return switch (action) {
             case MOVE -> this.canMove(board, start, info, this.movePattern);
             default -> false;
@@ -39,10 +39,10 @@ public class Magician extends Piece implements IMove<PatternMagicianMove> {
     }
 
     @Override
-    protected void innerTick(AbstractSquareBoard board, Point pos) {
+    protected void innerTick(AbstractBoard board, Point pos) {
         var hasIce = board.getClock().boardContains(CardsOnBoard.ICE);
         var hasFire = board.getClock().boardContains(CardsOnBoard.FIRE);
-        var pieces = board.getMatchingEscaques(TICK_PATTERN, pos);
+        var pieces = board.getAll(TICK_PATTERN, pos);
         pieces.removeIf(e -> !e.hasPiece());
         pieces.removeIf(e -> e.getPieceColor() != this.getColor());
 

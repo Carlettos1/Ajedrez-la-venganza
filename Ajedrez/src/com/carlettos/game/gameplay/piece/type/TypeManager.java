@@ -11,6 +11,34 @@ public class TypeManager {
         this.types = new ArrayList<>(List.of(types));
     }
 
+    public boolean isImpenetrable() {
+        return this.isType(IPieceType.IMPENETRABLE);
+    }
+
+    public boolean isBiologic() {
+        return this.isType(IPieceType.BIOLOGIC);
+    }
+
+    public boolean isDemonic() {
+        return this.isType(IPieceType.DEMONIC);
+    }
+
+    public boolean isStructure() {
+        return this.isType(IPieceType.STRUCTURE);
+    }
+
+    public boolean isHeroic() {
+        return this.isType(IPieceType.HEROIC);
+    }
+
+    public boolean isImmune() {
+        return this.isType(IPieceType.IMMUNE);
+    }
+
+    public boolean isTransportable() {
+        return this.isType(IPieceType.TRANSPORTABLE);
+    }
+
     public boolean isType(IPieceType type) {
         return this.types.contains(type);
     }
@@ -26,7 +54,7 @@ public class TypeManager {
      * @return PASS.
      */
     public boolean addType(IPieceType type) {
-        return (this.getTypes().add(type));
+        return this.getTypes().add(type);
     }
 
     /**
@@ -37,7 +65,7 @@ public class TypeManager {
      *         piece has the type and has been removed.
      */
     public boolean removeType(IPieceType type) {
-        return (this.getTypes().remove(type));
+        return this.getTypes().remove(type);
     }
 
     /**

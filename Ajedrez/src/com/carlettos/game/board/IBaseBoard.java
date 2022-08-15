@@ -1,25 +1,18 @@
 package com.carlettos.game.board;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.annotation.Nullable;
-import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.enums.Direction;
 
-public interface IBaseBoard {
+public interface IBaseBoard extends List<Escaque> {
 
-    /**
-     * It gets the size of the board, it can be the area of the shape, but its not
-     * necessary.
-     */
-    int getSize();
+    @Override
+    Escaque get(int index);
 
     /**
      * It gets the Escaque in the given point.
@@ -28,48 +21,9 @@ public interface IBaseBoard {
      * @return the Escaque at the point, if it is in the board.
      * @throws IllegalArgumentException if any coordinate is out of the board.
      */
-    Escaque getEscaque(Point point);
+    Escaque get(Point point);
 
-    boolean hasPiece(Piece p);
-    
-    boolean hasPiece(Class<? extends Piece> clazz, @Nullable Color color);
-
-    /**
-     * Sets the piece in the escaque at the given point.
-     *
-     * @param point point in the board
-     * @param piece piece to put
-     */
-    void setPiece(Point point, Piece piece);
-
-    /**
-     * Removes the piece at the given point. It replaces the current piece with a
-     * new Empty piece.
-     *
-     * Doesn't add the piece to the death pile.
-     *
-     * @param point position of the piece.
-     */
-    default void removePieceNoDeath(Point point) {
-        this.getEscaque(point).removePiece();
-    }
-
-    /**
-     * Removes the piece at the given point. It replaces the current piece with a
-     * new Empty piece.
-     *
-     * Adds the piece to the death pile.
-     *
-     * @param point position of the piece.
-     */
-    default void killPiece(Point point) {
-        if (getEscaque(point).hasPiece()) {
-            this.getDeathPile().add(this.getPiece(point));
-        }
-        this.getEscaque(point).removePiece();
-    }
-
-    IDeathPile getDeathPile();
+    Piece getPiece(int index);
 
     /**
      * Gets the piece in the escaque at the given point.
@@ -78,49 +32,135 @@ public interface IBaseBoard {
      */
     Piece getPiece(Point point);
 
-    /**
-     * Gets the shape of the board.
-     */
-    Shape getShape();
-
-    /**
-     * It gets every nearby Escaque, the ones that are above, below, right and left
-     * of the given Escaque, if they exist on this board.
-     *
-     * @param start center point.
-     * @return a List of max 4 elements, that contains all the escaques nearby the
-     *         given one.
-     */
-    default List<Escaque> getNearbyEscaques(Point start) {
-        List<Escaque> escaques = new ArrayList<>(4);
-        for (Direction dir : Direction.values()) {
-            Point tmp;
-            if (!this.getShape().isOutOfBorders(tmp = start.add(dir.toPoint()))) {
-                escaques.add(this.getEscaque(tmp));
-            }
-        }
-        return escaques;
-    }
-
-    /**
-     * Executes the action for each one of the escaques in this board.
-     * TODO: see List, collection and iterable for implementation of other methods.
-     */
-    void foreach(Consumer<Escaque> action);
+    List<Escaque> getAll(Predicate<Escaque> condition);
 
     /**
      * Gets every Escaque that match the given pattern at the given starting point.
      *
      * @param pattern pattern to match.
      * @param start   starting point of the pattern.
+     *
      * @return a List containing all the Escaques that matchs the pattern.
      */
-    default List<Escaque> getMatchingEscaques(Pattern pattern, Point start) {
-        List<Escaque> matches = new ArrayList<>(this.getSize());
-        this.foreach(e -> {
-            if (pattern.match(this, start, e.getPos()))
-                matches.add(e);
-        });
-        return matches;
+    default List<Escaque> getAll(Pattern pattern, Point start) {
+        return this.getAll(pattern.toPredicate(this, start));
     }
+
+    List<Piece> getAllPieces(Predicate<Escaque> condition);
+
+    default List<Piece> getAllPieces(Pattern pattern, Point start) {
+        return this.getAllPieces(pattern.toPredicate(this, start));
+    }
+
+    @Override
+    Escaque set(int index, Escaque escaque);
+
+    void set(int index, Piece piece);
+
+    /**
+     * Sets the piece in the escaque at the given point.
+     *
+     * @param point point in the board
+     * @param piece piece to put
+     */
+    void set(Point point, Piece piece);
+
+    void set(Point point, Escaque escaque);
+
+    @Override
+    boolean add(Escaque escaque);
+
+    boolean add(Piece piece);
+
+    @Override
+    void add(int index, Escaque escaque);
+
+    void add(int index, Piece piece);
+
+    @Override
+    Escaque remove(int index);
+
+    @Override
+    boolean remove(Object o);
+
+    boolean remove(Escaque e, boolean death);
+
+    boolean remove(Point p, boolean death);
+
+    boolean remove(Piece p, boolean death);
+
+    /**
+     * Safely removes the first piece that matches the given predicate (if any). And
+     * safe-adds it to the death pile if chosen to.
+     */
+    boolean remove(Predicate<Escaque> condition, boolean death);
+
+    /**
+     * Removes the piece at the given index. And safe-adds it to the death pile only
+     * if chosen to. Returns the escaque which was deleted.
+     */
+    Escaque simpleRemove(int index, boolean death);
+
+    @Override
+    boolean contains(Object o);
+
+    boolean contains(Escaque e);
+
+    boolean contains(Point p);
+
+    boolean contains(Piece p);
+
+    @Override
+    int indexOf(Object obj);
+
+    int indexOf(Escaque escaque);
+
+    int indexOf(Piece piece);
+
+    int indexOf(Point point);
+
+    /**
+     * Gets the index of the first escaque that satisfies the given condition.
+     */
+    int indexOf(Predicate<Escaque> condition);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int lastIndexOf(Object obj);
+
+    /**
+     * Gets the last piece that satisfies the given predicate.
+     *
+     * @param condition that must be satisfied.
+     * @see #lastIndexOf(Object)
+     */
+    int lastIndexOf(Predicate<Escaque> condition);
+
+    /**
+     * Safe method for adding to a death pile; it only adds the piece if its not an
+     * empty one.
+     *
+     * @param piece to add to the death pile.
+     */
+    default void addToDeathPile(Piece piece) {
+        if (!piece.isEmpty()) {
+            this.getDeathPile().add(piece);
+        }
+    }
+
+    /**
+     * Gets the death pile of the board.
+     *
+     * @return the death pile of the board
+     */
+    IDeathPile getDeathPile();
+
+    /**
+     * Gets the shape of the board.
+     *
+     * @return the shape of the board
+     */
+    Shape getShape();
 }

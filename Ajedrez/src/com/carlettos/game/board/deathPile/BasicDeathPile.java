@@ -3,6 +3,7 @@ package com.carlettos.game.board.deathPile;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.carlettos.game.gameplay.piece.Empty;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -42,8 +43,22 @@ public class BasicDeathPile implements IDeathPile {
     }
 
     @Override
-    public List<Piece> getList() {
-        return this.pile;
+    public int hashCode() {
+        return Objects.hash(pile);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        BasicDeathPile other = (BasicDeathPile) obj;
+        return Objects.equals(pile, other.pile);
+    }
+
+    @Override
+    public String toString() {
+        return "BasicDeathPile [pile=" + pile + "]";
+    }
 }

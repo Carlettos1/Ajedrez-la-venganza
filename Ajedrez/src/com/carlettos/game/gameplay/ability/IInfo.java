@@ -1,5 +1,7 @@
 package com.carlettos.game.gameplay.ability;
 
 public interface IInfo {
-    Info toInfo();
+    default Info toInfo() {
+        return Info.getInfo(this);
+    }
 }

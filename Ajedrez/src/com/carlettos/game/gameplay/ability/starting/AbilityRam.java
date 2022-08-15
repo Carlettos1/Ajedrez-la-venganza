@@ -1,10 +1,8 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import java.util.Arrays;
-import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
-import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -19,33 +17,31 @@ public class AbilityRam extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isType(Direction.class)) { return false; }
-        return (!board.getShape().isOutOfBorders(((Direction) info.getValue()).toPoint()));
+        return (board.contains(((Direction) info.getValue()).toPoint()));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         Direction dir = (Direction) info.getValue();
-        Point lastPreCharge = this.getEndPointNoJump(board, start, dir, -1);
-        int totalCharges = (int) Math.ceil(start.getDistanceTo(lastPreCharge)) / COST_PER_CHARGE + 1;
-        List<Escaque> toKill = board.rayCast(lastPreCharge, dir, totalCharges);
-        Point lastPostCharge = lastPreCharge;
-        if (!toKill.isEmpty()) {
-            lastPostCharge = toKill.get(toKill.size() - 1).getPos();
-            for (Escaque escaque : toKill) {
-                board.killPiece(escaque.getPos());
-            }
+        var route = board.rayCast(start, -1, false, dir, e -> e.hasPiece());
+        var charge = route.size() / COST_PER_CHARGE + 1;
+        var end = route.get(route.size() - 1).getPos();
+        var killeable = board.rayCast(end, charge, false, dir, e -> e.getPiece().getTypeManager().isImpenetrable());
+        var endCharge = end;
+        if (!killeable.isEmpty()) {
+            endCharge = killeable.get(killeable.size() - 1).getPos();
         }
-
-        board.setPiece(lastPostCharge, piece);
-        board.removePieceNoDeath(start);
+        killeable.forEach(e -> board.remove(e, true));
+        board.set(endCharge, piece);
+        board.remove(start, false);
         this.commonUse(board, piece);
     }
 
     @Override
-    public Direction[] getValues(AbstractSquareBoard board, Point start) {
-        return Arrays.asList(Direction.values()).stream().filter(d -> !board.getShape().isOutOfBorders(d.toPoint()))
+    public Direction[] getValues(AbstractBoard board, Point start) {
+        return Arrays.asList(Direction.values()).stream().filter(d -> board.contains(d.toPoint()))
                 .toArray(Direction[]::new);
     }
 }

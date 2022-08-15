@@ -20,11 +20,11 @@ public interface PatternRook extends Pattern {
 
         if (movX) { // se mueve el x
             for (int plus = 1; plus < Math.abs(end.x - start.x); plus++) {
-                if (board.getEscaque(start.add(plus * dirX, 0)).hasPiece()) { return false; }
+                if (board.get(start.add(plus * dirX, 0)).hasPiece()) { return false; }
             }
         } else if (movY) { // se mueve en y
             for (int plus = 1; plus < Math.abs(end.y - start.y); plus++) {
-                if (board.getEscaque(start.add(0, plus * dirY)).hasPiece()) { return false; }
+                if (board.get(start.add(0, plus * dirY)).hasPiece()) { return false; }
             }
         }
         return true;

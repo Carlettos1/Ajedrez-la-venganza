@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability.starting;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
@@ -12,12 +12,12 @@ public class AbilitySuperPawn extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
-        return (!piece.getTypeManager().isType(IPieceType.IMMUNE) && this.commonCanUse(board, piece));
+    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
+        return (!piece.getTypeManager().isImmune() && this.commonCanUse(board, piece));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start) {
+    public void use(AbstractBoard board, Piece piece, Point start) {
         piece.getTypeManager().addTypes(IPieceType.IMMUNE, IPieceType.IMPENETRABLE);
     }
 }

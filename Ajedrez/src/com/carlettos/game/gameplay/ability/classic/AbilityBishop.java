@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -17,22 +17,22 @@ public class AbilityBishop extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!super.commonCanUse(board, piece) || !info.isType(Direction.class)) { return false; }
         var dir = (Direction) info.getValue();
         return (this.reducedCanUse(board, start, dir));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var dir = (Direction) info.getValue();
-        board.setPiece(start.add(dir.toPoint()), piece);
-        board.removePieceNoDeath(start);
+        board.set(start.add(dir.toPoint()), piece);
+        board.remove(start, false);
         this.commonUse(board, piece);
     }
 
     @Override
-    public Direction[] getValues(AbstractSquareBoard board, Point start) {
+    public Direction[] getValues(AbstractBoard board, Point start) {
         List<Direction> values = new ArrayList<>(4);
         for (Direction direction : Direction.values()) {
             if (this.reducedCanUse(board, start, direction)) {
@@ -42,9 +42,9 @@ public class AbilityBishop extends Ability {
         return values.toArray(Direction[]::new);
     }
 
-    protected boolean reducedCanUse(AbstractSquareBoard board, Point start, Direction dir) {
+    protected boolean reducedCanUse(AbstractBoard board, Point start, Direction dir) {
         var to = start.add(dir.toPoint());
-        return !board.shape.isOutOfBorders(to) && !board.getEscaque(to).hasPiece();
+        return board.contains(to) && !board.get(to).hasPiece();
     }
 
 }

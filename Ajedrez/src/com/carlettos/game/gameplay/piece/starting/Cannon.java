@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece.starting;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -29,7 +29,7 @@ public class Cannon extends Piece implements IAttack<PatternCannonAttack>, IMove
     }
 
     @Override
-    public boolean can(Action action, AbstractSquareBoard board, Point start, Info info) {
+    public boolean can(Action action, AbstractBoard board, Point start, Info info) {
         return switch (action) {
             case ATTACK -> this.canAttack(board, start, info, attackPattern);
             case MOVE -> this.canMove(board, start, info, movePattern);

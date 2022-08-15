@@ -25,7 +25,8 @@ public class BoardDisplay extends JPanel {
 
     private BoardDisplay(SquareBoard board) {
         super(new BorderLayout());
-        this.grid = new EscaqueDisplay[board.shape.y][board.shape.x];
+        this.grid = new EscaqueDisplay[board.getShape().getBoundingRectangle().y][board.getShape()
+                .getBoundingRectangle().x];
         this.board = board;
         this.clock = new ClockDisplay(board.getClock());
         this.cards = new HandDisplay(board.getClock());
@@ -46,12 +47,14 @@ public class BoardDisplay extends JPanel {
 
     protected void setup() {
         clock.setPreferredSize(
-                new Dimension(board.shape.x * ConfigHelper.getEscaqueLength(), ConfigHelper.getClockHeight()));
+                new Dimension(board.getShape().getBoundingRectangle().x * ConfigHelper.getEscaqueLength(),
+                        ConfigHelper.getClockHeight()));
         this.add(clock, BorderLayout.PAGE_START);
-        JPanel panel = new JPanel(new GridLayout(board.shape.y, board.shape.x));
-        for (int y = board.shape.y - 1; y >= 0; y--) {
-            for (int x = 0; x < board.shape.x; x++) {
-                EscaqueDisplay ev = new EscaqueDisplay(board.getEscaque(new Point(x, y)));
+        JPanel panel = new JPanel(
+                new GridLayout(board.getShape().getBoundingRectangle().y, board.getShape().getBoundingRectangle().x));
+        for (int y = board.getShape().getBoundingRectangle().y - 1; y >= 0; y--) {
+            for (int x = 0; x < board.getShape().getBoundingRectangle().x; x++) {
+                EscaqueDisplay ev = new EscaqueDisplay(board.get(new Point(x, y)));
                 ev.addMouseListener(MousePiece.get());
                 grid[y][x] = ev;
                 panel.add(ev);
@@ -84,10 +87,10 @@ public class BoardDisplay extends JPanel {
     public EscaqueDisplay getEscaqueVisual(Point point) {
         if (point.x < 0) { throw new IllegalArgumentException("La coordenada x no puede ser negativa"); }
         if (point.y < 0) { throw new IllegalArgumentException("La coordenada y no puede ser negativa"); }
-        if (point.x >= board.shape.x) {
+        if (point.x >= board.getShape().getBoundingRectangle().x) {
             throw new IllegalArgumentException("La coordenada x no puede ser mayor o igual que el número de columnas");
         }
-        if (point.y >= board.shape.y) {
+        if (point.y >= board.getShape().getBoundingRectangle().y) {
             throw new IllegalArgumentException("La coordenada y no puede ser mayor o igual que el número de filas");
         }
         return grid[point.y][point.x];

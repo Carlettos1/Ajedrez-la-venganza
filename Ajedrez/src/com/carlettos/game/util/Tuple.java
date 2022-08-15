@@ -3,7 +3,6 @@ package com.carlettos.game.util;
 import java.util.Objects;
 
 import com.carlettos.game.gameplay.ability.IInfo;
-import com.carlettos.game.gameplay.ability.Info;
 
 /**
  *
@@ -43,10 +42,5 @@ public class Tuple<X, Y> implements IInfo {
     @Override
     public String toString() {
         return "Par{" + "x=" + x + ", y=" + y + '}';
-    }
-
-    @Override
-    public Info toInfo() {
-        return Info.getInfo(this);
     }
 }

@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.effect;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
@@ -20,7 +20,7 @@ public class EffectManager {
     /**
      * Executed at the end of every turn.
      */
-    public void tick(AbstractSquareBoard board, Point pos) {
+    public void tick(AbstractBoard board, Point pos) {
         effects.forEach(Effect::tick);
         effects.forEach(effect -> effect.onTick(board, pos, this.piece));
         effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, pos, this.piece));
@@ -48,7 +48,7 @@ public class EffectManager {
         return effects;
     }
 
-    public boolean canBe(Action action, AbstractSquareBoard board, Point start) {
+    public boolean canBe(Action action, AbstractBoard board, Point start) {
         boolean combined = true;
         for (Effect effect : effects) {
             combined &= (effect.canBe(action, board, start, piece));
@@ -56,7 +56,7 @@ public class EffectManager {
         return combined;
     }
 
-    public void onBe(Action action, AbstractSquareBoard board, Point start) {
+    public void onBe(Action action, AbstractBoard board, Point start) {
         for (Effect effect : effects) {
             effect.onBe(action, board, start, piece);
         }

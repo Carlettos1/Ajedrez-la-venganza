@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.ability.demonic;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -15,13 +15,13 @@ public class WitchAbility extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
         return this.commonCanUse(board, piece);
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start) {
-        board.getMatchingEscaques(PATTERN, start).forEach(e -> board.killPiece(e.getPos()));
+    public void use(AbstractBoard board, Piece piece, Point start) {
+        board.getAll(PATTERN, start).forEach(e -> board.remove(e, true));
         this.commonUse(board, piece);
     }
 }

@@ -1,36 +1,94 @@
 package com.carlettos.game.board.shape;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import com.carlettos.game.util.Point;
 
 /**
  * A representation of a 2D shape
  */
 public abstract class Shape {
+    protected final Polygon form;
+    protected final Point[] pointsInside;
+    protected final int area;
 
     /**
-     * It returns the total area of the shape. Because it is used to repressent a
-     * chess board, the area is the total number of escaques that it can have;
+     * Constructs a shape based on the given vertices, starting at Point(0, 0).
      */
-    public abstract int getArea();
+    public Shape(Point[] vertices) {
+        if (vertices[0].equals(new Point())) {
+            this.form = new Polygon(vertices);
+        } else {
+            Point[] vs = new Point[vertices.length + 1];
+            vs[0] = new Point();
+            for (int i = 0; i < vertices.length; i++) {
+                vs[i + 1] = vertices[i];
+            }
+            this.form = new Polygon(vs);
+        }
+
+        final Point max = this.form.getBounds();
+        final List<Point> points = new ArrayList<>(max.x * max.y);
+        for (int y = 0; y < max.y; y++) {
+            for (int x = 0; x < max.x; x++) {
+                Point current = new Point(y, x);
+                if (this.form.contains(current)) {
+                    points.add(current);
+                }
+            }
+        }
+
+        this.pointsInside = points.toArray(Point[]::new);
+        this.area = this.pointsInside.length;
+    }
+
+    /**
+     * Returns all the points that are inside this shape
+     */
+    public Point[] getAllPointsInside() {
+        return this.pointsInside;
+    }
+
+    /**
+     * It returns the total area of the shape (measured in escaques).
+     */
+    public int area() {
+        return this.area;
+    }
 
     /**
      * It has to return a new object
      */
-    public abstract Square toSquareShape();
+    public Rectangle getBoundingRectangle() {
+        return new Rectangle(form.getBounds());
+    }
 
     /**
-     * It checks that the given point is out or in the border.
-     *
-     * @param point point to check.
-     * @return true if is inside the shape, false other case.
+     * Check if the given point is inside this shape.
      */
-    public abstract boolean isOutOfBorders(Point point);
+    public boolean contains(Point point) {
+        return this.form.contains(point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(form);
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) { return true; }
-        if ((obj == null) || !(obj instanceof Shape)) { return false; }
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
         Shape other = (Shape) obj;
-        return other.toSquareShape().getDimensions().equals(this.toSquareShape().getDimensions());
+        return Objects.equals(form, other.form);
+    }
+
+    @Override
+    public String toString() {
+        return "Shape of area " + this.area() + ", of " + this.pointsInside.length + " vertices";
     }
 }

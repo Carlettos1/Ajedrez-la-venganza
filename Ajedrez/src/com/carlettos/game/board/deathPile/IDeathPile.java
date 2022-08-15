@@ -1,7 +1,5 @@
 package com.carlettos.game.board.deathPile;
 
-import java.util.List;
-
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.enums.Color;
 
@@ -15,6 +13,4 @@ public interface IDeathPile {
     Piece getLast();
 
     Piece getLast(Color color);
-
-    List<Piece> getList();
 }

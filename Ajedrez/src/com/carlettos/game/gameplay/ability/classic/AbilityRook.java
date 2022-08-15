@@ -3,10 +3,11 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.Rook;
 import com.carlettos.game.util.Point;
@@ -21,16 +22,16 @@ public class AbilityRook extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece)) { return false; }
         return (info.isType(Direction.class));
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var dir = (Direction) info.getValue();
         List<Escaque> rooks = new ArrayList<>(getNearbyRookEscaques(board, piece, start));
-        rooks.add(board.getEscaque(start));
+        rooks.add(board.get(start));
         this.addAllRookEscaques(rooks, board, piece);
         this.orderEscaques(rooks, dir);
         this.throwRooks(rooks, board, dir);
@@ -42,20 +43,21 @@ public class AbilityRook extends Ability {
         board.getClock().turnOf().changeMana(-this.data.manaCost());
     }
 
-    protected void throwRooks(List<Escaque> rooks, AbstractSquareBoard board, Direction dir) {
+    protected void throwRooks(List<Escaque> rooks, AbstractBoard board, Direction dir) {
         rooks.forEach(et -> throwTo(et.getPos(), board, dir));
     }
 
     /**
      * Throws the tower to the given direction.
      */
-    protected void throwTo(Point start, AbstractSquareBoard board, Direction dir) {
-        Point end = this.getEndPointNoJump(board, start, dir, -1);
+    protected void throwTo(Point start, AbstractBoard board, Direction dir) {
+        var ray = board.rayCast(start, -1, true, dir, e -> e.hasPiece());
+        Point end = ray.get(ray.size() - 1).getPos();
         if (start.equals(end)) { return; }
         Point nextEnd = end.add(dir.toPoint());
         board.getPiece(start).setIsMoved(false);
         boolean done;
-        if (!board.shape.isOutOfBorders(nextEnd) && board.tryTo(Action.TAKE, start, nextEnd.toInfo(), true)) {
+        if (board.contains(nextEnd) && board.tryTo(Action.TAKE, start, nextEnd.toInfo(), true)) {
             done = true;
         } else {
             done = board.tryTo(Action.MOVE, start, end.toInfo(), true);
@@ -68,7 +70,7 @@ public class AbilityRook extends Ability {
     /**
      * Connects all towers that are side by side to each other
      */
-    protected void addAllRookEscaques(List<Escaque> rooks, AbstractSquareBoard board, Piece piece) {
+    protected void addAllRookEscaques(List<Escaque> rooks, AbstractBoard board, Piece piece) {
         var rookFinded = true;
         while (rookFinded) {
             List<Escaque> tmp = new ArrayList<>();
@@ -85,8 +87,8 @@ public class AbilityRook extends Ability {
         }
     }
 
-    protected List<Escaque> getNearbyRookEscaques(AbstractSquareBoard board, Piece piece, Point start) {
-        return board.getNearbyEscaques(start).stream()
+    protected List<Escaque> getNearbyRookEscaques(AbstractBoard board, Piece piece, Point start) {
+        return board.getAll(Patterns.STRUCTURE_MOVE_PATTERN, start).stream()
                 .filter(escaque -> escaque.getPiece() instanceof Rook && escaque.isControlledBy(piece.getColor()))
                 .toList();
     }
@@ -105,7 +107,7 @@ public class AbilityRook extends Ability {
     }
 
     @Override
-    public Direction[] getValues(AbstractSquareBoard board, Point start) {
+    public Direction[] getValues(AbstractBoard board, Point start) {
         return Direction.values();
     }
 }

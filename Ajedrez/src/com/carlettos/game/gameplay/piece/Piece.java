@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
@@ -79,7 +79,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      *
      * @return PASS if the action can be performed, FAIL otherwise.
      */
-    public abstract boolean can(Action action, AbstractSquareBoard board, Point start, Info info);
+    public abstract boolean can(Action action, AbstractBoard board, Point start, Info info);
 
     /**
      * Its excecuted after an action has been performed. Usually its just used to
@@ -91,7 +91,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      * @param info   info of the excecuted action.
      * @see Piece#can(Action, AbstractBoard, Point, Info).
      */
-    public void postAction(Action action, AbstractSquareBoard board, Point pos, Info info) {
+    public void postAction(Action action, AbstractBoard board, Point pos, Info info) {
         TypeHelper.ActivateTypesOnAction(action, board, pos, info);
         this.setIsMoved(true);
     }
@@ -105,9 +105,9 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      * @return A list with a tuple containing every action-info that can be
      *         performed by this piece.
      */
-    public List<Tuple<Action, Info>> getAllActions(AbstractSquareBoard board, Point start) {
+    public List<Tuple<Action, Info>> getAllActions(AbstractBoard board, Point start) {
         List<Tuple<Action, Info>> actions = new ArrayList<>();
-        board.foreach(e -> {
+        board.stream().forEach(e -> {
             if (this.can(Action.TAKE, board, start, e.getPos().toInfo())) {
                 actions.add(new Tuple<>(Action.TAKE, e.getPos().toInfo()));
             }
@@ -156,12 +156,13 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
     /**
      * Executed at the end of every turn.
      */
-    public final void tick(AbstractSquareBoard board, Point pos) {
+    public final void tick(AbstractBoard board, Point pos) {
+        this.setIsMoved(false);
         this.effectManager.tick(board, pos);
         this.innerTick(board, pos);
     }
 
-    protected void innerTick(AbstractSquareBoard board, Point pos) {}
+    protected void innerTick(AbstractBoard board, Point pos) {}
 
     public EffectManager getEffectManager() {
         return effectManager;
@@ -183,9 +184,16 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
         return moved;
     }
 
-    @Override
-    public Info toInfo() {
-        return Info.getInfo(this);
+    /**
+     * Utility method. It must return the same as
+     * {@code (new Empty()).equals(this)}.
+     *
+     * @see Empty
+     * @implNote It must be false for every piece, except for the Empty-like pieces,
+     *           e.g., true for every piece that is a place holder.
+     */
+    public boolean isEmpty() {
+        return false;
     }
 
     @Override

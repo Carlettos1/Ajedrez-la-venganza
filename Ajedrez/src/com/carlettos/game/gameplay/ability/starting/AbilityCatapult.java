@@ -3,11 +3,10 @@ package com.carlettos.game.gameplay.ability.starting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
-import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
@@ -22,24 +21,25 @@ public class AbilityCatapult extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!this.commonCanUse(board, piece) || !info.isTupleType(Direction.class, SubDirection.class))
             return false;
         return reducedCan(board, start, (Tuple<Direction, SubDirection>) info.getValue());
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         Tuple<Direction, SubDirection> tuple = (Tuple<Direction, SubDirection>) info.getValue();
         Point posPiece = start.add(tuple.y.toPoint());
-        Point newPos = this.getEndPointJump(board, start, tuple.x, RANGE);
-        board.setPiece(newPos, board.getPiece(posPiece));
-        board.removePieceNoDeath(posPiece);
+        var ray = board.rayCast(start, RANGE, true, tuple.x, e -> true);
+        Point newPos = ray.get(ray.size() - 1).getPos();
+        board.set(newPos, board.getPiece(posPiece));
+        board.remove(posPiece, false);
         this.commonUse(board, piece);
     }
 
     @Override
-    public Tuple<Direction, Integer>[] getValues(AbstractSquareBoard board, Point start) {
+    public Tuple<Direction, Integer>[] getValues(AbstractBoard board, Point start) {
         Direction[] dirs = Direction.values();
         SubDirection[] subDirs = SubDirection.values();
         List<Tuple<Direction, SubDirection>> valores = new ArrayList<>(dirs.length * subDirs.length);
@@ -53,11 +53,10 @@ public class AbilityCatapult extends Ability {
         return valores.toArray(Tuple[]::new);
     }
 
-    private boolean reducedCan(AbstractSquareBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
+    private boolean reducedCan(AbstractBoard board, Point start, Tuple<Direction, SubDirection> tuple) {
         Point posPiece = start.add(tuple.y.toPoint());
-        if (board.getShape().isOutOfBorders(this.getEndPointJump(board, start, tuple.x, RANGE))
-                || board.shape.isOutOfBorders(posPiece) || !board.getEscaque(posPiece).hasPiece()
-                || !board.getPiece(posPiece).getTypeManager().isType(IPieceType.TRANSPORTABLE)) {
+        if (board.rayCast(start, RANGE, true, tuple.x, e -> true).isEmpty() || !board.contains(posPiece)
+                || !board.get(posPiece).hasPiece() || !board.getPiece(posPiece).getTypeManager().isTransportable()) {
             return false;
         }
         return true;

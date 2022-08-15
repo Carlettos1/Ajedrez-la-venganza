@@ -73,11 +73,11 @@ public abstract class AbstractClock
         }
         return possible.toArray(Player[]::new);
     }
-    
+
     public Player getRandomPlayer() {
         return getPlayers()[RNG.nextInt(players.length)];
     }
-    
+
     public Player getRandomPlayer(Predicate<Player> predicate) {
         Player[] possibles = getPlayers(predicate);
         return possibles[RNG.nextInt(possibles.length)];

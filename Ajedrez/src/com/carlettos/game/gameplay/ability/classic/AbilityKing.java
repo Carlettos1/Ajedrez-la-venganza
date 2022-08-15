@@ -3,7 +3,7 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -18,31 +18,31 @@ public class AbilityKing extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
         if (!(piece instanceof King) || !info.isType(Point.class)) { return false; }
 
         var king = (King) piece;
         var point = (Point) info.getValue();
 
-        if (king.hasUsedTP() || board.getEscaque(point).hasPiece()) { return false; }
+        if (king.hasUsedTP() || board.get(point).hasPiece()) { return false; }
 
         return (point.getDistanceTo(start) <= TP_RANGE);
     }
 
     @Override
-    public void use(AbstractSquareBoard board, Piece piece, Point start, Info info) {
+    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
         var king = (King) piece;
         var point = (Point) info.getValue();
 
         king.setUsedTP(true);
-        board.setPiece(point, piece);
-        board.removePieceNoDeath(start);
+        board.set(point, piece);
+        board.remove(start, false);
     }
 
     @Override
-    public Point[] getValues(AbstractSquareBoard board, Point start) {
+    public Point[] getValues(AbstractBoard board, Point start) {
         List<Point> values = new ArrayList<>();
-        board.foreach(e -> {
+        board.stream().forEach(e -> {
             if (e.getPos().getDistanceTo(start) <= TP_RANGE && !e.hasPiece()) {
                 values.add(e.getPos());
             }

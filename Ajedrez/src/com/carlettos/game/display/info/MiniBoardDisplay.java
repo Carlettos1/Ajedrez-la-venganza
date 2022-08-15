@@ -19,12 +19,13 @@ public class MiniBoardDisplay extends JPanel {
     private final transient MiniBoard board;
 
     public MiniBoardDisplay(MiniBoard tablero) {
-        super(new GridLayout(tablero.shape.y, tablero.shape.x));
-        this.grid = new EscaqueDisplay[tablero.shape.y][tablero.shape.x];
+        super(new GridLayout(tablero.getShape().getBoundingRectangle().y, tablero.getShape().getBoundingRectangle().x));
+        this.grid = new EscaqueDisplay[tablero.getShape().getBoundingRectangle().y][tablero.getShape()
+                .getBoundingRectangle().x];
         this.board = tablero;
-        for (int y = this.board.shape.y - 1; y >= 0; y--) {
-            for (int x = 0; x < this.board.shape.x; x++) {
-                EscaqueDisplay ev = new EscaqueDisplay(this.board.getEscaque(new Point(x, y)));
+        for (int y = this.board.getShape().getBoundingRectangle().y - 1; y >= 0; y--) {
+            for (int x = 0; x < this.board.getShape().getBoundingRectangle().x; x++) {
+                EscaqueDisplay ev = new EscaqueDisplay(this.board.get(new Point(x, y)));
                 grid[y][x] = ev; // TODO: not display -1 -1 Escaques.
                 this.add(ev);
             }

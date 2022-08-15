@@ -31,7 +31,7 @@ public interface IPieceType {
     /**
      * An inmune piece cannot recieve abilities (even from allies).
      */
-    public static final IPieceType IMMUNE = new Inmune();
+    public static final IPieceType IMMUNE = new Immune();
 
     /**
      * An heroic piece cannot be attacked (just taken).

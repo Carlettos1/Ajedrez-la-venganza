@@ -3,7 +3,7 @@ package com.carlettos.game.display.listeners;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import com.carlettos.game.board.AbstractSquareBoard;
+import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Escaque;
 import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.display.board.EscaqueDisplay;
@@ -102,7 +102,7 @@ public class MousePiece implements MouseListener {
     }
 
     // TODO: mark other abilities?
-    private void markActions(BoardDisplay display, AbstractSquareBoard board, Point point) {
+    private void markActions(BoardDisplay display, AbstractBoard board, Point point) {
         selected.getEscaque().getPiece().getAllActions(board, point).forEach(action -> {
             if (action.y.getValue() instanceof Point p) {
                 display.getEscaqueVisual(p).setAction(action.x);

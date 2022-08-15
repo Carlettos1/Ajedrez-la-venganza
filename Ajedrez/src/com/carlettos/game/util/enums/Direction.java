@@ -1,7 +1,6 @@
 package com.carlettos.game.util.enums;
 
 import com.carlettos.game.gameplay.ability.IInfo;
-import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
 
 /**
@@ -32,11 +31,6 @@ public enum Direction implements IInfo {
         return this.getAxis().equals(axis);
     }
 
-    @Override
-    public Info toInfo() {
-        return Info.getInfo(this);
-    }
-
     public Point toPoint() {
         return switch (this.getAxis()) {
             case NS -> new Point(0, this.getSign());
@@ -64,11 +58,6 @@ public enum Direction implements IInfo {
 
         public Point toPoint() {
             return this.point;
-        }
-
-        @Override
-        public Info toInfo() {
-            return Info.getInfo(this);
         }
     }
 }

@@ -11,16 +11,9 @@ import com.carlettos.game.util.Point;
  * @see SquareBoard
  * @author Carlettos
  */
-public class MiniBoard extends AbstractSquareBoard {
-    public AbstractClock clock;
-
-    public MiniBoard(int columns, int rows, AbstractClock clock) {
-        super(columns, rows);
-        this.clock = clock;
-    }
-
+public class MiniBoard extends SquareBoard {
     public MiniBoard(AbstractClock clock) {
-        this(5, 5, clock);
+        super(5, 5, clock);
     }
 
     /**
@@ -34,23 +27,12 @@ public class MiniBoard extends AbstractSquareBoard {
     public static MiniBoard fromBoard(SquareBoard board, Point center) {
         MiniBoard mini = new MiniBoard(new FalseClock(board.getClock()));
         int radio = 2;
-        for (int y = 0; y < mini.shape.y; y++) {
-            for (int x = 0; x < mini.shape.x; x++) {
-                int x0 = -radio + x + center.x;
-                int y0 = -radio + y + center.y;
-                Escaque esc;
-                if (x0 < 0 || x0 >= board.shape.x) {
-                    esc = new Escaque(new Point(-1, -1));
-                } else if (y0 < 0 || y0 >= board.shape.y) {
-                    esc = new Escaque(new Point(-1, -1));
-                } else {
-                    esc = board.getEscaque(new Point(x0, y0));
-                }
-                mini.setPiece(new Point(x, y), esc.getPiece());
-                mini.getEscaque(new Point(x, y)).setIsBuildable(esc.isBuildable());
-                mini.getEscaque(new Point(x, y)).setIsMagic(esc.isMagic());
+        mini.forEach(e -> {
+            Point pos = e.getPos().add(-radio, -radio).add(center);
+            if (board.contains(pos)) {
+                mini.set(e.getPos(), board.get(pos));
             }
-        }
+        });
         return mini;
     }
 
