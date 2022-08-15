@@ -4,7 +4,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 
+import com.carlettos.game.display.board.CardDisplay;
 import com.carlettos.game.util.Point;
+import com.carlettos.game.util.annotation.Nullable;
 
 /**
  * It provides methods of help to other classes.
@@ -56,5 +58,14 @@ public class DisplayHelper {
             container = container.getParent();
         }
         return new Point(x + container.getX(), y + container.getY());
+    }
+    
+    @Nullable
+    public static CardDisplay getCardDisplay(Component source) {
+        while (!(source instanceof CardDisplay)) {
+            if (source.getParent() == null) { return null; }
+            source = source.getParent();
+        }
+        return (CardDisplay) source;
     }
 }

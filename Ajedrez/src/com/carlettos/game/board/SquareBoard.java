@@ -7,7 +7,6 @@ import com.carlettos.game.board.clock.listener.ClockListener;
 import com.carlettos.game.board.deathPile.BasicDeathPile;
 import com.carlettos.game.board.deck.Deck;
 import com.carlettos.game.board.shape.Rectangle;
-import com.carlettos.game.display.board.BoardDisplay;
 import com.carlettos.game.gameplay.card.invocation.SummonKnight;
 import com.carlettos.game.gameplay.card.invocation.SummonRook;
 import com.carlettos.game.gameplay.card.invocation.SummonWarlock;
@@ -50,19 +49,6 @@ public class SquareBoard extends AbstractBoard {
         super(new Rectangle(columns, rows), new BasicDeathPile(), clock);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        // FIXME: repaint on tick
-        try {
-            var bd = BoardDisplay.getInstance();
-            bd.getHandDisplay().redo();
-            bd.repaint();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static SquareBoard getDefaultInstance() {
         Player black = new Player(Color.BLACK);
         Player white = new Player(Color.WHITE);
@@ -70,9 +56,9 @@ public class SquareBoard extends AbstractBoard {
         SquareBoard board = new SquareBoard(16, 17, clock);
 
         // adds 1 mana every 7 turns
-        clock.addListener(new ClockListener() {
+        clock.addClockListener(new ClockListener() {
             @Override
-            public void onEndTurn(ClockEvent e) {
+            public void turnEnded(ClockEvent e) {
                 if (e.getSource().getTurn() % 7 == 0) {
                     for (Player player : e.getSource().getPlayers()) {
                         player.changeMana(1);
@@ -81,7 +67,7 @@ public class SquareBoard extends AbstractBoard {
             }
 
             @Override
-            public void onEndMovement(ClockEvent e) { /* Doesn't use the method */ }
+            public void movementEnded(ClockEvent e) { /* Doesn't use the method */ }
         });
 
         black.getHand().addCard(new AddMovement());

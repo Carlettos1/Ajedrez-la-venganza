@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.listener.ClockEvent;
+import com.carlettos.game.board.clock.listener.ClockEventMulticaster;
 import com.carlettos.game.board.clock.listener.ClockListener;
 import com.carlettos.game.board.deck.Deck;
 import com.carlettos.game.board.deck.PlayerDeck;
@@ -17,9 +18,11 @@ import com.carlettos.game.util.Tuple;
 public class Clock extends AbstractClock {
     protected final Deck centralDeck;
     protected final List<Event> events;
-    // TODO: eventQueue, in other thread
-    protected final List<ClockListener> listeners;
+    protected ClockListener clockListener;
     protected final List<Tuple<Player, Card>> cardsOnBoard;
+
+    public static final int MOVEMENT_ENDED = 0;
+    public static final int TURN_ENDED = 1;
 
     /**
      * Construct a new clock in turn 1 and 0 movements, with the players provided.
@@ -30,7 +33,6 @@ public class Clock extends AbstractClock {
         super(players);
         this.centralDeck = new Deck();
         this.events = new ArrayList<>();
-        this.listeners = new ArrayList<>();
         this.cardsOnBoard = new ArrayList<>();
     }
 
@@ -63,8 +65,7 @@ public class Clock extends AbstractClock {
     @Override
     public void movement() {
         super.movement();
-        var event = new ClockEvent(this);
-        this.listeners.forEach(l -> l.onEndMovement(event));
+        this.processEvent(MOVEMENT_ENDED, new ClockEvent(this));
     }
 
     @Override
@@ -83,14 +84,22 @@ public class Clock extends AbstractClock {
         events.forEach(Event::tick);
         events.stream().filter(Event::canExecute).forEach(Event::act);
         events.removeIf(Event::canExecute);
-
-        var event = new ClockEvent(this);
-        this.listeners.forEach(l -> l.onEndTurn(event));
+        this.processEvent(TURN_ENDED, new ClockEvent(this));
     }
 
     @Override
-    public void addListener(ClockListener l) {
-        this.listeners.add(l);
+    public void addClockListener(ClockListener l) {
+        if (l == null) {
+            return;
+        }
+        this.clockListener = ClockEventMulticaster.add(this.clockListener, l);
+    }
+    
+    protected void processEvent(int id, ClockEvent event) {
+        switch (id) {
+            case MOVEMENT_ENDED -> this.clockListener.movementEnded(event);
+            case TURN_ENDED -> this.clockListener.turnEnded(event);
+        }
     }
 
     @Override

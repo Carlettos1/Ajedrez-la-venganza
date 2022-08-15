@@ -9,5 +9,5 @@ public interface IClockListenerManager {
      *
      * @param l listener to add.
      */
-    public abstract void addListener(ClockListener l);
+    public abstract void addClockListener(ClockListener l);
 }

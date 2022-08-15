@@ -58,10 +58,9 @@ public class AbilityRook extends Ability<Direction> {
         var ray = board.rayCast(start, -1, true, dir, e -> e.hasPiece());
         Point end = ray.get(ray.size() - 1).getPos();
         if (start.equals(end)) { return; }
-        Point nextEnd = end.add(dir.toPoint());
         board.getPiece(start).setIsMoved(false);
         boolean done;
-        if (board.contains(nextEnd) && board.tryTo(Action.TAKE, start, nextEnd.toInfo(), true)) {
+        if (board.tryTo(Action.TAKE, start, end.toInfo(), true)) {
             done = true;
         } else {
             done = board.tryTo(Action.MOVE, start, end.toInfo(), true);

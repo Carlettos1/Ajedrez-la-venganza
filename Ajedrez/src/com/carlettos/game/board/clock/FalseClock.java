@@ -73,5 +73,5 @@ public class FalseClock extends AbstractClock {
     }
 
     @Override
-    public void addListener(ClockListener l) {}
+    public void addClockListener(ClockListener l) {}
 }

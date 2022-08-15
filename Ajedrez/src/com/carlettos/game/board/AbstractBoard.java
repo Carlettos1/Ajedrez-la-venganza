@@ -412,6 +412,9 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      * @return true if the action has been done, false other case.
      */
     public boolean tryTo(Action action, Point pos, Info info, boolean bypass) {
+        if (!this.contains(pos)) {
+            return false;
+        }
         var piece = this.getPiece(pos);
         if (!this.canPlay(piece) && !bypass) { return false; }
 
@@ -484,14 +487,14 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
         if (!this.contains(from)) { return List.of(); }
         ArrayList<Escaque> ray = new ArrayList<>(max == -1 ? this.size() : max);
         Escaque current = this.get(from);
-        while (!condition.test(current) && --max != -1) {
+        do {
             Escaque next = function.apply(current);
             if (!this.contains(next)) {
                 break;
             }
             ray.add(next);
             current = next;
-        }
+        } while (!condition.test(current) && --max != -1);
         if (!inclusive) {
             ray.remove(ray.size() - 1);
         }

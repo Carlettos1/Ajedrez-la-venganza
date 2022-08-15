@@ -26,7 +26,7 @@ public class SummonPiece<P extends Piece> extends Card {
     public boolean canUse(Point point, SquareBoard board, Player caster) {
         if (board.get(point).hasPiece()) {
             return false;
-            // todo: use summoneable range method from board.
+            // TODO: use summoneable range method of board.
         }
         return this.commonCanUse(point, board, caster);
     }
