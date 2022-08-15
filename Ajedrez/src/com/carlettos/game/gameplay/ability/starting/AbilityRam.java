@@ -31,7 +31,7 @@ public class AbilityRam extends Ability<Direction> {
         board.remove(start, false);
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(Direction.class);

@@ -9,7 +9,7 @@ import com.carlettos.game.gameplay.effect.DeactivateEffect;
 import com.carlettos.game.util.Point;
 
 public class SuccubusAbility extends Ability<Point> {
-    
+
     public SuccubusAbility(String name, int cooldown, int manaCost) {
         super(name, cooldown, manaCost);
     }
@@ -19,12 +19,12 @@ public class SuccubusAbility extends Ability<Point> {
         board.getPiece((Point) info.getValue()).getEffectManager().addEffect(new DeactivateEffect(6));
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(Point.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Point info) {
         return board.get(info).hasPiece();

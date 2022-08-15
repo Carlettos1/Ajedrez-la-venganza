@@ -21,8 +21,7 @@ public class AbilityPaladin extends Ability<Tuple<AbilityPaladin.PaladinHability
     public static final Pattern REVIVE_PATTERN = Patterns.KING_PATTERN;
     public static final Pattern[] PATTERNS = { DEMONIC_ATTACK_PATTERN, INVULNERABLE_PATTERN, REVIVE_PATTERN };
 
-    static {
-    }
+    static {}
 
     public AbilityPaladin() {
         super("paladin", 8, 2);
@@ -39,38 +38,38 @@ public class AbilityPaladin extends Ability<Tuple<AbilityPaladin.PaladinHability
         }
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isTupleType(PaladinHabilityType.class, Point.class);
     }
 
-
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Tuple<PaladinHabilityType, Point> info) {
         Point p = info.y;
         PaladinHabilityType type = info.x;
-        
-        if (board.getAll(PATTERNS[type.ordinal()], start).stream().map(e -> e.getPos()).anyMatch(pos -> pos.equals(p))) {
+
+        if (board.getAll(PATTERNS[type.ordinal()], start).stream().map(e -> e.getPos())
+                .anyMatch(pos -> pos.equals(p))) {
             boolean hasPiece = board.get(p).hasPiece();
             boolean isColorEqual = board.get(p).isControlledBy(board.get(start).getPieceColor());
             return switch (type) {
-                case ATTACK -> board.getClock().boardContains(CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isColorEqual;
-                case INVULNERABILITY -> board.getClock().boardContains(CardsOnBoard.INVULNERABILITY) && hasPiece && isColorEqual;
+                case ATTACK ->
+                    board.getClock().boardContains(CardsOnBoard.ATTACK_TO_DEMONIC) && hasPiece && !isColorEqual;
+                case INVULNERABILITY ->
+                    board.getClock().boardContains(CardsOnBoard.INVULNERABILITY) && hasPiece && isColorEqual;
                 case REVIVE -> board.getClock().boardContains(CardsOnBoard.REVIVE) && !hasPiece;
             };
         } else {
             return false;
         }
     }
-    
+
     @Override
     public List<Tuple<PaladinHabilityType, Point>> getInfos(AbstractBoard board) {
         List<Tuple<PaladinHabilityType, Point>> values = new ArrayList<>(board.size() * 3);
         for (PaladinHabilityType type : PaladinHabilityType.values()) {
-            board.stream().forEach(e -> {
-                values.add(Tuple.of(type, e.getPos()));
-            });
+            board.stream().forEach(e -> { values.add(Tuple.of(type, e.getPos())); });
         }
         return values;
     }

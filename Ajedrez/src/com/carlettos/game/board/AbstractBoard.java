@@ -412,9 +412,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      * @return true if the action has been done, false other case.
      */
     public boolean tryTo(Action action, Point pos, Info info, boolean bypass) {
-        if (!this.contains(pos)) {
-            return false;
-        }
+        if (!this.contains(pos)) { return false; }
         var piece = this.getPiece(pos);
         if (!this.canPlay(piece) && !bypass) { return false; }
 

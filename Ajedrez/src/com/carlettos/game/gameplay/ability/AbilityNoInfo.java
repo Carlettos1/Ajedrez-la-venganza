@@ -27,13 +27,14 @@ public abstract class AbilityNoInfo extends Ability<AbilityNoInfo.NoInfo> {
     public abstract boolean reducedCanUse(AbstractBoard board, Point start);
 
     public abstract void use(AbstractBoard board, Point start);
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return true;
     }
-    
-    public List<NoInfo> getInfos(AbstractBoard board){
+
+    @Override
+    public List<NoInfo> getInfos(AbstractBoard board) {
         return List.of(NoInfo.NO_INFO);
     }
 

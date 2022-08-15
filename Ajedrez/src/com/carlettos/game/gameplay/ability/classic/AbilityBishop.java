@@ -13,7 +13,7 @@ public class AbilityBishop extends Ability<Direction> {
     public AbilityBishop() {
         super("bishop", 2, 0);
     }
-    
+
     @Override
     public void use(AbstractBoard board, Point start, Info info) {
         var dir = (Direction) info.getValue();
@@ -21,7 +21,7 @@ public class AbilityBishop extends Ability<Direction> {
         board.remove(start, false);
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(Direction.class);

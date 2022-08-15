@@ -90,6 +90,7 @@ public abstract class Shape {
 
     @Override
     public String toString() {
-        return "Shape of area " + this.area() + ", with " + this.form.vertices.length + " vertices\n" + Arrays.toString(this.pointsInside);
+        return "Shape of area " + this.area() + ", with " + this.form.vertices.length + " vertices\n"
+                + Arrays.toString(this.pointsInside);
     }
 }

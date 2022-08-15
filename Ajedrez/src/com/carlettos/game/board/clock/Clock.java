@@ -89,12 +89,10 @@ public class Clock extends AbstractClock {
 
     @Override
     public void addClockListener(ClockListener l) {
-        if (l == null) {
-            return;
-        }
+        if (l == null) { return; }
         this.clockListener = ClockEventMulticaster.add(this.clockListener, l);
     }
-    
+
     protected void processEvent(int id, ClockEvent event) {
         switch (id) {
             case MOVEMENT_ENDED -> this.clockListener.movementEnded(event);

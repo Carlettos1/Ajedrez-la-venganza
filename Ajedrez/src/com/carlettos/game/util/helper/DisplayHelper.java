@@ -59,7 +59,7 @@ public class DisplayHelper {
         }
         return new Point(x + container.getX(), y + container.getY());
     }
-    
+
     @Nullable
     public static CardDisplay getCardDisplay(Component source) {
         while (!(source instanceof CardDisplay)) {

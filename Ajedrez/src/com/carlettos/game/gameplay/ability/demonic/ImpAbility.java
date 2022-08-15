@@ -18,8 +18,7 @@ public class ImpAbility extends Ability<ImpAbility.ImpAbilityType> {
         super("imp", 7, 3);
     }
 
-    static {
-    }
+    static {}
 
     @Override
     public void use(AbstractBoard board, Point start, Info info) {
@@ -35,12 +34,12 @@ public class ImpAbility extends Ability<ImpAbility.ImpAbilityType> {
     public boolean checkTypes(Info info) {
         return info.isType(ImpAbilityType.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, ImpAbilityType info) {
         return true;
     }
-    
+
     @Override
     public List<ImpAbilityType> getInfos(AbstractBoard board) {
         return List.of(ImpAbilityType.values());

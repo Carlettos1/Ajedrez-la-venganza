@@ -17,7 +17,7 @@ public class AbilityPortal extends Ability {
     @Override
     public void use(AbstractBoard board, Point start, Info info) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

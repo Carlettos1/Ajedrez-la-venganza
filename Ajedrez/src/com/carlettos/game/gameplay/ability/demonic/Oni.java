@@ -12,8 +12,8 @@ import com.carlettos.game.util.enums.Direction.SubDirection;
 import com.carlettos.game.util.helper.LogManager;
 
 public class Oni extends Ability<SubDirection> {
-    private static final ComplexPredicate c = (b, s, p) -> 
-    !p.getColor().equals(b.get(s).getPieceColor()) && (b.indexOf(e -> e.getPiece() instanceof Magician && p.getColor().equals(e.getPieceColor())) != -1);
+    private static final ComplexPredicate c = (b, s, p) -> !p.getColor().equals(b.get(s).getPieceColor())
+            && (b.indexOf(e -> e.getPiece() instanceof Magician && p.getColor().equals(e.getPieceColor())) != -1);
 
     public Oni() {
         super("oni", 7, 1);
@@ -38,12 +38,12 @@ public class Oni extends Ability<SubDirection> {
         board.remove(start, false);
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(SubDirection.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, SubDirection info) {
         Player[] players = board.getClock().getPlayers(p -> c.test(board, start, p));

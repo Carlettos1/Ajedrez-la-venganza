@@ -25,12 +25,12 @@ public class AbilityKing extends Ability<Point> {
         board.remove(start, false);
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(Point.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Point info) {
         if (board.getPiece(start) instanceof King k) {
@@ -38,7 +38,7 @@ public class AbilityKing extends Ability<Point> {
         }
         return false;
     }
-    
+
     @Override
     public List<Point> getInfos(AbstractBoard board) {
         return board.stream().map(e -> e.getPos()).toList();

@@ -48,7 +48,7 @@ public class AbilityPawn extends Ability<Piece> {
         board.set(start, p);
         p.setIsMoved(true);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isType(Piece.class);

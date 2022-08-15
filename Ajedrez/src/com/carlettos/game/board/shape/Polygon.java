@@ -34,7 +34,7 @@ public final class Polygon {
     /**
      * Determines whether the specified {@link Point} is inside this {@code Polygon}
      * using the even-odd rule.
-     * 
+     *
      * @param p the specified {@code Point} to be tested
      * @return {@code true} if the {@code Polygon} contains the {@code Point};
      *         {@code false} otherwise.

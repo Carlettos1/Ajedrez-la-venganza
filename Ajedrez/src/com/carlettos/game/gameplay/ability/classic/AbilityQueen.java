@@ -31,7 +31,7 @@ public class AbilityQueen extends Ability<Point> {
     public boolean checkTypes(Info info) {
         return info.isType(Point.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Point info) {
         return PATTERN.match(board, start, info);

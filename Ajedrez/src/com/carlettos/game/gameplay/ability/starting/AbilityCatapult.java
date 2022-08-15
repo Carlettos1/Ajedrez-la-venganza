@@ -29,12 +29,12 @@ public class AbilityCatapult extends Ability<Tuple<Direction, SubDirection>> {
         board.remove(posPiece, false);
         this.commonUse(board, start);
     }
-    
+
     @Override
     public boolean checkTypes(Info info) {
         return info.isTupleType(Direction.class, SubDirection.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Tuple<Direction, SubDirection> info) {
         Point posPiece = start.add(info.y.toPoint());
@@ -44,7 +44,7 @@ public class AbilityCatapult extends Ability<Tuple<Direction, SubDirection>> {
         }
         return true;
     }
-    
+
     @Override
     public List<Tuple<Direction, SubDirection>> getInfos(AbstractBoard board) {
         List<Tuple<Direction, SubDirection>> values = new ArrayList<>(32);

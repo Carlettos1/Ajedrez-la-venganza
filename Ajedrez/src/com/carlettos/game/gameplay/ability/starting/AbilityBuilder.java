@@ -62,12 +62,12 @@ public class AbilityBuilder extends Ability<Direction> {
     public boolean checkTypes(Info info) {
         return info.isType(Direction.class);
     }
-    
+
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Direction info) {
         return true;
     }
-    
+
     @Override
     public List<Direction> getInfos(AbstractBoard board) {
         return List.of(Direction.values());

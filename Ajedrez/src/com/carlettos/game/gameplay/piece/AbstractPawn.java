@@ -22,8 +22,8 @@ public abstract class AbstractPawn<M extends PatternPawn, T extends PatternPawn>
     protected final M movePattern;
     protected final T takePattern;
 
-    protected AbstractPawn(Function<Color, M> movePattern, Function<Color, T> takePattern, String key, Ability<?> ability,
-            Color color) {
+    protected AbstractPawn(Function<Color, M> movePattern, Function<Color, T> takePattern, String key,
+            Ability<?> ability, Color color) {
         super(key, ability, color, IPieceType.BIOLOGIC, IPieceType.TRANSPORTABLE);
         this.movePattern = movePattern.apply(getColor());
         this.takePattern = takePattern.apply(getColor());
