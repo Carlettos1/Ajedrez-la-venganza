@@ -1,6 +1,7 @@
 package com.carlettos.game.board.shape;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public abstract class Shape {
         final List<Point> points = new ArrayList<>(max.x * max.y);
         for (int y = 0; y < max.y; y++) {
             for (int x = 0; x < max.x; x++) {
-                Point current = new Point(y, x);
+                Point current = new Point(x, y);
                 if (this.form.contains(current)) {
                     points.add(current);
                 }
@@ -89,6 +90,6 @@ public abstract class Shape {
 
     @Override
     public String toString() {
-        return "Shape of area " + this.area() + ", of " + this.pointsInside.length + " vertices";
+        return "Shape of area " + this.area() + ", with " + this.form.vertices.length + " vertices\n" + Arrays.toString(this.pointsInside);
     }
 }

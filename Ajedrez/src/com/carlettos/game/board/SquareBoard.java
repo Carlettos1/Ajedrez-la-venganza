@@ -47,7 +47,7 @@ import com.carlettos.game.util.helper.DeckHelper;
 public class SquareBoard extends AbstractBoard {
 
     public SquareBoard(int columns, int rows, AbstractClock clock) {
-        super(new Rectangle(columns - 1, rows - 1), new BasicDeathPile(), clock);
+        super(new Rectangle(columns, rows), new BasicDeathPile(), clock);
     }
 
     @Override

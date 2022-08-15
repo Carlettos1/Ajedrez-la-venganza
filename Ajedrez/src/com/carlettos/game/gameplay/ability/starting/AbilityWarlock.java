@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.demonic.Portal;
 import com.carlettos.game.util.Point;
 
@@ -16,13 +15,14 @@ public class AbilityWarlock extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
-        return (board.getAll(PATTERN, start).stream().anyMatch(e -> !e.hasPiece() && e.isMagic() && e.isBuildable()));
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
+        return board.getAll(PATTERN, start).stream().anyMatch(e -> !e.hasPiece() && e.isMagic() && e.isBuildable());
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start) {
+    public void use(AbstractBoard board, Point start) {
         board.getAll(PATTERN, start).stream().filter(e -> !e.hasPiece() && e.isMagic() && e.isBuildable())
-                .forEach(e -> e.setPieceIfEmpty(new Portal(piece.getColor())));
+                .forEach(e -> e.setPieceIfEmpty(new Portal(board.getPiece(start).getColor())));
+        this.commonUse(board, start);
     }
 }

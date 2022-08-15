@@ -58,7 +58,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
         this.clock = clock;
         this.chessBoard = new Escaque[shape.area()];
         for (int i = 0; i < shape.area(); i++) {
-            this.set(i, new Escaque(shape.getAllPointsInside()[i]));
+            this.chessBoard[i] = new Escaque(shape.getAllPointsInside()[i]);
         }
     }
 
@@ -197,7 +197,6 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
         if (death) {
             this.addToDeathPile(this.get(index).getPiece());
         }
-        this.mod(index, this.get(index));
         this.get(index).removePiece();
         return this.get(index);
     }
@@ -272,14 +271,12 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
 
     @Override
     public Escaque set(int index, Escaque escaque) {
-        this.mod(index, escaque);
         this.get(index).copyProperties(escaque);
         return escaque;
     }
 
     @Override
     public void set(int index, Piece piece) {
-        this.mod(index, piece);
         this.get(index).setPiece(piece);
     }
 
@@ -291,14 +288,6 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     public void set(Point point, Piece piece) {
         this.set(this.indexOf(point), piece);
-    }
-
-    protected void mod(int index, Object obj) {
-        if (this.indexOf(obj) != index) {
-            throw new IllegalArgumentException("Escaque %s has a different pos than the index implies %s (of %s)"
-                    .formatted(obj, this.indexOf(obj) + "", "" + index));
-        }
-        this.modCount++;
     }
 
     @Override
@@ -446,7 +435,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
                     this.set((Point) info.getValue(), piece);
                     this.remove(pos, true);
                 }
-                case ABILITY -> piece.getAbility().use(this, piece, pos, info);
+                case ABILITY -> piece.getAbility().use(this, pos, info);
                 default -> throw new IllegalArgumentException("Action not expected " + action);
             }
             piece.postAction(action, this, pos, info);

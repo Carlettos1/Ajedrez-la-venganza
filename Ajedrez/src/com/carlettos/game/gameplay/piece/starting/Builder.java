@@ -33,7 +33,7 @@ public class Builder extends Piece implements IMove<PatternMagicianMove>, ITake<
         return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
             case TAKE -> this.canTake(board, start, info, takePattern);
-            case ABILITY -> this.getAbility().canUse(board, this, start, info);
+            case ABILITY -> this.getAbility().canUse(board, start, info);
             default -> false;
         };
     }

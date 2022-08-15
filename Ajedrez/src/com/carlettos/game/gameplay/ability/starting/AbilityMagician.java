@@ -7,7 +7,6 @@ import com.carlettos.game.gameplay.effect.FireEffect;
 import com.carlettos.game.gameplay.effect.IceEffect;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
 public class AbilityMagician extends AbilityNoInfo {
@@ -18,17 +17,17 @@ public class AbilityMagician extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
         return board.getClock().boardContainsAny(CardsOnBoard.ICE, CardsOnBoard.FIRE);
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start) {
+    public void use(AbstractBoard board, Point start) {
         var hasIce = board.getClock().boardContains(CardsOnBoard.ICE);
         var hasFire = board.getClock().boardContains(CardsOnBoard.FIRE);
         var pieces = board.getAll(ACTION_PATTERN, start);
         pieces.removeIf(e -> !e.hasPiece());
-        pieces.removeIf(e -> e.getPieceColor() == piece.getColor());
+        pieces.removeIf(e -> e.getPieceColor() == board.get(start).getPieceColor());
 
         if (hasIce) {
             pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new IceEffect(5)));
@@ -37,6 +36,6 @@ public class AbilityMagician extends AbilityNoInfo {
             pieces.forEach(e -> e.getPiece().getEffectManager().addEffect(new FireEffect(11)));
         }
 
-        commonUse(board, piece);
+        this.commonUse(board, start);
     }
 }

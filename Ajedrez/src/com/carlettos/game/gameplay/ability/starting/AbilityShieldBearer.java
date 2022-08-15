@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 
@@ -16,14 +15,15 @@ public class AbilityShieldBearer extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
-        return (this.commonCanUse(board, piece) && board.getAll(PATTERN, start).stream()
-                .anyMatch(e -> e.hasPiece() && e.getPieceColor().equals(piece.getColor())));
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
+        return board.getAll(PATTERN, start).stream()
+                .anyMatch(e -> e.hasPiece() && e.getPieceColor().equals(board.getPiece(start).getColor()));
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start) {
-        board.getAll(PATTERN, start).stream().filter(e -> e.isControlledBy(piece.getColor()))
+    public void use(AbstractBoard board, Point start) {
+        board.getAll(PATTERN, start).stream().filter(e -> e.isControlledBy(board.getPiece(start).getColor()))
                 .forEach(e -> e.getPiece().getTypeManager().addType(IPieceType.IMPENETRABLE));
+        this.commonUse(board, start);
     }
 }

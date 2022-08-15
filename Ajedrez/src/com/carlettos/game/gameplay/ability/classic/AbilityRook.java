@@ -15,24 +15,28 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.helper.LogManager;
 
-public class AbilityRook extends Ability {
+public class AbilityRook extends Ability<Direction> {
 
     public AbilityRook() {
         super("rook", 10, 0);
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece)) { return false; }
-        return (info.isType(Direction.class));
+    public boolean checkTypes(Info info) {
+        return info.isType(Direction.class);
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
+    public boolean reducedCanUse(AbstractBoard board, Point start, Direction info) {
+        return true;
+    }
+
+    @Override
+    public void use(AbstractBoard board, Point start, Info info) {
         var dir = (Direction) info.getValue();
-        List<Escaque> rooks = new ArrayList<>(getNearbyRookEscaques(board, piece, start));
+        List<Escaque> rooks = new ArrayList<>(getNearbyRookEscaques(board, board.getPiece(start), start));
         rooks.add(board.get(start));
-        this.addAllRookEscaques(rooks, board, piece);
+        this.addAllRookEscaques(rooks, board, board.getPiece(start));
         this.orderEscaques(rooks, dir);
         this.throwRooks(rooks, board, dir);
 
@@ -107,7 +111,7 @@ public class AbilityRook extends Ability {
     }
 
     @Override
-    public Direction[] getValues(AbstractBoard board, Point start) {
-        return Direction.values();
+    public List<Direction> getInfos(AbstractBoard board) {
+        return List.of(Direction.values());
     }
 }

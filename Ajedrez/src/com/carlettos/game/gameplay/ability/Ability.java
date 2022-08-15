@@ -1,5 +1,8 @@
 package com.carlettos.game.gameplay.ability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
@@ -13,7 +16,7 @@ import com.carlettos.game.util.Tuple;
  *
  * @see Piece
  */
-public abstract class Ability {
+public abstract class Ability<T extends IInfo> {
 
     protected final AbilityData data;
 
@@ -31,25 +34,27 @@ public abstract class Ability {
     }
 
     /**
+     * Excecutes the ability.
+     *
+     * @param board board in which the ability is happening.
+     * @param start position of the piece.
+     * @param info  information to use the ability
+     */
+    public abstract void use(AbstractBoard board, Point start, Info info);
+
+    /**
      * Checks whenever the ability can be used or not.
      *
      * @param board board in which the ability is happening.
-     * @param piece piece that is using the ability.
      * @param start position of the piece.
      * @param info  information to use the ability
      * @return PASS if can be used, FAIL other case.
      */
-    public abstract boolean canUse(AbstractBoard board, Piece piece, Point start, Info info);
-
-    /**
-     * Excecutes the ability.
-     *
-     * @param board board in which the ability is happening.
-     * @param piece piece that is using the ability.
-     * @param start position of the piece.
-     * @param info  information to use the ability
-     */
-    public abstract void use(AbstractBoard board, Piece piece, Point start, Info info);
+    @SuppressWarnings("unchecked")
+    public final boolean canUse(AbstractBoard board, Point start, Info info) {
+        return this.commonCanUse(board, board.getPiece(start)) && this.checkTypes(info)
+                && this.reducedCanUse(board, start, (T) info.getValue());
+    }
 
     /**
      * Utility method, checks the cd and the mana acording to the info of this
@@ -59,10 +64,18 @@ public abstract class Ability {
      * @param piece piece that is using the ability.
      * @return true if can be used, false other case.
      */
-    public boolean commonCanUse(AbstractBoard board, Piece piece) {
+    public final boolean commonCanUse(AbstractBoard board, Piece piece) {
         boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
         return nomana && board.getClock().turnOf().getMana() >= this.data.manaCost();
     }
+
+    public abstract boolean checkTypes(Info info);
+
+    /**
+     * Upgraded and separated version of canUse, it assumes that the info given is
+     * ready to use.
+     */
+    public abstract boolean reducedCanUse(AbstractBoard board, Point start, T info);
 
     /**
      * Utility method, adds the cd and removes the mana acording to the info of this
@@ -71,13 +84,30 @@ public abstract class Ability {
      * @param board board in which the ability is happening.
      * @param piece piece that is using the ability.
      */
-    public void commonUse(AbstractBoard board, Piece piece) {
-        piece.setIsMoved(true);
-        piece.changeCD(this.data.cooldown());
+    public final void commonUse(AbstractBoard board, Point start) {
+        board.getPiece(start).setIsMoved(true);
+        board.getPiece(start).changeCD(this.data.cooldown());
         board.getClock().turnOf().changeMana(-this.data.manaCost());
     }
 
-    public abstract IInfo[] getValues(AbstractBoard board, Point start);
+    /**
+     * Gets all the infos that this ability can possibly have.
+     */
+    public abstract List<T> getInfos(AbstractBoard board);
+
+    /**
+     * Gets all the values of info that the piece in the given point can do.
+     */
+    public final List<T> getValues(AbstractBoard board, Point start) {
+        List<T> all = this.getInfos(board);
+        ArrayList<T> approved = new ArrayList<>(all.size());
+        all.forEach(t -> {
+            if (this.reducedCanUse(board, start, t))
+                approved.add(t);
+        });
+        approved.trimToSize();
+        return approved;
+    }
 
     public String formatInfo(Object info) {
         if (info instanceof Point p) {

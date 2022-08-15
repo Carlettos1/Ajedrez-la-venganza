@@ -12,6 +12,7 @@ import com.carlettos.game.board.clock.manager.IEventManager;
 import com.carlettos.game.board.clock.manager.IPlayerDeckManager;
 import com.carlettos.game.board.deck.PlayerDeck;
 import com.carlettos.game.gameplay.player.Player;
+import com.carlettos.game.util.annotation.Nullable;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.LogManager;
 
@@ -60,6 +61,7 @@ public abstract class AbstractClock
         return players;
     }
 
+    @Nullable
     public Player[] getPlayers(Predicate<Player> predicate) {
         ArrayList<Player> possible = new ArrayList<>();
         for (Player p : players) {

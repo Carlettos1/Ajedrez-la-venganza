@@ -32,13 +32,13 @@ public class ClickAbilityButton implements ActionListener {
         int i = InfoDisplay.showOptions(board.getBoard(), escaque);
         if (i == -1) { return; }
 
-        // todo: quitar canUse de la carta, y usar can de piece.
-        var valor = values[i];
+        // TODO: quitar canUse de la carta, y usar can de piece.
+        var valor = values.get(i);
         var info = valor.toInfo();
-        var ar = escaque.getPiece().getAbility().canUse(board.getBoard(), escaque.getPiece(), escaque.getPos(), info);
+        var can = escaque.getPiece().getAbility().canUse(board.getBoard(), escaque.getPos(), info);
 
-        if (ar) {
-            escaque.getPiece().getAbility().use(board.getBoard(), escaque.getPiece(), escaque.getPos(), info);
+        if (can) {
+            escaque.getPiece().getAbility().use(board.getBoard(), escaque.getPos(), info);
             board.getBoard().movement();
             MousePiece.get().setSelected(null);
             board.offAll();

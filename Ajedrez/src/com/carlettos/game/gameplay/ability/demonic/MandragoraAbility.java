@@ -4,7 +4,6 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
 public class MandragoraAbility extends AbilityNoInfo {
@@ -13,17 +12,17 @@ public class MandragoraAbility extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
-        return this.commonCanUse(board, piece);
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
+        return true;
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start) {
+    public void use(AbstractBoard board, Point start) {
         var currentPlayer = board.getClock().turnOf();
         board.getClock().addEvents(
                 Event.create(EventInfo.of(board, 1, this.data.getName()), () -> currentPlayer.changeMana(1)));
         board.getClock().addEvents(
                 Event.create(EventInfo.of(board, 2, this.data.getName()), () -> currentPlayer.changeMana(1)));
-        this.commonUse(board, piece);
+        this.commonUse(board, start);
     }
 }

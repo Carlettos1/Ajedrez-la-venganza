@@ -28,7 +28,7 @@ public class Ram extends Piece implements IMove<PatternStructureMove> {
     public boolean can(Action action, AbstractBoard board, Point start, Info info) {
         return switch (action) {
             case MOVE -> this.canMove(board, start, info, movePattern);
-            case ABILITY -> this.getAbility().canUse(board, this, start, info);
+            case ABILITY -> this.getAbility().canUse(board, start, info);
             default -> false;
         };
     }

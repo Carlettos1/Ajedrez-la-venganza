@@ -27,7 +27,7 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.LogManager;
 
-public class AbilityPawn extends Ability {
+public class AbilityPawn extends Ability<Piece> {
     public static final List<Piece> POSSIBLE_PROMOTIONS = new ArrayList<>();
     static {
         POSSIBLE_PROMOTIONS.addAll(List.of(new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
@@ -42,16 +42,27 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        if (!this.commonCanUse(board, piece) || !info.isType(Piece.class)) { return false; }
+    public void use(AbstractBoard board, Point start, Info info) {
+        var p = (Piece) info.getValue();
+        p.setColor(board.getPiece(start).getColor());
+        board.set(start, p);
+        p.setIsMoved(true);
+    }
+    
+    @Override
+    public boolean checkTypes(Info info) {
+        return info.isType(Piece.class);
+    }
 
-        if (piece.getColor().equals(Color.WHITE)) {
+    @Override
+    public boolean reducedCanUse(AbstractBoard board, Point start, Piece info) {
+        if (board.getPiece(start).getColor().equals(Color.WHITE)) {
             if (!board.contains(start.add(0, 1))) {
                 return true;
             } else {
                 return false;
             }
-        } else if (piece.getColor().equals(Color.BLACK)) {
+        } else if (board.getPiece(start).getColor().equals(Color.BLACK)) {
             if (start.y == 0) {
                 return true;
             } else {
@@ -63,15 +74,7 @@ public class AbilityPawn extends Ability {
     }
 
     @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        var p = (Piece) info.getValue();
-        p.setColor(piece.getColor());
-        board.set(start, p);
-        p.setIsMoved(true);
-    }
-
-    @Override
-    public Piece[] getValues(AbstractBoard board, Point start) {
-        return POSSIBLE_PROMOTIONS.toArray(Piece[]::new);
+    public List<Piece> getInfos(AbstractBoard board) {
+        return POSSIBLE_PROMOTIONS;
     }
 }

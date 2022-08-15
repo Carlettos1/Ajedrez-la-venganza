@@ -1,16 +1,14 @@
 package com.carlettos.game.gameplay.ability.classic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.gameplay.piece.classic.King;
 import com.carlettos.game.util.Point;
 
-public class AbilityKing extends Ability {
+public class AbilityKing extends Ability<Point> {
     public static final double TP_RANGE = 5.0D;
 
     public AbilityKing() {
@@ -18,35 +16,31 @@ public class AbilityKing extends Ability {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        if (!(piece instanceof King) || !info.isType(Point.class)) { return false; }
-
-        var king = (King) piece;
-        var point = (Point) info.getValue();
-
-        if (king.hasUsedTP() || board.get(point).hasPiece()) { return false; }
-
-        return (point.getDistanceTo(start) <= TP_RANGE);
-    }
-
-    @Override
-    public void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        var king = (King) piece;
+    public void use(AbstractBoard board, Point start, Info info) {
+        var king = (King) board.getPiece(start);
         var point = (Point) info.getValue();
 
         king.setUsedTP(true);
-        board.set(point, piece);
+        board.set(point, king);
         board.remove(start, false);
+        this.commonUse(board, start);
     }
-
+    
     @Override
-    public Point[] getValues(AbstractBoard board, Point start) {
-        List<Point> values = new ArrayList<>();
-        board.stream().forEach(e -> {
-            if (e.getPos().getDistanceTo(start) <= TP_RANGE && !e.hasPiece()) {
-                values.add(e.getPos());
-            }
-        });
-        return values.toArray(Point[]::new);
+    public boolean checkTypes(Info info) {
+        return info.isType(Point.class);
+    }
+    
+    @Override
+    public boolean reducedCanUse(AbstractBoard board, Point start, Point info) {
+        if (board.getPiece(start) instanceof King k) {
+            return !k.hasUsedTP() && !board.get(info).hasPiece() && start.getDistanceTo(info) <= TP_RANGE;
+        }
+        return false;
+    }
+    
+    @Override
+    public List<Point> getInfos(AbstractBoard board) {
+        return board.stream().map(e -> e.getPos()).toList();
     }
 }

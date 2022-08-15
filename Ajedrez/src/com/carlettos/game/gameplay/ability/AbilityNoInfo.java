@@ -1,39 +1,40 @@
 package com.carlettos.game.gameplay.ability;
 
+import java.util.List;
+
 import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
 /**
  * It's the ability wich doesn't uses any value of input
  */
-public abstract class AbilityNoInfo extends Ability {
-
-    static {
-        Info.register(NoInfo.class);
-    }
+public abstract class AbilityNoInfo extends Ability<AbilityNoInfo.NoInfo> {
 
     protected AbilityNoInfo(String key, int cooldown, int manaCost) {
         super(key, cooldown, manaCost);
     }
 
     @Override
-    public final boolean canUse(AbstractBoard board, Piece piece, Point start, Info info) {
-        return this.canUse(board, piece, start);
+    public final void use(AbstractBoard board, Point start, Info info) {
+        this.use(board, start);
     }
 
     @Override
-    public final void use(AbstractBoard board, Piece piece, Point start, Info info) {
-        this.use(board, piece, start);
+    public boolean reducedCanUse(AbstractBoard board, Point start, NoInfo info) {
+        return this.reducedCanUse(board, start);
     }
 
-    public abstract boolean canUse(AbstractBoard board, Piece piece, Point start);
+    public abstract boolean reducedCanUse(AbstractBoard board, Point start);
 
-    public abstract void use(AbstractBoard board, Piece piece, Point start);
-
+    public abstract void use(AbstractBoard board, Point start);
+    
     @Override
-    public final NoInfo[] getValues(AbstractBoard board, Point start) {
-        return NoInfo.values();
+    public boolean checkTypes(Info info) {
+        return true;
+    }
+    
+    public List<NoInfo> getInfos(AbstractBoard board){
+        return List.of(NoInfo.NO_INFO);
     }
 
     public static enum NoInfo implements IInfo {

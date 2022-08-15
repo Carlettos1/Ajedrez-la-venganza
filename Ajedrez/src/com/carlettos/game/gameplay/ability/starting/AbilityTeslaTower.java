@@ -7,7 +7,6 @@ import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.effect.DeactivateEffect;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
 public class AbilityTeslaTower extends AbilityNoInfo {
@@ -19,17 +18,17 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     }
 
     @Override
-    public boolean canUse(AbstractBoard board, Piece piece, Point start) {
-        return (this.commonCanUse(board, piece));
-    }
-
-    @Override
-    public void use(AbstractBoard board, Piece piece, Point start) {
+    public void use(AbstractBoard board, Point start) {
         board.getClock().addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
                 () -> board.getAll(ABILITY_PATTERN, start).stream()
                         .filter(escaque -> escaque.getPiece().getTypeManager().isStructure())
-                        .filter(escaque -> !escaque.getPieceColor().equals(piece.getColor())).forEach(escaque -> escaque
+                        .filter(escaque -> !escaque.getPieceColor().equals(board.getPiece(start).getColor())).forEach(escaque -> escaque
                                 .getPiece().getEffectManager().addEffect(new DeactivateEffect(EFFECT_DURATION)))));
-        this.commonUse(board, piece);
+        this.commonUse(board, start);
+    }
+
+    @Override
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
+        return true;
     }
 }

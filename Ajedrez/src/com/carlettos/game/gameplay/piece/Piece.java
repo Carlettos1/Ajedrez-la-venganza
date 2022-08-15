@@ -40,7 +40,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      */
     protected int cooldown;
     protected final String name;
-    protected Ability ability;
+    protected Ability<?> ability;
     protected Color color;
     protected final ImageResource imageResource;
     protected final TranslateResource translateResource;
@@ -55,7 +55,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      * @param color   color of the piece.
      * @param types   types of the piece.
      */
-    protected Piece(String name, Ability ability, Color color, IPieceType... types) {
+    protected Piece(String name, Ability<?> ability, Color color, IPieceType... types) {
         this.moved = false;
         this.cooldown = 0;
         this.name = name;
@@ -121,7 +121,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
             }
         });
         for (IInfo value : getAbility().getValues(board, start)) {
-            if (this.getAbility().canUse(board, this, start, value.toInfo())) {
+            if (this.getAbility().canUse(board, start, value.toInfo())) {
                 actions.add(new Tuple<>(Action.ABILITY, value.toInfo()));
             }
         }
@@ -172,7 +172,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
         return typeManager;
     }
 
-    public Ability getAbility() {
+    public Ability<?> getAbility() {
         return ability;
     }
 
