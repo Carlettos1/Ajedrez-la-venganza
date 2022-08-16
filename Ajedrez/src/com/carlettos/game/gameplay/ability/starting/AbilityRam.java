@@ -20,7 +20,7 @@ public class AbilityRam extends Ability<Direction> {
         Direction dir = (Direction) info.getValue();
         var route = board.rayCast(start, -1, false, dir, e -> e.hasPiece());
         var charge = route.size() / COST_PER_CHARGE + 1;
-        var end = route.get(route.size() - 1).getPos();
+        var end = route.isEmpty() ? start : route.get(route.size() - 1).getPos();
         var killeable = board.rayCast(end, charge, false, dir, e -> e.getPiece().getTypeManager().isImpenetrable());
         var endCharge = end;
         if (!killeable.isEmpty()) {

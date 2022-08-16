@@ -105,27 +105,19 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      * @return A list with a tuple containing every action-info that can be
      *         performed by this piece.
      */
-    public List<Tuple<Action, Info>> getAllActions(AbstractBoard board, Point start) {
-        List<Tuple<Action, Info>> actions = new ArrayList<>();
+    public List<Tuple<Action, Info>> getAllMovements(AbstractBoard board, Point start) {
+        List<Tuple<Action, Info>> movements = new ArrayList<>();
+        Action[] actions = { Action.MOVE, Action.ATTACK, Action.TAKE};
         board.stream().forEach(e -> {
-            if (this.can(Action.TAKE, board, start, e.getPos().toInfo())) {
-                actions.add(new Tuple<>(Action.TAKE, e.getPos().toInfo()));
-            }
-
-            if (this.can(Action.MOVE, board, start, e.getPos().toInfo())) {
-                actions.add(new Tuple<>(Action.MOVE, e.getPos().toInfo()));
-            }
-
-            if (this.can(Action.ATTACK, board, start, e.getPos().toInfo())) {
-                actions.add(new Tuple<>(Action.ATTACK, e.getPos().toInfo()));
+            Info info = e.getPos().toInfo();
+            for (Action action : actions) {
+                if (board.canPiece(action, this, start, info)) {
+                    movements.add(Tuple.of(action, info));
+                }
             }
         });
-        for (IInfo value : getAbility().getValues(board, start)) {
-            if (this.getAbility().canUse(board, start, value.toInfo())) {
-                actions.add(new Tuple<>(Action.ABILITY, value.toInfo()));
-            }
-        }
-        return actions;
+        movements.addAll(this.getAbility().getValues(board, start).stream().map(i -> Tuple.of(Action.ABILITY, i.toInfo())).toList());
+        return movements;
     }
 
     /**

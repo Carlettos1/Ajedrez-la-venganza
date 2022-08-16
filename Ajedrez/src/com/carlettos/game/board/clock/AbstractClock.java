@@ -14,7 +14,7 @@ import com.carlettos.game.board.deck.PlayerDeck;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.annotation.Nullable;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  * It represent the chess clock.
@@ -51,7 +51,7 @@ public abstract class AbstractClock
      * Ends the turn and fire up events.
      */
     public void tick() {
-        LogManager.info("Ending turn: %s", getTurn());
+        LogHelper.LOG.info("Ending turn: " + getTurn());
         turn++;
         movements = 0;
     }
@@ -70,7 +70,7 @@ public abstract class AbstractClock
             }
         }
         if (possible.isEmpty()) {
-            LogManager.info("No player founded with the given predicate");
+            LogHelper.LOG.info("No player founded with the given predicate");
             return null;
         }
         return possible.toArray(Player[]::new);

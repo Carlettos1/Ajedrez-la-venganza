@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import com.carlettos.game.util.helper.ConfigHelper;
 import com.carlettos.game.util.helper.FileHelper;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 import com.google.gson.JsonObject;
 
 public record TranslateResource(String translationKey) implements ITranslatable {
@@ -36,8 +36,8 @@ public record TranslateResource(String translationKey) implements ITranslatable 
         } else if (ENGLISH.getAsJsonPrimitive(this.getTranslationKey()) != null) {
             return ENGLISH.getAsJsonPrimitive(this.getTranslationKey()).getAsString();
         } else {
-            LogManager.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead",
-                    this.getTranslationKey());
+            LogHelper.LOG.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead".formatted(
+                    this.getTranslationKey()));
             return this.getTranslationKey();
         }
     }

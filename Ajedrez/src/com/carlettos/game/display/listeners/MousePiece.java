@@ -97,7 +97,7 @@ public class MousePiece implements MouseListener {
 
     // TODO: mark other abilities?
     private void markActions(BoardDisplay display, AbstractBoard board, Point point) {
-        selected.getEscaque().getPiece().getAllActions(board, point).forEach(action -> {
+        selected.getEscaque().getPiece().getAllMovements(board, point).forEach(action -> {
             if (action.y.getValue() instanceof Point p) {
                 display.getEscaqueVisual(p).setAction(action.x);
             }

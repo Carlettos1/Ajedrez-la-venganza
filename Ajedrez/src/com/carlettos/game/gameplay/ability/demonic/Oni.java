@@ -9,7 +9,7 @@ import com.carlettos.game.gameplay.piece.starting.Magician;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Direction.SubDirection;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 
 public class Oni extends Ability<SubDirection> {
     private static final ComplexPredicate c = (b, s, p) -> !p.getColor().equals(b.get(s).getPieceColor())
@@ -26,7 +26,7 @@ public class Oni extends Ability<SubDirection> {
                 .filter(e -> e.getPiece() instanceof Magician && e.getPieceColor().equals(player.getColor()))
                 .findFirst();
         if (optional.isEmpty()) {
-            LogManager.severe("Magician not encountered, of player %s", player);
+            LogHelper.LOG.severe("Magician not encountered, of player %s" + player);
             return;
         }
         var e = optional.get();

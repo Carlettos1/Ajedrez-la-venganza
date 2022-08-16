@@ -13,14 +13,15 @@ import java.util.logging.Logger;
  *
  * @author Carlettos
  */
-public final class LogManager {
+public final class LogHelper {
     private static boolean started = false;
-    private static final Logger LOG = Logger.getLogger("ola");
+    public static final Logger LOG = Logger.getLogger("ola");
     private static final Formatter LOG_FORMATTER = new Formatter() {
         @Override
         public String format(LogRecord lr) {
             var sb = new StringBuilder();
-            sb.append(lr.getLevel()).append("[").append(lr.getSourceClassName()).append("::")
+            sb.append(lr.getLevel()).append(": {Thread#").append(lr.getLongThreadID()).append("}[")
+                    .append(lr.getSourceClassName()).append("::")
                     .append(lr.getSourceMethodName()).append("][")
                     .append(DateTimeFormatter.ISO_LOCAL_TIME.withZone(ZoneId.systemDefault()).format(lr.getInstant()))
                     .append("]: ");
@@ -29,7 +30,7 @@ public final class LogManager {
         }
     };
 
-    private LogManager() {}
+    private LogHelper() {}
 
     public static final void startLogger() {
         if (!started) {
@@ -48,37 +49,5 @@ public final class LogManager {
         } else {
             LOG.warning("Trying to start an already started logger");
         }
-    }
-
-    public static void log(Level level, String str, Object... objects) {
-        LOG.log(level, str.formatted(objects));
-    }
-
-    public static void severe(String str, Object... objects) {
-        LOG.severe(str.formatted(objects));
-    }
-
-    public static void warning(String str, Object... objects) {
-        LOG.warning(str.formatted(objects));
-    }
-
-    public static void info(String str, Object... objects) {
-        LOG.info(str.formatted(objects));
-    }
-
-    public static void config(String str, Object... objects) {
-        LOG.config(str.formatted(objects));
-    }
-
-    public static void fine(String str, Object... objects) {
-        LOG.fine(str.formatted(objects));
-    }
-
-    public static void finer(String str, Object... objects) {
-        LOG.finer(str.formatted(objects));
-    }
-
-    public static void finest(String str, Object... objects) {
-        LOG.finest(str.formatted(objects));
     }
 }

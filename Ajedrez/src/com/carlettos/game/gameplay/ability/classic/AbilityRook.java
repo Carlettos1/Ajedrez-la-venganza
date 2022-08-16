@@ -13,7 +13,7 @@ import com.carlettos.game.gameplay.piece.classic.Rook;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Direction;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 
 public class AbilityRook extends Ability<Direction> {
 
@@ -56,6 +56,9 @@ public class AbilityRook extends Ability<Direction> {
      */
     protected void throwTo(Point start, AbstractBoard board, Direction dir) {
         var ray = board.rayCast(start, -1, true, dir, e -> e.hasPiece());
+        if (ray.isEmpty()) {
+            return;
+        }
         Point end = ray.get(ray.size() - 1).getPos();
         if (start.equals(end)) { return; }
         board.getPiece(start).setIsMoved(false);
@@ -66,7 +69,7 @@ public class AbilityRook extends Ability<Direction> {
             done = board.tryTo(Action.MOVE, start, end.toInfo(), true);
         }
         if (!done) {
-            LogManager.severe("tower didn't make the ability, start: %s, end: %s, dir: %s", start, end, dir);
+            LogHelper.LOG.severe("tower didn't make the ability, start: %s, end: %s, dir: %s".formatted(start, end, dir));
         }
     }
 

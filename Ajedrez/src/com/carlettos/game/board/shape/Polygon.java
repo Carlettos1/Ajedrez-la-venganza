@@ -42,11 +42,12 @@ public final class Polygon {
     public boolean contains(final Point p) {
         Point last = this.vertices[vertices.length - 1];
         boolean isOdd = false;
+        double correctedX = p.x + 0.5D;
+        double correctedY = p.y + 0.5D;
 
         for (Point current : this.vertices) {
-            if (current.equals(p)) { return true; }
-            if ((current.y > p.y) != (last.y > p.y)) {
-                int slope = (p.x - current.x) * (last.y - current.y) - (p.y - current.y) * (last.x - current.x);
+            if ((current.y > correctedY) != (last.y > correctedY)) {
+                double slope = (correctedX - current.x) * (last.y - current.y) - (correctedY - current.y) * (last.x - current.x);
                 if (slope == 0) { return true; }
                 if ((slope < 0) != (last.y < current.y)) {
                     isOdd = !isOdd;

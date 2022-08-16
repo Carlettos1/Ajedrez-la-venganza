@@ -13,7 +13,7 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.enums.Direction.SubDirection;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 
 /**
  * @author Carlettos
@@ -112,7 +112,7 @@ public final class Info {
      */
     private static boolean checkTypeExistence(Class<?> clazz, Level level, String str) {
         if (!REGISTRY.contains(clazz)) {
-            LogManager.log(level, str);
+            LogHelper.LOG.log(level, str);
             return true;
         }
         return false;
@@ -121,7 +121,7 @@ public final class Info {
     public static void register(Class<? extends IInfo> clazz) {
         Objects.requireNonNull(clazz);
         if (REGISTRY.contains(clazz)) {
-            LogManager.warning("TRYING TO REGISTER AN ALREADY REGISTERED INFO %s", clazz);
+            LogHelper.LOG.warning("TRYING TO REGISTER AN ALREADY REGISTERED INFO %s" + clazz);
             return;
         }
         REGISTRY.add(clazz);

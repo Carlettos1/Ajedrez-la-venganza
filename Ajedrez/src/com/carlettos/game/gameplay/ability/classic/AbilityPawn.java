@@ -25,7 +25,7 @@ import com.carlettos.game.gameplay.piece.starting.TeslaTower;
 import com.carlettos.game.gameplay.piece.starting.Warlock;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 
 public class AbilityPawn extends Ability<Piece> {
     public static final List<Piece> POSSIBLE_PROMOTIONS = new ArrayList<>();
@@ -69,7 +69,7 @@ public class AbilityPawn extends Ability<Piece> {
                 return false;
             }
         }
-        LogManager.severe("INTENTANDO CORONAR CON OTRO COLOR");
+        LogHelper.LOG.severe("INTENTANDO CORONAR CON OTRO COLOR");
         return false;
     }
 

@@ -25,7 +25,7 @@ import com.carlettos.game.util.Tuple;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
-import com.carlettos.game.util.helper.LogManager;
+import com.carlettos.game.util.helper.LogHelper;
 import com.carlettos.game.util.helper.TypeHelper;
 
 public abstract class AbstractBoard extends AbstractList<Escaque> implements IClockUse, IBaseBoard {
@@ -78,7 +78,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     @Deprecated
     public boolean contains(Object o) {
-        LogManager.info("Using deprecated AbstractCollection method, it should be avoided");
+        LogHelper.LOG.info("Using deprecated AbstractCollection method, it should be avoided");
         return this.contains((Escaque) o);
     }
 
@@ -152,7 +152,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     @Deprecated
     public boolean remove(Object o) {
-        LogManager.info("Using deprecated AbstractCollection method, it should be avoided");
+        LogHelper.LOG.info("Using deprecated AbstractCollection method, it should be avoided");
         return this.remove((Escaque) o, true);
     }
 
@@ -226,7 +226,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
 
     @Override
     public void clear() {
-        LogManager.warning("Clearing the board %s", Arrays.toString(chessBoard));
+        LogHelper.LOG.warning("Clearing the board %s" + Arrays.toString(chessBoard));
         for (Escaque escaque : chessBoard) {
             escaque.removeProperties();
         }
@@ -293,7 +293,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     @Deprecated
     public int indexOf(Object obj) {
-        LogManager.info("Using deprecated AbstractCollection method, it should be avoided");
+        LogHelper.LOG.info("Using deprecated AbstractCollection method, it should be avoided");
         return this.indexOf((Escaque) obj);
     }
 
@@ -324,7 +324,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     @Deprecated
     public int lastIndexOf(Object obj) {
-        LogManager.info("Using deprecated AbstractCollection method, it should be avoided");
+        LogHelper.LOG.info("Using deprecated AbstractCollection method, it should be avoided");
         return this.lastIndexOf(t -> t.equals(obj));
     }
 
@@ -367,7 +367,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      * @return true if the action has been done, false other case.
      * @see #tryTo(Action, Point, Info, boolean)
      */
-    public boolean tryTo(Action action, Point pos, Info info) {
+    public synchronized boolean tryTo(Action action, Point pos, Info info) {
         return tryTo(action, pos, info, false);
     }
 
@@ -411,20 +411,17 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      *               functionalities of the clock.
      * @return true if the action has been done, false other case.
      */
-    public boolean tryTo(Action action, Point pos, Info info, boolean bypass) {
+    public synchronized boolean tryTo(Action action, Point pos, Info info, boolean bypass) {
         if (!this.contains(pos)) { return false; }
         var piece = this.getPiece(pos);
         if (!this.canPlay(piece) && !bypass) { return false; }
 
         if (action.needsInfoPoint() && !info.isType(Point.class)) {
-            LogManager.severe("Info needs to be info Point for " + action + ", and it's: " + info.getValue()
+            LogHelper.LOG.severe("Info needs to be info Point for " + action + ", and it's: " + info.getValue()
                     + info.getValue().getClass());
             return false;
         }
-        // TODO: maybe move to piece the usage of TypeHelper
-        boolean can = piece.can(action, this, pos, info) && (TypeHelper.checkIfTypesCan(action, this, pos, info))
-                && (getPiece(pos).getEffectManager().canBe(action, this, pos));
-        // TODO: change the canBe to be used by the other piece
+        boolean can = this.canPiece(action, piece, pos, info);
         if (can) {
             switch (action) {
                 case ATTACK -> this.remove((Point) info.getValue(), true);
@@ -447,6 +444,14 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
             }
         }
         return can;
+    }
+    
+    public boolean canPiece(Action action, Piece piece, Point pos, Info info) {
+        // TODO: change the canBe to be used by the other piece
+        // TODO: maybe move to piece the usage of TypeHelper
+        return piece.can(action, this, pos, info) 
+                && (TypeHelper.checkIfTypesCan(action, this, pos, info))
+                && (getPiece(pos).getEffectManager().canBe(action, this, pos));
     }
 
     /**
@@ -480,18 +485,18 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      *
      * @author Carlettos
      */
-    public List<Escaque> rayCast(Point from, int max, boolean inclusive, Function<Escaque, Escaque> function,
+    public List<Escaque> rayCast(Point from, int max, boolean inclusive, Function<Point, Point> function,
             Predicate<Escaque> condition) {
         if (!this.contains(from)) { return List.of(); }
         ArrayList<Escaque> ray = new ArrayList<>(max == -1 ? this.size() : max);
         Escaque current = this.get(from);
         do {
-            Escaque next = function.apply(current);
+            Point next = function.apply(current.getPos());
             if (!this.contains(next)) {
                 break;
             }
-            ray.add(next);
-            current = next;
+            ray.add(this.get(next));
+            current = this.get(next);
         } while (!condition.test(current) && --max != -1);
         if (!inclusive) {
             ray.remove(ray.size() - 1);
@@ -504,7 +509,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     // stay in fron of a piece, you could end up 1 escaque away of the border of the
     // board.
     public List<Escaque> rayCast(Point from, int max, boolean inclusive, Direction dir, Predicate<Escaque> condition) {
-        return this.rayCast(from, max, inclusive, e -> this.get(dir.toPoint().add(e.getPos())), condition);
+        return this.rayCast(from, max, inclusive, e -> e.add(dir.toPoint()), condition);
     }
 
     /**

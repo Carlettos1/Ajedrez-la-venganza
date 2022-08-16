@@ -32,8 +32,8 @@ public abstract class Shape {
 
         final Point max = this.form.getBounds();
         final List<Point> points = new ArrayList<>(max.x * max.y);
-        for (int y = 0; y < max.y; y++) {
-            for (int x = 0; x < max.x; x++) {
+        for (int y = 0; y <= max.y; y++) {
+            for (int x = 0; x <= max.x; x++) {
                 Point current = new Point(x, y);
                 if (this.form.contains(current)) {
                     points.add(current);
