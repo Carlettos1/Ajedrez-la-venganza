@@ -8,7 +8,7 @@ public class Movement {
     protected final Action action;
     protected final Point from;
     protected final Info info;
-    
+
     public Movement(Action action, Point from, Info info) {
         this.action = action;
         this.from = from;

@@ -10,7 +10,7 @@ import com.carlettos.game.util.Point;
 
 public class SuccubusAbility extends Ability<Point> {
 
-    public SuccubusAbility(String name, int cooldown, int manaCost) {
+    public SuccubusAbility() {
         super(name, cooldown, manaCost);
     }
 

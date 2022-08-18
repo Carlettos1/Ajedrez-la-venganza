@@ -14,8 +14,9 @@ public class AbilityKnight extends AbilityNoInfo {
     public boolean reducedCanUse(AbstractBoard board, Point start) {
         Point p1 = start.add(1, 0);
         Point p2 = start.add(-1, 0);
-        if (!board.contains(p1) || !board.contains(p2)) { return false; }
-        if (board.get(p1).hasPiece() || board.get(p2).hasPiece()) { return false; }
+        if (!board.contains(p1) || !board.contains(p2) || board.get(p1).hasPiece() || board.get(p2).hasPiece()) {
+            return false;
+        }
         return true;
     }
 

@@ -9,6 +9,8 @@ import com.carlettos.game.gameplay.pattern.classic.PatternPawnMove;
 import com.carlettos.game.gameplay.pattern.classic.PatternPawnTake;
 import com.carlettos.game.gameplay.pattern.classic.PatternQueen;
 import com.carlettos.game.gameplay.pattern.classic.PatternRook;
+import com.carlettos.game.gameplay.pattern.demonic.MermaidPattern;
+import com.carlettos.game.gameplay.pattern.demonic.OniPattern;
 import com.carlettos.game.gameplay.pattern.starting.PatternArcherMove;
 import com.carlettos.game.gameplay.pattern.starting.PatternBallistaAttack;
 import com.carlettos.game.gameplay.pattern.starting.PatternCannonAttack;
@@ -65,4 +67,7 @@ public class Patterns {
             return c;
         }
     };
+
+    public static final MermaidPattern MERMAID_PATTERN = new MermaidPattern();
+    public static final OniPattern ONI_PATTERN = new OniPattern();
 }

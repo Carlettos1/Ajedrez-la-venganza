@@ -9,7 +9,7 @@ import com.carlettos.game.util.Point;
  *
  * @author Carlettos
  */
-public interface ITake<P extends Pattern> {
+public interface ITake {
 
     /**
      * Checks the pattern and the standard condition.
@@ -22,7 +22,7 @@ public interface ITake<P extends Pattern> {
      * @throws IllegalArgumentException if the info is not an implementation of
      *                                  {@literal Info<Point>}
      */
-    public default boolean canTake(AbstractBoard board, Point start, Info info, P pattern) {
+    public default boolean canTake(AbstractBoard board, Point start, Info info, Pattern pattern) {
         if (info.getValue() instanceof Point p) {
             if (!this.checkTakeCondition(board, start, p)) { return false; }
             return (pattern.match(board, start, p));
@@ -46,4 +46,6 @@ public interface ITake<P extends Pattern> {
         }
         return !board.getPiece(start).isMoved();
     }
+
+    Pattern getTakePattern(AbstractBoard board, Point start);
 }

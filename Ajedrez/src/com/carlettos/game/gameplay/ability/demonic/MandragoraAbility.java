@@ -7,8 +7,8 @@ import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.util.Point;
 
 public class MandragoraAbility extends AbilityNoInfo {
-    public MandragoraAbility(String key, int cooldown, int manaCost) {
-        super(key, cooldown, manaCost);
+    public MandragoraAbility() {
+        super("mandragora", 12, 0);
     }
 
     @Override

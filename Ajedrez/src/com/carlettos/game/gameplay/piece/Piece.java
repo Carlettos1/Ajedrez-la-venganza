@@ -10,6 +10,9 @@ import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.EffectManager;
+import com.carlettos.game.gameplay.pattern.action.IAttack;
+import com.carlettos.game.gameplay.pattern.action.IMove;
+import com.carlettos.game.gameplay.pattern.action.ITake;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.gameplay.piece.type.TypeManager;
 import com.carlettos.game.util.Point;
@@ -79,7 +82,28 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      *
      * @return PASS if the action can be performed, FAIL otherwise.
      */
-    public abstract boolean can(Action action, AbstractBoard board, Point start, Info info);
+    public boolean can(Action action, AbstractBoard board, Point start, Info info) {
+        boolean result = false;
+        switch (action) {
+            case MOVE -> {
+                if (this instanceof IMove move) {
+                    result = move.canMove(board, start, info, move.getMovePattern(board, start));
+                }
+            }
+            case TAKE -> {
+                if (this instanceof ITake take) {
+                    result = take.canTake(board, start, info, take.getTakePattern(board, start));
+                }
+            }
+            case ATTACK -> {
+                if (this instanceof IAttack attack) {
+                    result = attack.canAttack(board, start, info, attack.getAttackPattern(board, start));
+                }
+            }
+            case ABILITY -> result = this.getAbility().canUse(board, start, info);
+        }
+        return result;
+    }
 
     /**
      * Its excecuted after an action has been performed. Usually its just used to
@@ -107,7 +131,7 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
      */
     public List<Tuple<Action, Info>> getAllMovements(AbstractBoard board, Point start) {
         List<Tuple<Action, Info>> movements = new ArrayList<>();
-        Action[] actions = { Action.MOVE, Action.ATTACK, Action.TAKE};
+        Action[] actions = { Action.MOVE, Action.ATTACK, Action.TAKE };
         board.stream().forEach(e -> {
             Info info = e.getPos().toInfo();
             for (Action action : actions) {
@@ -116,7 +140,8 @@ public abstract class Piece implements IImageable, ITranslatable, IInfo {
                 }
             }
         });
-        movements.addAll(this.getAbility().getValues(board, start).stream().map(i -> Tuple.of(Action.ABILITY, i.toInfo())).toList());
+        movements.addAll(this.getAbility().getValues(board, start).stream()
+                .map(i -> Tuple.of(Action.ABILITY, i.toInfo())).toList());
         return movements;
     }
 

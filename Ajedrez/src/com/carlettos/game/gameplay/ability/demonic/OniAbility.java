@@ -11,11 +11,11 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Direction.SubDirection;
 import com.carlettos.game.util.helper.LogHelper;
 
-public class Oni extends Ability<SubDirection> {
+public class OniAbility extends Ability<SubDirection> {
     private static final ComplexPredicate c = (b, s, p) -> !p.getColor().equals(b.get(s).getPieceColor())
             && (b.indexOf(e -> e.getPiece() instanceof Magician && p.getColor().equals(e.getPieceColor())) != -1);
 
-    public Oni() {
+    public OniAbility() {
         super("oni", 7, 1);
     }
 

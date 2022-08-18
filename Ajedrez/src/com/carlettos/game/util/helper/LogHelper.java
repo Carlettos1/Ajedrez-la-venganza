@@ -21,8 +21,7 @@ public final class LogHelper {
         public String format(LogRecord lr) {
             var sb = new StringBuilder();
             sb.append(lr.getLevel()).append(": {Thread#").append(lr.getLongThreadID()).append("}[")
-                    .append(lr.getSourceClassName()).append("::")
-                    .append(lr.getSourceMethodName()).append("][")
+                    .append(lr.getSourceClassName()).append("::").append(lr.getSourceMethodName()).append("][")
                     .append(DateTimeFormatter.ISO_LOCAL_TIME.withZone(ZoneId.systemDefault()).format(lr.getInstant()))
                     .append("]: ");
             sb.append(lr.getMessage());

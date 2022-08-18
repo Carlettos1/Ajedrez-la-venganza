@@ -13,14 +13,15 @@ public class RandomIA extends AbstractIA {
 
     public RandomIA(AbstractBoard board, Player player) {
         super(board, player);
-        this.rng = new Random((((long)player.hashCode()) << 32) | board.hashCode());
+        this.rng = new Random((((long) player.hashCode()) << 32) | board.hashCode());
     }
 
     @Override
     protected void makeAMovement() {
-        List<Movement> movements = new ArrayList<>(this.board.size() * this.board.size() * 4); 
+        List<Movement> movements = new ArrayList<>(this.board.size() * this.board.size() * 4);
         for (Escaque escaque : this.board) {
-            movements.addAll(escaque.getPiece().getAllMovements(board, escaque.getPos()).stream().map(tuple -> new Movement(tuple.x, escaque.getPos(), tuple.y)).toList());
+            movements.addAll(escaque.getPiece().getAllMovements(board, escaque.getPos()).stream()
+                    .map(tuple -> new Movement(tuple.x, escaque.getPos(), tuple.y)).toList());
         }
         while (true) {
             Movement mov = movements.remove(this.rng.nextInt(movements.size()));

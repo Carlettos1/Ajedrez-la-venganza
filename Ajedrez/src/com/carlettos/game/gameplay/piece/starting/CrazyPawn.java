@@ -10,7 +10,7 @@ import com.carlettos.game.util.enums.Color;
  *
  * @author Carlettos
  */
-public class CrazyPawn extends SimplePiece<PatternCrazyPawn> {
+public class CrazyPawn extends SimplePiece {
     public CrazyPawn(Color color) {
         super("crazy_pawn", Abilities.CRAZY_PAWN_ABILITY, color, PatternCrazyPawn.STANDARD_PATTERN, IPieceType.BIOLOGIC,
                 IPieceType.TRANSPORTABLE);

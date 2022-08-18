@@ -9,7 +9,7 @@ import com.carlettos.game.util.Point;
  *
  * @author Carlettos
  */
-public interface IMove<P extends Pattern> {
+public interface IMove {
 
     /**
      * Checks the pattern and the standard condition.
@@ -22,7 +22,7 @@ public interface IMove<P extends Pattern> {
      * @throws IllegalArgumentException if the info is not an implementation of
      *                                  {@literal Info<Point>}
      */
-    public default boolean canMove(AbstractBoard board, Point start, Info info, P pattern) {
+    default boolean canMove(AbstractBoard board, Point start, Info info, Pattern pattern) {
         if (info.getValue() instanceof Point p) {
             if (!this.checkMoveCondition(board, start, p)) { return false; }
             return (pattern.match(board, start, p));
@@ -40,7 +40,9 @@ public interface IMove<P extends Pattern> {
      * @return true if the end pos doesn't have a piece, and if the start piece
      *         hasn't moved.
      */
-    public default boolean checkMoveCondition(AbstractBoard board, Point start, Point end) {
+    default boolean checkMoveCondition(AbstractBoard board, Point start, Point end) {
         return !(board.get(end).hasPiece() || board.getPiece(start).isMoved());
     }
+
+    Pattern getMovePattern(AbstractBoard board, Point start);
 }

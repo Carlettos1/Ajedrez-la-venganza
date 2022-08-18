@@ -114,13 +114,15 @@ public class MainMenu extends JFrame {
         this.frameInit();
         this.add(play);
         this.pack();
-        
+
         new Thread(new RandomIA(board, board.getClock().getPlayerOfColor(Color.WHITE)), "IA-white-thread").start();
         new Thread(new RandomIA(board, board.getClock().getPlayerOfColor(Color.BLACK)), "IA-black-thread").start();
         for (int i = 0; i < 10; i++) {
             var board1 = SquareBoard.getDefaultInstance();
-            new Thread(new RandomIA(board1, board1.getClock().getPlayerOfColor(Color.WHITE)), "IA-white-thread").start();
-            new Thread(new RandomIA(board1, board1.getClock().getPlayerOfColor(Color.BLACK)), "IA-black-thread").start();
+            new Thread(new RandomIA(board1, board1.getClock().getPlayerOfColor(Color.WHITE)), "IA-white-thread")
+                    .start();
+            new Thread(new RandomIA(board1, board1.getClock().getPlayerOfColor(Color.BLACK)), "IA-black-thread")
+                    .start();
         }
     }
 

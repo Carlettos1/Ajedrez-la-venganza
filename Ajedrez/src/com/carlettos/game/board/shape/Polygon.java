@@ -47,7 +47,8 @@ public final class Polygon {
 
         for (Point current : this.vertices) {
             if ((current.y > correctedY) != (last.y > correctedY)) {
-                double slope = (correctedX - current.x) * (last.y - current.y) - (correctedY - current.y) * (last.x - current.x);
+                double slope = (correctedX - current.x) * (last.y - current.y)
+                        - (correctedY - current.y) * (last.x - current.x);
                 if (slope == 0) { return true; }
                 if ((slope < 0) != (last.y < current.y)) {
                     isOdd = !isOdd;

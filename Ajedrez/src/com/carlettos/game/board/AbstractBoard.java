@@ -445,12 +445,11 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
         }
         return can;
     }
-    
+
     public boolean canPiece(Action action, Piece piece, Point pos, Info info) {
         // TODO: change the canBe to be used by the other piece
         // TODO: maybe move to piece the usage of TypeHelper
-        return piece.can(action, this, pos, info) 
-                && (TypeHelper.checkIfTypesCan(action, this, pos, info))
+        return piece.can(action, this, pos, info) && (TypeHelper.checkIfTypesCan(action, this, pos, info))
                 && (getPiece(pos).getEffectManager().canBe(action, this, pos));
     }
 

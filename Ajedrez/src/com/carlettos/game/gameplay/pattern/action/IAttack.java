@@ -9,7 +9,7 @@ import com.carlettos.game.util.Point;
  *
  * @author Carlettos
  */
-public interface IAttack<P extends Pattern> {
+public interface IAttack {
 
     /**
      * Checks the pattern and the standard condition.
@@ -23,7 +23,7 @@ public interface IAttack<P extends Pattern> {
      * @throws IllegalArgumentException if the info is not an implementation of
      *                                  {@literal Info<Point>}
      */
-    public default boolean canAttack(AbstractBoard board, Point start, Info info, P pattern) {
+    public default boolean canAttack(AbstractBoard board, Point start, Info info, Pattern pattern) {
         if (info.getValue() instanceof Point p) {
             if (!this.checkAttackConditions(board, start, p)) { return false; }
             return (pattern.match(board, start, p));
@@ -47,4 +47,6 @@ public interface IAttack<P extends Pattern> {
         }
         return !board.getPiece(start).isMoved();
     }
+
+    Pattern getAttackPattern(AbstractBoard board, Point start);
 }

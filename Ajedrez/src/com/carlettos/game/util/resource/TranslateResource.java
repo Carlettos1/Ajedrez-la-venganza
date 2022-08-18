@@ -36,8 +36,8 @@ public record TranslateResource(String translationKey) implements ITranslatable 
         } else if (ENGLISH.getAsJsonPrimitive(this.getTranslationKey()) != null) {
             return ENGLISH.getAsJsonPrimitive(this.getTranslationKey()).getAsString();
         } else {
-            LogHelper.LOG.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead".formatted(
-                    this.getTranslationKey()));
+            LogHelper.LOG.info("%s doesn't exists in either CUSTOM nor ENGLISH, using translation key instead"
+                    .formatted(this.getTranslationKey()));
             return this.getTranslationKey();
         }
     }

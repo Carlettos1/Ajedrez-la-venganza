@@ -2,12 +2,11 @@ package com.carlettos.game.gameplay.piece.classic;
 
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.pattern.Patterns;
-import com.carlettos.game.gameplay.pattern.classic.PatternKing;
 import com.carlettos.game.gameplay.piece.SimplePiece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.enums.Color;
 
-public class King extends SimplePiece<PatternKing> {
+public class King extends SimplePiece {
     // TODO: que no se muera después de comer o moverse
     protected boolean usedTP;
 

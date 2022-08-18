@@ -1,4 +1,4 @@
-package com.carlettos.game.gameplay.piece.classic;
+package com.carlettos.game.gameplay.piece.demonic;
 
 import com.carlettos.game.gameplay.ability.Abilities;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -6,9 +6,10 @@ import com.carlettos.game.gameplay.piece.SimplePiece;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.enums.Color;
 
-public class Knight extends SimplePiece {
-    public Knight(Color color) {
-        super("knight", Abilities.KNIGHT_ABILITY, color, Patterns.KNIGHT_PATTERN, IPieceType.BIOLOGIC,
-                IPieceType.TRANSPORTABLE);
+public class Mermaid extends SimplePiece {
+
+    public Mermaid(Color color) {
+        super("mermaid", Abilities.MERMAID_ABILITY, color, Patterns.MERMAID_PATTERN, IPieceType.DEMONIC,
+                IPieceType.BIOLOGIC);
     }
 }

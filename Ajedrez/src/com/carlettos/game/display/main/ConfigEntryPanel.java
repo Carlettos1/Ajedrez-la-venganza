@@ -43,7 +43,8 @@ public class ConfigEntryPanel extends JPanel {
 
     public void saveConfig() {
         if (!entry.getValue().toString().equals(value.getText())) {
-            LogHelper.LOG.info("Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(), value.getText()));
+            LogHelper.LOG.info(
+                    "Changing config %s from %s to %s".formatted(entry.getKey(), entry.getValue(), value.getText()));
             // XXX: try chain must no exist
             try {
                 var val = Integer.parseInt(value.getText());
