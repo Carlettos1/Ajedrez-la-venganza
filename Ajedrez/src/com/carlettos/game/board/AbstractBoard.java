@@ -498,7 +498,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
             ray.add(this.get(next));
             current = this.get(next);
         } while (!condition.test(current) && --max != -1);
-        if (!inclusive) {
+        if (!inclusive && !ray.isEmpty()) {
             ray.remove(ray.size() - 1);
         }
         ray.trimToSize();

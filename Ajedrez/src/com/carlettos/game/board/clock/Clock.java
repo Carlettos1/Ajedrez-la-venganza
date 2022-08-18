@@ -79,7 +79,7 @@ public class Clock extends AbstractClock {
     }
 
     @Override
-    public void tick() {
+    public synchronized void tick() {
         super.tick();
         events.forEach(Event::tick);
         events.stream().filter(Event::canExecute).forEach(Event::act);

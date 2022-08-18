@@ -62,13 +62,8 @@ public class AbilityRook extends Ability<Direction> {
         Point end = ray.get(ray.size() - 1).getPos();
         if (start.equals(end)) { return; }
         board.getPiece(start).setIsMoved(false);
-        boolean done;
-        if (board.tryTo(Action.TAKE, start, end.toInfo(), true)) {
-            done = true;
-        } else {
-            done = board.tryTo(Action.MOVE, start, end.toInfo(), true);
-        }
-        if (!done) {
+        boolean done = board.tryTo(Action.TAKE, start, end.toInfo(), true) || board.tryTo(Action.MOVE, start, end.toInfo(), true) || board.tryTo(Action.MOVE, start, (end = end.add(dir.toPoint().scale(-1))).toInfo(), true);
+        if (!done && !start.equals(end)) {
             LogHelper.LOG.severe("tower didn't make the ability, start: %s, end: %s, dir: %s".formatted(start, end, dir));
         }
     }

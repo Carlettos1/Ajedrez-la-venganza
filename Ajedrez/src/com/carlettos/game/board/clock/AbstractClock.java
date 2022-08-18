@@ -50,8 +50,8 @@ public abstract class AbstractClock
     /**
      * Ends the turn and fire up events.
      */
-    public void tick() {
-        LogHelper.LOG.info("Ending turn: " + getTurn());
+    public synchronized void tick() {
+        LogHelper.LOG.fine("Ending turn: " + getTurn());
         turn++;
         movements = 0;
     }
