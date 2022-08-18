@@ -8,9 +8,9 @@ import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
 
-public class AbilityPortal extends Ability {
+public class PortalAbility extends Ability {
 
-    public AbilityPortal() {
+    public PortalAbility() {
         super("portal", 0, 0);
     }
 

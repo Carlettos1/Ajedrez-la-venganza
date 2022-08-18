@@ -7,7 +7,7 @@ import com.carlettos.game.gameplay.ability.classic.AbilityKnight;
 import com.carlettos.game.gameplay.ability.classic.AbilityPawn;
 import com.carlettos.game.gameplay.ability.classic.AbilityQueen;
 import com.carlettos.game.gameplay.ability.classic.AbilityRook;
-import com.carlettos.game.gameplay.ability.demonic.AbilityPortal;
+import com.carlettos.game.gameplay.ability.demonic.PortalAbility;
 import com.carlettos.game.gameplay.ability.demonic.ImpAbility;
 import com.carlettos.game.gameplay.ability.demonic.ImpAbility.ImpAbilityType;
 import com.carlettos.game.gameplay.ability.demonic.MandragoraAbility;
@@ -58,7 +58,7 @@ public final class Abilities {
     public static final Ability<NoInfo> TESLA_TOWER_ABILITY = new AbilityTeslaTower();
     public static final Ability<NoInfo> WARLOCK_ABILITY = new AbilityWarlock();
 
-    public static final Ability PORTAL_ABILITY = new AbilityPortal();
+    public static final Ability PORTAL_ABILITY = new PortalAbility();
     public static final Ability<ImpAbilityType> IMP_ABILITY = new ImpAbility();
     public static final Ability<NoInfo> MANDRAGORA_ABILITY = new MandragoraAbility();
     public static final Ability<NoInfo> MERMAID_ABILITY = new MermaidAbility();
