@@ -4,10 +4,10 @@ import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
-import com.carlettos.game.gameplay.ability.AbilityNoInfo;
+import com.carlettos.game.gameplay.ability.NoInfoAbility;
 import com.carlettos.game.util.Point;
 
-public class MandragoraAbility extends AbilityNoInfo {
+public class MandragoraAbility extends NoInfoAbility {
     public MandragoraAbility() {
         super("mandragora", Time.lap(12), 0);
     }

@@ -5,9 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 
-import com.carlettos.game.gameplay.ability.AbilityNoInfo.NoInfo;
+import com.carlettos.game.gameplay.ability.NoInfoAbility.NoInfo;
 import com.carlettos.game.gameplay.ability.demonic.ImpAbility.ImpAbilityType;
-import com.carlettos.game.gameplay.ability.starting.AbilityPaladin.PaladinHabilityType;
+import com.carlettos.game.gameplay.ability.starting.PaladinAbility.PaladinHabilityType;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;

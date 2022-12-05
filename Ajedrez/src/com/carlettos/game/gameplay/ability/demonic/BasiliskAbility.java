@@ -2,13 +2,13 @@ package com.carlettos.game.gameplay.ability.demonic;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.Time;
-import com.carlettos.game.gameplay.ability.AbilityNoInfo;
+import com.carlettos.game.gameplay.ability.NoInfoAbility;
 import com.carlettos.game.gameplay.effect.DeactivateEffect;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 
-public class BasiliskAbility extends AbilityNoInfo {
+public class BasiliskAbility extends NoInfoAbility {
 
     public BasiliskAbility() {
         super("basilisk", Time.lap(20), 0);

@@ -2,12 +2,12 @@ package com.carlettos.game.gameplay.ability.demonic;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.Time;
-import com.carlettos.game.gameplay.ability.AbilityNoInfo;
+import com.carlettos.game.gameplay.ability.NoInfoAbility;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.util.Point;
 
-public class WitchAbility extends AbilityNoInfo {
+public class WitchAbility extends NoInfoAbility {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
 
     public WitchAbility() {

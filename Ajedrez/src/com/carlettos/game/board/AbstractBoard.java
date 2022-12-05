@@ -15,7 +15,7 @@ import com.carlettos.game.board.clock.AbstractClock;
 import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.ability.Ability;
-import com.carlettos.game.gameplay.ability.AbilityNoInfo.NoInfo;
+import com.carlettos.game.gameplay.ability.NoInfoAbility.NoInfo;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.EffectManager;
