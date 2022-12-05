@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.Escaque;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -18,7 +19,7 @@ import com.carlettos.game.util.helper.LogHelper;
 public class AbilityRook extends Ability<Direction> {
 
     public AbilityRook() {
-        super("rook", 10, 0);
+        super("rook", Time.lap(10), 0);
     }
 
     @Override
@@ -41,8 +42,8 @@ public class AbilityRook extends Ability<Direction> {
         this.throwRooks(rooks, board, dir);
 
         for (Escaque escaque : rooks) {
-            escaque.getPiece().postAction(Action.ABILITY, board, start, info);
-            escaque.getPiece().changeCD(this.data.cooldown());
+            escaque.getPiece().onAction(Action.ABILITY, board, start, info);
+            escaque.getPiece().removeCD(this.data.cooldown());
         }
         board.getClock().turnOf().changeMana(-this.data.manaCost());
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.Tuple;
@@ -29,7 +30,7 @@ public abstract class Ability<T extends IInfo> {
      *
      * @see Piece
      */
-    protected Ability(String name, int cooldown, int manaCost) {
+    protected Ability(String name, Time cooldown, int manaCost) {
         data = new AbilityData(name, cooldown, manaCost);
     }
 
@@ -65,7 +66,7 @@ public abstract class Ability<T extends IInfo> {
      * @return true if can be used, false other case.
      */
     public final boolean commonCanUse(AbstractBoard board, Piece piece) {
-        boolean nomana = piece.getCD() <= 0 && !piece.isMoved();
+        boolean nomana = piece.getCD().isZero() && !piece.isMoved();
         return nomana && board.getClock().turnOf().getMana() >= this.data.manaCost();
     }
 
@@ -86,7 +87,7 @@ public abstract class Ability<T extends IInfo> {
      */
     public final void commonUse(AbstractBoard board, Point start) {
         board.getPiece(start).setIsMoved(true);
-        board.getPiece(start).changeCD(this.data.cooldown());
+        board.getPiece(start).removeCD(this.data.cooldown());
         board.getClock().turnOf().changeMana(-this.data.manaCost());
     }
 

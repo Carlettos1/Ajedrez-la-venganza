@@ -1,6 +1,6 @@
 package com.carlettos.game.gameplay.piece.type;
 
-public abstract class PieceType implements IPieceType {
+public abstract non-sealed class PieceType implements IPieceType {
 
     protected PieceType() {}
 

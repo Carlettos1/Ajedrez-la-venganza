@@ -11,7 +11,7 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
 
 public class Mandragora extends Piece implements IMove {
-    protected Mandragora(Color color) {
+    public Mandragora(Color color) {
         super("mandragora", Abilities.MANDRAGORA_ABILITY, color, IPieceType.DEMONIC, IPieceType.BIOLOGIC);
     }
 

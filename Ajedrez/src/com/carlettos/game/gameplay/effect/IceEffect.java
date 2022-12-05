@@ -1,7 +1,6 @@
 package com.carlettos.game.gameplay.effect;
 
 import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
 public class IceEffect extends Effect {
@@ -11,12 +10,12 @@ public class IceEffect extends Effect {
     }
 
     @Override
-    public void onExpire(AbstractBoard board, Point start, Piece piece) {
+    public void onExpire(AbstractBoard board, Point piecePos) {
         // do nothing
     }
 
     @Override
-    public void onTick(AbstractBoard board, Point start, Piece piece) {
-        piece.setIsMoved(true);
+    public void onTick(AbstractBoard board, Point piecePos) {
+        board.getPiece(piecePos).setIsMoved(true);
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.Piece;
@@ -11,6 +12,8 @@ import com.carlettos.game.gameplay.piece.classic.Bishop;
 import com.carlettos.game.gameplay.piece.classic.Knight;
 import com.carlettos.game.gameplay.piece.classic.Queen;
 import com.carlettos.game.gameplay.piece.classic.Rook;
+import com.carlettos.game.gameplay.piece.demonic.Ogre;
+import com.carlettos.game.gameplay.piece.demonic.Spider;
 import com.carlettos.game.gameplay.piece.starting.Archer;
 import com.carlettos.game.gameplay.piece.starting.Ballista;
 import com.carlettos.game.gameplay.piece.starting.Builder;
@@ -31,14 +34,14 @@ public class AbilityPawn extends Ability<Piece> {
     public static final List<Piece> POSSIBLE_PROMOTIONS = new ArrayList<>();
     static {
         POSSIBLE_PROMOTIONS.addAll(List.of(new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
-                new Rook(Color.GRAY), new Ram(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY),
-                new Warlock(Color.GRAY), new Catapult(Color.GRAY), new Cannon(Color.GRAY), new Builder(Color.GRAY),
-                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new CrazyPawn(Color.GRAY),
-                new SuperPawn(Color.GRAY), new TeslaTower(Color.GRAY)));
+                new Rook(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY), new Builder(Color.GRAY),
+                new Cannon(Color.GRAY), new Catapult(Color.GRAY), new CrazyPawn(Color.GRAY), new Ram(Color.GRAY),
+                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new SuperPawn(Color.GRAY),
+                new TeslaTower(Color.GRAY), new Warlock(Color.GRAY), new Spider(Color.GRAY), new Ogre(Color.GRAY)));
     }
 
     public AbilityPawn() {
-        super("pawn", 0, 0);
+        super("pawn", Time.ZERO, 0);
     }
 
     @Override

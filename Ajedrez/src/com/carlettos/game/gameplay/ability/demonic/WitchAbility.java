@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.demonic;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -10,7 +11,7 @@ public class WitchAbility extends AbilityNoInfo {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
 
     public WitchAbility() {
-        super("witch", 8, 2);
+        super("witch", Time.lap(8), 2);
     }
 
     @Override

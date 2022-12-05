@@ -1,12 +1,17 @@
 package com.carlettos.game.gameplay.piece.type;
 
+import com.carlettos.game.gameplay.piece.demonic.Necromancer;
+import com.carlettos.game.gameplay.piece.property.Properties;
+import com.carlettos.game.gameplay.piece.property.Property;
+import com.carlettos.game.gameplay.piece.property.PropertyManager;
+
 /**
  * Piece type, can be added or removed from a piece during game. They serve as a
  * way to add shared functionability to pieces, and works as a tag.
  *
  * @author Carlos
  */
-public interface IPieceType {
+public sealed interface IPieceType permits PieceType {
 
     /**
      * A biologic piece it's a normal piece.
@@ -42,6 +47,18 @@ public interface IPieceType {
      * Demonic pieces gives one mana to its player when they are taken.
      */
     public static final IPieceType DEMONIC = new Demonic();
+
+    /**
+     * Needs to be taken multiple times. Any piece that uses this
+     * {@link IPieceType}, needs to add the {@link Property}
+     * {@link Properties#MAX_TAKEN_TIMES} to its {@link PropertyManager}.
+     */
+    public static final IPieceType TOUGH = new Tough();
+
+    /**
+     * A dead piece is a piece in control of a {@link Necromancer}.
+     */
+    public static final IPieceType DEAD = new Dead();
 
     /**
      * Its executed every time that a piece with this type tries to makes an action.

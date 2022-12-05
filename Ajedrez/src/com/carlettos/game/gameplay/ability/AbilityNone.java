@@ -1,12 +1,13 @@
 package com.carlettos.game.gameplay.ability;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.util.Point;
 
 public final class AbilityNone extends AbilityNoInfo {
 
     public AbilityNone() {
-        super("none", 0, 0);
+        super("none", Time.ZERO, 0);
     }
 
     @Override

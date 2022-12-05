@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.demonic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
@@ -11,7 +12,7 @@ import com.carlettos.game.util.enums.Direction.SubDirection;
 public class SpiderAbility extends Ability<SubDirection> {
 
     public SpiderAbility() {
-        super("spider", 12, 1);
+        super("spider", Time.lap(12), 1);
     }
 
     @Override

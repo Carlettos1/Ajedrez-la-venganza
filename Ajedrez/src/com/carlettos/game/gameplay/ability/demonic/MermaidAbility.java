@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.demonic;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -11,7 +12,7 @@ public class MermaidAbility extends AbilityNoInfo {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
 
     public MermaidAbility() {
-        super("mermaid", 5, 2);
+        super("mermaid", Time.lap(5), 2);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class MermaidAbility extends AbilityNoInfo {
     @Override
     public void use(AbstractBoard board, Point start) {
         board.getAll(PATTERN, start).stream().filter(e -> e.getPiece() instanceof Portal)
-                .forEach(e -> e.getPiece().changeCD(-2));
+                .forEach(e -> e.getPiece().removeCD(Time.lap(2)));
         this.commonUse(board, start);
     }
 }

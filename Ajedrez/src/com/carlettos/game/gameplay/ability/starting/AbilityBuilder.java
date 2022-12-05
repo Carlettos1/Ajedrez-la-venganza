@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.starting.Wall;
@@ -15,7 +16,7 @@ public class AbilityBuilder extends Ability<Direction> {
     protected final Function<Color, Wall> constructor = Wall::new;
 
     public AbilityBuilder() {
-        super("builder", 10, 0);
+        super("builder", Time.lap(10), 0);
     }
 
     @Override

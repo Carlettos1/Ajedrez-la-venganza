@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.demonic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.effect.DeactivateEffect;
@@ -11,7 +12,7 @@ import com.carlettos.game.util.Point;
 public class SuccubusAbility extends Ability<Point> {
 
     public SuccubusAbility() {
-        super(name, cooldown, manaCost);
+        super("succubus", Time.lap(10), 1);
     }
 
     @Override

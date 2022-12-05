@@ -5,6 +5,7 @@
     "piece.queen": "Queen",
     "piece.rook": "Rook",
     "piece.bishop": "Bishop",
+    
     "piece.archer": "Archer",
     "piece.ballista": "Ballista",
     "piece.builder": "Builder",
@@ -19,5 +20,8 @@
     "piece.super_pawn": "Super Pawn",
     "piece.tesla_tower": "Tesla Tower",
     "piece.wall": "Wall",
-    "piece.warlock": "Warlock"
+    "piece.warlock": "Warlock",
+    
+    "piece.golem": "Golem",
+    "piece.necromancer": "Necromancer"
 }

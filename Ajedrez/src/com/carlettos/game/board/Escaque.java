@@ -146,6 +146,6 @@ public class Escaque {
         if ((obj == null) || (getClass() != obj.getClass()))
             return false;
         Escaque other = (Escaque) obj;
-        return Objects.equals(piece, other.piece) && Objects.equals(pos, other.pos);
+        return piece == other.piece && Objects.equals(pos, other.pos);
     }
 }

@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import com.carlettos.game.board.AbstractBoard;
-import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.resource.IImageable;
@@ -19,15 +18,21 @@ public abstract class Effect implements ITranslatable, IImageable, Comparable<Ef
         this.turns = 0;
     }
 
-    public abstract void onExpire(AbstractBoard board, Point pos, Piece piece);
+    public abstract void onExpire(AbstractBoard board, Point piecePos);
 
-    public abstract void onTick(AbstractBoard board, Point pos, Piece piece);
+    public abstract void onTick(AbstractBoard board, Point piecePos);
 
-    public boolean canBe(Action action, AbstractBoard board, Point pos, Piece piece) {
+    public boolean canBe(Action action, AbstractBoard board, Point piecePos) {
         return true;
     }
 
-    public void onBe(Action action, AbstractBoard board, Point pos, Piece piece) {}
+    public void onBe(Action action, AbstractBoard board, Point piecePos) {}
+
+    public boolean can(Action action, AbstractBoard board, Point piecePos) {
+        return true;
+    }
+
+    public void on(Action action, AbstractBoard board, Point piecePos) {}
 
     public boolean isExpired() {
         return this.turns >= this.data.maxTurns();

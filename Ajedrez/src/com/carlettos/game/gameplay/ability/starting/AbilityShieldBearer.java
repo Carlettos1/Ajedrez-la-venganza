@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -11,7 +12,7 @@ public class AbilityShieldBearer extends AbilityNoInfo {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
 
     public AbilityShieldBearer() {
-        super("shield_bearer", 30, 0);
+        super("shield_bearer", Time.lap(15), 0);
     }
 
     @Override

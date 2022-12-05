@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.card.onBoard.CardsOnBoard;
 import com.carlettos.game.gameplay.effect.FireEffect;
@@ -13,7 +14,7 @@ public class AbilityMagician extends AbilityNoInfo {
     public static final Pattern ACTION_PATTERN = Patterns.ARCHER_MOVE_PATTERN;
 
     public AbilityMagician() {
-        super("magician", 6, 2);
+        super("magician", Time.lap(6), 2);
     }
 
     @Override

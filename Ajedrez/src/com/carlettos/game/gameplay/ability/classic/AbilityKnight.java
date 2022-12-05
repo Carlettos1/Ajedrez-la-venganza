@@ -1,13 +1,14 @@
 package com.carlettos.game.gameplay.ability.classic;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.piece.classic.Pawn;
 import com.carlettos.game.util.Point;
 
 public class AbilityKnight extends AbilityNoInfo {
     public AbilityKnight() {
-        super("knight", 10, 1);
+        super("knight", Time.lap(10), 1);
     }
 
     @Override

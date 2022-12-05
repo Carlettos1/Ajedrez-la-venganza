@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.demonic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
@@ -15,7 +16,7 @@ public class ImpAbility extends Ability<ImpAbility.ImpAbilityType> {
     public static final Pattern IMMUNITY_PATTERN = Patterns.KING_PATTERN;
 
     public ImpAbility() {
-        super("imp", 7, 3);
+        super("imp", Time.lap(7), 3);
     }
 
     static {}

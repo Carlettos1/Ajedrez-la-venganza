@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.util.Point;
 
 /**
@@ -10,7 +11,7 @@ import com.carlettos.game.util.Point;
  */
 public abstract class AbilityNoInfo extends Ability<AbilityNoInfo.NoInfo> {
 
-    protected AbilityNoInfo(String key, int cooldown, int manaCost) {
+    protected AbilityNoInfo(String key, Time cooldown, int manaCost) {
         super(key, cooldown, manaCost);
     }
 

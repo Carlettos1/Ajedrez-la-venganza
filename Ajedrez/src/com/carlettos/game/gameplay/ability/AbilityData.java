@@ -1,5 +1,6 @@
 package com.carlettos.game.gameplay.ability;
 
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.util.resource.TranslateResource;
 
 /**
@@ -7,9 +8,9 @@ import com.carlettos.game.util.resource.TranslateResource;
  *
  * @author Carlettos
  */
-public record AbilityData(TranslateResource name, TranslateResource description, int cooldown, int manaCost) {
+public record AbilityData(TranslateResource name, TranslateResource description, Time cooldown, int manaCost) {
 
-    public AbilityData(String name, int cooldown, int manaCost) {
+    public AbilityData(String name, Time cooldown, int manaCost) {
         this(new TranslateResource("ability.name", name), new TranslateResource("ability.description", name), cooldown,
                 manaCost);
     }

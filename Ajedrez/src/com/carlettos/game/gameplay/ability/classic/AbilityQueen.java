@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.pattern.Pattern;
@@ -13,7 +14,7 @@ public class AbilityQueen extends Ability<Point> {
     public static final Pattern PATTERN = Patterns.KNIGHT_PATTERN;
 
     public AbilityQueen() {
-        super("queen", 5, 0);
+        super("queen", Time.lap(5), 0);
     }
 
     @Override

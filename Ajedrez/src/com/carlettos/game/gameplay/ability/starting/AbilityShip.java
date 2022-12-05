@@ -1,13 +1,14 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.util.Point;
 
 public class AbilityShip extends AbilityNoInfo {
 
     public AbilityShip() {
-        super("ship", 12, 0);
+        super("ship", Time.lap(12), 0);
     }
 
     @Override

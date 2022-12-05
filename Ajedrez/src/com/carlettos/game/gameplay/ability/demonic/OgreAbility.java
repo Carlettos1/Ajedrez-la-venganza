@@ -1,4 +1,4 @@
-package com.carlettos.game.gameplay.ability.classic;
+package com.carlettos.game.gameplay.ability.demonic;
 
 import java.util.List;
 
@@ -9,18 +9,23 @@ import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Direction;
 
-public class AbilityBishop extends Ability<Direction> {
+public class OgreAbility extends Ability<Direction> {
 
-    public AbilityBishop() {
-        super("bishop", Time.lap(2), 0);
+    public OgreAbility() {
+        super("ogre", Time.lap(4), 0);
     }
 
     @Override
     public void use(AbstractBoard board, Point start, Info info) {
-        var dir = (Direction) info.getValue();
-        board.set(start.add(dir.toPoint()), board.getPiece(start));
-        board.remove(start, false);
-        this.commonUse(board, start);
+        Direction dir = (Direction) info.getValue();
+        Point other = start.add(dir.toPoint());
+        Point place = board.getThrowPoint(start, other);
+        if (place.equals(other)) {
+            return;
+        } else {
+            board.set(place, board.get(other));
+            board.remove(other, false);
+        }
     }
 
     @Override
@@ -30,8 +35,7 @@ public class AbilityBishop extends Ability<Direction> {
 
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Direction info) {
-        var to = start.add(info.toPoint());
-        return board.contains(to) && !board.get(to).hasPiece();
+        return board.get(start.add(info.toPoint())).hasPiece();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.demonic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.starting.Magician;
@@ -16,7 +17,7 @@ public class OniAbility extends Ability<SubDirection> {
             && (b.indexOf(e -> e.getPiece() instanceof Magician && p.getColor().equals(e.getPieceColor())) != -1);
 
     public OniAbility() {
-        super("oni", 7, 1);
+        super("oni", Time.lap(7), 1);
     }
 
     @Override

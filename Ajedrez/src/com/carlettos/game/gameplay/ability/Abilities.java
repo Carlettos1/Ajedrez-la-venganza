@@ -7,12 +7,15 @@ import com.carlettos.game.gameplay.ability.classic.AbilityKnight;
 import com.carlettos.game.gameplay.ability.classic.AbilityPawn;
 import com.carlettos.game.gameplay.ability.classic.AbilityQueen;
 import com.carlettos.game.gameplay.ability.classic.AbilityRook;
-import com.carlettos.game.gameplay.ability.demonic.PortalAbility;
+import com.carlettos.game.gameplay.ability.demonic.BasiliskAbility;
 import com.carlettos.game.gameplay.ability.demonic.ImpAbility;
 import com.carlettos.game.gameplay.ability.demonic.ImpAbility.ImpAbilityType;
 import com.carlettos.game.gameplay.ability.demonic.MandragoraAbility;
 import com.carlettos.game.gameplay.ability.demonic.MermaidAbility;
+import com.carlettos.game.gameplay.ability.demonic.NecromancerAbility;
+import com.carlettos.game.gameplay.ability.demonic.OgreAbility;
 import com.carlettos.game.gameplay.ability.demonic.OniAbility;
+import com.carlettos.game.gameplay.ability.demonic.PortalAbility;
 import com.carlettos.game.gameplay.ability.demonic.SpiderAbility;
 import com.carlettos.game.gameplay.ability.demonic.SuccubusAbility;
 import com.carlettos.game.gameplay.ability.demonic.WitchAbility;
@@ -66,4 +69,7 @@ public final class Abilities {
     public static final Ability<SubDirection> SPIDER_ABILITY = new SpiderAbility();
     public static final Ability<Point> SUCCUBUS_ABILITY = new SuccubusAbility();
     public static final Ability<NoInfo> WITCH_ABILITY = new WitchAbility();
+    public static final Ability<NoInfo> BASILISK_ABILITY = new BasiliskAbility();
+    public static final Ability<Direction> OGRE_ABILITY = new OgreAbility();
+    public static final Ability<Point> NECROMANCER_ABILIY = new NecromancerAbility();
 }

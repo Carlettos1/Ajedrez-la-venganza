@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.pattern.Pattern;
+import com.carlettos.game.gameplay.pattern.Patterns;
 import com.carlettos.game.gameplay.piece.Piece;
 import com.carlettos.game.util.Point;
 
@@ -163,4 +164,26 @@ public interface IBaseBoard extends List<Escaque> {
      * @return the shape of the board
      */
     Shape getShape();
+
+    /**
+     * Gets the throw place of a piece in the original point being throwed by a
+     * piece in the thrower point.
+     *
+     * @param thrower  thrower piece position
+     * @param original original piece position
+     *
+     * @return the throw position of the original piece
+     */
+    default Point getThrowPoint(Point thrower, Point original) {
+        List<Escaque> closest = this.getAll(Patterns.KING_PATTERN, original);
+        closest.remove(this.get(thrower));
+        closest.remove(this.get(original));
+        closest.sort(
+                (o1, o2) -> Double.compare(o2.getPos().getDistanceTo(thrower), o1.getPos().getDistanceTo(thrower)));
+        // closest is orderer from farthest to closest from the thrower
+        for (Escaque e : closest) {
+            if (!e.hasPiece()) { return e.getPos(); }
+        }
+        return original;
+    }
 }

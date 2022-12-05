@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.board.clock.event.Event;
 import com.carlettos.game.board.clock.event.EventInfo;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
@@ -14,7 +15,7 @@ public class AbilityTeslaTower extends AbilityNoInfo {
     protected static final int EFFECT_DURATION = 6;
 
     public AbilityTeslaTower() {
-        super("tesla_tower", 20, 1);
+        super("tesla_tower", Time.lap(10), 1);
     }
 
     @Override

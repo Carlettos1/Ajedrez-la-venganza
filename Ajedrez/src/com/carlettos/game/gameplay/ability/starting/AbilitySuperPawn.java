@@ -1,13 +1,14 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.piece.type.IPieceType;
 import com.carlettos.game.util.Point;
 
 public class AbilitySuperPawn extends AbilityNoInfo {
     public AbilitySuperPawn() {
-        super("super_pawn", 10, 0);
+        super("super_pawn", Time.lap(10), 0);
     }
 
     @Override

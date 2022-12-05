@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
@@ -16,7 +17,7 @@ public class AbilityCatapult extends Ability<Tuple<Direction, SubDirection>> {
     public static final int RANGE = 6;
 
     public AbilityCatapult() {
-        super("catapult", 5, 0);
+        super("catapult", Time.lap(5), 0);
     }
 
     @Override

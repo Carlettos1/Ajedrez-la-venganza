@@ -1,6 +1,7 @@
 package com.carlettos.game.gameplay.ability.starting;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.AbilityNoInfo;
 import com.carlettos.game.gameplay.pattern.Pattern;
 import com.carlettos.game.gameplay.pattern.Patterns;
@@ -11,7 +12,7 @@ public class AbilityWarlock extends AbilityNoInfo {
     public static final Pattern PATTERN = Patterns.KING_PATTERN;
 
     public AbilityWarlock() {
-        super("warlock", 10, 3);
+        super("warlock", Time.lap(5), 3);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.classic;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.gameplay.piece.classic.King;
@@ -12,7 +13,7 @@ public class AbilityKing extends Ability<Point> {
     public static final double TP_RANGE = 5.0D;
 
     public AbilityKing() {
-        super("king", 0, 2);
+        super("king", Time.ZERO, 2);
     }
 
     @Override

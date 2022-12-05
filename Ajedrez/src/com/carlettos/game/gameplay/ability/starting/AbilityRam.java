@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.ability.starting;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.Info;
 import com.carlettos.game.util.Point;
@@ -12,7 +13,7 @@ public class AbilityRam extends Ability<Direction> {
     public static final int COST_PER_CHARGE = 5;
 
     public AbilityRam() {
-        super("ram", 4, 0);
+        super("ram", Time.lap(4), 0);
     }
 
     @Override

@@ -72,5 +72,6 @@ public class Patterns {
     public static final MermaidPattern MERMAID_PATTERN = new MermaidPattern();
     public static final OniPattern ONI_PATTERN = new OniPattern();
     public static final WitchPattern WITCH_PATTERN = new WitchPattern();
-    public static final PatternRange GARGOYLE_PATTERN = new PatternRange(5); //TODO: cambiar por un pattern en linea recta
+    public static final PatternRange GARGOYLE_PATTERN = new PatternRange(5); // TODO: cambiar por un pattern en linea
+                                                                             // recta
 }

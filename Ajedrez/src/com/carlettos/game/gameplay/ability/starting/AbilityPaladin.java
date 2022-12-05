@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
 import com.carlettos.game.gameplay.ability.Ability;
 import com.carlettos.game.gameplay.ability.IInfo;
 import com.carlettos.game.gameplay.ability.Info;
@@ -24,7 +25,7 @@ public class AbilityPaladin extends Ability<Tuple<AbilityPaladin.PaladinHability
     static {}
 
     public AbilityPaladin() {
-        super("paladin", 8, 2);
+        super("paladin", Time.lap(8), 2);
     }
 
     @Override

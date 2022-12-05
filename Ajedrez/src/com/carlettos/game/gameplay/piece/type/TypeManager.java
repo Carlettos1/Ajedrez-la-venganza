@@ -39,6 +39,10 @@ public class TypeManager {
         return this.isType(IPieceType.TRANSPORTABLE);
     }
 
+    public boolean isDoubleTake() {
+        return this.isType(IPieceType.TOUGH);
+    }
+
     public boolean isType(IPieceType type) {
         return this.types.contains(type);
     }

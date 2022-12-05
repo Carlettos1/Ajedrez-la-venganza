@@ -22,8 +22,8 @@ public class EffectManager {
      */
     public void tick(AbstractBoard board, Point pos) {
         effects.forEach(Effect::tick);
-        effects.forEach(effect -> effect.onTick(board, pos, this.piece));
-        effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, pos, this.piece));
+        effects.forEach(effect -> effect.onTick(board, pos));
+        effects.stream().filter(Effect::isExpired).forEach(effect -> effect.onExpire(board, pos));
         effects.removeIf(Effect::isExpired);
     }
 
@@ -48,17 +48,31 @@ public class EffectManager {
         return effects;
     }
 
-    public boolean canBe(Action action, AbstractBoard board, Point start) {
+    public boolean can(Action action, AbstractBoard board, Point piecePos) {
         boolean combined = true;
         for (Effect effect : effects) {
-            combined &= (effect.canBe(action, board, start, piece));
+            combined &= (effect.can(action, board, piecePos));
         }
         return combined;
     }
 
-    public void onBe(Action action, AbstractBoard board, Point start) {
+    public void on(Action action, AbstractBoard board, Point piecePos) {
         for (Effect effect : effects) {
-            effect.onBe(action, board, start, piece);
+            effect.on(action, board, piecePos);
+        }
+    }
+
+    public boolean canBe(Action action, AbstractBoard board, Point piecePos) {
+        boolean combined = true;
+        for (Effect effect : effects) {
+            combined &= (effect.canBe(action, board, piecePos));
+        }
+        return combined;
+    }
+
+    public void onBe(Action action, AbstractBoard board, Point piecePos) {
+        for (Effect effect : effects) {
+            effect.onBe(action, board, piecePos);
         }
     }
 }

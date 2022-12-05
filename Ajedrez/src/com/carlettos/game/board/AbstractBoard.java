@@ -26,7 +26,6 @@ import com.carlettos.game.util.enums.Action;
 import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.enums.Direction;
 import com.carlettos.game.util.helper.LogHelper;
-import com.carlettos.game.util.helper.TypeHelper;
 
 public abstract class AbstractBoard extends AbstractList<Escaque> implements IClockUse, IBaseBoard {
 
@@ -178,7 +177,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
 
     @Override
     public boolean remove(Piece p, boolean death) {
-        return this.remove(t -> t.getPiece().equals(p), death);
+        return this.remove(t -> t.getPiece() == p, death);
     }
 
     @Override
@@ -195,6 +194,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     @Override
     public Escaque simpleRemove(int index, boolean death) {
         if (death) {
+            this.get(index).getPiece().onDeath(this);
             this.addToDeathPile(this.get(index).getPiece());
         }
         this.get(index).removePiece();
@@ -399,7 +399,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
      * <p>
      * If all the conditions above are satisfied, then makes the action. After the
      * action is done, excecutes
-     * {@link Piece#postAction(Action, AbstractSquareBoard, Point, Info)} and
+     * {@link Piece#onAction(Action, AbstractSquareBoard, Point, Info)} and
      * {@link EffectManager#onBe(Action, AbstractSquareBoard, Point)}. If the clock
      * is not bypassed, also excecutes {@link #movement()}
      *
@@ -418,39 +418,18 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
 
         if (action.needsInfoPoint() && !info.isType(Point.class)) {
             LogHelper.LOG.severe("Info needs to be info Point for " + action + ", and it's: " + info.getValue()
-                    + info.getValue().getClass());
+                    + " of class" + info.getValue().getClass());
             return false;
         }
-        boolean can = this.canPiece(action, piece, pos, info);
+        boolean can = piece.canAction(action, this, pos, info);
         if (can) {
-            switch (action) {
-                case ATTACK -> this.remove((Point) info.getValue(), true);
-                case MOVE -> {
-                    this.set((Point) info.getValue(), piece);
-                    this.remove(pos, false);
-                }
-                case TAKE -> {
-                    this.set((Point) info.getValue(), piece);
-                    this.remove(pos, true);
-                }
-                case ABILITY -> piece.getAbility().use(this, pos, info);
-                default -> throw new IllegalArgumentException("Action not expected " + action);
-            }
-            piece.postAction(action, this, pos, info);
-            // TODO: change the onBe to be used by the other piece
-            getPiece(pos).getEffectManager().onBe(action, this, pos);
+            piece.onAction(action, this, pos, info);
+            action.actuate(this, pos, info);
             if (!bypass) {
                 this.movement();
             }
         }
         return can;
-    }
-
-    public boolean canPiece(Action action, Piece piece, Point pos, Info info) {
-        // TODO: change the canBe to be used by the other piece
-        // TODO: maybe move to piece the usage of TypeHelper
-        return piece.can(action, this, pos, info) && (TypeHelper.checkIfTypesCan(action, this, pos, info))
-                && (getPiece(pos).getEffectManager().canBe(action, this, pos));
     }
 
     /**
