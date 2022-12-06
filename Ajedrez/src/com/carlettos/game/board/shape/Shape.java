@@ -72,6 +72,15 @@ public abstract class Shape {
     public boolean contains(Point point) {
         return this.form.contains(point);
     }
+    
+    public boolean contains(Shape other) {
+        for (Point point : other.pointsInside) {
+            if (!this.contains(point)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public int hashCode() {

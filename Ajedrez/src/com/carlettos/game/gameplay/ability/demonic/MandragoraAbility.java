@@ -19,11 +19,11 @@ public class MandragoraAbility extends NoInfoAbility {
 
     @Override
     public void use(AbstractBoard board, Point start) {
-        var currentPlayer = board.getClock().turnOf();
+        var currentPlayer = board.getClock().getCurrentlyPlaying();
         board.getClock().addEvents(
-                Event.create(EventInfo.of(board, 1, this.data.getName()), () -> currentPlayer.changeMana(1)));
+                Event.create(EventInfo.of(board, Time.A_TURN, this.data.getName()), () -> currentPlayer.changeMana(1)));
         board.getClock().addEvents(
-                Event.create(EventInfo.of(board, 2, this.data.getName()), () -> currentPlayer.changeMana(1)));
+                Event.create(EventInfo.of(board, Time.turn(2), this.data.getName()), () -> currentPlayer.changeMana(1)));
         this.commonUse(board, start);
     }
 }

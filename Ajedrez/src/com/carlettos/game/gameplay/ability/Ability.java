@@ -67,7 +67,7 @@ public abstract class Ability<T extends IInfo> {
      */
     public final boolean commonCanUse(AbstractBoard board, Piece piece) {
         boolean nomana = piece.getCD().isZero() && !piece.isMoved();
-        return nomana && board.getClock().turnOf().getMana() >= this.data.manaCost();
+        return nomana && board.getClock().getCurrentlyPlaying().getMana() >= this.data.manaCost();
     }
 
     public abstract boolean checkTypes(Info info);
@@ -88,7 +88,7 @@ public abstract class Ability<T extends IInfo> {
     public final void commonUse(AbstractBoard board, Point start) {
         board.getPiece(start).setIsMoved(true);
         board.getPiece(start).removeCD(this.data.cooldown());
-        board.getClock().turnOf().changeMana(-this.data.manaCost());
+        board.getClock().getCurrentlyPlaying().changeMana(-this.data.manaCost());
     }
 
     /**

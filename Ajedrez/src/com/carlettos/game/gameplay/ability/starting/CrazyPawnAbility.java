@@ -15,9 +15,9 @@ public class CrazyPawnAbility extends NoInfoAbility {
 
     @Override
     public void use(AbstractBoard board, Point start) {
-        final Player player = board.getClock().turnOf();
+        final Player player = board.getClock().getCurrentlyPlaying();
         board.remove(start, false);
-        board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.data.getName()), () -> {
+        board.getClock().addEvent(Event.create(EventInfo.of(board, this.data.getName()), () -> {
             player.takeCards(board.getClock(), 2);
         }));
 

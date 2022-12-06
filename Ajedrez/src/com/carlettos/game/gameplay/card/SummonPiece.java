@@ -33,7 +33,7 @@ public class SummonPiece<P extends Piece> extends Card {
 
     @Override
     public void use(Point point, SquareBoard board, Player caster) {
-        board.getClock().addEvent(Event.create(EventInfo.of(board, 1, this.data.getName(), point),
+        board.getClock().addEvent(Event.create(EventInfo.of(board, this.data.getName(), point),
                 () -> board.set(point, builder.apply(caster.getColor()))));
         this.commonUse(point, board, caster);
     }

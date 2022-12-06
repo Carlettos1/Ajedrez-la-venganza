@@ -3,6 +3,7 @@ package com.carlettos.game.display.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.carlettos.game.board.clock.TimeSpan;
 import com.carlettos.game.display.board.BoardDisplay;
 
 /**
@@ -21,7 +22,7 @@ public class ClickTurnButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         var board = BoardDisplay.getInstance();
-        board.getClockDisplay().getClock().tick();
+        board.getBoard().tick(TimeSpan.TURN);
         board.offAll();
         board.repaint();
     }

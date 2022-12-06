@@ -10,6 +10,13 @@ import java.util.EventListener;
 public interface ClockListener extends EventListener {
 
     /**
+     * It excecutes at the end of every lap.
+     *
+     * @param e clock event.
+     */
+    void lapEnded(ClockEvent e);
+
+    /**
      * It excecutes at the end of every turn.
      *
      * @param e clock event.

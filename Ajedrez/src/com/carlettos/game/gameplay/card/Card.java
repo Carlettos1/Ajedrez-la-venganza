@@ -3,6 +3,7 @@ package com.carlettos.game.gameplay.card;
 import java.util.Objects;
 
 import com.carlettos.game.board.SquareBoard;
+import com.carlettos.game.board.clock.TimeSpan;
 import com.carlettos.game.gameplay.player.Player;
 import com.carlettos.game.util.Point;
 
@@ -59,7 +60,7 @@ public abstract class Card {
      */
     public boolean commonCanUse(Point point, SquareBoard board, Player caster) {
         if (caster.getMana() < this.data.manaCost()) { return false; }
-        if (board.getClock().turnOf().getHand().hasCard(this) && board.getClock().turnOf().equals(caster)) {
+        if (board.getClock().getCurrentlyPlaying().getHand().hasCard(this) && board.getClock().getCurrentlyPlaying().equals(caster)) {
             return true;
         }
         return false;
@@ -76,7 +77,7 @@ public abstract class Card {
     public void commonUse(Point point, SquareBoard board, Player caster) {
         caster.getHand().removeCard(this);
         caster.changeMana(-data.manaCost());
-        board.movement();
+        board.tick();
     }
 
     public CardData getData() {

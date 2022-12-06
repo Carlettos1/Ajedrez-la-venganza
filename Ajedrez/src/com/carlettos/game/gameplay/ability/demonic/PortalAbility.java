@@ -25,21 +25,21 @@ import com.carlettos.game.util.Point;
 import com.carlettos.game.util.enums.Color;
 
 public class PortalAbility extends Ability<Piece> {
-    public static final LinkedHashMap<Piece, Integer> POSSIBLE_INVOCATIONS = new LinkedHashMap<>();
+    public static final LinkedHashMap<Piece, Time> POSSIBLE_INVOCATIONS = new LinkedHashMap<>();
     static {
-        POSSIBLE_INVOCATIONS.put(new Basilisk(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Dragon(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Gargoyle(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Golem(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Imp(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Mandragora(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Mermaid(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Necromancer(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Ogre(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Oni(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Spider(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Succubus(Color.GRAY), 10);
-        POSSIBLE_INVOCATIONS.put(new Witch(Color.GRAY), 10);
+        POSSIBLE_INVOCATIONS.put(new Basilisk(Color.GRAY), Time.movement(20));
+        POSSIBLE_INVOCATIONS.put(new Dragon(Color.GRAY), Time.lap(10));
+        POSSIBLE_INVOCATIONS.put(new Gargoyle(Color.GRAY), Time.movement(10));
+        POSSIBLE_INVOCATIONS.put(new Golem(Color.GRAY), Time.lap(2));
+        POSSIBLE_INVOCATIONS.put(new Imp(Color.GRAY), Time.turn(8));
+        POSSIBLE_INVOCATIONS.put(new Mandragora(Color.GRAY), Time.lap(3));
+        POSSIBLE_INVOCATIONS.put(new Mermaid(Color.GRAY), Time.movement(20));
+        POSSIBLE_INVOCATIONS.put(new Necromancer(Color.GRAY), Time.lap(5));
+        POSSIBLE_INVOCATIONS.put(new Ogre(Color.GRAY), Time.lap(2));
+        POSSIBLE_INVOCATIONS.put(new Oni(Color.GRAY), Time.turn(1));
+        POSSIBLE_INVOCATIONS.put(new Spider(Color.GRAY), Time.turn(6));
+        POSSIBLE_INVOCATIONS.put(new Succubus(Color.GRAY), Time.lap(3));
+        POSSIBLE_INVOCATIONS.put(new Witch(Color.GRAY), Time.movement(25));
     }
 
     public PortalAbility() {
@@ -48,25 +48,23 @@ public class PortalAbility extends Ability<Piece> {
 
     @Override
     public void use(AbstractBoard board, Point start, Info info) {
-        // TODO Auto-generated method stub
-
+        board.getPiece(start).setIsMoved(true);
+        board.getPiece(start).removeCD(POSSIBLE_INVOCATIONS.get(info.getValue()));
+        board.getClock().addEvent(null);
     }
 
     @Override
     public boolean checkTypes(Info info) {
-        // TODO Auto-generated method stub
-        return false;
+        return info.isType(Piece.class);
     }
 
     @Override
     public List<Piece> getInfos(AbstractBoard board) {
-        // TODO Auto-generated method stub
-        return null;
+        return POSSIBLE_INVOCATIONS.keySet().stream().toList();
     }
 
     @Override
     public boolean reducedCanUse(AbstractBoard board, Point start, Piece info) {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 }

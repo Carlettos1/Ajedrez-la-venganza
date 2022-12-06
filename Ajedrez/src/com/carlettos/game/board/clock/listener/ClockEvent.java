@@ -21,7 +21,7 @@ public class ClockEvent extends EventObject {
      */
     public ClockEvent(AbstractClock source) {
         super(source);
-        this.color = source.turnOf().getColor();
+        this.color = source.getCurrentlyPlaying().getColor();
     }
 
     public Color getColor() {

@@ -61,7 +61,7 @@ public final class Abilities {
     public static final Ability<NoInfo> TESLA_TOWER_ABILITY = new TeslaTowerAbility();
     public static final Ability<NoInfo> WARLOCK_ABILITY = new WarlockAbility();
 
-    public static final Ability PORTAL_ABILITY = new PortalAbility();
+    public static final Ability<Piece> PORTAL_ABILITY = new PortalAbility();
     public static final Ability<ImpAbilityType> IMP_ABILITY = new ImpAbility();
     public static final Ability<NoInfo> MANDRAGORA_ABILITY = new MandragoraAbility();
     public static final Ability<NoInfo> MERMAID_ABILITY = new MermaidAbility();

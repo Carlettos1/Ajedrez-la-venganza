@@ -21,7 +21,7 @@ public class TeslaTowerAbility extends NoInfoAbility {
     @Override
     public void use(AbstractBoard board, Point start) {
         board.getClock()
-                .addEvent(Event.create(EventInfo.of(board, 2, this.data.getName(), start),
+                .addEvent(Event.create(EventInfo.of(board, Time.turn(2), this.data.getName(), start),
                         () -> board.getAll(ABILITY_PATTERN, start).stream()
                                 .filter(escaque -> escaque.getPiece().getTypeManager().isStructure())
                                 .filter(escaque -> !escaque.getPieceColor().equals(board.getPiece(start).getColor()))

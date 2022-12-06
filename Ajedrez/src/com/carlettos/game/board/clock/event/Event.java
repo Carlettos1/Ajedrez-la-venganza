@@ -3,6 +3,7 @@ package com.carlettos.game.board.clock.event;
 import java.util.Objects;
 
 import com.carlettos.game.board.clock.AbstractClock;
+import com.carlettos.game.board.clock.TimeSpan;
 import com.carlettos.game.util.function.Action;
 
 /**
@@ -12,7 +13,7 @@ import com.carlettos.game.util.function.Action;
  *
  * @see AbstractClock
  */
-public abstract class Event implements Comparable<Event> {
+public abstract class Event {
 
     public final EventInfo info;
 
@@ -30,22 +31,17 @@ public abstract class Event implements Comparable<Event> {
      */
     public abstract void act();
 
-    public void tick() {
-        this.info.tick();
+    public void tick(TimeSpan span) {
+        this.info.tick(span);
     }
 
     public boolean canExecute() {
-        return this.info.getTurns() <= 0;
+        return this.info.getTime().isZero();
     }
 
     @Override
     public String toString() {
-        return "Evento{" + "turns=" + info.turns + ", name=" + info.name + ", point=" + info.point + '}';
-    }
-
-    @Override
-    public int compareTo(Event other) {
-        return Integer.compare(this.info.turns, other.info.turns);
+        return "Evento{" + "time=" + info.time + ", name=" + info.name + ", point=" + info.point + '}';
     }
 
     @Override

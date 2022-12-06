@@ -26,7 +26,7 @@ public class ImpAbility extends Ability<ImpAbility.ImpAbilityType> {
         switch ((ImpAbilityType) info.getValue()) {
             case IMMUNITY -> board.getAll(IMMUNITY_PATTERN, start)
                     .forEach(e -> e.getPiece().getTypeManager().addType(IPieceType.IMMUNE));
-            case TAKE_CARD -> board.getClock().takeFromCentralDeck(board.getClock().turnOf());
+            case TAKE_CARD -> board.getClock().takeFromCentralDeck(board.getClock().getCurrentlyPlaying());
         }
         this.commonUse(board, start);
     }

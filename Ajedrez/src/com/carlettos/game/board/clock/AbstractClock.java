@@ -23,14 +23,28 @@ import com.carlettos.game.util.helper.LogHelper;
  */
 public abstract class AbstractClock
         implements IPlayerDeckManager, ICentralDeckManager, IEventManager, ICardOnBoardManager, IClockListenerManager {
-    protected int turn;
+    
+    /**
+     * It is from 0 to infinity.
+     */
+    protected int laps;
+    
+    /**
+     * It should be from 0 to {@link #getPlayers()} lenght
+     */
+    protected int turns;
+    
+    /**
+     * It should be from 0 to {@link Player#getMaxMovements()}
+     */
     protected int movements;
     protected final Player[] players;
     protected final PlayerDeck[] playerDecks;
     protected final Random RNG;
 
     public AbstractClock(Player... players) {
-        this.turn = 1;
+        this.laps = 0;
+        this.turns = 0;
         this.movements = 0;
         this.players = players;
         this.RNG = new Random();
@@ -39,21 +53,32 @@ public abstract class AbstractClock
             this.playerDecks[i] = new PlayerDeck(this.players[i]);
         }
     }
-
-    /**
-     * It has to execute everytime that a player makes a movement.
-     */
-    public void movement() {
-        movements += 1;
-    }
-
-    /**
-     * Ends the turn and fire up events.
-     */
+    
     public synchronized void tick() {
-        LogHelper.LOG.fine("Ending turn: " + getTurn());
-        turn++;
-        movements = 0;
+        this.tick(TimeSpan.MOVEMENT);
+    }
+    
+    public synchronized void tick(TimeSpan span) {
+        switch (span) {
+            case MOVEMENT -> {
+                movements++;
+                if (this.movements == this.getCurrentlyPlaying().getMaxMovements()) {
+                    this.tick(TimeSpan.TURN);
+                }
+            }
+            case TURN -> {
+                turns++;
+                movements = 0;
+                if (this.turns == this.players.length) {
+                    this.tick(TimeSpan.LAP);
+                }
+            }
+            case LAP -> {
+                laps++;
+                turns = 0;
+                movements = 0;
+            }
+        }
     }
 
     @Override
@@ -114,7 +139,7 @@ public abstract class AbstractClock
      * @return true if it can, false either case.
      */
     public boolean canPlay(Player player) {
-        return turnOf().equals(player) && player.getMaxMovements() > movements;
+        return getCurrentlyPlaying().equals(player) && player.getMaxMovements() > movements;
     }
 
     /**
@@ -122,15 +147,15 @@ public abstract class AbstractClock
      *
      * @return player playing.
      */
-    public final Player turnOf() {
-        return players[(turn - 1) % players.length];
+    public final Player getCurrentlyPlaying() {
+        return players[turns % players.length];
     }
 
     /**
      * Returns the turn that is being currently playing.
      */
     public final int getTurn() {
-        return turn;
+        return turns;
     }
 
     /**
@@ -138,5 +163,12 @@ public abstract class AbstractClock
      */
     public final int getMovements() {
         return movements;
+    }
+    
+    /**
+     * Returns the lap that is currently playing.
+     */
+    public int getLaps() {
+        return laps;
     }
 }

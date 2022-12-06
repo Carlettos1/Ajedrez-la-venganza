@@ -45,7 +45,7 @@ public class RookAbility extends Ability<Direction> {
             escaque.getPiece().onAction(Action.ABILITY, board, start, info);
             escaque.getPiece().removeCD(this.data.cooldown());
         }
-        board.getClock().turnOf().changeMana(-this.data.manaCost());
+        board.getClock().getCurrentlyPlaying().changeMana(-this.data.manaCost());
     }
 
     protected void throwRooks(List<Escaque> rooks, AbstractBoard board, Direction dir) {

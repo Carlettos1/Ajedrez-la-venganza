@@ -16,7 +16,7 @@ public interface IEventManager {
     /**
      * Adds the event into the list of this clock.
      *
-     * @param event event to add.
+     * @param event {@link Event} to add.
      */
     public abstract void addEvent(Event event);
 

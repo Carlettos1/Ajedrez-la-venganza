@@ -12,6 +12,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.carlettos.game.board.clock.AbstractClock;
+import com.carlettos.game.board.clock.TimeSpan;
+import com.carlettos.game.board.clock.listener.ClockEvent;
+import com.carlettos.game.board.clock.listener.TurnListener;
 import com.carlettos.game.board.deathPile.IDeathPile;
 import com.carlettos.game.board.shape.Shape;
 import com.carlettos.game.gameplay.ability.Ability;
@@ -59,6 +62,13 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
         for (int i = 0; i < shape.area(); i++) {
             this.chessBoard[i] = new Escaque(shape.getAllPointsInside()[i]);
         }
+        this.clock.addClockListener(new TurnListener() {
+            
+            @Override
+            public void turnEnded(ClockEvent event) {
+                AbstractBoard.this.stream().forEach(e -> e.getPiece().tick(AbstractBoard.this, e.getPos()));
+            }
+        });
     }
 
     @Override
@@ -351,11 +361,10 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
     public AbstractClock getClock() {
         return this.clock;
     }
-
+    
     @Override
-    public void tick() {
-        this.stream().forEach(e -> e.getPiece().tick(this, e.getPos()));
-        this.getClock().tick();
+    public void tick(TimeSpan span) {
+        this.getClock().tick(span);
     }
 
     /**
@@ -426,7 +435,7 @@ public abstract class AbstractBoard extends AbstractList<Escaque> implements ICl
             piece.onAction(action, this, pos, info);
             action.actuate(this, pos, info);
             if (!bypass) {
-                this.movement();
+                this.tick();
             }
         }
         return can;

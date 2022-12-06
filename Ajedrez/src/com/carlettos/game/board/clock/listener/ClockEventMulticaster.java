@@ -12,9 +12,15 @@ public class ClockEventMulticaster implements ClockListener {
     }
 
     @Override
+    public void lapEnded(ClockEvent e) {
+        ((ClockListener) a).lapEnded(e);
+        ((ClockListener) b).lapEnded(e);
+    }
+
+    @Override
     public void turnEnded(ClockEvent e) {
-        ((ClockListener) a).movementEnded(e);
-        ((ClockListener) b).movementEnded(e);
+        ((ClockListener) a).turnEnded(e);
+        ((ClockListener) b).turnEnded(e);
     }
 
     @Override

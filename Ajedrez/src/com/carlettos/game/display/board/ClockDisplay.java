@@ -79,18 +79,18 @@ public class ClockDisplay extends JPanel {
     public void updateTexts() {
         eventsOrder = new StringBuilder("<html>Evento(s) más próximos: <br/>");
         List<Event> events = clock.getOrderedEvents();
-        for (Event event : (events.stream().filter(e -> e.info.getTurns() == events.get(0).info.getTurns())
+        for (Event event : (events.stream().filter(e -> e.info.getTime().getTotalMovements(clock) == events.get(0).info.getTime().getTotalMovements(clock))
                 .toArray(Event[]::new))) {
             eventsOrder.append(event).append("<br/>");
         }
         eventsOrder.append("</html>");
 
         turn = new StringBuilder("Es el turno del jugador ");
-        turn.append(clock.turnOf().getColor()).append("(Movs: ")
-                .append(clock.turnOf().getMaxMovements() - clock.getMovements()).append("/")
-                .append(clock.turnOf().getMaxMovements()).append(").");
+        turn.append(clock.getCurrentlyPlaying().getColor()).append("(Movs: ")
+                .append(clock.getCurrentlyPlaying().getMaxMovements() - clock.getMovements()).append("/")
+                .append(clock.getCurrentlyPlaying().getMaxMovements()).append(").");
 
-        manaStr = ConfigHelper.getManaSymbol().repeat(clock.turnOf().getMana());
+        manaStr = ConfigHelper.getManaSymbol().repeat(clock.getCurrentlyPlaying().getMana());
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ClockDisplay extends JPanel {
         eventsLabel.setText(eventsOrder.toString());
         turnLabel.setText(turn.toString());
         manaLabel.setText(manaStr);
-        manaLabel.setToolTipText("Mana: " + clock.turnOf().getMana());
+        manaLabel.setToolTipText("Mana: " + clock.getCurrentlyPlaying().getMana());
     }
 
     public AbstractClock getClock() {

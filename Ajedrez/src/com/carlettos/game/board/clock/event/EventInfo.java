@@ -3,6 +3,8 @@ package com.carlettos.game.board.clock.event;
 import java.util.Objects;
 
 import com.carlettos.game.board.AbstractBoard;
+import com.carlettos.game.board.clock.Time;
+import com.carlettos.game.board.clock.TimeSpan;
 import com.carlettos.game.util.Point;
 import com.carlettos.game.util.resource.TranslateResource;
 
@@ -13,7 +15,7 @@ import com.carlettos.game.util.resource.TranslateResource;
  */
 public class EventInfo {
     public static final TranslateResource GENERIC_EVENT = new TranslateResource("generic_event.name");
-    protected int turns;
+    protected Time time;
     protected final String name;
     protected Point point;
     protected final AbstractBoard board;
@@ -26,11 +28,11 @@ public class EventInfo {
      * @param point point of refference.
      * @param board board in which will happen.
      */
-    public EventInfo(int turns, String name, Point point, AbstractBoard board) {
-        if (turns <= 0) {
-            throw new IllegalArgumentException("La cantidad de turnos de un evento no puede ser 0 o negativa");
+    public EventInfo(Time time, String name, Point point, AbstractBoard board) {
+        if (time.isZero()) {
+            throw new IllegalArgumentException("The time of an event can't be zero");
         }
-        this.turns = turns;
+        this.time = time;
         this.name = name;
         this.board = board;
         this.point = point;
@@ -38,7 +40,7 @@ public class EventInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, turns);
+        return (7 * name.hashCode() + point.hashCode() << 15) * 7;
     }
 
     @Override
@@ -48,18 +50,25 @@ public class EventInfo {
         if ((obj == null) || (getClass() != obj.getClass()))
             return false;
         EventInfo other = (EventInfo) obj;
-        return Objects.equals(name, other.name) && turns == other.turns;
+        return Objects.equals(name, other.name) && time.equals(other.time);
     }
 
     /**
-     * Reduces the turns by 1.
+     * Reduces the given {@link TimeSpan} by 1 unit.
+     * 
+     * @param spam unit of time to reduce
+     * @see TimeSpan
      */
-    public void tick() {
-        this.turns--;
+    public void tick(TimeSpan span) {
+        switch (span) {
+            case LAP -> this.time.substract(Time.lap(1));
+            case TURN -> this.time.substract(Time.turn(1));
+            case MOVEMENT -> this.time.substract(Time.movement(1));
+        }
     }
 
-    public int getTurns() {
-        return turns;
+    public Time getTime() {
+        return time;
     }
 
     public String getName() {
@@ -74,35 +83,35 @@ public class EventInfo {
         return board;
     }
 
-    public static EventInfo of(AbstractBoard board, int turns, String name, Point point) {
-        return new EventInfo(turns, name, point, board);
+    public static EventInfo of(AbstractBoard board, Time time, String name, Point point) {
+        return new EventInfo(time, name, point, board);
     }
 
-    public static EventInfo of(AbstractBoard board, int turns, String name) {
-        return of(board, turns, name, new Point(0, 0));
+    public static EventInfo of(AbstractBoard board, Time time, String name) {
+        return of(board, time, name, new Point(0, 0));
     }
 
-    public static EventInfo of(AbstractBoard board, int turns, Point point) {
-        return of(board, turns, GENERIC_EVENT.getTranslated(), point);
+    public static EventInfo of(AbstractBoard board, Time time, Point point) {
+        return of(board, time, GENERIC_EVENT.getTranslated(), point);
     }
 
     public static EventInfo of(AbstractBoard board, String name, Point point) {
-        return of(board, 1, name, point);
+        return of(board, Time.A_TURN, name, point);
     }
 
-    public static EventInfo of(AbstractBoard board, int turns) {
-        return of(board, turns, GENERIC_EVENT.getTranslated(), new Point(0, 0));
+    public static EventInfo of(AbstractBoard board, Time time) {
+        return of(board, time, GENERIC_EVENT.getTranslated(), new Point(0, 0));
     }
 
     public static EventInfo of(AbstractBoard board, String name) {
-        return of(board, 1, name, new Point(0, 0));
+        return of(board, Time.A_TURN, name, new Point(0, 0));
     }
 
     public static EventInfo of(AbstractBoard board, Point point) {
-        return of(board, 1, GENERIC_EVENT.getTranslated(), point);
+        return of(board, Time.A_TURN, GENERIC_EVENT.getTranslated(), point);
     }
 
     public static EventInfo of(AbstractBoard board) {
-        return of(board, 1, GENERIC_EVENT.getTranslated(), new Point(0, 0));
+        return of(board, Time.A_TURN, GENERIC_EVENT.getTranslated(), new Point(0, 0));
     }
 }
