@@ -19,8 +19,8 @@ import com.carlettos.game.gameplay.piece.classic.Knight;
 import com.carlettos.game.gameplay.piece.classic.Pawn;
 import com.carlettos.game.gameplay.piece.classic.Queen;
 import com.carlettos.game.gameplay.piece.classic.Rook;
-import com.carlettos.game.gameplay.piece.demonic.Golem;
 import com.carlettos.game.gameplay.piece.demonic.Necromancer;
+import com.carlettos.game.gameplay.piece.demonic.Spider;
 import com.carlettos.game.gameplay.piece.starting.Archer;
 import com.carlettos.game.gameplay.piece.starting.Ballista;
 import com.carlettos.game.gameplay.piece.starting.Builder;
@@ -91,7 +91,7 @@ public class SquareBoard extends AbstractBoard {
         blackDeck.shuffle();
 
         board.set(new Point(7, 7), new Necromancer(Color.BLACK));
-        board.set(new Point(8, 7), new Golem(Color.BLACK));
+        board.set(new Point(8, 7), new Spider(Color.BLACK));
 
         white.getHand().addCard(new Ice());
         white.getHand().addCard(new Fire());

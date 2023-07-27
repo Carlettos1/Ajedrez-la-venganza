@@ -2,6 +2,7 @@ package com.carlettos.game.gameplay.ability.classic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.Time;
@@ -31,13 +32,26 @@ import com.carlettos.game.util.enums.Color;
 import com.carlettos.game.util.helper.LogHelper;
 
 public class PawnAbility extends Ability<Piece> {
-    public static final List<Piece> POSSIBLE_PROMOTIONS = new ArrayList<>();
+    public static final PieceList POSSIBLE_PROMOTIONS = new PieceList();
     static {
-        POSSIBLE_PROMOTIONS.addAll(List.of(new Bishop(Color.GRAY), new Knight(Color.GRAY), new Queen(Color.GRAY),
-                new Rook(Color.GRAY), new Archer(Color.GRAY), new Ballista(Color.GRAY), new Builder(Color.GRAY),
-                new Cannon(Color.GRAY), new Catapult(Color.GRAY), new CrazyPawn(Color.GRAY), new Ram(Color.GRAY),
-                new ShieldBearer(Color.GRAY), new Ship(Color.GRAY), new SuperPawn(Color.GRAY),
-                new TeslaTower(Color.GRAY), new Warlock(Color.GRAY), new Spider(Color.GRAY), new Ogre(Color.GRAY)));
+        POSSIBLE_PROMOTIONS.add(Bishop::new)
+        .add(Knight::new)
+        .add(Queen::new)
+        .add(Rook::new)
+        .add(Archer::new)
+        .add(Ballista::new)
+        .add(Builder::new)
+        .add(Cannon::new)
+        .add(Catapult::new)
+        .add(CrazyPawn::new)
+        .add(Ram::new)
+        .add(ShieldBearer::new)
+        .add(Ship::new)
+        .add(SuperPawn::new)
+        .add(TeslaTower::new)
+        .add(Warlock::new)
+        .add(Spider::new)
+        .add(Ogre::new);
     }
 
     public PawnAbility() {
@@ -79,5 +93,17 @@ public class PawnAbility extends Ability<Piece> {
     @Override
     public List<Piece> getInfos(AbstractBoard board) {
         return POSSIBLE_PROMOTIONS;
+    }
+    
+    public static class PieceList extends ArrayList<Piece> {
+        private static final long serialVersionUID = -1584115671494662632L;
+        public PieceList() {
+            super(20);
+        }
+        
+        public PieceList add(Function<Color, Piece> pieceConstructor) {
+            this.add(pieceConstructor.apply(Color.GRAY));
+            return this;
+        }
     }
 }

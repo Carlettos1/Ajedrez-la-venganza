@@ -1,39 +1,30 @@
 package com.carlettos.game.gameplay.ability.demonic;
 
-import java.util.List;
-
 import com.carlettos.game.board.AbstractBoard;
 import com.carlettos.game.board.clock.Time;
-import com.carlettos.game.gameplay.ability.Ability;
-import com.carlettos.game.gameplay.ability.Info;
+import com.carlettos.game.gameplay.ability.NoInfoAbility;
+import com.carlettos.game.gameplay.piece.demonic.SpiderEgg;
 import com.carlettos.game.util.Point;
-import com.carlettos.game.util.enums.Direction.SubDirection;
 
-public class SpiderAbility extends Ability<SubDirection> {
+public class SpiderAbility extends NoInfoAbility {
 
     public SpiderAbility() {
         super("spider", Time.lap(12), 1);
     }
 
     @Override
-    public void use(AbstractBoard board, Point start, Info info) {
-        // TODO Auto-generated method stub
-
+    public boolean reducedCanUse(AbstractBoard board, Point start) {
+        Point p = start.add(0, 1);
+        if (!board.contains(p) || board.get(p).hasPiece()) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean checkTypes(Info info) {
-        return info.isType(SubDirection.class);
-    }
-
-    @Override
-    public boolean reducedCanUse(AbstractBoard board, Point start, SubDirection info) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<SubDirection> getInfos(AbstractBoard board) {
-        return List.of(SubDirection.values());
+    public void use(AbstractBoard board, Point start) {
+        Point p = start.add(0, 1);
+        board.set(p, new SpiderEgg(board.getPiece(start).getColor()));
+        this.commonUse(board, start);
     }
 }

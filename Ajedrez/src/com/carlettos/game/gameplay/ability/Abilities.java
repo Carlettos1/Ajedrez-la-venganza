@@ -66,7 +66,7 @@ public final class Abilities {
     public static final Ability<NoInfo> MANDRAGORA_ABILITY = new MandragoraAbility();
     public static final Ability<NoInfo> MERMAID_ABILITY = new MermaidAbility();
     public static final Ability<SubDirection> ONI_ABILITY = new OniAbility();
-    public static final Ability<SubDirection> SPIDER_ABILITY = new SpiderAbility();
+    public static final Ability<NoInfo> SPIDER_ABILITY = new SpiderAbility();
     public static final Ability<Point> SUCCUBUS_ABILITY = new SuccubusAbility();
     public static final Ability<NoInfo> WITCH_ABILITY = new WitchAbility();
     public static final Ability<NoInfo> BASILISK_ABILITY = new BasiliskAbility();
